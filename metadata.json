@@ -1,0 +1,6 @@
+{
+  "name": "SAPA WALI WhatsApp Chat Generator - BHP Medan",
+  "description": "Generator WhatsApp Chat Screen Batch khusus Balai Harta Peninggalan (BHP) Medan untuk Layanan SAPA WALI (Monitoring Perwalian & Pengampuan).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
