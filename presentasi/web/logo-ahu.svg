@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+  <g fill="none" stroke="#F2BE1A" stroke-width="13" stroke-linejoin="miter" stroke-linecap="butt">
+    <!-- lengkung atas -->
+    <path d="M80 62 V40 A20 20 0 0 1 120 40 V62"/>
+    <!-- bingkai buku/perisai -->
+    <path d="M14 46 L84 76 M116 76 L186 46 M14 40 V160 L100 210 L186 160 V40"/>
+    <!-- huruf A -->
+    <path d="M38 158 V102 L58 92 L76 102 V170"/>
+    <path d="M38 132 H76"/>
+    <!-- huruf H -->
+    <path d="M90 86 V196 M110 86 V196 M90 140 H110"/>
+    <!-- huruf U -->
+    <path d="M124 100 V160 H162 V92"/>
+  </g>
+</svg>
