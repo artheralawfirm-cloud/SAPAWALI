@@ -22,7 +22,7 @@ Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tek
 
 ### Logo
 
-`logo-pengayoman.svg` dan `logo-ahu.svg` adalah gambar ulang sementara. Untuk memakai file resmi, letakkan `logo-pengayoman.png` dan `logo-ahu.png` di folder `web/` (PNG otomatis didahulukan), lalu jalankan:
+`logo-pengayoman.png` dan `logo-ahu.png` dipotong dari gambar logo yang diberikan. Untuk menggantinya, timpa kedua file itu di folder `web/`, lalu jalankan:
 
 ```bash
 cd presentasi/web && python3 build_web.py
