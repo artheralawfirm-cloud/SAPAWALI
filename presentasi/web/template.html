@@ -382,14 +382,87 @@ kbd{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;border
 #app.lasering #stageArea,#app.lasering .pv{cursor:none}
 #toast{position:fixed;left:50%;top:22px;transform:translateX(-50%);background:#fff;color:var(--navy);font:800 15px/1 var(--f-sans);padding:12px 18px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);z-index:80;transition:opacity .3s}
 
+
+/* ---------- TAMPILAN HP: semua aturan di bawah hanya berlaku di layar kecil, tampilan PC tidak berubah ---------- */
+#mcap{display:none}
+@keyframes panelUp{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+@keyframes capIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes tilt{0%,50%,100%{transform:none}65%,85%{transform:rotate(-90deg)}}
+
+/* HP dan tablet berdiri: slide selebar layar di atas, keterangan atau dokumen di bawahnya */
 @media (max-width:900px) and (orientation:portrait){
-  #viewport{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) var(--docw);transition:grid-template-rows .5s}
-  #app.doc-open{--docw:55%}
-  #docPanel{border-left:0;border-top:1px solid #0A1428}
-  #paper{padding:30px 22px 48px;font-size:16px}
+  #app{height:100dvh}
+  #viewport{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);transition:none}
+  #stageArea{aspect-ratio:16/9;padding:calc(14px + env(safe-area-inset-top,0px)) 10px 10px;touch-action:manipulation}
+  #docPanel,#mcap{grid-row:2;grid-column:1}
+  #app:not(.doc-open):not(.read) #docPanel{display:none}
+  #app.doc-open #mcap,#app.read #mcap,#app.read #stageArea,#app.read #toc{display:none}
+  #docPanel{border-left:0;border-radius:18px 18px 0 0;margin-top:2px;box-shadow:0 -12px 30px rgba(0,0,0,.35)}
+  #app.doc-open #docPanel.enter{animation-name:panelUp}
+  #mcap{display:flex;flex-direction:column;gap:12px;min-height:0;overflow:auto;padding:10px 22px calc(86px + env(safe-area-inset-bottom,0px));color:#fff;touch-action:pan-y}
+  #mcap .mc-k{font:800 12px/1.35 var(--f-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  #mcap h2{font:800 25px/1.2 var(--f-sans);margin:0;letter-spacing:-.01em;text-wrap:balance}
+  #mcap p{margin:0;font:500 17px/1.55 var(--f-sans);color:#DCE4F2;text-wrap:pretty}
+  #mcap .mc-doc{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:12px 16px;border:0;border-radius:12px;background:var(--gold);color:var(--navy);font:800 15px/1 var(--f-sans);cursor:pointer}
+  #mcap .mc-doc svg{width:18px;height:18px}
+  #mcap .mc-tips{margin-top:auto;padding-top:14px;display:flex;flex-direction:column;gap:8px;font:600 13px/1.4 var(--f-sans);color:#8FA0BF}
+  #mcap .mc-tips span{display:flex;align-items:center;gap:10px}
+  #mcap .mc-tips svg{width:20px;height:20px;flex:none}
+  #mcap .mc-tips .rot svg{animation:tilt 2.6s ease-in-out infinite}
+  #mcap.in > *{animation:capIn .45s cubic-bezier(.2,.8,.2,1) both}
+  #mcap.in > :nth-child(2){animation-delay:.04s}
+  #mcap.in > :nth-child(3){animation-delay:.08s}
+  #mcap.in > :nth-child(4){animation-delay:.12s}
   #presGrid{grid-template-columns:1fr}
 }
-@media (max-width:640px){.dbtn span{display:none}#docBar .ttl b{font-size:13px}}
+
+/* aturan bersama untuk HP (berdiri maupun rebah) */
+@media (max-width:900px) and (orientation:portrait), (orientation:landscape) and (max-height:500px){
+  #viewport{overflow:hidden}
+  #mmap{display:none}
+  #docScroll{padding:14px 10px 96px;overscroll-behavior:contain}
+  #paper{padding:26px 20px 40px;font-size:16px;line-height:1.6;text-align:left;hyphens:manual}
+  .blk{padding-left:calc(var(--ind,0) * 1.1em)}
+  .card{margin-left:0;margin-right:0}
+  .card .blk{margin-left:12px;margin-right:12px}
+  .card .li{grid-template-columns:2.4em 1fr}
+  .card .li.v1{margin-left:calc(12px + 2.2em)}
+  .card .ct{padding:10px 12px;flex-wrap:wrap;row-gap:4px}
+  .card .ct small{flex-basis:100%}
+  .quote-d{margin-left:calc(var(--ind,0) * 1.1em + 1em);margin-right:1em}
+  .judul.j9{margin:4px 0 18px}
+  .sign{margin-left:35%}
+  .blk.hot::after,.card .blk.hot::after{left:-9px}
+  #docBar{padding:10px 12px;gap:8px}
+  #docBar .ttl b{font-size:14px}
+  .dbtn{padding:9px 10px}
+  .dbtn span{display:none}
+  #toolbar{gap:2px;padding:5px;bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+  #bLaser,#bPres,#bHelp,#sync{display:none!important}
+  .tb{min-width:40px;padding:0 8px}
+  #count{min-width:62px;font-size:13px;white-space:nowrap}
+  .sep{margin:0 2px}
+  .ov{padding:calc(18px + env(safe-area-inset-top,0px)) 14px 20px}
+  .ovx{top:calc(12px + env(safe-area-inset-top,0px));right:12px}
+  .ov .hint{padding-right:90px}
+  #ovGrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  #pal{padding-top:calc(6vh + env(safe-area-inset-top,0px))}
+  #palIn{font-size:17px;padding:16px 18px}
+  #palBox{max-height:80vh}
+  #presNotes{font-size:17px}
+}
+/* HP rebah: slide memenuhi tinggi layar, bilah kontrol melayang dan menghilang sendiri */
+@media (orientation:landscape) and (max-height:500px){
+  #app{height:100dvh}
+  #stageArea{padding:8px 8px 8px max(8px,env(safe-area-inset-left,0px));touch-action:manipulation}
+  #app.doc-open{--docw:46%}
+  #docPanel{padding-right:env(safe-area-inset-right,0px)}
+  #paper{padding:20px 16px 32px;font-size:15px}
+  #toc{width:220px;padding:14px 10px}
+  #presTop{margin-bottom:8px}
+  #timer{font-size:30px}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}
 }
@@ -411,6 +484,7 @@ kbd{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;border
       <div id="docBody"><nav id="toc" aria-label="Daftar isi"></nav><div id="docScroll"><article id="paper"></article></div></div>
       <div id="mmap" title="Peta dokumen: klik untuk melompat"></div>
     </aside>
+    <section id="mcap" aria-live="polite"></section>
   </main>
 
   <nav id="toolbar" aria-label="Kontrol presentasi">
@@ -594,12 +668,14 @@ function fit(){
   const r=stageArea.getBoundingClientRect(), cs=getComputedStyle(stageArea);
   const w=r.width-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight), hh=r.height-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
   const k=Math.max(.05, Math.min(w/1600, hh/900));
-  $("#toolbar").style.left=(r.left+r.width/2)+"px";
+  $("#toolbar").style.left=(r.width ? r.left+r.width/2 : innerWidth/2)+"px";
   deck.style.transform=`scale(${k})`;
   stageBox.style.width=1600*k+"px"; stageBox.style.height=900*k+"px";
 }
 new ResizeObserver(fit).observe(stageArea); addEventListener("resize",fit);
 
+const MOB_P = matchMedia("(max-width:900px) and (orientation:portrait)");
+MOB_P.addEventListener?.("change",()=>{ mcapUpdate(); clearLink(); });
 function docShouldOpen(){ return pinned || (auto && SLIDES[cur].step); }
 // ---- efek morph antar-slide (View Transitions API), aman bila tidak didukung
 const canMorph = !!document.startViewTransition && !matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -617,9 +693,22 @@ function morphNames(el, on){
   ["cmp","flow","steps","tl","legend","punch"].forEach(c=>set(el.querySelector(".content ."+c),"m-"+c));
   set(el.querySelector(".content > .chips"),"m-chips");
 }
+// keterangan di bawah slide (hanya tampil di HP berdiri)
+function mcapUpdate(){
+  const el=SLIDES[cur].el, s=SLIDES[cur], box=$("#mcap");
+  const q=sel=>(el.querySelector(sel)?.textContent||"").replace(/\s+/g," ").trim();
+  const k=q(".eyebrow")||(s.sec?"Masukan "+s.sec:"");
+  const t=q(".s-title")||q("h1")||s.title;
+  const ld=q(".s-lead")||q(".cover .sub")||q(".end .lead");
+  box.innerHTML=`<div class="mc-k">${cur+1} / ${SLIDES.length}${k?" · "+esc(k):""}</div><h2>${esc(t)}</h2>${ld?`<p>${esc(ld)}</p>`:""}`+
+    (s.doc&&s.doc.length?`<button class="mc-doc" data-act="doc">${I("doc")}Lihat di dokumen</button>`:"")+
+    `<div class="mc-tips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>Geser slide ke kiri atau kanan untuk berpindah</span><span class="rot">${I("rotate")}Putar HP agar slide tampil lebih besar</span></div>`;
+  box.classList.remove("in"); void box.offsetWidth; box.classList.add("in");
+}
 function applyState(fromRemote){
   SLIDES.forEach((s,i)=>{ s.el.classList.toggle("active",i===cur); s.el.classList.toggle("before",i<cur); });
   $("#count").textContent=`${cur+1} / ${SLIDES.length}`;
+  if(MOB_P.matches || !$("#mcap").innerHTML) mcapUpdate();
   document.querySelectorAll("#progress i").forEach((p,i)=>p.classList.toggle("done",i<=cur));
   const open = readMode || docShouldOpen();
   const was = app.classList.contains("doc-open");
@@ -714,6 +803,7 @@ function drawLink(){
   const target=document.querySelector("#paper .blk.hot mark.hl")||document.querySelector("#paper .blk.hot .tx");
   if(!chip||!target||!app.classList.contains("doc-open")) return;
   chip.classList.add("linked");
+  if(MOB_P.matches) return; // HP berdiri: dokumen ada di bawah slide, garis penghubung tidak diperlukan
   const a=chip.getBoundingClientRect(), t=target.getBoundingClientRect(), d=docScroll.getBoundingClientRect();
   if(t.top<d.top||t.bottom>d.bottom) return;
   const sx=a.right, sy=a.top+a.height/2, ex=t.left-6, ey=t.top+Math.min(t.height,26)/2;
@@ -939,8 +1029,13 @@ document.querySelectorAll(".ov").forEach(o=>o.addEventListener("click",e=>{ if(e
 // klik di area slide = lanjut (kecuali pada tombol)
 stageArea.addEventListener("click",e=>{ if(e.target.closest("button,a")||laserOn) return; next(); });
 // usap di layar sentuh
-let tx0=null; stageArea.addEventListener("touchstart",e=>{tx0=e.touches[0].clientX},{passive:true});
-stageArea.addEventListener("touchend",e=>{ if(tx0==null) return; const dx=e.changedTouches[0].clientX-tx0; if(Math.abs(dx)>50){ dx<0?next():prev(); } tx0=null; });
+let tx0=null, ty0=null;
+[stageArea,$("#mcap")].forEach(el=>{
+  el.addEventListener("touchstart",e=>{tx0=e.touches[0].clientX;ty0=e.touches[0].clientY},{passive:true});
+  el.addEventListener("touchend",e=>{ if(tx0==null) return; const dx=e.changedTouches[0].clientX-tx0, dy=e.changedTouches[0].clientY-ty0; if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.2){ dx<0?next():prev(); } tx0=null; });
+});
+// sentuhan di mana saja memunculkan kembali bilah kontrol
+addEventListener("touchstart",()=>idle(),{passive:true});
 addEventListener("resize",()=>{ if(!$("#pres").hidden) renderPresenter(); });
 
 // ======================= MULAI =======================
