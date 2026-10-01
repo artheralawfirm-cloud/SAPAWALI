@@ -359,7 +359,7 @@ function pasalSlides(num, title, rows, notes) {
     });
     text(s, [
       { text: "Syafriadi Lubis", options: { bold: true, breakLine: true } },
-      { text: "Kepala Balai Harta Peninggalan Medan · Medan, 1 Oktober 2026" },
+      { text: "Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026" },
     ], { x: 0.8, y: 5.85, w: 11.7, h: 0.95, fontSize: 22, color: WHITE, margin: 0 });
     s.addNotes("Pembukaan. Salam hormat kepada Pimpinan dan Anggota Komisi XIII DPR RI.");
   }
