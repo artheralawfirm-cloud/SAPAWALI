@@ -21,6 +21,7 @@ const SLIDES = [
    <div class="stack" aria-hidden="true">${[0,1,2].map(()=>`<div class="sh"><div class="ln c"></div><div class="ln c" style="width:50%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="bx"><span class="t">USULAN RUMUSAN PASAL</span><div class="ln c" style="width:30%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="ln"></div><div class="ln s"></div></div>`).join("")}</div>` },
 
  { title:"Pendahuluan", doc:[11,12], step:false,
+   hl:["mendukung penuh pembentukan Rancangan Undang-Undang tentang Profesi Kurator (RUU)","BHP merupakan kurator dari unsur pemerintah","kurator yang ditunjuk oleh undang-undang","kedudukan BHP perlu diatur secara khusus dalam RUU","BHP disebut Kurator Negara dan kurator perseorangan disebut Kurator Swasta"],
    cue:"Tegaskan dukungan penuh dan dua dasar kedudukan BHP.",
    html:()=>`<div class="s-in">${head("I","Bahan masukan · Bagian I","Pendahuluan","BHP adalah kurator dari unsur pemerintah, sehingga kedudukannya perlu diatur secara khusus dalam RUU.")}
    <div class="content"><div class="row grow">
@@ -30,7 +31,8 @@ const SLIDES = [
    </div>
    <div class="legend"><span class="k">Istilah dalam paparan</span><span><b>Kurator Negara</b> = BHP</span><span><b>Kurator Swasta</b> = kurator perseorangan</span></div></div>${foot([11])}` },
 
- { title:"Bahan yang siap pakai", doc:[18], step:false,
+ { title:"Bahan yang siap pakai", doc:[12,18], step:false,
+   hl:["Setiap masukan disertai kartu usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU.","dilengkapi dengan usulan rumusan pasal"],
    cue:"Tunjukkan kekuatan dokumen: setiap masukan langsung disertai rumusan pasal.",
    html:()=>`<div class="s-in">${head("II","Bahan masukan · Bagian II","Masukan yang Siap Dipakai","Setiap masukan disertai kartu usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU.")}
    <div class="content"><div class="row grow">
@@ -38,7 +40,7 @@ const SLIDES = [
    </div>
    <div class="steps">${[["searchpath","Analisis hukum"],["docpath","Usulan rumusan pasal"],["bookpath","Usulan penjelasan"]].map(([ic,t],i)=>`<div class="sp"><svg class="ico sm" viewBox="0 0 24 24">${I(ic)}</svg><span>${t}</span></div>${i<2?ARW:""}`).join("")}</div></div>${foot([18])}` },
 
- { title:"Peta 12 masukan", doc:[14,15,16], step:false,
+ { title:"Peta 12 masukan", doc:[14,15,16,17], step:false,
    cue:"Dua masukan sesuai agenda rapat, sepuluh menjawab isu strategis ToR. Slide ini bisa diklik untuk lompat ke masukan mana pun.",
    html:()=>{const T=["BHP sebagai Pengurus dalam PKPU","Batas Jumlah Perkara bagi BHP","Kekosongan Rezim Profesi","Standar yang Terfragmentasi","Batas Perlindungan dan Tanggung Jawab","Hambatan Pelaksanaan Tugas","Akuntabilitas Pengelolaan Boedel","Pengawasan Berlapis yang Belum Terpadu","Data yang Belum Optimal","Imbalan dan Risiko Profesi","Kepailitan Lintas Batas","Perlindungan Pihak Terdampak"];
    return `<div class="s-in">${head("II","Bahan masukan · Bagian II","12 Masukan BHP Medan","Masukan 1 dan 2 menjawab agenda rapat tentang peran BHP; masukan 3 sampai 12 menjawab isu strategis dalam Term of Reference.")}
@@ -54,7 +56,8 @@ const SLIDES = [
    ${chips(["Pengurus","Pengurus Swasta","Kurator Keperdataan","Tim Kurator Keperdataan","Majelis Pengawas Kurator","Majelis Kehormatan Kurator"],"sm")}</div>${foot([25])}` },
 
  // ---------------- MASUKAN 1 ----------------
- { title:"Masalah: BHP tidak disebut dalam PKPU", sec:1, doc:[41,42,44,46,47], step:false,
+ { title:"Masalah: BHP tidak disebut dalam PKPU", sec:1, doc:[41,42,44,46,47], step:true,
+   hl:["menyebut BHP secara tegas sebagai kurator","hanya menyebut orang perseorangan sebagai pihak yang dapat menjadi pengurus","orang perseorangan yang berdomisili di wilayah Negara Republik Indonesia","Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebut.","undang-undang tidak mengatur siapa yang diangkat sebagai pengurus apabila pemohon tidak mengusulkan pengurus"],
    cue:"Bandingkan kepailitan dan PKPU. Tekankan: BHP tidak dilarang, hanya tidak disebut.",
    html:()=>`<div class="s-in">${head(1,M(1)+" · BHP sebagai Pengurus dalam PKPU","Masalahnya: BHP Tidak Disebut dalam PKPU","Dalam kepailitan kedudukan BHP diatur tegas, tetapi dalam PKPU BHP tidak disebut, sehingga ada celah ketika pemohon tidak mengusulkan pengurus.")}
    <div class="content"><div class="cmp grow">
@@ -64,7 +67,8 @@ const SLIDES = [
    </div>
    <p class="punch">Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebut.</p></div>${foot([41])}` },
 
- { title:"Mengapa BHP layak", sec:1, doc:[49,52,55,57], step:false,
+ { title:"Mengapa BHP layak", sec:1, doc:[51,54,56,59], step:false,
+   hl:["secara logika hukum (argumentum a maiore ad minus) BHP juga mampu melaksanakan kewenangan yang lebih ringan sebagai pengurus","disetorkan ke kas negara sebagai Penerimaan Negara Bukan Pajak","Pejabat yang menangani perkara tidak memperoleh keuntungan pribadi dari perkara tersebut.","dalam hal BHP sejak awal bertindak sebagai pengurus","bagi badan pemerintahan, apa yang tidak diberikan kewenangannya tidak boleh dilakukan"],
    cue:"Empat alasan dari analisis hukum, huruf c sampai f dalam dokumen.",
    html:()=>`<div class="s-in">${head(1,M(1)+" · BHP sebagai Pengurus dalam PKPU","Mengapa BHP Layak Menjadi Pengurus","Empat alasan hukum: BHP sudah dipercaya untuk tugas yang lebih berat, netral, berkesinambungan, dan kewenangannya memang harus ditulis tegas.")}
    <div class="content"><div class="g2 grow">
@@ -72,7 +76,7 @@ const SLIDES = [
      ${tile({icon:"shieldpath",h:"Netral dan independen",t:"Imbalan jasa BHP disetorkan ke kas negara sebagai PNBP. Pejabatnya tidak memperoleh keuntungan pribadi."})}
      ${tile({icon:"arrowpath",h:"Berkesinambungan",t:"Bila PKPU berakhir pailit, data harta dan hasil pencocokan tagihan tetap pada lembaga yang sama."})}
      ${tile({icon:"govpath",h:"Harus tegas dalam undang-undang",t:"Bagi badan pemerintahan, apa yang tidak diberikan kewenangannya tidak boleh dilakukan."})}
-   </div></div>${foot([49])}` },
+   </div></div>${foot([51])}` },
 
  { title:"Usulan pasal: BHP sebagai Pengurus", sec:1, doc:[77,78,80,81], step:true,
    hl:["Balai Harta Peninggalan; dan","Balai Harta Peninggalan diangkat selaku Pengurus","Pengadilan mengangkat Pengurus Swasta"],
@@ -213,13 +217,14 @@ const SLIDES = [
      ${tile({cls:"navy",style:"flex:.8",num:60,unit:"hari",t:"batas waktu Majelis memeriksa dan memutus pengaduan"})}
    </div></div>${foot([264])}` },
 
- { title:"Rujukan", doc:[274], step:false,
+ { title:"Rujukan", doc:[274,276,289,295,297], step:false,
    cue:"Seluruh usulan berpijak pada rujukan yang dapat diverifikasi.",
    html:()=>`<div class="s-in">${head(BI("bookpath"),"Daftar rujukan","Disusun di Atas Rujukan yang Kuat","Seluruh usulan berpijak pada peraturan, putusan, dan dokumen yang dapat diverifikasi.")}
    <div class="content"><div class="row grow">${[[RUJ.uu,"undang-undang dan peraturan setingkat undang-undang"],[RUJ.pm,"peraturan menteri"],[RUJ.put,"Putusan Mahkamah Konstitusi"],[RUJ.res+RUJ.int,"dokumen resmi dan internasional"]].map(([n,l])=>tile({num:n,t:l})).join("")}</div>
    <div class="legend"><span class="k">Antara lain</span><span>UU Kepailitan dan PKPU · UU Administrasi Pemerintahan · UU PNBP · UU Pelindungan Data Pribadi · UU ASN · Putusan MK 67/PUU-XI/2013 · UNCITRAL Model Law</span></div></div>${foot([274])}` },
 
  { title:"Penutup", doc:[269,270], step:false, cls:"end",
+   hl:["memperkuat kedudukan BHP sebagai Kurator Negara","sebagai pengurus dalam PKPU untuk menutup celah hukum yang ada","batas jumlah perkara yang dihitung per tim","masa peralihan untuk mengalihkan kelebihan perkara","independen, akuntabel, dan dapat diakses oleh semua pihak"],
    cue:"Harapan BHP Medan dan ucapan terima kasih.",
    html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div><div class="eyebrow" style="color:var(--gold)">Bagian III · Penutup</div>
    <p class="lead" style="font-size:46px">BHP Medan berharap RUU tentang Profesi Kurator dapat memperkuat kedudukan BHP sebagai Kurator Negara.</p>

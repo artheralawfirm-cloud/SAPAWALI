@@ -61,4 +61,6 @@ t = re.sub(r"__I_(\w+)__", lambda m: svg(P[m.group(1)]), t)
 assert not re.search(r"[–—]", t), "masih ada tanda pisah"
 out = os.path.join(HERE, "Paparan_BHP_Medan.html")
 open(out, "w", encoding="utf8").write(t)
+# salinan untuk hosting (Vercel, GitHub Pages): halaman depan situs
+open(os.path.join(HERE, "index.html"), "w", encoding="utf8").write(t)
 print(f"{out}: {os.path.getsize(out)//1024} KB, logo: {len(L)}")

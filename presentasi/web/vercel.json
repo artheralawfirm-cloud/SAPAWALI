@@ -1,5 +1,3 @@
 {
-  "cleanUrls": true,
-  "rewrites": [{ "source": "/", "destination": "/Paparan_BHP_Medan.html" }],
   "headers": [{ "source": "/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=300" }] }]
 }
