@@ -19,6 +19,9 @@ Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tek
 - **Dua layar**: buka file yang sama di dua jendela; keduanya bergerak bersama, termasuk titik **laser** (`L`).
 - **Ikhtisar** (`G`), **baca dokumen penuh** dengan daftar isi (`R`), layar hitam (`B`), lompat slide (`12` lalu `Enter`), bantuan (`?`).
 - Peta 12 masukan pada slide 4 dapat diklik untuk lompat ke masukan mana pun.
+- **Ramah HP.** Saat HP berdiri, slide tampil selebar layar dengan keterangan yang mudah dibaca di bawahnya,
+  dan dokumen muncul sebagai lembar di bawah slide. Saat HP direbahkan, slide memenuhi layar dan bilah kontrol
+  menghilang sendiri. Geser untuk berpindah slide. Tampilan di PC tidak berubah.
 
 ### Logo
 

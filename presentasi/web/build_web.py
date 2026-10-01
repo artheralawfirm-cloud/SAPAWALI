@@ -18,6 +18,7 @@ P = {
  "full": '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
  "help": '<circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2 1-1.2 1.9v.5"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/>',
  "x": '<path d="M6 6l12 12M18 6L6 18"/>',
+ "rotate": '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/><path d="M20.5 9a6 6 0 0 1 0 6M22 15l-1.5 0 0-1.5"/>',
  "copy": '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
  "book": '<path d="M4 5.5C6.5 4 9.5 4 12 5.5v14C9.5 18 6.5 18 4 19.5z"/><path d="M20 5.5C17.5 4 14.5 4 12 5.5v14c2.5-1.5 5.5-1.5 8 0z"/>',
  "arrowpath": '<path d="M4 12h15M13 6l6 6-6 6"/>',
@@ -55,7 +56,7 @@ t = t.replace("/*__SLIDES__*/", open(os.path.join(HERE, "slides.js"), encoding="
 t = t.replace("/*__DOC__*/[]", open(os.path.join(HERE, "dokumen.json"), encoding="utf8").read())
 L = logos()
 t = t.replace("/*__LOGOS__*/[]", json.dumps(L))
-icons = dict(P); icons["doc"] = svg(P["doc"])
+icons = dict(P); icons["doc"] = svg(P["doc"]); icons["rotate"] = svg(P["rotate"])
 t = t.replace("/*__ICONS__*/{}", json.dumps(icons))
 t = re.sub(r"__I_(\w+)__", lambda m: svg(P[m.group(1)]), t)
 assert not re.search(r"[–—]", t), "masih ada tanda pisah"
