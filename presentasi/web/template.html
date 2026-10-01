@@ -1,0 +1,962 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paparan BHP Medan</title>
+<meta name="description" content="Paparan Kepala BHP Medan dalam RDP Komisi XIII DPR RI tentang RUU Profesi Kurator, dengan pratinjau dokumen bahan masukan.">
+<style>
+/*__FONTS__*/
+/* Layout: panggung slide 16:9 di kiri, panel dokumen (kertas) masuk dari kanan dan menggeser slide, tidak pernah menutupinya. */
+:root{
+  --chrome:#0E1A33;      /* latar aplikasi, navy tinta */
+  --chrome-2:#16264A;
+  --navy:#14284B;        /* warna utama slide */
+  --gold:#E2A817;        /* aksen di atas navy */
+  --gold-ink:#7A5500;    /* emas yang terbaca di atas putih */
+  --paper:#FFFFFF;
+  --mist:#EDF1F7;        /* bidang lembut di slide */
+  --mist-2:#DCE4F0;
+  --text:#121722;
+  --muted:#4A5568;
+  --mark:rgba(255,200,40,.55);
+  --line:#C9D3E3;
+  --f-sans:"Plus Jakarta Sans",Arial,"Helvetica Neue",sans-serif;
+  --f-serif:"Source Serif 4","Bookman Old Style",Georgia,"Times New Roman",serif;
+  --f-mono:ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --docw:0%;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--chrome);color:#fff;font-family:var(--f-sans);overflow:hidden;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+#app{height:100%;display:grid;grid-template-rows:1fr}
+#viewport{display:grid;grid-template-columns:minmax(0,1fr) var(--docw);height:100%;min-height:0;transition:grid-template-columns .55s cubic-bezier(.2,.8,.2,1)}
+#app.doc-open{--docw:42%}
+#app.read{--docw:100%}
+#app.read #stageArea{visibility:hidden}
+
+#stageArea{position:relative;min-width:0;min-height:0;display:grid;place-items:center;overflow:hidden;padding:20px 20px 78px}
+@media (max-width:700px){#stageArea{padding:10px 10px 64px}}
+#stageBox{position:relative;width:1600px;height:900px;flex:none}
+#deck{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+
+/* ---------- SLIDE ---------- */
+.slide{position:absolute;inset:0;width:1600px;height:900px;background:var(--paper);color:var(--text);overflow:hidden;border-radius:6px;
+  opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s}
+.slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease,visibility 0s}
+.slide.before{transform:translateX(-24px)}
+.s-in{position:absolute;inset:0;padding:70px 92px 96px;display:flex;flex-direction:column;gap:34px}
+.s-head{display:flex;align-items:center;gap:28px}
+.badge{flex:none;width:96px;height:96px;border-radius:22px;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:800 50px/1 var(--f-sans);font-variant-numeric:tabular-nums}
+.badge.sm{font-size:36px}
+.eyebrow{font:700 22px/1 var(--f-sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:12px}
+.s-title{font:800 54px/1.08 var(--f-sans);color:var(--navy);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.s-foot{position:absolute;left:92px;right:92px;bottom:30px;height:40px;display:flex;align-items:center;gap:18px;font:600 20px/1 var(--f-sans);color:var(--muted)}
+.s-foot .logos{display:flex;gap:10px;align-items:center}
+.s-foot .logos img{height:36px;width:auto}
+.s-foot .grow{flex:1}
+.srcchip{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;background:var(--mist);color:var(--navy);font:700 20px/1 var(--f-sans);border:0;cursor:pointer}
+.srcchip svg{width:22px;height:22px}
+.srcchip:hover{background:var(--mist-2)}
+.pg{font-variant-numeric:tabular-nums}
+
+.lead{font:700 46px/1.25 var(--f-sans);color:var(--navy);margin:0;text-wrap:pretty}
+.txt{font:500 34px/1.42 var(--f-sans);margin:0;text-wrap:pretty}
+.txt b,.lead b{color:var(--navy);font-weight:800}
+.row{display:flex;gap:36px;min-height:0}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:28px}
+.tile{background:var(--mist);border-radius:26px;padding:36px 40px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.tile.navy{background:var(--navy);color:#fff}
+.tile.navy .lead,.tile.navy .txt b{color:#fff}
+.tile h3{font:800 34px/1.15 var(--f-sans);color:var(--navy);margin:0}
+.tile.navy h3{color:var(--gold)}
+.tile .txt{font-size:30px}
+.k{font:700 22px/1.2 var(--f-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
+.tile.navy .k{color:var(--gold)}
+.num{font:800 150px/.95 var(--f-sans);color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.tile.navy .num{color:var(--gold)}
+.num small{font-size:.38em;letter-spacing:0;margin-left:10px}
+.ico{width:64px;height:64px;color:var(--navy)}
+.tile.navy .ico{color:var(--gold)}
+.quote{font:800 54px/1.22 var(--f-sans);color:var(--navy);margin:0;text-wrap:balance;position:relative;padding-left:76px}
+.quote::before{content:"\201C";position:absolute;left:0;top:-22px;font:800 150px/1 var(--f-serif);color:var(--gold)}
+.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:18px}
+.list li{display:grid;grid-template-columns:62px 1fr;gap:16px;align-items:start;font:600 30px/1.3 var(--f-sans)}
+.list .n{width:50px;height:50px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:800 24px/1 var(--f-sans)}
+.chips{display:flex;flex-wrap:wrap;gap:14px}
+.chip{background:var(--mist);color:var(--navy);border-radius:999px;padding:14px 26px;font:700 28px/1 var(--f-sans)}
+.tile .chip{background:#fff}
+.arrow{align-self:center;flex:none;width:44px;height:44px;color:var(--navy)}
+.ico,.arrow{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.thumb .tw *,.pv .slide *{pointer-events:none}
+.blk.h1.center{text-align:center;display:block}
+
+/* kartu pasal di slide */
+.pcard{border:3px solid var(--navy);border-radius:24px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.pcard .ph{background:var(--navy);color:#fff;padding:18px 34px;display:flex;align-items:baseline;gap:22px}
+.pcard .ph .k{color:var(--gold)}
+.pcard .ph span:last-child{font:700 30px/1.1 var(--f-sans)}
+.pcard .pb{padding:26px 40px 30px;display:flex;flex-direction:column;gap:16px;font:500 32px/1.4 var(--f-serif)}
+.pcard .pas{font:700 30px/1 var(--f-serif);text-align:center;color:var(--navy)}
+.pcard .ay{display:grid;grid-template-columns:72px 1fr;gap:10px}
+.pcard .ay > span:first-child{font-weight:700;color:var(--navy)}
+.pcard mark{background:linear-gradient(transparent 12%,var(--mark) 12%,var(--mark) 90%,transparent 90%);color:inherit;padding:0 2px}
+
+/* sampul */
+.cover{background:var(--navy);color:#fff}
+.cover .s-in{padding:80px 92px}
+.cover .logos{display:flex;gap:22px;align-items:center;min-height:110px}
+.cover .logos img{height:110px;width:auto}
+.cover .org{font:700 24px/1.45 var(--f-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.cover h1{font:800 76px/1.04 var(--f-sans);margin:0;letter-spacing:-.02em;max-width:980px;text-wrap:balance}
+.cover .sub{font:700 36px/1.25 var(--f-sans);color:var(--gold);margin:0}
+.cover .desc{font:500 28px/1.4 var(--f-sans);margin:0;max-width:900px;color:#E6ECF7}
+.cover .who{margin-top:auto;font:500 26px/1.45 var(--f-sans)}
+.cover .who b{font-size:30px}
+.stack{position:absolute;right:86px;top:170px;width:420px;height:560px}
+.stack .sh{position:absolute;inset:0;background:#fff;border-radius:10px;box-shadow:0 20px 50px rgba(0,0,0,.35);padding:42px 40px;display:flex;flex-direction:column;gap:14px}
+.stack .sh:nth-child(1){transform:rotate(-7deg) translate(-30px,20px);opacity:.55}
+.stack .sh:nth-child(2){transform:rotate(-3deg) translate(-12px,8px);opacity:.8}
+.stack .ln{height:12px;border-radius:6px;background:#D5DDEA}
+.stack .ln.s{width:62%}
+.stack .ln.c{width:70%;align-self:center;background:#9FB0CC}
+.stack .bx{border:3px solid var(--navy);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.stack .bx .t{font:800 15px/1 var(--f-sans);letter-spacing:.14em;color:var(--navy)}
+.stack .bx .ln{background:#B9C6DB}
+.end{background:var(--navy);color:#fff}
+.end .lead{color:#fff}
+.end .thanks{font:800 96px/1 var(--f-sans);color:var(--gold);margin-top:auto}
+
+/* ---------- PANEL DOKUMEN ---------- */
+#docPanel{min-width:0;min-height:0;display:flex;flex-direction:column;background:#E4E8EF;color:var(--text);overflow:hidden;border-left:1px solid #0A1428}
+#docBar{flex:none;display:flex;align-items:center;gap:10px;padding:12px 16px;background:#F4F6FA;border-bottom:1px solid var(--line)}
+#docBar .ttl{flex:1;min-width:0}
+#docBar .ttl b{display:block;font:800 15px/1.2 var(--f-sans);color:var(--navy)}
+#docBar .ttl span{display:block;font:600 13px/1.3 var(--f-sans);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:8px 12px;font:700 13px/1 var(--f-sans);cursor:pointer;white-space:nowrap}
+.dbtn:hover{background:var(--mist)}
+.dbtn svg{width:16px;height:16px}
+.dbtn[disabled]{opacity:.45;cursor:default}
+#docBody{flex:1;min-height:0;display:flex}
+#toc{display:none;flex:none;width:300px;overflow:auto;padding:24px 18px;background:#F4F6FA;border-right:1px solid var(--line)}
+#app.read #toc{display:block}
+#toc a{display:block;padding:7px 10px;border-radius:8px;color:var(--navy);text-decoration:none;font:600 14px/1.35 var(--f-sans)}
+#toc a.l1{font-weight:800;margin-top:10px}
+#toc a.l2{padding-left:22px}
+#toc a.l3{padding-left:38px;font-weight:500;color:var(--muted)}
+#toc a:hover{background:var(--mist)}
+#docScroll{flex:1;min-width:0;overflow:auto;scroll-behavior:smooth;padding:28px 22px 120px}
+#paper{max-width:760px;margin:0 auto;background:#fff;box-shadow:0 2px 6px rgba(15,30,60,.08),0 18px 40px rgba(15,30,60,.12);padding:56px 64px 72px;
+  font:400 17px/1.65 var(--f-serif);color:#1A1E26;text-align:justify;hyphens:auto}
+#paper .b{font-weight:700}
+.kop{text-align:center;line-height:1.35}
+.kop.k0,.kop.k1{font:700 15px/1.3 var(--f-serif);letter-spacing:.02em}
+.kop.k2{font:800 19px/1.35 var(--f-serif)}
+.kop.k3,.kop.k4,.kop.k5{font-size:13.5px}
+.kop.k5{padding-bottom:12px;border-bottom:3px double #1A1E26;margin-bottom:26px}
+.judul{text-align:center;font-weight:700;line-height:1.4}
+.judul.j9{margin:4px 40px 18px;font-weight:600}
+.blk{position:relative;margin:0 0 .75em;padding-left:calc(var(--ind,0) * 1.9em);border-radius:4px;transition:background-color .4s}
+.h1{font-weight:700;text-transform:uppercase;margin-top:1.6em;display:grid;grid-template-columns:2.2em 1fr}
+.h2,.h3,.li{display:grid;grid-template-columns:2em 1fr;column-gap:.2em}
+.h2{font-weight:700;margin-top:1.3em}
+.h3{font-weight:700;margin-top:1em}
+.li .lb{text-align:left}
+.quote-d{margin-left:calc(var(--ind,0)*1.9em + 2.5em);margin-right:2.5em;padding-left:0;font-style:italic}
+.cite{text-align:right}
+.sign{text-align:left;margin:0 0 .2em 55%}
+.sign.first{margin-top:2em}
+.sign.last{margin-top:3.5em;font-weight:700;text-decoration:underline}
+.card{position:relative;margin:1.2em 0 1.4em calc(var(--ind,0)*1.9em);border:1.5px solid #1A2D52;border-radius:6px;padding:0 0 10px;transition:box-shadow .5s}
+.card.hot{box-shadow:0 0 0 4px rgba(226,168,23,.45),0 10px 30px rgba(20,40,75,.15)}
+.card .ct{background:#1A2D52;color:#fff;padding:10px 16px;margin:0 0 12px;display:flex;align-items:center;gap:12px;text-align:left}
+.card .ct small{font:800 11.5px/1 var(--f-sans);letter-spacing:.16em;color:var(--gold)}
+.card .ct b{font:700 16px/1.3 var(--f-sans);flex:1}
+.card .copy{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:8px;padding:6px 10px;font:700 12px/1 var(--f-sans);cursor:pointer}
+.card .copy:hover{background:rgba(255,255,255,.12)}
+.card .blk{margin-left:16px;margin-right:16px;padding-left:0}
+.card .li{grid-template-columns:2.6em 1fr}
+.card .li.v1{margin-left:calc(16px + 2.8em)}
+.card .cc{text-align:center;font-weight:700;margin-bottom:.4em}
+.card .csub{font-style:italic;font-weight:600;margin-top:.6em}
+.card .note{font-size:15.5px;font-style:italic;background:#F3F6FA;padding:10px 14px;margin-top:.8em}
+.tx{transition:background-size .9s cubic-bezier(.2,.8,.2,1)}
+.blk.hot > .tx,.blk.hot mark.hl{background-image:linear-gradient(transparent 6%,var(--mark) 6%,var(--mark) 94%,transparent 94%);background-repeat:no-repeat;background-size:100% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.blk.hot.part > .tx{background-image:none}
+mark.hl{background:none;color:inherit;padding:0 1px}
+.blk.sweep > .tx,.blk.sweep mark.hl{animation:sweep 1s cubic-bezier(.2,.8,.2,1)}
+@keyframes sweep{from{background-size:0% 100%}to{background-size:100% 100%}}
+.blk.flash{background:rgba(226,168,23,.18)}
+
+/* ---------- TOOLBAR & PROGRESS ---------- */
+#toolbar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;border-radius:16px;background:rgba(14,26,51,.92);border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(8px);transition:opacity .35s,transform .35s;z-index:20;max-width:calc(100vw - 24px);overflow-x:auto}
+#app.idle #toolbar:not(:hover):not(:focus-within){opacity:0;transform:translate(-50%,12px);pointer-events:none}
+.tb{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;height:40px;padding:0 10px;border:0;border-radius:10px;background:transparent;color:#E8EEF8;cursor:pointer;font:700 13px/1 var(--f-sans);white-space:nowrap}
+.tb svg{width:20px;height:20px}
+.tb:hover{background:rgba(255,255,255,.1)}
+.tb.on{background:var(--gold);color:var(--chrome)}
+.tb .lbl{display:none}
+@media (min-width:1100px){.tb .lbl{display:inline}}
+.sep{width:1px;height:24px;background:rgba(255,255,255,.18);margin:0 4px;flex:none}
+#count{font:700 14px/1 var(--f-mono);color:#fff;min-width:64px;text-align:center}
+#sync{display:none;font:700 12px/1 var(--f-sans);color:var(--gold);padding:0 8px;white-space:nowrap}
+#sync.on{display:inline}
+#progress{position:fixed;left:0;right:0;top:0;height:5px;display:flex;gap:2px;z-index:15}
+#progress i{flex:1;background:rgba(255,255,255,.12);cursor:pointer}
+#progress i.done{background:var(--gold)}
+#app.idle #progress{opacity:.55}
+
+/* ---------- OVERLAYS ---------- */
+.ov{position:fixed;inset:0;z-index:40;background:rgba(8,15,30,.86);backdrop-filter:blur(6px);display:flex;flex-direction:column;padding:28px max(16px,3vw) 24px;overflow:auto}
+.ov h2{font:800 22px/1.2 var(--f-sans);margin:0 0 6px;color:#fff}
+.ov .hint{font:500 14px/1.4 var(--f-sans);color:#B8C4DA;margin:0 0 18px}
+.ovx{position:absolute;right:18px;top:16px}
+#ovGrid{align-items:start;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.thumb{border:0;padding:0;background:transparent;cursor:pointer;text-align:left;color:#fff}
+.thumb .tw{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3);outline:3px solid transparent}
+.thumb.cur .tw{outline-color:var(--gold)}
+.thumb .tw .slide{opacity:1;visibility:visible;transform-origin:0 0;transition:none}
+.thumb .cap{display:flex;gap:8px;margin-top:8px;font:700 13px/1.3 var(--f-sans)}
+.thumb .cap span:first-child{color:var(--gold);font-family:var(--f-mono)}
+#pal{align-items:center;padding-top:12vh}
+#palBox{width:min(820px,100%);background:#fff;color:var(--text);border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);display:flex;flex-direction:column;max-height:72vh}
+#palIn{border:0;border-bottom:1px solid var(--line);padding:18px 22px;font:600 20px/1.2 var(--f-sans);outline:none;color:var(--text);background:#fff}
+#palRes{overflow:auto}
+.pr{display:block;width:100%;border:0;background:#fff;text-align:left;padding:12px 22px;border-bottom:1px solid #EEF1F6;cursor:pointer;color:var(--text)}
+.pr.sel,.pr:hover{background:var(--mist)}
+.pr .pp{font:700 12px/1.2 var(--f-sans);letter-spacing:.06em;color:var(--gold-ink);text-transform:uppercase}
+.pr .ps{font:400 15.5px/1.45 var(--f-serif);margin-top:4px}
+.pr mark{background:var(--mark);color:inherit}
+#palFoot{padding:10px 22px;font:600 12px/1.2 var(--f-sans);color:var(--muted);background:#F7F9FC}
+#pres{background:#0A1326;padding:16px}
+#presTop{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+#timer{font:800 44px/1 var(--f-mono);color:#fff;font-variant-numeric:tabular-nums}
+#clock{font:700 18px/1 var(--f-mono);color:#B8C4DA}
+#presGrid{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px}
+.pv{position:relative;background:#000;border-radius:10px;overflow:hidden}
+.pv .slide{opacity:1;visibility:visible;transform-origin:0 0;transition:none}
+.pv .tag{position:absolute;left:10px;top:10px;z-index:2;background:rgba(10,19,38,.85);color:var(--gold);font:800 12px/1 var(--f-sans);letter-spacing:.12em;padding:6px 10px;border-radius:6px}
+#presSide{display:flex;flex-direction:column;gap:14px;min-height:0}
+#presNext{aspect-ratio:16/9;flex:none}
+#presNotes{flex:1;min-height:0;overflow:auto;background:#fff;color:var(--text);border-radius:10px;padding:18px 22px;font:400 19px/1.55 var(--f-serif)}
+#presNotes h4{font:800 13px/1 var(--f-sans);letter-spacing:.14em;color:var(--gold-ink);margin:0 0 10px;text-transform:uppercase}
+#presNotes p{margin:0 0 .8em}
+#presNotes .cue{font:700 19px/1.45 var(--f-sans);color:var(--navy)}
+#help .keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px 28px;max-width:1100px}
+#help .kr{display:flex;gap:14px;align-items:center;font:500 16px/1.4 var(--f-sans);color:#E8EEF8}
+kbd{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;border-radius:7px;background:#fff;color:var(--chrome);font:800 13px/1 var(--f-mono);box-shadow:0 2px 0 #9FB0CC}
+#help .tip{max-width:1100px;margin-top:22px;font:500 15px/1.55 var(--f-sans);color:#C9D3E3}
+#black{position:fixed;inset:0;background:#000;z-index:60}
+#laser{position:fixed;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:radial-gradient(circle,#fff 0 18%,#FF3B30 30%,rgba(255,59,48,.35) 62%,transparent 70%);pointer-events:none;z-index:70;box-shadow:0 0 24px 8px rgba(255,59,48,.45)}
+#app.lasering #stageArea,#app.lasering .pv{cursor:none}
+#toast{position:fixed;left:50%;top:22px;transform:translateX(-50%);background:#fff;color:var(--navy);font:800 15px/1 var(--f-sans);padding:12px 18px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);z-index:80;transition:opacity .3s}
+
+@media (max-width:900px) and (orientation:portrait){
+  #viewport{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) var(--docw);transition:grid-template-rows .5s}
+  #app.doc-open{--docw:55%}
+  #docPanel{border-left:0;border-top:1px solid #0A1428}
+  #paper{padding:30px 22px 48px;font-size:16px}
+  #presGrid{grid-template-columns:1fr}
+}
+@media (max-width:640px){.dbtn span{display:none}#docBar .ttl b{font-size:13px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+
+<div id="app">
+  <div id="progress" aria-hidden="true"></div>
+  <main id="viewport">
+    <section id="stageArea" aria-label="Slide">
+      <div id="stageBox"><div id="deck" aria-live="polite"></div></div>
+    </section>
+    <aside id="docPanel" aria-label="Pratinjau dokumen">
+      <div id="docBar">
+        <div class="ttl"><b>Bahan Masukan BHP Medan</b><span id="docPath">RDP Komisi XIII DPR RI · RUU tentang Profesi Kurator</span></div>
+        <button class="dbtn" id="btnCopyCard" disabled title="Salin teks kartu usulan pasal yang sedang dibahas">__I_copy__<span>Salin pasal</span></button>
+        <button class="dbtn" id="btnRead" title="Baca dokumen penuh (R)">__I_book__<span>Baca penuh</span></button>
+        <button class="dbtn" id="btnDocClose" title="Tutup panel (D)">__I_x__</button>
+      </div>
+      <div id="docBody"><nav id="toc" aria-label="Daftar isi"></nav><div id="docScroll"><article id="paper"></article></div></div>
+    </aside>
+  </main>
+
+  <nav id="toolbar" aria-label="Kontrol presentasi">
+    <button class="tb" id="bPrev" title="Sebelumnya (←)" aria-label="Sebelumnya">__I_left__</button>
+    <span id="count" aria-live="polite">1 / 1</span>
+    <button class="tb" id="bNext" title="Berikutnya (→ atau spasi)" aria-label="Berikutnya">__I_right__</button>
+    <span class="sep"></span>
+    <button class="tb" id="bAuto" title="Dokumen otomatis (A)">__I_auto__<span class="lbl">Otomatis</span></button>
+    <button class="tb" id="bDoc" title="Panel dokumen (D)">__I_doc__<span class="lbl">Dokumen</span></button>
+    <button class="tb" id="bGrid" title="Semua slide (G)">__I_grid__<span class="lbl">Ikhtisar</span></button>
+    <button class="tb" id="bFind" title="Cari di dokumen (/ atau Ctrl+K)">__I_search__<span class="lbl">Cari</span></button>
+    <button class="tb" id="bLaser" title="Laser (L)">__I_laser__<span class="lbl">Laser</span></button>
+    <button class="tb" id="bPres" title="Mode presenter (P)">__I_pres__<span class="lbl">Presenter</span></button>
+    <button class="tb" id="bFull" title="Layar penuh (F)">__I_full__</button>
+    <button class="tb" id="bHelp" title="Bantuan (?)">__I_help__</button>
+    <span id="sync" title="Jendela lain dengan file ini ikut bergerak bersama">Tersinkron</span>
+  </nav>
+
+  <div class="ov" id="ov" hidden>
+    <h2>Ikhtisar slide</h2><p class="hint">Klik slide untuk melompat. Tekan angka lalu Enter untuk lompat langsung, misalnya 12 Enter.</p>
+    <button class="dbtn ovx" data-close>__I_x__ Tutup</button>
+    <div id="ovGrid"></div>
+  </div>
+  <div class="ov" id="pal" hidden>
+    <div id="palBox" role="dialog" aria-label="Cari di dokumen">
+      <label class="sr" for="palIn">Cari di dokumen</label>
+      <input id="palIn" autocomplete="off" placeholder="Cari kata dalam dokumen, misalnya: rahasia bank, 6 (enam) bulan, Pasal 234">
+      <div id="palRes"></div>
+      <div id="palFoot">↑ ↓ pilih · Enter buka di dokumen dan slide terkait · Esc tutup</div>
+    </div>
+  </div>
+  <div class="ov" id="pres" hidden>
+    <div id="presTop">
+      <span id="timer">00:00</span>
+      <button class="dbtn" id="tStart">Mulai</button><button class="dbtn" id="tReset">Ulang</button>
+      <span id="clock"></span>
+      <span style="flex:1"></span>
+      <span id="presCount" style="font:700 16px/1 var(--f-mono)"></span>
+      <button class="dbtn" id="presDoc">__I_doc__ Dokumen</button>
+      <button class="dbtn" data-close>__I_x__ Tutup</button>
+    </div>
+    <div id="presGrid">
+      <div class="pv" id="presCur"><span class="tag">SEKARANG</span></div>
+      <div id="presSide">
+        <div class="pv" id="presNext"><span class="tag">BERIKUTNYA</span></div>
+        <div id="presNotes"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ov" id="help" hidden>
+    <h2>Pintasan</h2><p class="hint">Bisa dipakai dengan papan ketik atau pointer presentasi (tombol Page Up / Page Down).</p>
+    <button class="dbtn ovx" data-close>__I_x__ Tutup</button>
+    <div class="keys" id="keys"></div>
+    <p class="tip"><b>Dokumen otomatis.</b> Saat mode Otomatis menyala, setiap slide tampil penuh lebih dulu. Tekan lanjut sekali, slide bergeser ke kiri dan panel dokumen masuk dari kanan, langsung menggulir ke bagian yang dibahas dan menandai kalimatnya. Tekan lanjut lagi, panel menutup dan slide berikutnya tampil penuh.</p>
+    <p class="tip"><b>Dua layar.</b> Buka file yang sama di jendela kedua pada peramban yang sama. Tampilkan satu jendela di proyektor (tekan F), lalu tekan P di jendela laptop untuk mode presenter. Kedua jendela bergerak bersama, termasuk titik laser.</p>
+  </div>
+  <div id="black" hidden></div>
+  <div id="laser" hidden></div>
+  <div id="toast" hidden></div>
+</div>
+
+<script>
+const DOC = /*__DOC__*/[];
+const LOGOS = /*__LOGOS__*/[];
+const ICON = /*__ICONS__*/{};
+
+// ======================= DATA DOKUMEN =======================
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const plain = i => DOC[i] && DOC[i].s ? DOC[i].s.map(x=>x[0]).join("") : "";
+// jalur bagian (I.1.a) dan kartu induk tiap blok
+const META = []; {
+  let h1="",h2="",h3="",h2t="",card=-1,cardTitle="",ind=0;
+  DOC.forEach((b,i)=>{
+    if(b.k==="h1"){h1=b.l.replace(".","");h2=h3=h2t="";ind=0}
+    else if(b.k==="h2"){h2=b.l.replace(".","");h3="";h2t=plain(i);ind=1}
+    else if(b.k==="h3" && b.v===2){h3=b.l.replace(".","");ind=2}
+    if(b.k==="cs"){card=i;cardTitle=""}
+    if(b.k==="ct"){cardTitle=plain(i).trim()}
+    const path=[h1,h2,h3].filter(Boolean).join(".");
+    META[i]={path,h2t,card:card,cardTitle,ind};
+    if(b.k==="ce"){card=-1}
+  });
+}
+const COUNT = {
+  pasal: DOC.filter(b=>b.k==="cc"&&plain(DOC.indexOf(b)).startsWith("Pasal")).length,
+  ayat: DOC.filter((b,i)=>b.k==="li"&&META[i].card>=0&&/^\(\d+\)$/.test(b.l)).length,
+  definisi: DOC.filter((b,i)=>b.k==="li"&&META[i].card===DOC.findIndex(x=>x.k==="cs")).length,
+  kartu: DOC.filter(b=>b.k==="ct").length,
+  penjelasan: DOC.filter(b=>b.k==="note").length,
+};
+// rujukan per kelompok (hitung otomatis dari Daftar Rujukan)
+const RUJ = (()=>{const r={uu:0,pm:0,put:0,res:0,int:0};let g="";
+  DOC.forEach((b,i)=>{const t=plain(i);
+    if(b.k==="h3"||(b.k==="li"&&b.s.every(x=>x[1]))){ if(t.startsWith("Undang-Undang dan"))g="uu"; else if(t==="Peraturan Menteri")g="pm"; else if(t==="Putusan Pengadilan")g="put"; else if(t==="Dokumen Resmi")g="res"; else if(t==="Dokumen Internasional")g="int"; return;}
+    if(g&&b.k==="li"&&i>DOC.findIndex(x=>plain(DOC.indexOf(x))==="DAFTAR RUJUKAN"))r[g]++;});
+  return r;})();
+function pasalCount(cardStart){let n=0,a=0;for(let i=cardStart+1;DOC[i].k!=="ce";i++){if(DOC[i].k==="cc"&&plain(i).startsWith("Pasal"))n++;if(DOC[i].k==="li"&&/^\(\d+\)$/.test(DOC[i].l))a++;}return {n,a};}
+const cardOf = title => DOC.findIndex((b,i)=>b.k==="ct"&&plain(i).trim()===title)-1;
+
+// ======================= SLIDE =======================
+const I = n => ICON[n]||"";
+const logoHTML = (cls="") => LOGOS.map(l=>`<img src="${l.src}" alt="${l.alt}" class="${cls}">`).join("");
+function foot(docIds){
+  const p = docIds && docIds.length ? META[docIds[0]] : null;
+  const label = p ? (p.card>=0 ? "Kartu pasal: "+p.cardTitle : "Dokumen "+(p.path||"")) : "";
+  return `<div class="s-foot"><span class="logos">${logoHTML()}</span><span>BHP Medan · RDP Komisi XIII DPR RI</span><span class="grow"></span>${p?`<button class="srcchip" data-act="doc">${I("doc")}<span>${esc(label)}</span></button>`:""}<span class="pg"></span></div>`;
+}
+function head(num, eyebrow, title){
+  return `<div class="s-head">${num?`<div class="badge${String(num).length>2?" sm":""}">${num}</div>`:""}<div>${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:""}<h2 class="s-title">${title}</h2></div></div>`;
+}
+const M = n => `Masukan ${n} dari 12`;
+
+const SLIDES = [
+ { title:"Sampul", doc:[0,6,7,8,9], step:false, cls:"cover",
+   cue:"Salam pembuka kepada Pimpinan dan Anggota Komisi XIII DPR RI.",
+   html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div>
+   <div class="org">Kementerian Hukum Republik Indonesia<br>Kantor Wilayah Sumatera Utara</div>
+   <h1>Bahan Masukan Balai Harta Peninggalan Medan</h1>
+   <p class="sub">Dalam Rapat Dengar Pendapat dengan Komisi XIII DPR RI</p>
+   <p class="desc">Penyusunan Rancangan Undang-Undang tentang Profesi Kurator terkait Peran Balai Harta Peninggalan dalam Pelaksanaan Tugas Kurator</p>
+   <div class="who"><b>Syafriadi Lubis</b><br>Kepala Balai Harta Peninggalan Medan · Medan, 1 Oktober 2026</div></div>
+   <div class="stack" aria-hidden="true">${[0,1,2].map(()=>`<div class="sh"><div class="ln c"></div><div class="ln c" style="width:50%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="bx"><span class="t">USULAN RUMUSAN PASAL</span><div class="ln c" style="width:30%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="ln"></div><div class="ln s"></div></div>`).join("")}</div>` },
+
+ { title:"Pendahuluan", doc:[11,12], step:true,
+   hl:["mendukung penuh pembentukan Rancangan Undang-Undang tentang Profesi Kurator (RUU)","kedudukan BHP perlu diatur secara khusus dalam RUU"],
+   cue:"Tegaskan dukungan penuh dan dua dasar kedudukan BHP.",
+   html:()=>`<div class="s-in">${head("","Bahan masukan · Bagian I","Pendahuluan")}
+   <div class="row" style="flex:1">
+     <div class="tile navy" style="flex:1.1;justify-content:center"><p class="lead">Balai Harta Peninggalan (BHP) Medan mendukung penuh pembentukan Rancangan Undang-Undang tentang Profesi Kurator.</p></div>
+     <div class="col">
+       <div class="tile"><span class="k">Pasal 70 ayat (1) UU Kepailitan dan PKPU</span><h3>BHP merupakan kurator dari unsur pemerintah</h3></div>
+       <div class="tile"><span class="k">Pasal 15 ayat (2)</span><h3>sekaligus kurator yang ditunjuk oleh undang-undang</h3></div>
+     </div>
+   </div>
+   <p class="txt">Oleh karena itu, <b>kedudukan BHP perlu diatur secara khusus dalam RUU.</b></p></div>${foot([11,12])}` },
+
+ { title:"Bahan yang siap pakai", doc:[14,15,16,17,18], step:true,
+   hl:["dilengkapi dengan usulan rumusan pasal"],
+   cue:"Tunjukkan kekuatan dokumen: setiap masukan langsung disertai rumusan pasal.",
+   html:()=>`<div class="s-in">${head("","II. Masukan","Masukan yang Siap Dipakai")}
+   <div class="row">
+     ${[["12","masukan"],[COUNT.pasal,"usulan rumusan pasal"],[COUNT.ayat,"ayat"],[COUNT.definisi,"definisi ketentuan umum"]].map(([n,l])=>`<div class="tile navy" style="flex:1;align-items:flex-start"><span class="num" data-count="${n}">${n}</span><span class="k" style="font-size:24px">${l}</span></div>`).join("")}
+   </div>
+   <p class="lead">Setiap masukan disertai kartu usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU.</p></div>${foot([14])}` },
+
+ { title:"Peta 12 masukan", doc:[14,15,16], step:false,
+   cue:"Dua masukan sesuai agenda rapat, sepuluh menjawab isu strategis ToR. Slide ini bisa diklik untuk lompat ke masukan mana pun.",
+   html:()=>{const T=["BHP sebagai Pengurus dalam PKPU","Batas Jumlah Perkara bagi BHP","Kekosongan Rezim Profesi","Standar yang Terfragmentasi","Batas Perlindungan dan Tanggung Jawab","Hambatan Pelaksanaan Tugas","Akuntabilitas Pengelolaan Boedel","Pengawasan Berlapis yang Belum Terpadu","Data yang Belum Optimal","Imbalan dan Risiko Profesi","Kepailitan Lintas Batas","Perlindungan Pihak Terdampak"];
+   const cell=(t,n)=>`<button class="tile" data-goto="m${n}" style="border:0;cursor:pointer;text-align:left;padding:22px 26px;flex-direction:row;align-items:center;gap:18px;${n<=2?"background:var(--navy);color:#fff":""}"><span class="badge" style="width:64px;height:64px;font-size:30px;border-radius:16px;${n<=2?"background:var(--gold);color:var(--navy)":""}">${n}</span><span style="font:700 27px/1.2 var(--f-sans)">${t}</span></button>`;
+   return `<div class="s-in">${head("","II. Masukan","12 Masukan BHP Medan")}
+   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px">${T.map((t,i)=>cell(t,i+1)).join("")}</div>
+   <p class="txt" style="font-size:28px"><b>2 (dua) masukan</b> terkait peran BHP sesuai agenda rapat ditambah <b>10 (sepuluh) masukan</b> atas isu strategis, sehingga seluruhnya berjumlah 12 (dua belas) masukan.</p></div>${foot([17])}`} },
+
+ { title:"Ketentuan Umum", doc:[25,26,30,31], step:true,
+   cue:"Dasar istilah bagi seluruh usulan pasal: Kurator Negara dan Kurator Swasta.",
+   html:()=>`<div class="s-in">${head("","Usulan rumusan pasal · Pasal 1","Ketentuan Umum: "+COUNT.definisi+" Definisi")}
+   <div class="row" style="flex:1">
+     <div class="tile navy" style="flex:1"><span class="k">Pasal 1 angka 2</span><p class="lead" style="font-size:38px"><span style="color:var(--gold)">Kurator Negara</span> adalah Balai Harta Peninggalan yang melaksanakan tugas Kurator melalui pejabat Kurator Keperdataan.</p></div>
+     <div class="tile" style="flex:1"><span class="k">Pasal 1 angka 3</span><p class="lead" style="font-size:38px"><span>Kurator Swasta</span> adalah orang perseorangan yang memenuhi persyaratan dan terdaftar pada Kementerian untuk melaksanakan tugas Kurator.</p></div>
+   </div>
+   <div class="chips">${["Kurator","Pengurus","Pengurus Swasta","Kurator Keperdataan","Tim Kurator Keperdataan","Majelis Pengawas Kurator","Majelis Kehormatan Kurator"].map(c=>`<span class="chip">${c}</span>`).join("")}</div></div>${foot([25])}` },
+
+ { title:"BHP hanya tidak disebut", sec:1, doc:[41,42,43,44], step:true,
+   hl:["menyebut BHP secara tegas sebagai kurator","Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebut."],
+   cue:"Kepailitan menyebut BHP, PKPU tidak. Bacakan kalimat kunci.",
+   html:()=>`<div class="s-in">${head(1,M(1),"BHP sebagai Pengurus dalam PKPU")}
+   <div class="row">
+     <div class="tile navy" style="flex:1"><span class="k">Kepailitan</span><p class="txt" style="font-size:31px">UU Kepailitan dan PKPU menyebut BHP secara tegas sebagai kurator (Pasal 70 ayat (1)) dan menjadikannya kurator yang ditunjuk oleh undang-undang (Pasal 15 ayat (2)).</p></div>
+     <div class="tile" style="flex:1"><span class="k">PKPU</span><p class="txt" style="font-size:31px">Pasal 234 ayat (3) hanya menyebut orang perseorangan sebagai pihak yang dapat menjadi pengurus.</p></div>
+   </div>
+   <p class="quote">Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebut.</p></div>${foot([41])}` },
+
+ { title:"Celah hukum PKPU", sec:1, doc:[46,47,48], step:true,
+   hl:["paling lambat 3 (tiga) hari untuk permohonan Debitor dan 20 (dua puluh) hari untuk permohonan Kreditor","Dalam PKPU, jalan keluar tersebut tidak tersedia, padahal batas waktunya bersifat memaksa."],
+   cue:"Batas waktu PKPU sangat singkat, tetapi undang-undang tidak menunjuk pengurus bila tidak ada usul.",
+   html:()=>`<div class="s-in">${head(1,M(1),"Celah Hukum: PKPU Tidak Memiliki Pengurus yang Ditunjuk oleh Undang-Undang")}
+   <div class="row">
+     <div class="tile navy" style="flex:none;width:330px"><span class="num" data-count="3">3</span><span class="k">hari · permohonan Debitor</span></div>
+     <div class="tile navy" style="flex:none;width:330px"><span class="num" data-count="20">20</span><span class="k">hari · permohonan Kreditor</span></div>
+     <div class="col" style="justify-content:center"><p class="txt" style="font-size:31px">Pasal 225 ayat (2) dan ayat (3) mewajibkan Pengadilan mengabulkan PKPU sementara dalam waktu yang sangat singkat. Pada saat yang sama, Pengadilan harus mengangkat satu atau lebih pengurus.</p></div>
+   </div>
+   <p class="lead">Dalam PKPU, jalan keluar tersebut tidak tersedia, padahal batas waktunya bersifat memaksa.</p></div>${foot([46])}` },
+
+ { title:"Dua argumen kunci", sec:1, doc:[51,59], step:true,
+   hl:["(argumentum a maiore ad minus)","bagi orang perseorangan, apa yang tidak dilarang boleh dilakukan. Sebaliknya, bagi badan pemerintahan, apa yang tidak diberikan kewenangannya tidak boleh dilakukan."],
+   cue:"Argumentum a maiore ad minus, dan asas kewenangan badan pemerintahan.",
+   html:()=>`<div class="s-in">${head(1,M(1),"Dua Argumen Kunci")}
+   <div class="row" style="flex:1">
+     <div class="tile" style="flex:1"><span class="k">Argumentum a maiore ad minus</span><p class="txt" style="font-size:31px">Dalam hal undang-undang telah mempercayakan kewenangan yang lebih berat, yaitu mengambil alih dan membereskan seluruh harta Debitor, kepada BHP, maka <b>BHP juga mampu melaksanakan kewenangan yang lebih ringan sebagai pengurus.</b></p></div>
+     <div class="tile navy" style="flex:1"><span class="k">Kewenangan harus tegas dalam undang-undang</span><p class="lead" style="font-size:40px">Bagi orang perseorangan, apa yang tidak dilarang boleh dilakukan. Sebaliknya, bagi badan pemerintahan, apa yang tidak diberikan kewenangannya tidak boleh dilakukan.</p></div>
+   </div></div>${foot([51])}` },
+
+ { title:"Usulan pasal: BHP sebagai Pengurus", sec:1, doc:[77,78,79,80,81], step:true,
+   hl:["Balai Harta Peninggalan diangkat selaku Pengurus","Pengadilan mengangkat Pengurus Swasta"],
+   cue:"Inti usulan: BHP menjadi pengurus yang ditunjuk undang-undang, tetap dibatasi kapasitas tim.",
+   html:()=>{const c=pasalCount(cardOf("BHP sebagai Pengurus dalam PKPU"));return `<div class="s-in">${head(1,M(1),"Usulan Rumusan Pasal")}
+   <div class="pcard"><div class="ph"><span class="k">Usulan rumusan pasal</span><span>BHP sebagai Pengurus dalam PKPU</span></div>
+   <div class="pb"><div class="pas">Pasal …</div>
+   <div class="ay"><span>(2)</span><span>Pengurus terdiri atas: a. <b>Balai Harta Peninggalan</b>; dan b. Pengurus Swasta.</span></div>
+   <div class="ay"><span>(3)</span><span>Dalam hal … tidak mengajukan usul pengangkatan Pengurus, atau Pengurus yang diusulkan tidak memenuhi persyaratan, <mark>Balai Harta Peninggalan diangkat selaku Pengurus</mark> sepanjang masih memiliki Tim Kurator Keperdataan yang belum mencapai batas jumlah perkara.</span></div>
+   <div class="ay"><span>(4)</span><span>Dalam hal seluruh Tim Kurator Keperdataan … telah mencapai batas jumlah perkara, <mark>Pengadilan mengangkat Pengurus Swasta</mark>.</span></div>
+   </div></div>
+   <div class="chips"><span class="chip">${c.a} ayat</span><span class="chip">dengan usulan penjelasan</span></div></div>${foot([77])}`} },
+
+ { title:"Batas perkara per tim", sec:2, doc:[94,100,101], step:true,
+   hl:["Setiap tim terdiri atas 3 (tiga) orang pejabat Kurator Keperdataan dan menangani paling banyak 3 (tiga) perkara","jumlah tim dikalikan 3 (tiga) perkara","berlaku juga bagi Balai Harta Peninggalan dan dihitung untuk setiap Tim Kurator Keperdataan"],
+   cue:"Batas tiga perkara berlaku juga bagi BHP, dihitung per tim.",
+   html:()=>`<div class="s-in">${head(2,M(2),"Batas Jumlah Perkara Juga Berlaku bagi BHP")}
+   <div class="row">
+     <div class="tile" style="flex:1"><span class="num" data-count="3">3</span><p class="txt" style="font-size:29px">orang pejabat Kurator Keperdataan dalam setiap tim</p></div>
+     <div class="tile" style="flex:1"><span class="num" data-count="3">3</span><p class="txt" style="font-size:29px">perkara paling banyak per tim pada waktu yang sama</p></div>
+     <div class="tile navy" style="flex:1.15"><span class="num" style="font-size:100px">Tim × 3</span><p class="txt" style="font-size:29px">kapasitas BHP yang terukur</p></div>
+   </div>
+   <p class="lead" style="font-size:40px">Kapasitas setiap BHP juga menjadi terukur, yaitu jumlah tim dikalikan 3 (tiga) perkara, sehingga kebutuhan pejabat dapat direncanakan.</p></div>${foot([94])}` },
+
+ { title:"Masa peralihan 6 bulan", sec:2, doc:[111,112,113,114,115,123,124], step:true,
+   hl:["paling lama 6 (enam) bulan"],
+   cue:"Mitigasi risiko saat RUU berlaku: tidak ada kekosongan pengurusan.",
+   html:()=>`<div class="s-in">${head(2,M(2),"Pengalihan Kelebihan Perkara sebagai Mitigasi Risiko")}
+   <div class="row">
+     ${[["1","perkara yang sedang ditangani BHP tetap dilaksanakan oleh BHP"],["2","pengalihan dilakukan terlebih dahulu kepada tim lain dalam BHP yang sama"],["3","bila tidak tertampung, permohonan penggantian kurator (Pasal 71)"]].map(([n,t],i)=>`<div class="tile" style="flex:1"><span class="badge" style="width:58px;height:58px;font-size:28px;border-radius:50%">${n}</span><p class="txt" style="font-size:30px;font-weight:700;color:var(--navy)">${t}</p></div>${i<2?`<svg class="arrow" viewBox="0 0 24 24">${I("arrowpath")}</svg>`:""}`).join("")}
+   </div>
+   <div class="tile navy" style="flex-direction:row;align-items:center;gap:44px"><span class="num" style="font-size:120px;white-space:nowrap"><span data-count="6">6</span><small>bulan</small></span><p class="txt" style="font-size:31px">kelebihan perkara wajib dialihkan paling lama 6 (enam) bulan sejak undang-undang diundangkan, dan selama itu tidak dianggap sebagai pelanggaran.</p></div></div>${foot([112])}` },
+
+ { title:"Rezim profesi", sec:3, doc:[132,133,137,138,140], step:true,
+   hl:["Bagi Kurator Swasta, hal tersebut dilaksanakan oleh organisasi profesi.","Bagi Kurator Negara, hal tersebut dilaksanakan oleh Kementerian Hukum","Majelis Pengawas Kurator yang terdiri atas unsur pemerintah, organisasi profesi, dan akademisi"],
+   cue:"Pembinaan dibedakan menurut jenis kurator; satu Majelis Pengawas untuk semua.",
+   html:()=>`<div class="s-in">${head(3,M(3),"Kekosongan Rezim Profesi")}
+   <div class="row">
+     <div class="tile" style="flex:1"><svg class="ico" viewBox="0 0 24 24">${I("userspath")}</svg><h3>Kurator Swasta</h3><p class="txt">dibina oleh organisasi profesi</p></div>
+     <div class="tile" style="flex:1"><svg class="ico" viewBox="0 0 24 24">${I("govpath")}</svg><h3>Kurator Negara</h3><p class="txt">dibina oleh Kementerian Hukum, karena pejabat Kurator Keperdataan merupakan Aparatur Sipil Negara</p></div>
+   </div>
+   <div class="tile navy"><span class="k">Majelis Pengawas Kurator</span><p class="lead" style="font-size:38px">terdiri atas unsur pemerintah, organisasi profesi, dan akademisi, mengawasi seluruh kurator.</p></div></div>${foot([132])}` },
+
+ { title:"Standar profesi nasional", sec:4, doc:[151,155,156], step:true,
+   hl:["Seluruh organisasi profesi wajib berpedoman pada satu standar profesi nasional yang ditetapkan oleh Menteri","standar dapat diseragamkan tanpa harus melebur organisasi profesi yang ada","wajib berpedoman pada standar profesi nasional"],
+   cue:"Satu standar nasional tanpa melebur organisasi profesi.",
+   html:()=>`<div class="s-in">${head(4,M(4),"Standar yang Terfragmentasi")}
+   <p class="quote" style="font-size:50px">Seluruh organisasi profesi wajib berpedoman pada satu standar profesi nasional yang ditetapkan oleh Menteri.</p>
+   <div class="tile"><span class="k">Standar profesi nasional paling sedikit meliputi</span><div class="chips">${["kurikulum pendidikan profesi","materi dan tata cara ujian profesi","kode etik","standar pelaksanaan tugas","jenis sanksi dan tata cara penjatuhannya"].map(c=>`<span class="chip">${c}</span>`).join("")}</div></div>
+   <p class="txt">Dengan demikian, standar dapat diseragamkan <b>tanpa harus melebur organisasi profesi yang ada.</b></p></div>${foot([151])}` },
+
+ { title:"Majelis Kehormatan Kurator", sec:5, doc:[164,168,175,176], step:true,
+   hl:["dengan persetujuan Majelis Kehormatan Kurator","paling lama 30 (tiga puluh) hari kerja","dianggap menerima permintaan persetujuan","agar mekanisme ini tidak menjadi imunitas yang menghambat proses hukum"],
+   cue:"Majelis memilah laporan sebelum kurator dipanggil, dengan batas waktu agar bukan imunitas.",
+   html:()=>`<div class="s-in">${head(5,M(5),"Batas Perlindungan dan Tanggung Jawab")}
+   <div class="row" style="flex:1">
+     <div class="col" style="flex:1.35"><p class="txt" style="font-size:31px">Majelis Kehormatan Kurator memeriksa lebih dahulu laporan terhadap kurator sebelum kurator dipanggil oleh aparat penegak hukum, untuk membedakan:</p>
+       <div class="chips">${["sengketa teknis kepailitan","pelanggaran etik","pelanggaran administratif","tanggung jawab perdata","tindak pidana"].map(c=>`<span class="chip">${c}</span>`).join("")}</div></div>
+     <div class="tile navy" style="flex:1;justify-content:center"><span class="num" data-count="30">30</span><span class="k" style="font-size:26px">hari kerja</span><p class="txt" style="font-size:28px">Tidak dijawab, dianggap menerima. Mekanisme ini tidak menjadi imunitas yang menghambat proses hukum.</p></div>
+   </div></div>${foot([164])}` },
+
+ { title:"Hambatan pelaksanaan tugas", sec:6, doc:[180,184,186,189], step:true,
+   hl:["wajib memberikan pendampingan dan pengamanan","wajib memberikan akses, keterangan, dan dokumen","pidana penjara paling lama 2 (dua) tahun"],
+   cue:"Pengamanan Polri, kewajiban akses, dan sanksi pidana.",
+   html:()=>`<div class="s-in">${head(6,M(6),"Hambatan Pelaksanaan Tugas")}
+   <div class="row" style="flex:1">
+     ${[["shieldpath","Pengamanan","Kepolisian Negara Republik Indonesia wajib memberikan pendampingan dan pengamanan kepada kurator."],["folderpath","Akses dan dokumen","Debitor Pailit dan setiap pihak yang menguasai harta pailit wajib memberikan akses, keterangan, dan dokumen."],["gavelpath","Sanksi pidana","Menghalangi kurator: pidana penjara paling lama 2 (dua) tahun atau denda paling banyak kategori IV."]].map(([ic,h,t])=>`<div class="tile" style="flex:1"><svg class="ico" viewBox="0 0 24 24">${I(ic)}</svg><h3>${h}</h3><p class="txt">${t}</p></div>`).join("")}
+   </div></div>${foot([180])}` },
+
+ { title:"Akuntabilitas boedel", sec:7, doc:[192,193,198,205,207,210], step:true,
+   hl:["1 (satu) rekening kepailitan untuk setiap perkara","upah pekerja yang terutang","hak pekerja lainnya","Putusan Mahkamah Konstitusi Nomor 67/PUU-XI/2013"],
+   cue:"Satu rekening per perkara, dan urutan pembayaran sesuai Putusan MK 67/PUU-XI/2013.",
+   html:()=>`<div class="s-in">${head(7,M(7),"Akuntabilitas Pengelolaan Boedel")}
+   <div class="row" style="flex:1">
+     <div class="tile navy" style="flex:none;width:470px;justify-content:center"><span class="num" data-count="1">1</span><p class="lead" style="font-size:38px">rekening kepailitan untuk setiap perkara</p></div>
+     <div class="col"><span class="k">Urutan pembayaran</span><ol class="list">${["biaya kepailitan dan imbalan jasa Kurator","<b>upah pekerja yang terutang</b>","tagihan Kreditor pemegang hak jaminan kebendaan","<b>hak pekerja lainnya</b>","tagihan negara dan tagihan yang didahulukan","tagihan Kreditor konkuren secara seimbang"].map((t,i)=>`<li style="font-size:28px"><span class="n">${"abcdef"[i]}</span><span>${t}</span></li>`).join("")}</ol>
+     <span class="k">Memperhatikan Putusan MK Nomor 67/PUU-XI/2013</span></div>
+   </div></div>${foot([192])}` },
+
+ { title:"Pembagian pengawasan", sec:8, doc:[214,215,216,222,223,224], step:true,
+   cue:"Tiga lapis pengawasan, masing-masing jelas wilayahnya.",
+   html:()=>`<div class="s-in">${head(8,M(8),"Pengawasan Berlapis yang Belum Terpadu")}
+   <div class="row" style="flex:1">
+     ${[["gavelpath","Hakim Pengawas","pengawasan yuridis atas pengurusan dan pemberesan harta pailit"],["scalepath","Majelis Pengawas Kurator","pengawasan teknis dan administratif atas tahapan pelaksanaan pekerjaan kurator"],["userspath","Komite Bersama","pengawasan terkait pengembangan profesi dan organisasi kurator"]].map(([ic,h,t])=>`<div class="tile" style="flex:1"><svg class="ico" viewBox="0 0 24 24">${I(ic)}</svg><h3>${h}</h3><p class="txt">${t}</p></div>`).join("")}
+   </div>
+   <p class="txt" style="font-size:29px">Pembagian ini tidak mengurangi kewenangan Kementerian Hukum dalam pembinaan kepegawaian pejabat Kurator Keperdataan.</p></div>${foot([213])}` },
+
+ { title:"Kewajiban penyediaan data", sec:9, doc:[229,233,235], step:true,
+   hl:["paling lama 14 (empat belas) hari kerja","Ketentuan mengenai rahasia bank tidak berlaku"],
+   cue:"Data harta Debitor Pailit wajib diberikan paling lama 14 hari kerja.",
+   html:()=>`<div class="s-in">${head(9,M(9),"Data yang Belum Optimal")}
+   <div class="row" style="flex:1">
+     <div class="tile navy" style="flex:none;width:430px;justify-content:center"><span class="num" data-count="14">14</span><span class="k" style="font-size:26px">hari kerja</span><p class="txt" style="font-size:28px">batas waktu pemberian data atas permintaan kurator</p></div>
+     <div class="col" style="justify-content:center">
+       <div class="chips">${["Badan Pertanahan Nasional","SAMSAT","KSEI","perbankan"].map(c=>`<span class="chip">${c}</span>`).join("")}</div>
+       <p class="lead" style="font-size:40px">Ketentuan mengenai rahasia bank tidak berlaku terhadap pemberian data kepada Kurator.</p>
+       <p class="txt" style="font-size:28px">Data pribadi dan kerahasiaan perkara tetap dilindungi sesuai UU Nomor 27 Tahun 2022.</p>
+     </div>
+   </div></div>${foot([229])}` },
+
+ { title:"Imbalan jasa", sec:10, doc:[240,246], step:true,
+   hl:["merupakan Penerimaan Negara Bukan Pajak","Peraturan Menteri Hukum Nomor 20 Tahun 2025"],
+   cue:"Bukan masalah pokok; cukup ditegaskan dasar hukumnya dan sifat PNBP imbalan BHP.",
+   html:()=>`<div class="s-in">${head(10,M(10),"Imbalan dan Risiko Profesi")}
+   <p class="txt">Imbalan jasa kurator dan pengurus telah ditetapkan berdasarkan pedoman Menteri, saat ini <b>Peraturan Menteri Hukum Nomor 20 Tahun 2025.</b></p>
+   <div class="tile navy" style="flex:1;justify-content:center"><span class="k">Usulan rumusan pasal, ayat (3)</span><p class="lead" style="font-size:46px">Imbalan jasa yang diterima Balai Harta Peninggalan selaku Kurator Negara atau Pengurus merupakan <span style="color:var(--gold)">Penerimaan Negara Bukan Pajak.</span></p></div></div>${foot([240])}` },
+
+ { title:"Kepailitan lintas batas", sec:11, doc:[249,253,255], step:true,
+   hl:["wajib mematuhi ketentuan hukum internasional dan perjanjian internasional","bersama dengan Kurator yang terdaftar di Indonesia","UNCITRAL Model Law on Cross-Border Insolvency (1997)"],
+   cue:"Kepatuhan pada hukum internasional; wakil asing bertindak bersama kurator Indonesia.",
+   html:()=>`<div class="s-in">${head(11,M(11),"Kepailitan Lintas Batas")}
+   <div class="row" style="flex:1">
+     <div class="tile" style="flex:1"><svg class="ico" viewBox="0 0 24 24">${I("globepath")}</svg><p class="txt">Kurator wajib mematuhi ketentuan hukum internasional dan perjanjian internasional yang mengikat Negara Republik Indonesia.</p></div>
+     <div class="tile navy" style="flex:1"><svg class="ico" viewBox="0 0 24 24">${I("handpath")}</svg><p class="txt">Wakil kepailitan asing hanya dapat bertindak atas harta Debitor di Indonesia <b style="color:var(--gold)">bersama dengan Kurator yang terdaftar di Indonesia.</b></p></div>
+   </div>
+   <p class="txt" style="font-size:28px">Acuan pengaturan lebih lanjut: <b>UNCITRAL Model Law on Cross-Border Insolvency (1997).</b></p></div>${foot([249])}` },
+
+ { title:"Pengaduan pihak terdampak", sec:12, doc:[259,264,265,266], step:true,
+   hl:["paling lama 60 (enam puluh) hari","tidak menghentikan proses pengurusan","prosedur yang terbuka, sederhana, dan memiliki batas waktu penyelesaian yang jelas"],
+   cue:"Pengaduan terbuka dan sederhana, diputus 60 hari, tanpa menghentikan pemberesan.",
+   html:()=>`<div class="s-in">${head(12,M(12),"Perlindungan Pihak Terdampak")}
+   <div class="row" style="flex:1">
+     <div class="col" style="flex:1.3;justify-content:center"><p class="lead" style="font-size:40px">Setiap pihak yang dirugikan dapat menyampaikan pengaduan melalui prosedur yang terbuka, sederhana, dan memiliki batas waktu penyelesaian yang jelas.</p>
+     <div class="chips">${["Debitor","Kreditor","pekerja","negara","konsumen","pihak ketiga"].map(c=>`<span class="chip">${c}</span>`).join("")}</div></div>
+     <div class="tile navy" style="flex:1;justify-content:center"><span class="num" data-count="60">60</span><span class="k" style="font-size:26px">hari</span><p class="txt" style="font-size:28px">Majelis Pengawas Kurator memutus pengaduan. Pengaduan tidak menghentikan proses pengurusan dan pemberesan.</p></div>
+   </div></div>${foot([259])}` },
+
+ { title:"Rujukan", doc:[274], step:true,
+   cue:"Seluruh usulan berpijak pada rujukan yang dapat diverifikasi.",
+   html:()=>`<div class="s-in">${head("","Daftar rujukan","Disusun di Atas Rujukan yang Kuat")}
+   <div class="row">${[[RUJ.uu,"undang-undang dan peraturan setingkat undang-undang"],[RUJ.pm,"peraturan menteri"],[RUJ.put,"Putusan Mahkamah Konstitusi"],[RUJ.res+RUJ.int,"dokumen resmi dan internasional"]].map(([n,l])=>`<div class="tile" style="flex:1"><span class="num" data-count="${n}">${n}</span><p class="txt" style="font-size:27px">${l}</p></div>`).join("")}</div>
+   <p class="txt" style="font-size:28px">Antara lain UU Kepailitan dan PKPU, UU Administrasi Pemerintahan, UU PNBP, UU Pelindungan Data Pribadi, UU ASN, Putusan MK Nomor 67/PUU-XI/2013, dan UNCITRAL Model Law on Cross-Border Insolvency.</p></div>${foot([274])}` },
+
+ { title:"Penutup", doc:[269,270], step:false, cls:"end",
+   cue:"Harapan BHP Medan dan ucapan terima kasih.",
+   html:()=>`<div class="s-in"><div class="eyebrow" style="color:var(--gold)">III. Penutup</div>
+   <p class="lead" style="font-size:44px">BHP Medan berharap RUU tentang Profesi Kurator dapat memperkuat kedudukan BHP sebagai Kurator Negara.</p>
+   <p class="txt" style="color:#E6ECF7">Dengan pengaturan tersebut, BHP dapat terus menjadi penyedia layanan kurator dan pengurus yang <b style="color:var(--gold)">independen, akuntabel, dan dapat diakses oleh semua pihak.</b></p>
+   <div class="thanks">Terima kasih</div>
+   <div style="display:flex;gap:18px;align-items:center;font:500 24px/1.4 var(--f-sans)"><span class="logos" style="display:flex;gap:12px">${logoHTML()}</span><span><b>Syafriadi Lubis</b> · Kepala Balai Harta Peninggalan Medan</span></div></div>` },
+];
+
+// ======================= RENDER DOKUMEN =======================
+const $ = s => document.querySelector(s);
+const paper = $("#paper");
+function segHTML(segs, hl){
+  return segs.map(([t,b])=>{
+    let h = esc(t);
+    (hl||[]).forEach(p=>{ const e=esc(p); if(e && h.includes(e)) h=h.split(e).join(`<mark class="hl">${e}</mark>`); });
+    return b ? `<span class="b">${h}</span>` : h;
+  }).join("");
+}
+function blockInner(i, hl){
+  const b = DOC[i];
+  const tx = `<span class="tx">${segHTML(b.s, hl)}</span>`;
+  if(["h1","h2","h3","li"].includes(b.k)) return `<span class="lb">${esc(b.l||"")}</span><span>${tx}</span>`;
+  return tx;
+}
+function renderDoc(){
+  let html="", inCard=false, signN=0, inRuj=false;
+  DOC.forEach((b,i)=>{
+    const ind = META[i].ind;
+    if(b.k==="cs"){ html+=`<section class="card" id="c${i}" style="--ind:${ind}">`; inCard=true; return; }
+    if(b.k==="ce"){ html+=`</section>`; inCard=false; return; }
+    if(b.k==="ct"){ html+=`<div class="ct" id="p${i}"><small>USULAN RUMUSAN PASAL</small><b>${esc(plain(i))}</b><button class="copy" data-copy="${META[i].card}">Salin</button></div>`; return; }
+    let cls=b.k, style="";
+    if(b.k==="kop") cls+=" k"+i;
+    if(b.k==="judul") cls+=" j"+i;
+    if(b.k==="quote") cls="quote-d";
+    if(b.k==="sign"){ signN++; cls+= signN===1?" first":signN===3?" last":""; }
+    if(b.k==="li"){ cls+=" v"+(b.v||0); if(!inCard) style=`--ind:${ind+(b.v>=3?1:0)}`; }
+    else if(!inCard && ["p","quote","cite"].includes(b.k)) style=`--ind:${ind}`;
+    if(b.k==="h1" && !b.l) { cls+=" center"; inRuj=true; }
+    if(b.k==="h3" && !inCard) style=`--ind:${inRuj ? (b.v||0) : Math.max(0,ind-1)}`;
+    if(b.k==="li" && inRuj) style=`--ind:${b.v||0}`;
+    html+=`<div class="blk ${cls}" id="p${i}" data-i="${i}" style="${style}">${blockInner(i)}</div>`;
+  });
+  paper.innerHTML = html;
+  // daftar isi
+  $("#toc").innerHTML = DOC.map((b,i)=>{
+    if(b.k==="h1") return `<a href="#p${i}" data-j="${i}" class="l1">${esc(b.l)} ${esc(plain(i))}</a>`;
+    if(b.k==="h2") return `<a href="#p${i}" data-j="${i}" class="l2">${esc(b.l)} ${esc(plain(i))}</a>`;
+    if(b.k==="ct") return `<a href="#p${i}" data-j="${i}" class="l3">Pasal: ${esc(plain(i))}</a>`;
+    return "";
+  }).join("");
+}
+function cardText(cs){
+  const out=[];
+  for(let i=cs+1; DOC[i] && DOC[i].k!=="ce"; i++){
+    const b=DOC[i]; const t=plain(i).trim();
+    if(b.k==="ct") out.push("USULAN RUMUSAN PASAL: "+t);
+    else if(b.k==="li") out.push((b.v===1?"    ":"")+b.l+" "+t);
+    else out.push(t);
+  }
+  return out.join("\n");
+}
+
+// ======================= STATE & NAVIGASI =======================
+const app=$("#app"), deck=$("#deck"), stageArea=$("#stageArea"), stageBox=$("#stageBox"), docScroll=$("#docScroll");
+let cur=0, sub=0, auto=true, pinned=false, readMode=false, remote=false;
+SLIDES.forEach((s,i)=>{
+  const el=document.createElement("div");
+  el.className="slide "+(s.cls||""); el.dataset.i=i;
+  el.setAttribute("role","group"); el.setAttribute("aria-label",`Slide ${i+1}: ${s.title}`);
+  el.innerHTML=s.html();
+  const pg=el.querySelector(".pg"); if(pg) pg.textContent=`${i+1} / ${SLIDES.length}`;
+  deck.appendChild(el); s.el=el;
+});
+const SEC_FIRST={}; SLIDES.forEach((s,i)=>{ if(s.sec && SEC_FIRST[s.sec]==null) SEC_FIRST[s.sec]=i; });
+$("#progress").innerHTML = SLIDES.map((s,i)=>`<i data-go="${i}" title="${i+1}. ${esc(s.title)}"></i>`).join("");
+
+function fit(){
+  const r=stageArea.getBoundingClientRect(), cs=getComputedStyle(stageArea);
+  const w=r.width-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight), hh=r.height-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+  const k=Math.max(.05, Math.min(w/1600, hh/900));
+  $("#toolbar").style.left=(r.left+r.width/2)+"px";
+  deck.style.transform=`scale(${k})`;
+  stageBox.style.width=1600*k+"px"; stageBox.style.height=900*k+"px";
+}
+new ResizeObserver(fit).observe(stageArea); addEventListener("resize",fit);
+
+function docShouldOpen(){ return pinned || (auto && sub===1 && SLIDES[cur].step); }
+function render(fromRemote){
+  SLIDES.forEach((s,i)=>{ s.el.classList.toggle("active",i===cur); s.el.classList.toggle("before",i<cur); });
+  $("#count").textContent=`${cur+1} / ${SLIDES.length}`;
+  document.querySelectorAll("#progress i").forEach((p,i)=>p.classList.toggle("done",i<=cur));
+  const open = readMode || docShouldOpen();
+  const was = app.classList.contains("doc-open");
+  app.classList.toggle("doc-open", open && !readMode);
+  app.classList.toggle("read", readMode);
+  $("#bDoc").classList.toggle("on", pinned);
+  $("#bAuto").classList.toggle("on", auto);
+  if(open) focusDoc(SLIDES[cur].doc, SLIDES[cur].hl, was ? 120 : 620);
+  else clearHot();
+  countUp(SLIDES[cur].el);
+  try{ history.replaceState(null,"","#s"+(cur+1)); }catch(e){}
+  if(!$("#pres").hidden) renderPresenter();
+  if(!fromRemote) send({t:"state",cur,sub,pinned,auto,readMode});
+}
+function go(i, subStep=0){ cur=Math.max(0,Math.min(SLIDES.length-1,i)); sub=subStep; render(); }
+function next(){
+  if(auto && !pinned && SLIDES[cur].step && sub===0){ sub=1; render(); return; }
+  if(cur<SLIDES.length-1) go(cur+1,0);
+}
+function prev(){
+  if(sub===1 && !pinned){ sub=0; render(); return; }
+  if(cur>0){ const p=cur-1; go(p, (auto && SLIDES[p].step) ? 1 : 0); }
+}
+
+// ======================= FOKUS DOKUMEN =======================
+let hotIds=[];
+function clearHot(){
+  hotIds.forEach(i=>{ const el=document.getElementById("p"+i); if(el){ el.classList.remove("hot","sweep","part"); el.innerHTML=blockInner(i); }});
+  document.querySelectorAll(".card.hot").forEach(c=>c.classList.remove("hot"));
+  hotIds=[]; $("#btnCopyCard").disabled=true; $("#btnCopyCard").dataset.card="";
+}
+function focusDoc(ids, hl, delay){
+  clearHot();
+  if(!ids || !ids.length) return;
+  hotIds=ids.slice();
+  const first=document.getElementById("p"+ids[0]);
+  const m=META[ids[0]];
+  $("#docPath").textContent = m.card>=0 ? `Kartu usulan rumusan pasal: ${m.cardTitle}` : (m.path ? `Bagian ${m.path}${m.h2t?" · "+m.h2t:""}` : "Bahan Masukan BHP Medan");
+  const cardIds=new Set(ids.map(i=>META[i].card).filter(c=>c>=0));
+  cardIds.forEach(c=>document.getElementById("c"+c)?.classList.add("hot"));
+  const anyCard=[...cardIds][0];
+  if(anyCard!=null){ $("#btnCopyCard").disabled=false; $("#btnCopyCard").dataset.card=anyCard; }
+  setTimeout(()=>{
+    if(!first) return;
+    const base = docScroll.getBoundingClientRect().top - docScroll.scrollTop;
+    let top = first.getBoundingClientRect().top - base - docScroll.clientHeight*0.22;
+    if(m.card>=0){ const c=document.getElementById("c"+m.card); const ct=c.getBoundingClientRect().top - base;
+      if(first.getBoundingClientRect().top - c.getBoundingClientRect().top < docScroll.clientHeight*0.5) top = ct - 18; }
+    docScroll.scrollTo({top: Math.max(0, top), behavior:"smooth"});
+    setTimeout(()=>{
+      ids.forEach(i=>{
+        const el=document.getElementById("p"+i); if(!el) return;
+        const t=plain(i); const hits=(hl||[]).filter(p=>t.includes(p));
+        el.innerHTML=blockInner(i, hits);
+        el.classList.add("hot"); if(hl && hl.length) el.classList.add("part");
+        void el.offsetWidth; el.classList.add("sweep");
+      });
+    }, 380);
+  }, delay);
+}
+
+// ======================= HITUNG NAIK =======================
+function countUp(el){
+  el.querySelectorAll("[data-count]").forEach(n=>{
+    const end=+n.dataset.count; if(!isFinite(end)||matchMedia("(prefers-reduced-motion: reduce)").matches){ n.textContent=n.dataset.count; return; }
+    const t0=performance.now(), dur=900;
+    const step=t=>{ const p=Math.min(1,(t-t0)/dur); n.textContent=Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+
+// ======================= IKHTISAR =======================
+function thumbInto(box, i){
+  box.querySelectorAll(".slide").forEach(n=>n.remove());
+  const c=SLIDES[i].el.cloneNode(true); c.classList.add("active"); c.classList.remove("before");
+  c.removeAttribute("aria-label"); c.setAttribute("aria-hidden","true");
+  box.appendChild(c);
+  const w=box.clientWidth||250; c.style.transform=`scale(${w/1600})`;
+}
+function openOverview(){
+  const g=$("#ovGrid");
+  g.innerHTML=SLIDES.map((s,i)=>`<button class="thumb${i===cur?" cur":""}" data-go="${i}"><div class="tw"></div><div class="cap"><span>${String(i+1).padStart(2,"0")}</span><span>${s.sec?"Masukan "+s.sec+" · ":""}${esc(s.title)}</span></div></button>`).join("");
+  showOv("#ov");
+  g.querySelectorAll(".thumb").forEach((t,i)=>thumbInto(t.querySelector(".tw"),i));
+  g.querySelector(".thumb.cur")?.scrollIntoView({block:"center"});
+}
+
+// ======================= PENCARIAN =======================
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const IDX = DOC.map((b,i)=>b.s?{i,t:plain(i),n:norm(plain(i))}:null).filter(Boolean);
+let palSel=0, palItems=[];
+function slideForBlock(i){
+  let best=-1;
+  SLIDES.forEach((s,k)=>{ if(s.doc.includes(i)) best = best<0?k:best; });
+  if(best>=0) return best;
+  SLIDES.forEach((s,k)=>{ if(Math.min(...s.doc)<=i) best=k; });
+  return Math.max(0,best);
+}
+function search(q){
+  const terms=norm(q).split(/\s+/).filter(Boolean);
+  if(!terms.length){ palItems=[]; $("#palRes").innerHTML=`<div class="pr"><div class="ps">Ketik kata kunci. Contoh: <b>rahasia bank</b>, <b>Pasal 234</b>, <b>Majelis Kehormatan</b>.</div></div>`; return; }
+  palItems=IDX.filter(x=>terms.every(t=>x.n.includes(t))).slice(0,40);
+  $("#palRes").innerHTML = palItems.length ? palItems.map((x,k)=>{
+    const m=META[x.i]; const pos=x.n.indexOf(terms[0]); const st=Math.max(0,pos-70);
+    let snip=(st>0?"…":"")+x.t.slice(st,st+230)+(x.t.length>st+230?"…":"");
+    let h=esc(snip); terms.forEach(t=>{ const re=new RegExp("("+t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"); h=h.replace(re,"<mark>$1</mark>"); });
+    const where = m.card>=0 ? "Kartu pasal · "+m.cardTitle : (m.path?"Bagian "+m.path:"Pembuka")+(m.h2t?" · "+m.h2t:"");
+    return `<button class="pr${k===palSel?" sel":""}" data-k="${k}"><div class="pp">${esc(where)}</div><div class="ps">${h}</div></button>`;
+  }).join("") : `<div class="pr"><div class="ps">Tidak ada hasil untuk “${esc(q)}”.</div></div>`;
+}
+function pickResult(k){
+  const x=palItems[k]; if(!x) return;
+  closeOv();
+  const si=slideForBlock(x.i);
+  cur=si; sub=1; pinned=true; render();
+  setTimeout(()=>{ focusDoc([x.i], [], 60); const el=document.getElementById("p"+x.i); if(el){ el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),2200);} }, 450);
+}
+
+// ======================= PRESENTER =======================
+let tRun=false, tStart=0, tAcc=0;
+function fmt(ms){ const s=Math.floor(ms/1000); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+setInterval(()=>{ $("#timer").textContent=fmt(tAcc+(tRun?Date.now()-tStart:0)); const d=new Date(); $("#clock").textContent=d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"}); },500);
+function renderPresenter(){
+  const cb=$("#presCur"), nb=$("#presNext");
+  const fitBox=(box,i)=>{ box.querySelectorAll(".slide").forEach(n=>n.remove()); if(i>=SLIDES.length){return;} const c=SLIDES[i].el.cloneNode(true); c.classList.add("active"); c.classList.remove("before"); c.setAttribute("aria-hidden","true"); box.appendChild(c);
+    const r=box.getBoundingClientRect(); const k=Math.min(r.width/1600, r.height/900); c.style.transform=`scale(${k})`; c.style.left=(r.width-1600*k)/2+"px"; c.style.top=(r.height-900*k)/2+"px"; };
+  fitBox(cb,cur); fitBox(nb,cur+1);
+  $("#presCount").textContent=`${cur+1} / ${SLIDES.length}${sub?" · dokumen terbuka":""}`;
+  const s=SLIDES[cur];
+  $("#presNotes").innerHTML=`<h4>Poin bicara</h4><p class="cue">${esc(s.cue||"")}</p><h4>Naskah dari dokumen</h4>`+s.doc.map(i=>`<p>${DOC[i].l?"<b>"+esc(DOC[i].l)+"</b> ":""}${esc(plain(i))}</p>`).join("");
+}
+
+// ======================= SINKRON DUA JENDELA =======================
+const me=Math.random().toString(36).slice(2);
+let bc=null; try{ bc=new BroadcastChannel("bhp-medan-paparan"); }catch(e){}
+const peers=new Map();
+function send(m){ m.from=me; try{ bc&&bc.postMessage(m); }catch(e){} try{ localStorage.setItem("bhp-medan-sync",JSON.stringify({...m,ts:Date.now()})); }catch(e){} }
+function onMsg(m){
+  if(!m||m.from===me) return;
+  if(m.t==="hello"||m.t==="here"){ peers.set(m.from,Date.now()); updSync(); if(m.t==="hello") send({t:"here"}); return; }
+  if(m.t==="state"){ cur=m.cur; sub=m.sub; pinned=m.pinned; auto=m.auto; readMode=!!m.readMode; render(true); }
+  if(m.t==="laser"){ remoteLaser(m); }
+}
+if(bc) bc.onmessage=e=>onMsg(e.data);
+addEventListener("storage",e=>{ if(e.key==="bhp-medan-sync"&&e.newValue&&!bc){ try{ onMsg(JSON.parse(e.newValue)); }catch(_){} } });
+function updSync(){ const now=Date.now(); for(const [k,v] of peers) if(now-v>15000) peers.delete(k); const el=$("#sync"); el.classList.toggle("on",peers.size>0); el.textContent=peers.size?`Tersinkron dengan ${peers.size} jendela`:""; }
+setInterval(()=>{ send({t:"here"}); updSync(); },5000);
+send({t:"hello"});
+
+// ======================= LASER =======================
+const laser=$("#laser"); let laserOn=false, lq=null;
+function setLaser(on){ laserOn=on; app.classList.toggle("lasering",on); $("#bLaser").classList.toggle("on",on); if(!on){ laser.hidden=true; send({t:"laser",on:false}); } toast(on?"Laser menyala. Tekan L untuk mematikan.":"Laser mati"); }
+function targetRect(){ const pv=!$("#pres").hidden ? $("#presCur .slide") : null; return (pv||SLIDES[cur].el).getBoundingClientRect(); }
+addEventListener("pointermove",e=>{
+  idle();
+  if(!laserOn) return;
+  const r=targetRect(); const x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+  const inside=x>=0&&x<=1&&y>=0&&y<=1;
+  laser.hidden=!inside; laser.style.left=e.clientX+"px"; laser.style.top=e.clientY+"px";
+  if(!lq){ lq=requestAnimationFrame(()=>{ lq=null; send({t:"laser",on:inside,x,y}); }); }
+});
+function remoteLaser(m){
+  if(!m.on){ laser.hidden=true; return; }
+  const r=SLIDES[cur].el.getBoundingClientRect(); laser.hidden=false;
+  laser.style.left=(r.left+m.x*r.width)+"px"; laser.style.top=(r.top+m.y*r.height)+"px";
+}
+
+// ======================= UI UMUM =======================
+let idleT=null;
+function idle(){ app.classList.remove("idle"); clearTimeout(idleT); idleT=setTimeout(()=>app.classList.add("idle"),2600); }
+idle();
+let toastT=null;
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>t.hidden=true,1800); }
+function showOv(sel){ document.querySelectorAll(".ov").forEach(o=>o.hidden=true); $(sel).hidden=false; }
+function closeOv(){ document.querySelectorAll(".ov").forEach(o=>o.hidden=true); }
+async function copyCard(cs){
+  const txt=cardText(+cs);
+  try{ await navigator.clipboard.writeText(txt); toast("Teks kartu pasal disalin"); }
+  catch(e){ const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast("Teks kartu pasal disalin");}catch(_){ toast("Salin manual: teks sudah terpilih"); } ta.remove(); }
+}
+function toggleFull(){ try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>toast("Layar penuh tidak tersedia di jendela ini")); else document.exitFullscreen(); }catch(e){ toast("Layar penuh tidak tersedia di jendela ini"); } }
+const KEYS=[["→  Spasi  PgDn","Lanjut (membuka dokumen dulu bila mode Otomatis)"],["←  PgUp","Kembali"],["A","Mode dokumen otomatis hidup/mati"],["D","Sematkan panel dokumen"],["R","Baca dokumen penuh dengan daftar isi"],["G  Esc","Ikhtisar semua slide"],["/  Ctrl+K","Cari kata di seluruh dokumen"],["L","Titik laser"],["P","Mode presenter: naskah, slide berikutnya, pengatur waktu"],["B","Layar hitam"],["F","Layar penuh"],["12 Enter","Lompat ke slide 12"],["Home  End","Slide pertama / terakhir"]];
+$("#keys").innerHTML=KEYS.map(([k,d])=>`<div class="kr"><span>${k.split("  ").map(x=>`<kbd>${esc(x)}</kbd>`).join(" ")}</span><span>${esc(d)}</span></div>`).join("");
+
+let numBuf="", numT=null;
+addEventListener("keydown",e=>{
+  idle();
+  if(!$("#pal").hidden){
+    if(e.key==="Escape"){ closeOv(); return; }
+    if(e.key==="ArrowDown"){ palSel=Math.min(palItems.length-1,palSel+1); search($("#palIn").value); e.preventDefault(); return; }
+    if(e.key==="ArrowUp"){ palSel=Math.max(0,palSel-1); search($("#palIn").value); e.preventDefault(); return; }
+    if(e.key==="Enter"){ pickResult(palSel); e.preventDefault(); return; }
+    return;
+  }
+  if(e.target.matches("input,textarea")) return;
+  const k=e.key;
+  if((e.ctrlKey||e.metaKey)&&k.toLowerCase()==="k"){ e.preventDefault(); openPal(); return; }
+  if(e.ctrlKey||e.metaKey||e.altKey) return;
+  if(!$("#black").hidden && k!=="b" && k!=="B"){ $("#black").hidden=true; }
+  if(/^[0-9]$/.test(k)){ numBuf+=k; clearTimeout(numT); numT=setTimeout(()=>numBuf="",1500); toast("Lompat ke slide "+numBuf+" (Enter)"); return; }
+  if(k==="Enter" && numBuf){ go(+numBuf-1,0); numBuf=""; closeOv(); return; }
+  switch(k){
+    case "ArrowRight": case "PageDown": case " ": case "Enter": e.preventDefault(); if(!$("#ov").hidden) return; next(); break;
+    case "ArrowLeft": case "PageUp": case "Backspace": e.preventDefault(); prev(); break;
+    case "Home": go(0); break; case "End": go(SLIDES.length-1); break;
+    case "a": case "A": auto=!auto; if(!auto) sub=0; render(); toast(auto?"Dokumen otomatis menyala":"Dokumen otomatis mati"); break;
+    case "d": case "D": pinned=!pinned; if(!pinned){ sub=0; } readMode=false; render(); break;
+    case "r": case "R": readMode=!readMode; render(); break;
+    case "g": case "G": $("#ov").hidden?openOverview():closeOv(); break;
+    case "Escape": if(document.querySelector(".ov:not([hidden])")) closeOv(); else if(readMode){ readMode=false; render(); } else openOverview(); break;
+    case "/": e.preventDefault(); openPal(); break;
+    case "l": case "L": setLaser(!laserOn); break;
+    case "p": case "P": togglePres(); break;
+    case "b": case "B": $("#black").hidden=!$("#black").hidden; break;
+    case "f": case "F": toggleFull(); break;
+    case "?": $("#help").hidden?showOv("#help"):closeOv(); break;
+  }
+});
+function openPal(){ showOv("#pal"); palSel=0; const i=$("#palIn"); i.value=""; search(""); setTimeout(()=>i.focus(),30); }
+function togglePres(){ if($("#pres").hidden){ showOv("#pres"); requestAnimationFrame(renderPresenter); } else closeOv(); }
+$("#palIn").addEventListener("input",e=>{ palSel=0; search(e.target.value); });
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,[data-go],[data-goto],a[data-j],i[data-go]"); if(!t) return;
+  if(t.dataset.close!=null){ closeOv(); return; }
+  if(t.dataset.go!=null){ closeOv(); go(+t.dataset.go, 0); return; }
+  if(t.dataset.goto){ const n=+t.dataset.goto.slice(1); go(SEC_FIRST[n]??cur,0); return; }
+  if(t.dataset.j){ e.preventDefault(); const el=document.getElementById("p"+t.dataset.j); if(el){ const top=el.getBoundingClientRect().top-docScroll.getBoundingClientRect().top+docScroll.scrollTop; docScroll.scrollTo({top:top-20,behavior:"smooth"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800);} return; }
+  if(t.dataset.copy!=null){ copyCard(t.dataset.copy); return; }
+  if(t.dataset.act==="doc"){ pinned=true; readMode=false; render(); return; }
+  if(t.dataset.k!=null){ pickResult(+t.dataset.k); return; }
+  if(t.closest("#palBox")) return;
+  switch(t.id){
+    case "bPrev": prev(); break; case "bNext": next(); break;
+    case "bAuto": auto=!auto; if(!auto) sub=0; render(); toast(auto?"Dokumen otomatis menyala":"Dokumen otomatis mati"); break;
+    case "bDoc": pinned=!pinned; if(!pinned) sub=0; readMode=false; render(); break;
+    case "btnDocClose": pinned=false; sub=0; readMode=false; render(); break;
+    case "btnRead": readMode=!readMode; render(); break;
+    case "btnCopyCard": if(t.dataset.card) copyCard(t.dataset.card); break;
+    case "bGrid": openOverview(); break; case "bFind": openPal(); break;
+    case "bLaser": setLaser(!laserOn); break; case "bPres": togglePres(); break;
+    case "bFull": toggleFull(); break; case "bHelp": showOv("#help"); break;
+    case "presDoc": pinned=!pinned; if(!pinned) sub=0; render(); break;
+    case "tStart": if(tRun){ tAcc+=Date.now()-tStart; tRun=false; t.textContent="Lanjut"; } else { tStart=Date.now(); tRun=true; t.textContent="Jeda"; } break;
+    case "tReset": tAcc=0; tStart=Date.now(); break;
+  }
+});
+document.querySelectorAll(".ov").forEach(o=>o.addEventListener("click",e=>{ if(e.target===o) closeOv(); }));
+// klik di area slide = lanjut (kecuali pada tombol)
+stageArea.addEventListener("click",e=>{ if(e.target.closest("button,a")||laserOn) return; next(); });
+// usap di layar sentuh
+let tx0=null; stageArea.addEventListener("touchstart",e=>{tx0=e.touches[0].clientX},{passive:true});
+stageArea.addEventListener("touchend",e=>{ if(tx0==null) return; const dx=e.changedTouches[0].clientX-tx0; if(Math.abs(dx)>50){ dx<0?next():prev(); } tx0=null; });
+addEventListener("resize",()=>{ if(!$("#pres").hidden) renderPresenter(); });
+
+// ======================= MULAI =======================
+renderDoc();
+const h=(location.hash||"").match(/^#s(\d+)$/);
+const hot=window.claude?.hot;
+function start(data){ if(data && data.cur!=null){ cur=data.cur; sub=data.sub||0; } else if(h){ cur=Math.min(SLIDES.length-1,Math.max(0,+h[1]-1)); } fit(); render(true); }
+hot?.snapshot?.(()=>({cur,sub}));
+hot?.ready ? hot.ready(start) : start(hot?.data ?? null);
+</script>
