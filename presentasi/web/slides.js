@@ -17,7 +17,7 @@ const SLIDES = [
    <h1>Bahan Masukan Balai Harta Peninggalan Medan</h1>
    <p class="sub">Dalam Rapat Dengar Pendapat dengan Komisi XIII DPR RI</p>
    <p class="desc">Penyusunan Rancangan Undang-Undang tentang Profesi Kurator terkait Peran Balai Harta Peninggalan dalam Pelaksanaan Tugas Kurator</p>
-   <div class="who"><b>Syafriadi Lubis</b><br>Kepala Balai Harta Peninggalan Medan · Medan, 1 Oktober 2026</div></div>
+   <div class="who"><b>Syafriadi Lubis</b><br>Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026</div></div>
    <div class="stack" aria-hidden="true">${[0,1,2].map(()=>`<div class="sh"><div class="ln c"></div><div class="ln c" style="width:50%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="bx"><span class="t">USULAN RUMUSAN PASAL</span><div class="ln c" style="width:30%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="ln"></div><div class="ln s"></div></div>`).join("")}</div>` },
 
  { title:"Pendahuluan", doc:[11,12], step:false,
