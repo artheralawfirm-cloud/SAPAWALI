@@ -22,7 +22,7 @@ Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tek
 
 ### Logo
 
-Letakkan `logo-pengayoman.png` dan `logo-ahu.png` (atau `.jpg`/`.svg`) di folder `web/`, lalu jalankan:
+`logo-pengayoman.svg` dan `logo-ahu.svg` adalah gambar ulang sementara. Untuk memakai file resmi, letakkan `logo-pengayoman.png` dan `logo-ahu.png` di folder `web/` (PNG otomatis didahulukan), lalu jalankan:
 
 ```bash
 cd presentasi/web && python3 build_web.py
@@ -32,7 +32,9 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 ### Isi folder `web/`
 
-- `template.html`: halaman, gaya, dan isi slide.
+- `template.html`: halaman dan gaya.
+- `slides.js`: isi slide.
+- `vercel.json`: konfigurasi hosting Vercel.
 - `dokumen.json`: isi dokumen terstruktur (hasil ekstraksi .docx, lengkap dengan penomoran).
 - `fonts_embedded.css`: font Plus Jakarta Sans dan Source Serif 4 yang ditanam.
 - `build_web.py`: menggabungkan semuanya menjadi `Paparan_BHP_Medan.html`.

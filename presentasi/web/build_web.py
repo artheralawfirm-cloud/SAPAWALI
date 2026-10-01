@@ -28,6 +28,11 @@ P = {
  "gavelpath": '<path d="M13.5 4.5l6 6M10.5 7.5l6 6M12 6l-4.5 4.5 3 3L15 9"/><path d="M9 12l-6 6 1.5 1.5 6-6"/><path d="M13 20h8"/>',
  "scalepath": '<path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0z"/><path d="M19 7l-3 6a3 3 0 0 0 6 0z"/>',
  "globepath": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+ "searchpath": '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
+ "docpath": '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 13h6M10 17h6"/>',
+ "bookpath": '<path d="M4 5.5C6.5 4 9.5 4 12 5.5v14C9.5 18 6.5 18 4 19.5z"/><path d="M20 5.5C17.5 4 14.5 4 12 5.5v14c2.5-1.5 5.5-1.5 8 0z"/>',
+ "personpath": '<circle cx="12" cy="8" r="3.6"/><path d="M5 20.5c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',
+ "coinspath": '<ellipse cx="9" cy="7" rx="6" ry="2.6"/><path d="M3 7v4c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6V7"/><path d="M9 13.6V17c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6v-4c0-1.4-2.7-2.6-6-2.6"/>',
  "handpath": '<path d="M3 12l4-4 4 2 3-2 7 5"/><path d="M7 8l-1 6 5 5 7-5"/><path d="M11 10l-2 3 3 2"/>',
 }
 def svg(inner):
@@ -46,6 +51,7 @@ def logos():
 
 t = open(os.path.join(HERE, "template.html"), encoding="utf8").read()
 t = t.replace("/*__FONTS__*/", open(os.path.join(HERE, "fonts_embedded.css"), encoding="utf8").read())
+t = t.replace("/*__SLIDES__*/", open(os.path.join(HERE, "slides.js"), encoding="utf8").read())
 t = t.replace("/*__DOC__*/[]", open(os.path.join(HERE, "dokumen.json"), encoding="utf8").read())
 L = logos()
 t = t.replace("/*__LOGOS__*/[]", json.dumps(L))
