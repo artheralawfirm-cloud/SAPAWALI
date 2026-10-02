@@ -419,7 +419,7 @@ function pasalSlides(num, title, rows, notes, lamp) {
       x: 0.6, y: 5.85, w: 12.13, h: 0.95, fontSize: 24, bold: true, color: NAVY, valign: "middle", margin: 0,
     });
     footer(s);
-    s.addNotes(`Bahan masukan memuat ${totalPasal} usulan pasal (termasuk Pasal 1 Ketentuan Umum dengan 13 definisi) dan ${totalPenjelasan} usulan penjelasan. Usulan rumusan pasal untuk setiap masukan dihimpun dalam Lampiran I. Penomoran pasal ditulis "Pasal …" karena bersifat sementara, sedangkan istilah Debitor, Kreditor, Debitor Pailit, Hakim Pengawas, dan Pengadilan mengikuti pengertian dalam UU Kepailitan dan PKPU.`);
+    s.addNotes(`Bahan masukan memuat ${totalPasal} usulan pasal (termasuk Pasal 1 Ketentuan Umum dengan 13 definisi) dan ${totalPenjelasan} usulan penjelasan. Setiap masukan disertai usulan rumusan pasal yang dihimpun dalam Lampiran I. Penomoran pasal ditulis "Pasal …" karena bersifat sementara dan akan disesuaikan dengan sistematika RUU.`);
   }
 
   // Daftar masukan
