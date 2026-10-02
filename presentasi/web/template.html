@@ -181,7 +181,7 @@ button{font:inherit;color:inherit}
 .punch{font:800 40px/1.25 var(--f-sans);color:var(--navy);margin:0;text-wrap:balance}
 .flow{position:relative;height:420px;flex:none}
 .flow .fl{position:absolute;left:0;top:0;width:1416px;height:420px}
-.fb{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 24px;border-radius:20px;font:700 27px/1.25 var(--f-sans);text-wrap:balance}
+.fb{position:absolute;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px 16px;border-radius:20px;font:700 25px/1.22 var(--f-sans);text-wrap:balance}
 .fb.start{background:var(--navy);color:#fff}
 .fb.q{background:#fff;border:3px solid var(--navy);color:var(--navy)}
 .fb.res{background:var(--mist);color:var(--text);font-weight:600}
@@ -212,6 +212,31 @@ button{font:inherit;color:inherit}
 .end .who{font:500 26px/1.4 var(--f-sans);color:#E6ECF7}
 .end .thanks{margin-top:auto}
 
+
+/* ---------- 5 pokok pembahasan ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.pcell{border:0;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:14px;padding:28px 24px;border-radius:24px;background:var(--mist);color:var(--navy);font-family:var(--f-sans)}
+.pcell:hover{outline:3px solid var(--gold)}
+.pcell .badge{width:64px;height:64px;font-size:32px;border-radius:16px;margin:0}
+.pcell b{font:800 30px/1.15 var(--f-sans);text-wrap:balance}
+.pcell .pd{font:600 22px/1.35 var(--f-sans);color:var(--muted);text-wrap:pretty}
+.pcell .pm{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.pcell .pm i{font:800 20px/1 var(--f-sans);font-style:normal;padding:8px 12px;border-radius:999px;background:var(--navy);color:var(--gold)}
+.pcell .pm i::before{content:"Masukan ";color:#fff;font-weight:600}
+.divider{background:var(--navy);color:#fff}
+.divider .s-in{padding:70px 92px 100px;gap:24px}
+.divider .rail{display:flex;gap:14px}
+.divider .rail span{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.16)}
+.divider .rail span.done{background:rgba(226,168,23,.45)}
+.divider .rail span.on{background:var(--gold)}
+.divider .pk{margin-top:44px;font:800 26px/1 var(--f-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.divider h2{font:800 92px/1.04 var(--f-sans);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.divider .tor{font:500 34px/1.45 var(--f-sans);color:#DCE4F2;margin:0;max-width:1300px;text-wrap:pretty}
+.divider .dms{margin-top:auto;display:flex;flex-wrap:wrap;gap:14px}
+.divider .dm{border:0;cursor:pointer;display:inline-flex;align-items:center;gap:14px;padding:12px 26px 12px 12px;border-radius:999px;background:rgba(255,255,255,.09);color:#fff;font:700 26px/1 var(--f-sans)}
+.divider .dm:hover{background:rgba(255,255,255,.18)}
+.divider .dm .badge{width:48px;height:48px;font-size:24px;border-radius:50%;background:var(--gold);color:var(--navy);margin:0}
+.divider .s-foot{color:#B8C6E0}
 
 /* ---------- efek dokumen (v3) ---------- */
 #paper{max-width:820px;font-size:18px}
@@ -740,8 +765,8 @@ function mcapUpdate(){
   const el=SLIDES[cur].el, s=SLIDES[cur], box=$("#mcap");
   const q=sel=>(el.querySelector(sel)?.textContent||"").replace(/\s+/g," ").trim();
   const k=q(".eyebrow")||(s.sec?"Masukan "+s.sec:"");
-  const t=q(".s-title")||q("h1")||s.title;
-  const ld=q(".s-lead")||q(".cover .sub")||q(".end .lead");
+  const t=q(".s-title")||q("h1")||q(".divider h2")||s.title;
+  const ld=q(".s-lead")||q(".divider .tor")||q(".cover .sub")||q(".end .lead");
   box.innerHTML=`<div class="mc-k">${cur+1} / ${SLIDES.length}${k?" · "+esc(k):""}</div><h2>${esc(t)}</h2>${ld?`<p>${esc(ld)}</p>`:""}`+
     (s.doc&&s.doc.length?`<button class="mc-doc" data-act="doc">${I("doc")}Lihat di dokumen</button>`:"")+
     `<div class="mc-tips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>Geser slide ke kiri atau kanan untuk berpindah</span><span class="rot">${I("rotate")}Putar HP agar slide tampil lebih besar</span></div>`;
@@ -1047,7 +1072,9 @@ document.addEventListener("click",e=>{
   if(t.dataset.lamp){ e.preventDefault(); const el=document.getElementById("c"+LAMP[t.dataset.lamp]); if(el){ progScroll=false; paper.classList.remove("focus"); clearLink(); docScroll.scrollTo({top:Math.max(0,offTop(el)-16),behavior:"smooth"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800); } return; }
   if(t.dataset.close!=null){ closeOv(); return; }
   if(t.dataset.go!=null){ closeOv(); go(+t.dataset.go); return; }
-  if(t.dataset.goto){ const n=+t.dataset.goto.slice(1); go(SEC_FIRST[n]??cur); return; }
+  if(t.dataset.goto){ const g=t.dataset.goto, n=+g.slice(1);
+    const idx = g==="ku" ? SLIDES.findIndex(s=>s.ku) : g[0]==="p" ? SLIDES.findIndex(s=>s.pk===n) : (SEC_FIRST[n]??-1);
+    go(idx>=0 ? idx : cur); return; }
   if(t.dataset.j){ e.preventDefault(); const el=document.getElementById("p"+t.dataset.j); if(el){ const top=el.getBoundingClientRect().top-docScroll.getBoundingClientRect().top+docScroll.scrollTop; docScroll.scrollTo({top:top-20,behavior:"smooth"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800);} return; }
   if(t.dataset.copy!=null){ copyCard(t.dataset.copy); return; }
   if(t.dataset.act==="doc"){ pinned=true; readMode=false; render(); return; }

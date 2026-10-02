@@ -8,6 +8,10 @@ Seluruh kalimat pada slide diambil dari dokumen tersebut.
 
 Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tekan **F** untuk layar penuh.
 
+- **Alur 5 pokok pembahasan.** Ke-12 masukan dikelompokkan ke dalam 5 pokok: (1) kewenangan dan koordinasi,
+  (2) standar profesi, (3) permasalahan praktik, (4) penguatan kelembagaan BHP, dan (5) masukan pengaturan.
+  Setiap pokok dibuka dengan slide pembatas. Slide "5 Pokok Pembahasan" dan slide pembatas dapat diklik untuk
+  lompat ke pokok atau masukan mana pun.
 - **Slide sederhana, dokumen di sampingnya.** Mode *Otomatis* menyala sejak awal: setiap slide tampil
   penuh lebih dulu. Tekan lanjut sekali, slide bergeser ke kiri (tetap utuh, tidak tertutup) dan panel
   dokumen masuk dari kanan, menggulir ke bagian yang dibahas dan menandai kalimatnya. Tekan lanjut lagi,
@@ -49,7 +53,7 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 ## 2. Cadangan PowerPoint: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
 
-48 slide 16:9, memuat seluruh 17 usulan rumusan pasal (Lampiran I) sesuai dokumen, dengan catatan pembicara.
+53 slide 16:9 dengan alur 5 pokok pembahasan yang sama, memuat seluruh 17 usulan rumusan pasal (Lampiran I) sesuai dokumen, dengan catatan pembicara.
 Dibuat ulang dengan `build_slides.cjs` (pptxgenjs).
 
 Versi Canva awal: https://www.canva.com/d/3PGEyDAsl1neFqh
