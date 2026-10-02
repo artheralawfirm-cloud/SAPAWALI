@@ -11,7 +11,7 @@ const tile = (o) => `<div class="tile ${o.cls||""}" style="${o.style||""}">${o.i
 
 const SLIDES = [
  { title:"Sampul", doc:[0,6,7,8,9], step:false, cls:"cover",
-   cue:"Salam pembuka kepada Pimpinan dan Anggota Komisi XIII DPR RI.",
+   cue:"Salam pembuka.",
    html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div>
    <div class="org">Kementerian Hukum Republik Indonesia<br>Kantor Wilayah Sumatera Utara</div>
    <h1>Bahan Masukan Balai Harta Peninggalan Medan</h1>
@@ -236,10 +236,9 @@ const SLIDES = [
 
  { title:"Penutup", doc:[108], step:false, cls:"end",
    hl:["memperkuat kedudukan BHP sebagai Kurator Negara"],
-   cue:"Harapan BHP Medan dan ucapan terima kasih kepada Pimpinan dan Anggota Komisi XIII DPR RI.",
+   cue:"Harapan BHP Medan dan ucapan terima kasih.",
    html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div><div class="eyebrow" style="color:var(--gold)">Bagian III · Penutup</div>
    <p class="lead" style="font-size:52px">BHP Medan berharap RUU tentang Profesi Kurator dapat memperkuat kedudukan BHP sebagai Kurator Negara.</p>
-   <p class="txt" style="color:#E6ECF7">Atas perhatian Pimpinan dan Anggota Komisi XIII DPR RI, kami ucapkan terima kasih.</p>
    <div class="thanks">Terima kasih</div>
    <div class="who"><b>Syafriadi Lubis</b> · Kepala Balai Harta Peninggalan Medan</div></div>` },
 ];

@@ -361,7 +361,7 @@ function pasalSlides(num, title, rows, notes, lamp) {
       { text: "Syafriadi Lubis", options: { bold: true, breakLine: true } },
       { text: "Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026" },
     ], { x: 0.8, y: 5.85, w: 11.7, h: 0.95, fontSize: 22, color: WHITE, margin: 0 });
-    s.addNotes("Pembukaan. Salam hormat kepada Pimpinan dan Anggota Komisi XIII DPR RI.");
+    s.addNotes("Pembukaan dan salam hormat.");
   }
 
   // Pendahuluan
@@ -755,9 +755,6 @@ function pasalSlides(num, title, rows, notes, lamp) {
     text(s, "Penutup", { x: 0.8, y: 0.5, w: 11.7, h: 0.85, fontSize: 40, bold: true, color: GOLD, margin: 0 });
     text(s, "BHP Medan berharap RUU tentang Profesi Kurator dapat memperkuat kedudukan BHP sebagai Kurator Negara.", {
       x: 0.8, y: 1.45, w: 11.7, h: 1.7, fontSize: 32, bold: true, color: WHITE, margin: 0, valign: "top",
-    });
-    text(s, "Demikian bahan masukan ini disampaikan. Atas perhatian Pimpinan dan Anggota Komisi XIII DPR RI, kami ucapkan terima kasih.", {
-      x: 0.8, y: 3.5, w: 11.7, h: 1.2, fontSize: 24, color: WHITE, margin: 0, valign: "top",
     });
     text(s, "Terima kasih", { x: 0.8, y: 5.4, w: 11.7, h: 0.9, fontSize: 44, bold: true, color: GOLD, margin: 0 });
     s.addNotes("Penutup bahan masukan BHP Medan.");
