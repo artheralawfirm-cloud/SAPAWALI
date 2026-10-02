@@ -53,7 +53,12 @@ def logos():
 t = open(os.path.join(HERE, "template.html"), encoding="utf8").read()
 t = t.replace("/*__FONTS__*/", open(os.path.join(HERE, "fonts_embedded.css"), encoding="utf8").read())
 t = t.replace("/*__SLIDES__*/", open(os.path.join(HERE, "slides.js"), encoding="utf8").read())
-t = t.replace("/*__DOC__*/[]", open(os.path.join(HERE, "dokumen.json"), encoding="utf8").read())
+# grafik dalam dokumen ditanam sebagai data URI
+DOC = json.load(open(os.path.join(HERE, "dokumen.json"), encoding="utf8"))
+for blk in DOC:
+    if blk["k"] == "img":
+        blk["src"] = "data:image/png;base64," + base64.b64encode(open(os.path.join(HERE, blk["src"]), "rb").read()).decode()
+t = t.replace("/*__DOC__*/[]", json.dumps(DOC, ensure_ascii=False, separators=(",", ":")))
 L = logos()
 t = t.replace("/*__LOGOS__*/[]", json.dumps(L))
 icons = dict(P); icons["doc"] = svg(P["doc"]); icons["rotate"] = svg(P["rotate"])

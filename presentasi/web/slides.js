@@ -1,273 +1,259 @@
 function head(num, eyebrow, title, lead){
   return `<div class="s-head">${num?`<div class="badge${String(num).length>2&&!String(num).startsWith("<svg")?" sm":""}">${num}</div>`:""}<div class="s-ht">${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:""}<h2 class="s-title">${title}</h2>${lead?`<p class="s-lead">${lead}</p>`:""}</div></div>`;
 }
-// masukan dikelompokkan ke dalam 5 pokok pembahasan
-const PK = {2:1, 3:2, 4:2, 6:3, 9:3, 7:3, 10:3, 1:4, 8:5, 5:5, 12:5, 11:5};
-const M = n => `Pokok ${PK[n]} · Masukan ${n}`;
 const BI = name => `<svg viewBox="0 0 24 24">${I(name)}</svg>`;
-const OK = `<span class="mk ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>`;
-const NO = `<span class="mk no"><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg></span>`;
 const ARW = `<svg class="arrow" viewBox="0 0 24 24">${I("arrowpath")}</svg>`;
 const chips = (arr, cls="") => `<div class="chips ${cls}">${arr.map(c=>`<span class="chip">${c}</span>`).join("")}</div>`;
-const tile = (o) => `<div class="tile ${o.cls||""}" style="${o.style||""}">${o.icon?`<svg class="ico" viewBox="0 0 24 24">${I(o.icon)}</svg>`:""}${o.k?`<span class="k">${o.k}</span>`:""}${o.num!=null?`<span class="num" data-count="${o.num}">${o.num}</span>${o.unit?`<span class="unit">${o.unit}</span>`:""}`:""}${o.h?`<h3>${o.h}</h3>`:""}${o.t?`<p class="txt">${o.t}</p>`:""}${o.extra||""}</div>`;
+const tile = (o) => `<div class="tile ${o.cls||""}" style="${o.style||""}"${o.go?` data-goto="${o.go}"`:""}>${o.icon?`<svg class="ico" viewBox="0 0 24 24">${I(o.icon)}</svg>`:""}${o.ay?`<span class="ay">${o.ay}</span>`:""}${o.k?`<span class="k">${o.k}</span>`:""}${o.num!=null?`<span class="num" data-count="${o.num}">${String(o.num).replace(".",",")}</span>${o.unit?`<span class="unit">${o.unit}</span>`:""}`:""}${o.h?`<h3>${o.h}</h3>`:""}${o.t?`<p class="txt">${o.t}</p>`:""}${o.extra||""}</div>`;
+// bagian dokumen: I Pokok Sikap, II Pengalaman, III Jawaban Klaster 1, IV Usulan Pasal, V Catatan
+const BAG = ["","Pokok Sikap","Pengalaman BHP Medan","Jawaban Klaster 1","Usulan Pasal","Catatan untuk RUU Kepailitan dan PKPU"];
+const RN = ["","I","II","III","IV","V"];
+const E = (n, sub) => `Bagian ${RN[n]} · ${BAG[n]}${sub?" · "+sub:""}`;
+const rail = n => `<div class="rail">${[1,2,3,4,5].map(k=>`<span class="${k<n?"done":k===n?"on":""}"></span>`).join("")}</div>`;
+const divider = (n, title, tor, items) => `<div class="s-in">${rail(n)}
+   <div class="pk">Bagian ${RN[n]} dari V</div><h2>${title}</h2><p class="tor">${tor}</p>
+   <div class="dms">${items.map(([b,t,g])=>`<button class="dm" data-goto="${g}"><span class="badge">${b}</span><span>${t}</span></button>`).join("")}</div></div>${foot([])}`;
 
 const SLIDES = [
- { title:"Sampul", doc:[0,6,7,8,9], step:false, cls:"cover",
+ { id:"sampul", title:"Sampul", doc:[0,1,2,3], step:false, cls:"cover",
    cue:"Salam pembuka.",
    html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div>
    <div class="org">Kementerian Hukum Republik Indonesia<br>Kantor Wilayah Sumatera Utara</div>
    <h1>Bahan Masukan Balai Harta Peninggalan Medan</h1>
-   <p class="sub">Dalam Rapat Dengar Pendapat dengan Komisi XIII DPR RI</p>
-   <p class="desc">Penyusunan Rancangan Undang-Undang tentang Profesi Kurator terkait Peran Balai Harta Peninggalan dalam Pelaksanaan Tugas Kurator</p>
-   <div class="who"><b>Syafriadi Lubis</b><br>Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026</div></div>
-   <div class="stack" aria-hidden="true">${[0,1,2].map(()=>`<div class="sh"><div class="ln c"></div><div class="ln c" style="width:50%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="bx"><span class="t">USULAN RUMUSAN PASAL</span><div class="ln c" style="width:30%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="ln"></div><div class="ln s"></div></div>`).join("")}</div>` },
+   <p class="sub">Poin 1: Kewenangan dan Pembagian Peran Kurator</p>
+   <p class="desc">Rapat Dengar Pendapat Komisi XIII DPR RI tentang Rancangan Undang-Undang tentang Profesi Kurator</p>
+   <div class="who"><b>Syafriadi Lubis, M.H.</b><br>Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026</div></div>
+   <div class="stack" aria-hidden="true">${[0,1,2].map(()=>`<div class="sh"><div class="ln c"></div><div class="ln c" style="width:50%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="bx"><span class="t">USULAN PASAL</span><div class="ln c" style="width:30%"></div><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div><div class="ln"></div><div class="ln s"></div></div>`).join("")}</div>` },
 
- { title:"Pendahuluan", doc:[11,12], step:false,
-   hl:["mendukung penuh pembentukan Rancangan Undang-Undang tentang Profesi Kurator (RUU)","BHP merupakan kurator dari unsur pemerintah","kedudukan BHP perlu diatur secara khusus dalam RUU","BHP disebut Kurator Negara dan kurator selain BHP disebut Kurator Perseorangan"],
-   cue:"Tegaskan dukungan penuh, lalu dasar kedudukan BHP sebagai kurator dari unsur pemerintah.",
-   html:()=>`<div class="s-in">${head("I","Bahan masukan · Bagian I","Pendahuluan","BHP adalah kurator dari unsur pemerintah, sehingga kedudukannya perlu diatur secara khusus dalam RUU.")}
-   <div class="content"><div class="row grow">
-     ${tile({cls:"navy",k:"Sikap BHP Medan",h:"Mendukung penuh",t:"pembentukan Rancangan Undang-Undang tentang Profesi Kurator."})}
-     ${tile({icon:"govpath",k:"Pasal 70 ayat (1) UU Kepailitan dan PKPU",h:"Kurator dari unsur pemerintah"})}
-     ${tile({icon:"docpath",k:"Oleh karena itu",h:"Kedudukan BHP perlu diatur secara khusus dalam RUU"})}
-   </div>
-   <div class="legend"><span class="k">Istilah dalam paparan</span><span><b>Kurator Negara</b> = BHP</span><span><b>Kurator Perseorangan</b> = kurator selain BHP</span></div></div>${foot([11])}` },
+ { id:"alur", title:"Alur paparan", doc:[3], step:false,
+   cue:"Lima bagian paparan. Klik bagian mana pun untuk lompat langsung.",
+   html:()=>{const P=[[1,"Pokok Sikap","Masalah dan sikap BHP Medan",["4 sikap"]],[2,"Pengalaman BHP Medan","Data perkara yang sedang berjalan",["9 perkara"]],[3,"Jawaban Klaster 1","Tanggapan atas pertanyaan Komisi",["3 pertanyaan"]],[4,"Usulan Pasal","Untuk RUU Profesi Kurator",["Pasal A sampai D"]],[5,"Catatan","Untuk RUU Kepailitan dan PKPU",["4 hal"]]];
+   return `<div class="s-in">${head(BI("docpath"),"Poin 1 · Kewenangan dan Pembagian Peran Kurator","Alur Paparan","Dari masalah, sikap, dan pengalaman nyata BHP Medan, sampai usulan pasal yang siap dipakai.")}
+   <div class="content"><div class="pgrid grow">${P.map(([n,t,d,ms])=>`<button class="pcell" data-goto="p${n}"><span class="badge">${RN[n]}</span><b>${t}</b><span class="pd">${d}</span><span class="pm">${ms.map(m=>`<i>${m}</i>`).join("")}</span></button>`).join("")}</div></div>${foot([3])}`} },
 
- { title:"Bahan yang siap pakai", doc:[12,14], step:false,
-   hl:["Setiap masukan disertai usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU.","Setiap masukan disertai usulan rumusan pasal yang dihimpun dalam Lampiran I."],
-   cue:"Tunjukkan kekuatan dokumen: setiap masukan langsung disertai rumusan pasal yang dihimpun dalam Lampiran I.",
-   html:()=>`<div class="s-in">${head("II","Bahan masukan · Bagian II","Masukan yang Siap Dipakai","Setiap masukan disertai usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU.")}
-   <div class="content"><div class="row grow">
-     ${[[12,"masukan"],[COUNT.pasal,"usulan rumusan pasal"],[COUNT.ayat,"ayat"],[COUNT.definisi,"definisi dalam ketentuan umum"]].map(([n,l])=>tile({cls:"navy",num:n,t:l})).join("")}
-   </div>
-   <div class="steps">${[["searchpath","Uraian setiap masukan"],["shieldpath","Kesimpulan: Masukan BHP Medan"],["docpath","Usulan rumusan pasal dalam Lampiran I"]].map(([ic,t],i)=>`<div class="sp"><svg class="ico sm" viewBox="0 0 24 24">${I(ic)}</svg><span>${t}</span></div>${i<2?ARW:""}`).join("")}</div></div>${foot([14])}` },
+ // ================= I. POKOK SIKAP =================
+ { id:"bag1", title:"Bagian I: Pokok Sikap", pk:1, doc:[], step:false, cls:"divider",
+   cue:"Mulai dari masalahnya, lalu empat sikap BHP Medan.",
+   html:()=>divider(1,"Pokok Sikap","RUU Profesi Kurator akan mengatur profesi kurator, padahal kurator tidak hanya orang perseorangan. BHP juga menjalankan tugas kurator berdasarkan undang-undang.",
+     [["1","Masalah","#masalah"],["2","Sikap BHP Medan","#sikap"],["3","Pembagian peran","#peran"],["4","Koordinasi antarlembaga","#koordinasi"]]) },
 
- { title:"5 pokok pembahasan", doc:[14], step:true,
-   hl:["masukan angka 1 dan angka 2 sesuai dengan agenda rapat mengenai peran BHP dalam pelaksanaan tugas kurator","masukan angka 3 sampai dengan angka 12 sebagai tanggapan atas 10 (sepuluh) isu strategis"],
-   cue:"Seluruh 12 masukan dikelompokkan ke dalam 5 pokok pembahasan. Klik pokok mana pun untuk lompat ke bagiannya.",
-   html:()=>{const P=[[1,"Kewenangan dan Koordinasi","Peran BHP dan kurator perseorangan",[2]],[2,"Standar Profesi","Pembinaan dan satu standar nasional",[3,4]],[3,"Permasalahan Praktik","Hambatan, data, transparansi, imbalan",[6,9,7,10]],[4,"Penguatan Kelembagaan BHP","Kapasitas tim dan koordinasi dengan Pengadilan",[1]],[5,"Masukan Pengaturan","Pengawasan dan pertanggungjawaban kurator",[8,5,12,11]]];
-   return `<div class="s-in">${head("II","Bahan masukan · Bagian II","5 Pokok Pembahasan","Masukan BHP Medan difokuskan pada penegasan peran BHP, peningkatan kualitas profesi, serta penguatan pengawasan dan pertanggungjawaban kurator.")}
-   <div class="content"><div class="pgrid grow">${P.map(([n,t,d,ms])=>`<button class="pcell" data-goto="p${n}"><span class="badge">${n}</span><b>${t}</b><span class="pd">${d}</span><span class="pm">${ms.map(m=>`<i>${m}</i>`).join("")}</span></button>`).join("")}</div></div>${foot([14])}`} },
-
- { title:"Pokok 1: Kewenangan dan Koordinasi", pk:1, doc:[], step:false, cls:"divider",
-   cue:"Ketentuan Umum dan Masukan 2: siapa Kurator Negara, siapa Kurator Perseorangan, dan kapan BHP harus turun tangan.",
-   html:()=>`<div class="s-in"><div class="rail">${[1,2,3,4,5].map(k=>`<span class="${k<1?"done":k===1?"on":""}"></span>`).join("")}</div>
-   <div class="pk">Pokok pembahasan 1 dari 5</div><h2>Kewenangan dan Koordinasi</h2><p class="tor">Memperjelas pembagian peran BHP dan kurator privat, termasuk perkara tertentu yang perlu ditangani BHP.</p>
-   <div class="dms"><button class="dm" data-goto="ku"><span class="badge">§</span><span>Ketentuan Umum</span></button><button class="dm" data-goto="m2"><span class="badge">2</span><span>BHP sebagai Pengurus dalam PKPU</span></button></div></div>${foot([])}` },
-
- { title:"Ketentuan Umum", ku:true, doc:[152,153], step:true,
-   cue:"Dasar istilah bagi seluruh usulan pasal: Kurator Negara dan Kurator Perseorangan.",
-   html:()=>`<div class="s-in">${head(BI("docpath"),"Pokok 1 · Lampiran I angka 1 · Pasal 1","Ketentuan Umum: "+COUNT.definisi+" Definisi","Sebagai dasar istilah, RUU perlu membedakan dua jenis kurator: Kurator Negara dan Kurator Perseorangan.")}
-   <div class="content"><div class="row grow">
-     ${tile({cls:"navy",k:"Pasal 1 angka 2",extra:`<p class="def"><b>Kurator Negara</b> adalah Balai Harta Peninggalan yang melaksanakan tugas Kurator melalui pejabat Kurator Keperdataan.</p>`})}
-     ${tile({k:"Pasal 1 angka 3",extra:`<p class="def"><b>Kurator Perseorangan</b> adalah orang perseorangan yang memenuhi persyaratan dan terdaftar pada Kementerian untuk melaksanakan tugas Kurator.</p>`})}
-   </div>
-   ${chips(["Pengurus","Pengurus Perseorangan","Kurator Keperdataan","Tim Kurator Keperdataan","Majelis Pengawas Kurator","Majelis Kehormatan Kurator"],"sm")}</div>${foot([152])}` },
-
- { title:"Masalah: BHP tidak disebut dalam PKPU", sec:2, doc:[37,38,40,42,43], step:true,
-   hl:["menyebut BHP secara tegas sebagai kurator","hanya menyebut orang perseorangan sebagai pihak yang dapat menjadi pengurus","orang perseorangan yang berdomisili di wilayah Negara Republik Indonesia","Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebutkan dalam rumusan pasal tersebut.","undang-undang tidak mengatur siapa yang diangkat sebagai pengurus apabila pemohon tidak mengusulkan pengurus"],
-   cue:"Bandingkan kepailitan dan PKPU. Tekankan: BHP tidak dilarang, hanya tidak disebutkan.",
-   html:()=>`<div class="s-in">${head(2,M(2)+" · BHP sebagai Pengurus dalam PKPU","Masalahnya: BHP Tidak Disebut dalam PKPU","Dalam kepailitan kedudukan BHP diatur tegas, tetapi dalam PKPU BHP tidak disebut, sehingga ada celah ketika pemohon tidak mengusulkan pengurus.")}
-   <div class="content"><div class="cmp grow">
-     <div class="c h"></div><div class="c h">Kepailitan</div><div class="c h">PKPU</div>
-     <div class="c l">BHP disebut dalam UU</div><div class="c">${OK}<span>Ya, sebagai kurator<small>Pasal 70 ayat (1)</small></span></div><div class="c">${NO}<span>Tidak, hanya orang perseorangan<small>Pasal 234 ayat (3)</small></span></div>
-     <div class="c l">Bila pemohon tidak mengusulkan</div><div class="c">${OK}<span>BHP ditunjuk oleh undang-undang<small>Pasal 15 ayat (2)</small></span></div><div class="c">${NO}<span>Tidak diatur, terjadi celah hukum<small>padahal batas waktu 3 hari / 20 hari</small></span></div>
-   </div>
-   <p class="punch">Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebutkan.</p></div>${foot([37])}` },
-
- { title:"Mengapa BHP layak", sec:2, doc:[46,49,51,53], step:false,
-   hl:["secara logika hukum (argumentum a maiore ad minus) BHP juga mampu melaksanakan kewenangan yang lebih ringan sebagai pengurus","disetorkan ke kas negara sebagai Penerimaan Negara Bukan Pajak","Pejabat yang menangani perkara tidak memperoleh keuntungan pribadi dari perkara tersebut.","dalam hal BHP sejak awal bertindak sebagai pengurus","BHP hanya dapat bertindak berdasarkan kewenangan yang diberikan oleh peraturan perundang-undangan"],
-   cue:"Empat alasan dari analisis hukum, huruf c sampai f dalam dokumen.",
-   html:()=>`<div class="s-in">${head(2,M(2)+" · BHP sebagai Pengurus dalam PKPU","Mengapa BHP Layak Menjadi Pengurus","Empat alasan hukum: BHP sudah dipercaya untuk tugas yang lebih berat, netral, berkesinambungan, dan kewenangannya memang harus ditulis tegas.")}
-   <div class="content"><div class="g2 grow">
-     ${tile({icon:"scalepath",h:"Tugas lebih berat sudah dipercayakan",t:"Sebagai kurator, BHP membereskan seluruh harta Debitor. Tugas pengurus jauh lebih ringan."})}
-     ${tile({icon:"shieldpath",h:"Netral dan independen",t:"Imbalan jasa BHP disetorkan ke kas negara sebagai PNBP. Pejabatnya tidak memperoleh keuntungan pribadi."})}
-     ${tile({icon:"arrowpath",h:"Berkesinambungan",t:"Bila PKPU berakhir pailit, data harta dan hasil pencocokan tagihan tetap pada lembaga yang sama."})}
-     ${tile({icon:"govpath",h:"Harus tegas dalam undang-undang",t:"Sebagai badan pemerintahan, BHP hanya dapat bertindak berdasarkan kewenangan yang diberikan peraturan."})}
-   </div></div>${foot([46])}` },
-
- { title:"Usulan pasal: BHP sebagai Pengurus", sec:2, doc:[198,200,201], step:true,
-   hl:["Balai Harta Peninggalan; dan","Balai Harta Peninggalan diangkat selaku Pengurus","Pengadilan mengangkat Pengurus Perseorangan"],
-   cue:"Jelaskan alurnya dari kiri ke kanan. Dokumen menunjukkan ayat (2) sampai (4).",
-   html:()=>`<div class="s-in">${head(2,M(2)+" · Usulan rumusan pasal","Usulannya: BHP sebagai Pengurus PKPU","Seperti dalam kepailitan, BHP menjadi pengurus yang ditunjuk undang-undang bila pemohon tidak mengusulkan pengurus, selama kapasitas timnya masih tersedia.")}
-   <div class="content"><div class="flow grow">
-     <svg class="fl" viewBox="0 0 1416 420" preserveAspectRatio="none" aria-hidden="true">
-       <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#14284B"/></marker></defs>
-       <g stroke="#14284B" stroke-width="4" fill="none" marker-end="url(#ah)">
-         <path d="M252 175H316"/><path d="M702 175H766"/><path d="M1112 175H1176"/>
-         <path d="M509 262V318"/><path d="M939 262V318"/>
-       </g></svg>
-     <div class="fb start" style="left:0;top:90px;width:250px;height:170px">Permohonan PKPU diajukan</div>
-     <div class="fb q" style="left:320px;top:90px;width:380px;height:170px">Ada usul pengurus yang memenuhi syarat?</div>
-     <div class="fb res" style="left:320px;top:322px;width:380px;height:98px">Pengurus yang diusulkan diangkat</div>
-     <div class="fb q" style="left:770px;top:90px;width:340px;height:170px">BHP masih punya tim yang belum penuh?</div>
-     <div class="fb win" style="left:1180px;top:90px;width:236px;height:170px">BHP diangkat selaku Pengurus</div>
-     <div class="fb res" style="left:770px;top:322px;width:340px;height:98px">Pengadilan mengangkat Pengurus Perseorangan</div>
-     <span class="lab" style="left:734px;top:128px">Tidak</span><span class="lab" style="left:1144px;top:128px">Ya</span>
-     <span class="lab" style="left:556px;top:272px">Ya</span><span class="lab" style="left:994px;top:272px">Tidak</span>
-   </div></div>${foot([198])}` },
-
- { title:"Pokok 2: Standar Profesi", pk:2, doc:[], step:false, cls:"divider",
-   cue:"Masukan 3 dan 4: pembinaan dibedakan menurut jenis kurator, tetapi semuanya berpegang pada satu standar profesi nasional.",
-   html:()=>`<div class="s-in"><div class="rail">${[1,2,3,4,5].map(k=>`<span class="${k<2?"done":k===2?"on":""}"></span>`).join("")}</div>
-   <div class="pk">Pokok pembahasan 2 dari 5</div><h2>Standar Profesi</h2><p class="tor">Merumuskan kompetensi, integritas, sertifikasi, pendidikan berkelanjutan, dan kode etik kurator.</p>
-   <div class="dms"><button class="dm" data-goto="m3"><span class="badge">3</span><span>Kekosongan Rezim Profesi</span></button><button class="dm" data-goto="m4"><span class="badge">4</span><span>Standar yang Terfragmentasi</span></button></div></div>${foot([])}` },
-
- { title:"Kekosongan rezim profesi", sec:3, doc:[209,210,212], step:true,
-   hl:["dilaksanakan oleh Organisasi Profesi","dilaksanakan oleh Menteri","Menteri membentuk Majelis Pengawas Kurator."],
-   cue:"Pembinaan dibedakan menurut jenis kurator; satu Majelis Pengawas untuk semua.",
-   html:()=>`<div class="s-in">${head(3,M(3),"Kekosongan Rezim Profesi","Pembinaan dibedakan menurut jenis kurator, dan seluruh kurator diawasi oleh satu Majelis Pengawas Kurator.")}
-   <div class="content"><div class="row grow">
-     ${tile({icon:"userspath",k:"Kurator Perseorangan",h:"Dibina oleh organisasi profesi",t:"pendidikan, sertifikasi, registrasi, kode etik, disiplin, asuransi, dan perlindungan hukum"})}
-     ${tile({icon:"govpath",k:"Kurator Negara",h:"Dibina oleh Kementerian Hukum",t:"karena pejabat Kurator Keperdataan merupakan Aparatur Sipil Negara"})}
-     ${tile({cls:"navy",icon:"scalepath",k:"Untuk semua kurator",h:"Majelis Pengawas Kurator",t:"terdiri atas unsur pemerintah, organisasi profesi, dan akademisi"})}
-   </div></div>${foot([209])}` },
-
- { title:"Standar profesi nasional", sec:4, doc:[225,227,228,229,230,231], step:true,
-   hl:["wajib berpedoman pada standar profesi nasional"],
-   cue:"Satu standar nasional untuk seluruh organisasi profesi.",
-   html:()=>`<div class="s-in">${head(4,M(4),"Standar yang Terfragmentasi","Organisasi profesi boleh lebih dari satu, asalkan semuanya berpedoman pada satu standar profesi nasional.")}
-   <div class="content"><div class="row grow">
-     ${tile({cls:"navy",style:"flex:1",k:"Usulan",h:"Satu standar profesi nasional",t:"ditetapkan oleh Menteri setelah mendengar pertimbangan Organisasi Profesi dan Majelis Pengawas Kurator"})}
-     <div class="tile" style="flex:1.25"><span class="k">Paling sedikit meliputi</span><ol class="list">${["kurikulum pendidikan profesi","materi dan tata cara ujian profesi","kode etik","standar pelaksanaan tugas","jenis sanksi dan tata cara penjatuhannya"].map((t,i)=>`<li><span class="n">${"abcde"[i]}</span><span>${t}</span></li>`).join("")}</ol></div>
-   </div></div>${foot([225])}` },
-
- { title:"Pokok 3: Permasalahan Praktik", pk:3, doc:[], step:false, cls:"divider",
-   cue:"Masukan 6, 9, 7, dan 10: kendala yang dihadapi kurator di lapangan dan jalan keluarnya.",
-   html:()=>`<div class="s-in"><div class="rail">${[1,2,3,4,5].map(k=>`<span class="${k<3?"done":k===3?"on":""}"></span>`).join("")}</div>
-   <div class="pk">Pokok pembahasan 3 dari 5</div><h2>Permasalahan Praktik</h2><p class="tor">Mengidentifikasi kendala pengurusan dan pemberesan harta, imbalan jasa, transparansi, serta konflik kepentingan, didukung data perkara.</p>
-   <div class="dms"><button class="dm" data-goto="m6"><span class="badge">6</span><span>Hambatan Pelaksanaan Tugas</span></button><button class="dm" data-goto="m9"><span class="badge">9</span><span>Data yang Belum Optimal</span></button><button class="dm" data-goto="m7"><span class="badge">7</span><span>Akuntabilitas Pengelolaan Boedel</span></button><button class="dm" data-goto="m10"><span class="badge">10</span><span>Imbalan dan Risiko Profesi</span></button></div></div>${foot([])}` },
-
- { title:"Hambatan pelaksanaan tugas", sec:6, doc:[250,252,255], step:true,
-   hl:["wajib memberikan pendampingan dan pengamanan","wajib memberikan akses, keterangan, dan dokumen","pidana penjara paling lama 2 (dua) tahun atau pidana denda paling banyak kategori IV"],
-   cue:"Pengamanan Polri, kewajiban akses, dan sanksi pidana.",
-   html:()=>`<div class="s-in">${head(6,M(6),"Hambatan Pelaksanaan Tugas","Kurator perlu dukungan pengamanan, akses terhadap harta dan dokumen, serta sanksi bagi pihak yang menghalangi.")}
-   <div class="content"><div class="row grow">
-     ${tile({icon:"shieldpath",k:"Pengamanan",h:"Polri wajib mendampingi",t:"dan mengamankan kurator atas permintaan Kurator, Pengurus, atau Hakim Pengawas"})}
-     ${tile({icon:"folderpath",k:"Akses",h:"Wajib membuka akses",t:"Debitor Pailit dan pihak yang menguasai harta pailit wajib memberikan keterangan dan dokumen"})}
-     ${tile({cls:"navy",icon:"gavelpath",k:"Ketentuan pidana",h:"Pidana bagi yang menghalangi",t:"penjara paling lama 2 tahun atau denda paling banyak kategori IV"})}
-   </div></div>${foot([250])}` },
-
- { title:"Kewajiban penyediaan data", sec:9, doc:[288,290], step:true,
-   hl:["wajib memberikan data tersebut","paling lama 14 (empat belas) hari kerja","Ketentuan mengenai rahasia bank tidak berlaku"],
-   cue:"Data harta Debitor Pailit wajib diberikan paling lama 14 hari kerja.",
-   html:()=>`<div class="s-in">${head(9,M(9),"Data yang Belum Optimal","Instansi yang menyimpan data harta Debitor Pailit wajib memberikannya kepada kurator dalam waktu yang pasti.")}
-   <div class="content"><div class="row grow">
-     ${tile({cls:"navy",style:"flex:.8",num:14,unit:"hari kerja",t:"batas waktu pemberian data atas permintaan kurator"})}
-     <div class="tile" style="flex:1.3"><span class="k">Antara lain</span>${chips(["Badan Pertanahan Nasional","SAMSAT","KSEI","perbankan"])}<h3>Rahasia bank tidak berlaku terhadap pemberian data kepada kurator.</h3><p class="txt">Data pribadi tetap dilindungi sesuai UU Pelindungan Data Pribadi.</p></div>
-   </div></div>${foot([288])}` },
-
- { title:"Akuntabilitas boedel", sec:7, doc:[261,266,268,270,273], step:true,
-   hl:["1 (satu) rekening kepailitan untuk setiap perkara","upah pekerja yang terutang","hak pekerja lainnya","Putusan Mahkamah Konstitusi Nomor 67/PUU-XI/2013"],
-   cue:"Satu rekening per perkara, dan urutan pembayaran sesuai Putusan MK 67/PUU-XI/2013.",
-   html:()=>`<div class="s-in">${head(7,M(7),"Akuntabilitas Pengelolaan Boedel","Uang harta pailit disimpan dalam satu rekening per perkara, lalu dibayarkan menurut urutan yang melindungi pekerja.")}
-   <div class="content"><div class="row grow">
-     ${tile({cls:"navy",style:"flex:.8",num:1,unit:"rekening per perkara",t:"setiap uang masuk dan keluar dicatat, didukung bukti, dan dilaporkan kepada Hakim Pengawas"})}
-     <div class="tile" style="flex:1.3"><span class="k">Urutan pembayaran</span><ol class="list tight">${["biaya kepailitan dan imbalan jasa Kurator","<b>upah pekerja yang terutang</b>","Kreditor pemegang hak jaminan kebendaan","<b>hak pekerja lainnya</b>","tagihan negara dan yang didahulukan","Kreditor konkuren secara seimbang"].map((t,i)=>`<li><span class="n">${"abcdef"[i]}</span><span>${t}</span></li>`).join("")}</ol></div>
-   </div></div>${foot([261])}` },
-
- { title:"Imbalan jasa", sec:10, doc:[297,298,299], step:true,
-   hl:["berhak atas imbalan jasa","berdasarkan pedoman yang ditetapkan oleh Menteri","merupakan Penerimaan Negara Bukan Pajak"],
-   cue:"Bukan masalah pokok; cukup ditegaskan dasar hukumnya dan sifat PNBP imbalan BHP.",
-   html:()=>`<div class="s-in">${head(10,M(10),"Imbalan dan Risiko Profesi","Imbalan jasa sudah diatur pedoman Menteri, sehingga RUU cukup menegaskan dasar hukumnya dan status PNBP bagi BHP.")}
-   <div class="content"><div class="row grow">
-     ${tile({icon:"docpath",k:"Sudah berlaku",h:"Pedoman Menteri",t:"Peraturan Menteri Hukum Nomor 20 Tahun 2025 tentang Pedoman Imbalan Jasa bagi Kurator dan Pengurus"})}
-     ${tile({cls:"navy",style:"flex:1.4",icon:"coinspath",k:"Usulan",h:"Imbalan jasa BHP merupakan Penerimaan Negara Bukan Pajak",t:"diterima BHP selaku Kurator Negara atau Pengurus"})}
-   </div></div>${foot([297])}` },
-
- { title:"Pokok 4: Penguatan Kelembagaan BHP", pk:4, doc:[], step:false, cls:"divider",
-   cue:"Masukan 1: kapasitas BHP diukur per tim, dan koordinasi dengan Pengadilan bila seluruh tim penuh.",
-   html:()=>`<div class="s-in"><div class="rail">${[1,2,3,4,5].map(k=>`<span class="${k<4?"done":k===4?"on":""}"></span>`).join("")}</div>
-   <div class="pk">Pokok pembahasan 4 dari 5</div><h2>Penguatan Kelembagaan BHP</h2><p class="tor">Merumuskan posisi BHP dalam RUU serta koordinasinya dengan Pengadilan Niaga dan organisasi kurator.</p>
-   <div class="dms"><button class="dm" data-goto="m1"><span class="badge">1</span><span>Batas Jumlah Perkara bagi BHP</span></button></div></div>${foot([])}` },
-
- { title:"Mengapa batas berlaku bagi BHP", sec:1, doc:[18,20,21,22], step:false,
-   hl:["kurator yang diangkat tidak sedang menangani perkara kepailitan lebih dari 3 (tiga) perkara","batas tersebut seharusnya juga berlaku bagi BHP","dilakukan secara cermat dan tepat waktu","merugikan Kreditor dan pekerja","menjaga kesetaraan perlakuan antara Kurator Negara dan Kurator Perseorangan"],
-   cue:"Kurator lain dibatasi 3 perkara. BHP juga kurator, jadi batas yang sama seharusnya berlaku. Tiga pertimbangan.",
-   html:()=>`<div class="s-in">${head(1,M(1)+" · Batas Jumlah Perkara bagi BHP","Kurator Dibatasi 3 Perkara, BHP Juga","Pasal 15 ayat (3) UU Kepailitan dan PKPU membatasi kurator pada 3 perkara. Karena BHP juga kurator, batas tersebut seharusnya juga berlaku bagi BHP.")}
-   <div class="content"><div class="row grow">
-     ${tile({icon:"userspath",k:"Pertimbangan 1",h:"Kapasitas yang cukup",t:"agar pengurusan dan pemberesan dilakukan secara cermat dan tepat waktu"})}
-     ${tile({icon:"scalepath",k:"Pertimbangan 2",h:"Mutu tetap terjaga",t:"tanpa batas, penyelesaian perkara tertunda sehingga merugikan Kreditor dan pekerja"})}
-     ${tile({cls:"navy",icon:"shieldpath",k:"Pertimbangan 3",h:"Perlakuan yang setara",t:"antara Kurator Negara dan Kurator Perseorangan, sehingga perkara tidak menumpuk pada BHP"})}
-   </div></div>${foot([18])}` },
-
- { title:"Batas 3 perkara per tim", sec:1, doc:[169,170,171,172,173], step:true,
-   hl:["berlaku juga bagi Balai Harta Peninggalan dan dihitung untuk setiap Tim Kurator Keperdataan","terdiri atas 3 (tiga) orang pejabat Kurator Keperdataan","diperhitungkan dalam batas jumlah perkara","dihitung sebagai 1 (satu) perkara","memberitahukan secara tertulis kepada Pengadilan"],
-   cue:"Batas dihitung per tim. Perkara PKPU ikut dihitung. Bila semua tim penuh, Kepala BHP memberi tahu Pengadilan.",
-   html:()=>`<div class="s-in">${head(1,M(1)+" · Usulan rumusan pasal","Batas Dihitung untuk Setiap Tim","Setiap tim berisi 3 pejabat Kurator Keperdataan dan menangani paling banyak 3 perkara, sehingga kapasitas BHP terukur.")}
-   <div class="content"><div class="row grow">
-     ${[1,2,3].map(n=>`<div class="team"><span class="k">Tim ${n}</span><div class="ppl">${[0,1,2].map(()=>`<svg viewBox="0 0 24 24">${I("personpath")}</svg>`).join("")}</div><span class="cap">3 pejabat Kurator Keperdataan</span><div class="cases">${[0,1,2].map(()=>`<i></i>`).join("")}</div><span class="cap">paling banyak 3 perkara</span></div>`).join("")}
-     <div class="tile navy" style="flex:1.25"><span class="k">Kapasitas BHP</span><span class="num" style="font-size:96px">Tim × 3</span><p class="txt">Perkara PKPU ikut dihitung. PKPU yang berlanjut pailit tetap dihitung 1 perkara.</p></div>
-   </div>
-   <div class="steps"><div class="sp">Semua tim penuh</div>${ARW}<div class="sp">Kepala BHP memberi tahu Pengadilan secara tertulis</div>${ARW}<div class="sp">Pengadilan mengangkat Kurator atau Pengurus lain</div></div></div>${foot([169])}` },
-
- { title:"Masa peralihan 6 bulan", sec:1, doc:[182,183,185,186,188], step:true,
-   hl:["tetap dilaksanakan oleh Balai Harta Peninggalan","paling lama 6 (enam) bulan","menugaskan Tim Kurator Keperdataan lain pada Balai Harta Peninggalan yang sama","mengajukan permohonan penggantian Kurator atau Pengurus kepada Pengadilan","tidak dianggap sebagai pelanggaran"],
-   cue:"Mitigasi risiko saat RUU berlaku: perkara berjalan aman, kelebihan perkara dialihkan paling lama 6 bulan.",
-   html:()=>`<div class="s-in">${head(1,M(1)+" · Pengalihan Kelebihan Perkara","Masa Peralihan 6 Bulan","Saat RUU berlaku, perkara yang sedang berjalan tidak terganggu, dan kelebihan perkara dialihkan paling lama 6 bulan.")}
-   <div class="content"><div class="tl"><span class="dot l"></span><span class="bar"></span><span class="dot r"></span>
-     <span class="tlab l">UU diundangkan</span><span class="tbig"><span data-count="6">6</span> bulan</span><span class="tlab r">Batas jumlah perkara berlaku penuh</span></div>
+ { id:"masalah", title:"Masalah", doc:[5,6], step:true,
+   hl:["kurator tidak hanya orang perseorangan","BHP juga menjalankan tugas kurator berdasarkan undang-undang","kedudukan BHP menjadi tidak jelas"],
+   cue:"Kurator ada dua: perseorangan dan BHP. Bila RUU hanya untuk perseorangan, tiga hal tentang BHP menjadi tidak jelas.",
+   html:()=>`<div class="s-in">${head("I",E(1,"Masalah"),"Kurator Tidak Hanya Orang Perseorangan","Apabila RUU hanya disusun untuk kurator perorangan, kedudukan BHP menjadi tidak jelas.")}
+   <div class="content"><div class="eq"><span class="q n"><small>Kurator</small>Pelaksana tugas kurator</span><span class="op">=</span><span class="q"><small>Orang</small>Kurator perorangan</span><span class="op">+</span><span class="q g"><small>Lembaga</small>BHP, berdasarkan undang-undang</span></div>
    <div class="row grow">
-     ${tile({icon:"folderpath",h:"Perkara berjalan aman",t:"Perkara yang sedang ditangani BHP tetap dilaksanakan oleh BHP."})}
-     ${tile({icon:"userspath",h:"Dialihkan bertahap",t:"Ke tim lain melalui surat tugas Kepala BHP, atau melalui penggantian kurator oleh Pengadilan (Pasal 71)."})}
-     ${tile({icon:"shieldpath",h:"Bukan pelanggaran",t:"Selama masa peralihan, kelebihan perkara tidak dianggap pelanggaran batas jumlah perkara."})}
-   </div></div>${foot([182])}` },
+     ${tile({icon:"docpath",k:"Tidak jelas 1",h:"Apakah BHP ikut aturan izin dan sertifikasi profesi?"})}
+     ${tile({icon:"scalepath",k:"Tidak jelas 2",h:"Siapa yang membina dan mengawasinya?"})}
+     ${tile({icon:"userspath",k:"Tidak jelas 3",h:"Bagaimana pembagian perannya dengan kurator privat?"})}
+   </div></div>${foot([6])}` },
 
- { title:"Pokok 5: Masukan Pengaturan", pk:5, doc:[], step:false, cls:"divider",
-   cue:"Masukan 8, 5, 12, dan 11: siapa mengawasi apa, dan bagaimana kurator dimintai pertanggungjawaban.",
-   html:()=>`<div class="s-in"><div class="rail">${[1,2,3,4,5].map(k=>`<span class="${k<5?"done":k===5?"on":""}"></span>`).join("")}</div>
-   <div class="pk">Pokok pembahasan 5 dari 5</div><h2>Masukan Pengaturan</h2><p class="tor">Mengusulkan materi yang perlu diatur dalam RUU, terutama pengawasan, sertifikasi, dan pertanggungjawaban perdata maupun pidana kurator.</p>
-   <div class="dms"><button class="dm" data-goto="m8"><span class="badge">8</span><span>Pengawasan Berlapis yang Belum Terpadu</span></button><button class="dm" data-goto="m5"><span class="badge">5</span><span>Batas Perlindungan dan Tanggung Jawab</span></button><button class="dm" data-goto="m12"><span class="badge">12</span><span>Perlindungan Pihak Terdampak</span></button><button class="dm" data-goto="m11"><span class="badge">11</span><span>Kepailitan Lintas Batas</span></button></div></div>${foot([])}` },
+ { id:"sikap", title:"Sikap BHP Medan", doc:[8,9,10,11], step:true,
+   hl:["BHP dimuat dalam RUU sebagai lembaga negara yang menjalankan tugas kurator. ","Satu standar profesi untuk semua kurator. ","Pembagian peran BHP dan kurator perorangan ditegaskan. ","Koordinasi antarlembaga diatur dengan jelas. "],
+   cue:"Empat sikap. Klik kartu untuk lompat ke uraian atau pasalnya.",
+   html:()=>`<div class="s-in">${head("I",E(1,"Sikap BHP Medan"),"Empat Sikap BHP Medan","Keempatnya dijabarkan lebih lanjut dalam usulan Pasal A sampai Pasal D.")}
+   <div class="content"><div class="g2 grow">
+     ${tile({cls:"go",go:"#pasalA",icon:"govpath",h:"1. BHP dimuat dalam RUU sebagai lembaga negara",t:"Tugasnya dijalankan oleh pejabat fungsional Kurator Keperdataan."})}
+     ${tile({cls:"go",go:"#pasalC",icon:"scalepath",h:"2. Satu standar profesi untuk semua kurator",t:"Yang berbeda hanya pembinaannya, karena BHP adalah lembaga pemerintah."})}
+     ${tile({cls:"go",go:"#peran",icon:"userspath",h:"3. Pembagian peran BHP dan kurator perorangan ditegaskan",t:"RUU Profesi Kurator memuat prinsipnya."})}
+     ${tile({cls:"go",go:"#koordinasi",icon:"handpath",h:"4. Koordinasi antarlembaga diatur dengan jelas",t:"BHP sendiri adalah kurator, bukan pengawas kurator privat."})}
+   </div></div>${foot([8])}` },
 
- { title:"Pembagian pengawasan", sec:8, doc:[279,280,281], step:true,
-   hl:["Hakim Pengawas","Majelis Pengawas Kurator","Komite Bersama"],
-   cue:"Tiga lapis pengawasan, masing-masing jelas wilayahnya.",
-   html:()=>`<div class="s-in">${head(8,M(8),"Pengawasan Berlapis yang Belum Terpadu","Tiga pengawas dengan wilayah yang berbeda, sehingga tidak ada celah dan tidak ada tumpang tindih.")}
+ { id:"peran", title:"Pembagian peran", doc:[10], step:true,
+   hl:["BHP menangani perkara yang menyangkut kepentingan publik atau tidak diminati, seperti perkara pekerja dan perkara dengan harta kecil","Kurator perorangan menangani perkara bisnis atas pilihan para pihak","RUU Profesi Kurator memuat prinsipnya, sedangkan rinciannya diatur dalam RUU Kepailitan dan PKPU"],
+   cue:"BHP mengisi perkara publik dan yang tidak diminati. Perkara bisnis tetap pilihan para pihak.",
+   html:()=>`<div class="s-in">${head("I",E(1,"Sikap 3"),"Pembagian Peran yang Tegas","BHP dan kurator perorangan tidak berebut perkara. Masing-masing punya wilayahnya sendiri.")}
    <div class="content"><div class="row grow">
-     ${tile({icon:"gavelpath",k:"Yuridis",h:"Hakim Pengawas",t:"mengawasi pengurusan dan pemberesan harta pailit"})}
-     ${tile({icon:"scalepath",k:"Teknis dan administratif",h:"Majelis Pengawas Kurator",t:"mengawasi tahapan pelaksanaan pekerjaan Kurator dan Pengurus"})}
-     ${tile({icon:"userspath",k:"Pengembangan profesi",h:"Komite Bersama",t:"mengawasi pengembangan profesi dan Organisasi Profesi"})}
-   </div></div>${foot([279])}` },
+     ${tile({cls:"navy",icon:"govpath",k:"BHP menangani",h:"Perkara yang menyangkut kepentingan publik atau tidak diminati",extra:chips(["perkara pekerja","perkara dengan harta kecil"])})}
+     <span class="vs">dan</span>
+     ${tile({icon:"userspath",k:"Kurator perorangan menangani",h:"Perkara bisnis atas pilihan para pihak"})}
+   </div>
+   <div class="legend"><span class="k">Pengaturan</span><span><b>RUU Profesi Kurator</b> memuat prinsipnya</span><span><b>RUU Kepailitan dan PKPU</b> mengatur rinciannya</span></div></div>${foot([10])}` },
 
- { title:"Majelis Kehormatan Kurator", sec:5, doc:[236,237,243,244], step:true,
-   hl:["dengan persetujuan Majelis Kehormatan Kurator","paling lama 30 (tiga puluh) hari kerja","dianggap menerima permintaan persetujuan"],
-   cue:"Majelis memilah laporan sebelum kurator dipanggil, dengan batas waktu agar bukan imunitas.",
-   html:()=>`<div class="s-in">${head(5,M(5),"Batas Perlindungan dan Tanggung Jawab","Laporan terhadap kurator dipilah lebih dahulu oleh Majelis Kehormatan Kurator, dengan batas waktu agar tidak menjadi imunitas.")}
+ { id:"koordinasi", title:"Koordinasi antarlembaga", doc:[11], step:true,
+   hl:["Kementerian membina","Hakim Pengawas mengawasi perkara","organisasi profesi menegakkan etik kurator perorangan","BHP menjadi simpul data di wilayahnya","BHP tidak ditempatkan sebagai pengawas kurator privat, karena BHP sendiri adalah kurator."],
+   cue:"Empat lembaga, empat peran. Tekankan: BHP bukan pengawas kurator privat.",
+   html:()=>`<div class="s-in">${head("I",E(1,"Sikap 4"),"Koordinasi Antarlembaga","Setiap lembaga punya peran yang jelas, sehingga tidak ada tumpang tindih.")}
    <div class="content"><div class="row grow">
-     <div class="tile" style="flex:1.35"><span class="k">Majelis memilah: laporan ini termasuk</span><ol class="list">${["sengketa teknis kepailitan","pelanggaran kode etik","pelanggaran administratif","tanggung jawab perdata","dugaan tindak pidana"].map((t,i)=>`<li><span class="n">${"abcde"[i]}</span><span>${t}</span></li>`).join("")}</ol></div>
-     ${tile({cls:"navy",num:30,unit:"hari kerja",t:"batas waktu jawaban Majelis. Bila tidak dijawab, Majelis dianggap menerima permintaan persetujuan."})}
-   </div></div>${foot([236])}` },
+     ${tile({icon:"govpath",k:"Kementerian",h:"Membina"})}
+     ${tile({icon:"gavelpath",k:"Hakim Pengawas",h:"Mengawasi perkara"})}
+     ${tile({icon:"userspath",k:"Organisasi profesi",h:"Menegakkan etik kurator perorangan"})}
+     ${tile({cls:"navy",icon:"folderpath",k:"BHP",h:"Simpul data di wilayahnya"})}
+   </div>
+   <p class="punch">BHP tidak ditempatkan sebagai pengawas kurator privat, karena BHP sendiri adalah kurator.</p></div>${foot([11])}` },
 
- { title:"Pengaduan pihak terdampak", sec:12, doc:[313,314,315], step:true,
-   hl:["dapat mengajukan pengaduan kepada Majelis Pengawas Kurator","paling lama 60 (enam puluh) hari","tidak menghentikan proses pengurusan"],
-   cue:"Pengaduan terbuka dan sederhana, diputus 60 hari, tanpa menghentikan pemberesan.",
-   html:()=>`<div class="s-in">${head(12,M(12),"Perlindungan Pihak Terdampak","Setiap pihak yang dirugikan dapat mengadu dengan prosedur sederhana dan batas waktu jelas, tanpa menghentikan proses kepailitan.")}
+ // ================= II. PENGALAMAN BHP MEDAN =================
+ { id:"bag2", title:"Bagian II: Pengalaman BHP Medan", pk:2, doc:[], step:false, cls:"divider",
+   cue:"Data nyata dari perkara yang sedang ditangani BHP Medan.",
+   html:()=>divider(2,"Pengalaman BHP Medan","BHP Medan saat ini menangani 9 perkara kepailitan yang masih berjalan dengan total tagihan sekitar Rp47,35 miliar.",
+     [["1","Hartanya kecil","#harta"],["2","Perkaranya panjang","#lama"],["3","Hak pekerja dan uang negara","#pekerja"],["4","Debitor menghilang","#pekerja"]]) },
+
+ { id:"angka", title:"Perkara BHP Medan", doc:[13], step:true,
+   hl:["9 perkara kepailitan yang masih berjalan","Rp47,35 miliar","Seluruhnya jatuh ke BHP karena pemohon tidak mengusulkan kurator."],
+   cue:"Sembilan perkara, seluruhnya datang karena pemohon tidak mengusulkan kurator.",
+   html:()=>`<div class="s-in">${head("II",E(2),"Perkara yang Sedang Berjalan","Seluruhnya jatuh ke BHP karena pemohon tidak mengusulkan kurator.")}
    <div class="content"><div class="row grow">
-     <div class="tile" style="flex:1.3"><span class="k">Kepentingan yang dilindungi</span>${chips(["Debitor","Kreditor","pekerja","negara","konsumen","pihak ketiga"])}<h3>Pengaduan diajukan kepada Majelis Pengawas Kurator, dan tidak menghentikan proses pengurusan dan pemberesan.</h3></div>
-     ${tile({cls:"navy",style:"flex:.8",num:60,unit:"hari",t:"batas waktu Majelis memeriksa dan memutus pengaduan"})}
-   </div></div>${foot([313])}` },
+     ${tile({cls:"navy",num:9,unit:"perkara kepailitan",t:"yang masih berjalan"})}
+     ${tile({num:47.35,unit:"Rp miliar",t:"total tagihan, sekitar"})}
+     ${tile({icon:"folderpath",k:"Asal perkara",h:"Seluruhnya jatuh ke BHP",t:"karena pemohon tidak mengusulkan kurator"})}
+   </div>
+   <div class="legend"><span class="k">Selain itu</span><span>BHP Medan telah menyelesaikan perkara lain, antara lain <b>PT Jasa Prima Mandiri</b> yang ditangani bersama kurator perorangan.</span></div></div>${foot([13])}` },
 
- { title:"Kepailitan lintas batas", sec:11, doc:[304,305,306], step:true,
-   hl:["wajib mematuhi ketentuan hukum internasional dan perjanjian internasional","dapat bekerja sama dan berkomunikasi","bersama dengan Kurator yang terdaftar di Indonesia"],
-   cue:"Kepatuhan pada hukum internasional; wakil asing bertindak bersama kurator Indonesia.",
-   html:()=>`<div class="s-in">${head(11,M(11),"Kepailitan Lintas Batas","Untuk harta dan proses kepailitan di luar negeri, kurator berpegang pada hukum internasional dan bekerja bersama kurator Indonesia.")}
+ { id:"harta", title:"Hartanya kecil", doc:[14,15,16], step:true,
+   hl:["Pada empat perkara yang sudah dinilai, harta pailit hanya 12% sampai 40% dari tagihan."],
+   cue:"Empat perkara yang sudah dinilai: harta hanya 12 sampai 40 persen dari tagihan.",
+   html:()=>{const R=[["Badaruddin HSB","2,30","0,93",40],["Gwe Tjoen","25,66","8,00",31],["CV Hitado","1,94","0,53",27],["PT Rata Makmur","1,43","0,17",12]];
+   return `<div class="s-in">${head(1,E(2,"Temuan 1"),"Hartanya Kecil","Pada empat perkara yang sudah dinilai, harta pailit hanya 12% sampai 40% dari tagihan.")}
+   <div class="content"><div class="hb grow">${R.map(([n,tg,h,p],i)=>`<div class="r"><span class="nm">${n}<small>Tagihan Rp${tg} miliar</small><small>Harta Rp${h} miliar</small></span><span class="tr"><span class="fi" style="--w:${p}%;--dl:${(i*.15).toFixed(2)}s"></span></span><span class="pc"><span data-count="${p}">${p}</span>%</span></div>`).join("")}</div>
+   <div class="row" style="flex:none;align-items:center"><div class="hkey"><span><i></i>Tagihan (100%)</span><span><i class="n"></i>Nilai harta tercatat</span></div><p class="punch" style="font-size:32px;text-align:right">Perkara seperti ini tidak menarik bagi kurator yang bekerja atas dasar imbalan.</p></div></div>${foot([14])}`} },
+
+ { id:"lama", title:"Perkaranya panjang", doc:[17,18,19], step:true,
+   hl:["Enam dari sembilan perkara berjalan lebih dari lima tahun, yang terlama sejak 2016","Kurator perorangan bisa berhenti atau meninggal dunia, sedangkan BHP tetap berjalan sebagai lembaga."],
+   cue:"Enam dari sembilan perkara berjalan lebih dari lima tahun. BHP tetap ada sebagai lembaga.",
+   html:()=>{const R=[["Gwe Tjoen",10.6],["CV Hitado",9.4],["PT Pro Mekanika",8.3],["Badaruddin HSB",7.8],["Suparjo Rustam",6.9],["Hermanto",6.6],["PT Rata Makmur",4.1],["KSO Maju Abadi",3.0],["Frans Winner",0.8]];
+   return `<div class="s-in">${head(2,E(2,"Temuan 2"),"Perkaranya Panjang","Enam dari sembilan perkara berjalan lebih dari lima tahun, yang terlama sejak 2016.")}
    <div class="content"><div class="row grow">
-     ${tile({icon:"globepath",k:"Kepatuhan",h:"Hukum dan perjanjian internasional",t:"yang mengikat Negara Republik Indonesia"})}
-     ${tile({icon:"handpath",k:"Kerja sama",h:"Pengadilan dan kurator di negara lain",t:"dapat bekerja sama dan berkomunikasi"})}
-     ${tile({cls:"navy",icon:"shieldpath",k:"Perlindungan",h:"Wakil asing bersama kurator Indonesia",t:"untuk harta Debitor yang berada di wilayah Indonesia"})}
-   </div></div>${foot([304])}` },
+     <div class="dur" style="flex:1.75"><span class="five"><span>5 tahun</span></span>${R.map(([n,v],i)=>{const w=(v/14*100).toFixed(1)+"%";return `<div class="r"><span class="nm">${n}</span><span class="tr" style="--w:${w}"><span class="fi${v<5?" lo":""}" style="--dl:${(i*.07).toFixed(2)}s"></span><span class="v" style="--dl:${(i*.07).toFixed(2)}s">${String(v.toFixed(1)).replace(".",",")} tahun</span></span></div>`;}).join("")}</div>
+     ${tile({cls:"navy",num:6,unit:"dari 9 perkara",t:"berjalan lebih dari lima tahun. Kurator perorangan bisa berhenti atau meninggal dunia, sedangkan BHP tetap berjalan sebagai lembaga."})}
+   </div></div>${foot([17])}`} },
 
- { title:"Rujukan", doc:[112,114,127,133,136,141], step:false,
-   cue:"Seluruh usulan berpijak pada rujukan yang dapat diverifikasi.",
-   html:()=>`<div class="s-in">${head(BI("bookpath"),"Daftar rujukan","Disusun di Atas Rujukan yang Kuat","Seluruh usulan berpijak pada peraturan, putusan, dan dokumen yang dapat diverifikasi.")}
-   <div class="content"><div class="row grow">${[[RUJ.uu,"undang-undang dan peraturan setingkat undang-undang"],[RUJ.pm,"peraturan menteri"],[RUJ.put,"Putusan Mahkamah Konstitusi"],[RUJ.res+RUJ.int,"dokumen resmi dan internasional"]].map(([n,l])=>tile({num:n,t:l})).join("")}</div>
-   <div class="legend"><span class="k">Antara lain</span><span>UU Kepailitan dan PKPU · UU Administrasi Pemerintahan · UU PNBP · UU Pelindungan Data Pribadi · UU ASN · KUHP · Putusan MK 67/PUU-XI/2013 · UNCITRAL Model Law</span></div></div>${foot([112])}` },
+ { id:"pekerja", title:"Hak pekerja dan debitor menghilang", doc:[20,21], step:true,
+   hl:["permohonan diajukan pekerja dan pengadilan menunjuk BHP Medan sebagai pengurus lalu kurator","Tagihan para pekerja pemohon sudah lunas, sisanya tagihan pajak.","debitor tidak ditemukan sekitar lima tahun sehingga penyelesaian perkara tertahan"],
+   cue:"Dua contoh nyata: perkara pekerja di PT Rata Makmur, dan debitor yang menghilang di CV Hitado.",
+   html:()=>`<div class="s-in">${head("II",E(2,"Temuan 3 dan 4"),"Hak Pekerja dan Debitor yang Menghilang","Perkara yang menyangkut kepentingan publik ditangani BHP sampai tuntas.")}
+   <div class="content"><div class="row grow">
+     ${tile({cls:"navy",icon:"userspath",k:"Temuan 3 · PT Rata Makmur",h:"Menyangkut hak pekerja dan uang negara",t:"Permohonan diajukan pekerja dan pengadilan menunjuk BHP Medan sebagai pengurus lalu kurator. Tagihan para pekerja pemohon sudah lunas, sisanya tagihan pajak."})}
+     ${tile({icon:"searchpath",k:"Temuan 4 · CV Hitado",h:"Debitor menghilang",t:"Debitor tidak ditemukan sekitar lima tahun sehingga penyelesaian perkara tertahan."})}
+   </div></div>${foot([20])}` },
 
- { title:"Penutup", doc:[108], step:false, cls:"end",
-   hl:["memperkuat kedudukan BHP sebagai Kurator Negara"],
+ { id:"nasional", title:"Data nasional", doc:[22], step:true,
+   hl:["perkara niaga naik 19,18%, dari 782 menjadi 932 perkara","Data perbandingan perkara BHP dan kurator privat belum tersedia, karena pengadilan tidak mencatat siapa kurator yang diangkat."],
+   cue:"Perkara niaga naik, tetapi tidak ada data siapa kurator yang diangkat. Ini dijawab Pasal D ayat (4).",
+   html:()=>`<div class="s-in">${head(BI("searchpath"),E(2,"Secara nasional"),"Perkara Naik, Datanya Belum Ada","Laporan Tahunan Mahkamah Agung 2025 mencatat perkara niaga naik 19,18%.")}
+   <div class="content"><div class="row grow" style="align-items:center">
+     ${tile({k:"Dari",num:782,unit:"perkara niaga"})}
+     <span class="vs">${ARW}</span>
+     ${tile({cls:"navy",k:"Menjadi",num:932,unit:"perkara niaga"})}
+     ${tile({k:"Naik",num:19.18,unit:"persen"})}
+   </div>
+   <p class="punch">Data perbandingan perkara BHP dan kurator privat belum tersedia, karena pengadilan tidak mencatat siapa kurator yang diangkat.</p></div>${foot([22])}` },
+
+ // ================= III. JAWABAN KLASTER 1 =================
+ { id:"bag3", title:"Bagian III: Jawaban Klaster 1", pk:3, doc:[], step:false, cls:"divider",
+   cue:"Tiga pertanyaan dari Klaster 1 dan jawaban BHP Medan.",
+   html:()=>divider(3,"Jawaban Klaster 1","Tidak perlu memisahkan BHP dari tugas kurator. Yang diperlukan adalah pembagian peran yang jelas.",
+     [["1","Mekanisme dan kendala","#mekanisme"],["2","Perlukah pemisahan peran","#pemisahan"],["3","Kewajiban memakai BHP","#kewajiban"]]) },
+
+ { id:"mekanisme", title:"Mekanisme BHP sebagai kurator", doc:[24,25], step:true,
+   hl:["Kepala BHP menugaskan tim Kurator Keperdataan","di bawah pengawasan Hakim Pengawas","Imbalan jasa BHP disetor ke kas negara."],
+   cue:"Alur kerja BHP dari penunjukan sampai laporan. Imbalannya masuk kas negara.",
+   html:()=>`<div class="s-in">${head(1,E(3,"Pertanyaan 1"),"Bagaimana BHP Bekerja sebagai Kurator","Bagaimana mekanisme BHP sebagai kurator, dan adakah kendala dengan kurator privat?")}
+   <div class="content"><div class="steps" style="flex:1">${[["gavelpath","Ditunjuk pengadilan"],["userspath","Kepala BHP menugaskan tim Kurator Keperdataan"],["folderpath","Tim mengurus, menilai, dan menjual harta"],["docpath","Melapor secara berkala"]].map(([ic,t],i)=>`<div class="sp"><svg class="ico sm" viewBox="0 0 24 24">${I(ic)}</svg><span>${t}</span></div>${i<3?ARW:""}`).join("")}</div>
+   <div class="row grow">
+     ${tile({icon:"gavelpath",k:"Pengawasan",h:"Di bawah pengawasan Hakim Pengawas"})}
+     ${tile({cls:"navy",icon:"coinspath",k:"Imbalan jasa",h:"Imbalan jasa BHP disetor ke kas negara"})}
+   </div></div>${foot([25])}` },
+
+ { id:"jpm", title:"Bertugas bersama kurator perorangan", doc:[26], step:true,
+   hl:["BHP Medan diangkat sebagai kurator dalam putusan pailit","Kerja sama berjalan baik.","Harta senilai Rp12,85 miliar berhasil dibereskan","kepailitan berakhir pada Mei 2019, sekitar empat tahun"],
+   cue:"Contoh nyata kerja sama BHP dan kurator perorangan yang berjalan baik.",
+   html:()=>`<div class="s-in">${head(1,E(3,"Pertanyaan 1"),"Bersama Kurator Perorangan: PT Jasa Prima Mandiri","Nomor 1/Pdt.Sus-Pailit/2015/PN Niaga Mdn. Kerja sama berjalan baik.")}
+   <div class="content"><div class="steps">${[["Putusan pailit","BHP Medan diangkat sebagai kurator"],["Mei 2015","Kurator tambahan diangkat"],["Mei 2019","Kepailitan berakhir, sekitar empat tahun"]].map(([k,t],i)=>`<div class="sp" style="flex-direction:column;align-items:flex-start;gap:6px"><span class="k" style="margin:0">${k}</span><span>${t}</span></div>${i<2?ARW:""}`).join("")}</div>
+   <div class="row grow">
+     ${tile({cls:"navy",num:12.85,unit:"Rp miliar",t:"harta berhasil dibereskan"})}
+     ${tile({icon:"handpath",k:"Hasilnya",h:"Kerja sama berjalan baik",t:"BHP Medan dan kurator perorangan menangani perkara yang sama sampai selesai."})}
+   </div></div>${foot([26])}` },
+
+ { id:"imbalan", title:"Kendala imbalan jasa", doc:[27], step:true,
+   hl:["imbalan BHP dihitung sebagai PNBP sebesar 8% dari nilai bersih hasil penjualan, yaitu Rp379,8 juta","imbalan kurator tambahan dihitung dari nilai kotor dan ditetapkan 5%, yaitu Rp642,7 juta","karena tidak ada aturan pembagian imbalan berdasarkan porsi tugas"],
+   cue:"Kurator yang diangkat lebih dahulu justru menerima lebih kecil, karena aturannya berbeda. Ini dijawab Pasal D.",
+   html:()=>`<div class="s-in">${head(1,E(3,"Pertanyaan 1"),"Kendalanya: Imbalan Jasa","Kurator tambahan memperoleh imbalan lebih besar daripada BHP sebagai kurator yang diangkat lebih dahulu.")}
+   <div class="content"><div class="hb money grow">
+     <div class="r"><span class="nm">BHP Medan<small>PNBP · 8% dari nilai bersih</small></span><span class="tr"><span class="fi" style="--w:59.1%"></span></span><span class="pc">Rp379,8 jt</span></div>
+     <div class="r"><span class="nm">Kurator tambahan<small>5% dari nilai kotor</small></span><span class="tr"><span class="fi g" style="--w:100%;--dl:.2s"></span></span><span class="pc">Rp642,7 jt</span></div>
+   </div>
+   <p class="punch">Tidak ada aturan pembagian imbalan berdasarkan porsi tugas, dan belum ada pembagian tugas serta tanggung jawab di antara keduanya.</p></div>${foot([27])}` },
+
+ { id:"pemisahan", title:"Perlukah pemisahan peran", doc:[28,29,30,31,32,33], step:true,
+   hl:["Tidak perlu memisahkan BHP dari tugas kurator. Yang diperlukan adalah pembagian peran yang jelas","wali pengawas adalah tugas BHP dalam perwalian anak (Pasal 366 KUHPerdata), bukan pengawas kurator"],
+   cue:"Jawaban: tidak perlu dipisahkan, cukup pembagian peran yang jelas, karena tiga alasan.",
+   html:()=>`<div class="s-in">${head(2,E(3,"Pertanyaan 2"),"Tidak Perlu Dipisahkan, Cukup Dibagi dengan Jelas","Perlukah pemisahan tegas peran BHP sebagai balai harta atau wali pengawas dengan peran kurator privat?")}
+   <div class="content"><div class="row grow">
+     ${tile({icon:"folderpath",k:"Alasan a",h:"Tanpa BHP, perkara yang tidak diminati kurator privat tidak punya pelaksana."})}
+     ${tile({icon:"handpath",k:"Alasan b",h:"BHP tidak berebut perkara dengan kurator privat.",t:"Yang ditangani BHP adalah perkara yang tidak diambil pihak lain."})}
+     ${tile({cls:"navy",icon:"bookpath",k:"Alasan c",h:"Pengalaman BHP membuatnya paling siap",t:"mengurus warisan, perwalian anak, dan harta orang yang menghilang."})}
+   </div>
+   <div class="legend"><span class="k">Perlu dicatat</span><span><b>Wali pengawas</b> adalah tugas BHP dalam perwalian anak (Pasal 366 KUHPerdata), bukan pengawas kurator.</span></div></div>${foot([29])}` },
+
+ { id:"kewajiban", title:"Kewajiban memakai BHP", doc:[34,35], step:true,
+   hl:["BHP Medan setuju","Di luar itu, para pihak tetap bebas memilih kurator."],
+   cue:"Setuju untuk lima jenis perkara. Di luar itu para pihak tetap bebas memilih.",
+   html:()=>`<div class="s-in">${head(3,E(3,"Pertanyaan 3"),"Kewajiban Memakai BHP: Setuju","Bagaimana pandangan BHP tentang kewajiban memakai BHP pada kasus tertentu?")}
+   <div class="content"><div class="row grow">
+     <div class="tile navy" style="flex:1.5"><span class="k">BHP Medan setuju, terutama untuk</span><ol class="list tight">${["debitor yang meninggal tanpa ahli waris atau hartanya tidak terurus","debitor yang tidak diketahui keberadaannya","perkara pekerja","perkara dengan harta kecil","perkara yang kehilangan kurator"].map((t,i)=>`<li><span class="n" style="background:var(--gold);color:var(--navy)">${i+1}</span><span style="color:#fff">${t}</span></li>`).join("")}</ol></div>
+     ${tile({icon:"userspath",k:"Di luar itu",h:"Para pihak tetap bebas memilih kurator",t:"Kriteria dan tata cara penunjukannya diatur dalam RUU Kepailitan dan PKPU."})}
+   </div></div>${foot([35])}` },
+
+ // ================= IV. USULAN PASAL =================
+ { id:"bag4", title:"Bagian IV: Usulan Pasal", pk:4, doc:[], step:false, cls:"divider",
+   cue:"Empat usulan pasal untuk RUU Profesi Kurator. Dokumen membuka setiap pasalnya.",
+   html:()=>divider(4,"Usulan Pasal untuk RUU Profesi Kurator","Empat pasal yang dapat langsung dipakai, masing-masing disertai analisisnya.",
+     [["A","Kedudukan BHP","#pasalA"],["B","Pembagian Peran","#pasalB"],["C","Standar dan Pembinaan BHP","#pasalC"],["D","Koordinasi dan Penugasan Bersama","#pasalD"]]) },
+
+ { id:"pasalA", title:"Pasal A: Kedudukan BHP", doc:[39,40,41], step:true,
+   hl:["Kurator terdiri atas Balai Harta Peninggalan dan Kurator perseorangan.","tidak memerlukan izin atau pendaftaran","dilaksanakan oleh pejabat fungsional Kurator Keperdataan"],
+   cue:"BHP masuk sistem profesi kurator tanpa harus mengikuti aturan izin untuk orang perseorangan.",
+   html:()=>`<div class="s-in">${head("A",E(4,"Pasal A"),"Kedudukan BHP","Pasal ini memastikan BHP masuk dalam sistem profesi kurator tanpa harus mengikuti aturan izin yang dirancang untuk orang perseorangan.")}
+   <div class="content"><div class="eq"><span class="q n"><small>Ayat (1)</small>Kurator</span><span class="op">=</span><span class="q g">Balai Harta Peninggalan</span><span class="op">+</span><span class="q">Kurator perseorangan</span></div>
+   <div class="row grow">
+     ${tile({icon:"govpath",ay:"Ayat (2)",h:"Lembaga negara yang menjalankan tugas Kurator dan Pengurus berdasarkan undang-undang",t:"tidak memerlukan izin atau pendaftaran"})}
+     ${tile({cls:"navy",icon:"userspath",ay:"Ayat (3)",h:"Dilaksanakan oleh pejabat fungsional Kurator Keperdataan"})}
+   </div></div>${foot([39])}` },
+
+ { id:"pasalB", title:"Pasal B: Pembagian Peran", doc:[46,47,48], step:true,
+   hl:["kepentingan publik, hak pekerja, harta peninggalan yang tidak terurus, Debitor yang tidak diketahui keberadaannya, dan perkara dengan nilai harta kecil","Kurator dan Pengurus diangkat berdasarkan usulan para pihak","diatur dalam undang-undang mengenai kepailitan dan penundaan kewajiban pembayaran utang"],
+   cue:"Kepastian pembagian peran tanpa mengulang hukum acara kepailitan.",
+   html:()=>`<div class="s-in">${head("B",E(4,"Pasal B"),"Pembagian Peran","Pasal ini memberi kepastian pembagian peran tanpa mengulang materi hukum acara kepailitan, sehingga RUU Profesi Kurator tetap selaras dengan RUU Kepailitan dan PKPU.")}
+   <div class="content"><div class="row grow">
+     ${tile({cls:"navy",style:"flex:1.6",ay:"Ayat (1) · BHP menjalankan tugas pada perkara",extra:chips(["kepentingan publik","hak pekerja","harta peninggalan yang tidak terurus","Debitor yang tidak diketahui keberadaannya","nilai harta kecil"])})}
+     ${tile({icon:"userspath",ay:"Ayat (2) · Di luar itu",h:"Kurator dan Pengurus diangkat berdasarkan usulan para pihak"})}
+   </div>
+   <div class="legend"><span class="k">Ayat (3)</span><span>Kriteria dan tata cara penunjukan diatur dalam <b>undang-undang mengenai kepailitan dan PKPU</b>.</span></div></div>${foot([46])}` },
+
+ { id:"pasalC", title:"Pasal C: Standar dan Pembinaan BHP", doc:[53,54], step:true,
+   hl:["tunduk pada standar profesi dan kode etik Kurator yang sama dengan Kurator perseorangan","dilakukan oleh Menteri dengan melibatkan unsur lembaga pengawas profesi"],
+   cue:"Status lembaga negara bukan keistimewaan. Standarnya satu.",
+   html:()=>`<div class="s-in">${head("C",E(4,"Pasal C"),"Standar dan Pembinaan BHP","Status lembaga negara tidak boleh menjadi keistimewaan.")}
+   <div class="content"><div class="row grow">
+     ${tile({cls:"navy",icon:"scalepath",ay:"Ayat (1) · Standar",h:"Standar profesi dan kode etik yang sama dengan Kurator perseorangan"})}
+     ${tile({icon:"govpath",ay:"Ayat (2) · Pembinaan",h:"Oleh Menteri, dengan melibatkan unsur lembaga pengawas profesi"})}
+   </div>
+   <p class="punch">Standarnya satu, hanya jalur pembinaannya yang menyesuaikan.</p></div>${foot([53])}` },
+
+ { id:"pasalD", title:"Pasal D: Koordinasi dan Penugasan Bersama", doc:[59,60,61,62], step:true,
+   hl:["imbalan jasa dibagi sesuai porsi tugas","merupakan Penerimaan Negara Bukan Pajak","wajib mengungkapkan hubungan yang dapat menimbulkan benturan kepentingan","Balai Harta Peninggalan menjadi simpul data di wilayah kerjanya"],
+   cue:"Menjawab kendala PT Jasa Prima Mandiri dan kekosongan data perkara.",
+   html:()=>`<div class="s-in">${head("D",E(4,"Pasal D"),"Koordinasi dan Penugasan Bersama","Pasal ini mencegah perbedaan imbalan tanpa melihat porsi tugas, menjaga independensi, dan menyediakan data yang saat ini belum ada.")}
+   <div class="content"><div class="g2 grow">
+     ${tile({icon:"handpath",ay:"Ayat (1)",h:"Imbalan jasa dibagi sesuai porsi tugas",t:"bila BHP dan Kurator perseorangan ditunjuk dalam perkara yang sama"})}
+     ${tile({icon:"coinspath",ay:"Ayat (2)",h:"Bagian imbalan jasa BHP merupakan PNBP"})}
+     ${tile({icon:"shieldpath",ay:"Ayat (3)",h:"Setiap Kurator wajib mengungkapkan benturan kepentingan"})}
+     ${tile({cls:"navy",icon:"folderpath",ay:"Ayat (4)",h:"Data Kurator dan perkara terintegrasi",t:"BHP menjadi simpul data di wilayah kerjanya"})}
+   </div></div>${foot([59])}` },
+
+ // ================= V. CATATAN =================
+ { id:"catatan", title:"Bagian V: Catatan untuk RUU Kepailitan dan PKPU", pk:5, doc:[66], step:true, cls:"divider",
+   hl:["kewenangan BHP menjadi pengurus PKPU","kriteria dan tata cara penunjukan BHP pada perkara tertentu","kepailitan harta peninggalan tanpa ahli waris","kelanjutan perkara apabila debitor menghilang","Kedua RUU perlu disusun selaras sejak awal."],
+   cue:"Empat hal yang lebih tepat diatur dalam RUU Kepailitan dan PKPU. Kedua RUU disusun selaras.",
+   html:()=>`<div class="s-in">${rail(5)}
+   <div class="pk">Bagian V dari V</div><h2>Catatan untuk RUU Kepailitan dan PKPU</h2><p class="tor">Beberapa hal lebih tepat diatur dalam RUU Kepailitan dan PKPU, yaitu:</p>
+   <div class="dms" style="margin-top:6px">${["Kewenangan BHP menjadi pengurus PKPU","Kriteria dan tata cara penunjukan BHP pada perkara tertentu","Kepailitan harta peninggalan tanpa ahli waris","Kelanjutan perkara apabila debitor menghilang"].map((t,i)=>`<span class="dm st"><span class="badge">${i+1}</span><span>${t}</span></span>`).join("")}</div>
+   <p class="punch" style="margin-top:auto">Kedua RUU perlu disusun selaras sejak awal.</p></div>${foot([66])}` },
+
+ { id:"penutup", title:"Penutup", doc:[67,68,69], step:false, cls:"end",
    cue:"Harapan BHP Medan dan ucapan terima kasih.",
-   html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div><div class="eyebrow" style="color:var(--gold)">Bagian III · Penutup</div>
-   <p class="lead" style="font-size:52px">BHP Medan berharap RUU tentang Profesi Kurator dapat memperkuat kedudukan BHP sebagai Kurator Negara.</p>
+   html:()=>`<div class="s-in"><div class="logos">${logoHTML()}</div><div class="eyebrow" style="color:var(--gold)">Penutup</div>
+   <p class="lead" style="font-size:50px">BHP dimuat dalam RUU sebagai lembaga negara yang menjalankan tugas kurator, dengan satu standar profesi untuk semua kurator.</p>
    <div class="thanks">Terima kasih</div>
-   <div class="who"><b>Syafriadi Lubis</b> · Kepala Balai Harta Peninggalan Medan</div></div>` },
+   <div class="who"><b>Syafriadi Lubis, M.H.</b> · Kepala Balai Harta Peninggalan Medan</div></div>` },
 ];
