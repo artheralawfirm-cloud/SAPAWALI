@@ -456,7 +456,7 @@ kbd{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;border
 @media (max-width:900px) and (orientation:portrait){
   #app{height:100dvh}
   #viewport{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);transition:none}
-  #stageArea{aspect-ratio:16/9;padding:calc(14px + env(safe-area-inset-top,0px)) 10px 10px;touch-action:manipulation}
+  #stageArea{aspect-ratio:16/9;padding:calc(12px + env(safe-area-inset-top,0px)) 6px 8px;touch-action:manipulation}
   #docPanel,#mcap{grid-row:2;grid-column:1}
   #app:not(.doc-open):not(.read) #docPanel{display:none}
   #app.doc-open #mcap,#app.read #mcap,#app.read #stageArea,#app.read #toc{display:none}
@@ -514,18 +514,29 @@ kbd{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;border
   #palBox{max-height:80vh}
   #presNotes{font-size:17px}
 }
-/* HP rebah: slide memenuhi tinggi layar, bilah kontrol melayang dan menghilang sendiri */
+/* HP berdiri: ukuran kertas dokumen (ditulis setelah aturan bersama agar berlaku) */
+@media (max-width:900px) and (orientation:portrait){
+  #paper{padding:22px 16px 36px;font-size:15px}
+}
+/* HP rebah: slide tetap dominan, dokumen 40% di kanan, bilah kontrol punya ruang sendiri di bawah slide */
 @media (orientation:landscape) and (max-height:500px){
   #app{height:100dvh}
-  #stageArea{padding:8px 8px 8px max(8px,env(safe-area-inset-left,0px));touch-action:manipulation}
-  #app.doc-open{--docw:46%}
+  #stageArea{padding:6px 8px 50px max(8px,env(safe-area-inset-left,0px));touch-action:manipulation}
+  #app.doc-open{--docw:40%}
   #docPanel{padding-right:env(safe-area-inset-right,0px)}
-  #paper{padding:20px 16px 32px;font-size:15px}
+  #docBar{padding:8px 10px;gap:6px}
+  #docBar .ttl b{font-size:13px}
+  #docBar .ttl span{font-size:12px}
+  .dbtn{padding:7px 8px}
+  #docScroll{padding:10px 8px 24px}
+  #paper{padding:18px 14px 28px;font-size:14.5px}
+  #toolbar{bottom:calc(5px + env(safe-area-inset-bottom,0px));padding:3px}
+  .tb{height:34px;min-width:36px}
+  #app.idle #toolbar:not(:hover):not(:focus-within){opacity:1;transform:translateX(-50%);pointer-events:auto}
   #toc{width:220px;padding:14px 10px}
   #presTop{margin-bottom:8px}
   #timer{font-size:30px}
 }
-
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}
 }
