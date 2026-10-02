@@ -181,7 +181,7 @@ button{font:inherit;color:inherit}
 .punch{font:800 40px/1.25 var(--f-sans);color:var(--navy);margin:0;text-wrap:balance}
 .flow{position:relative;height:420px;flex:none}
 .flow .fl{position:absolute;left:0;top:0;width:1416px;height:420px}
-.fb{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px 24px;border-radius:20px;font:700 27px/1.25 var(--f-sans);text-wrap:balance}
+.fb{position:absolute;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px 16px;border-radius:20px;font:700 25px/1.22 var(--f-sans);text-wrap:balance}
 .fb.start{background:var(--navy);color:#fff}
 .fb.q{background:#fff;border:3px solid var(--navy);color:var(--navy)}
 .fb.res{background:var(--mist);color:var(--text);font-weight:600}
@@ -212,6 +212,76 @@ button{font:inherit;color:inherit}
 .end .who{font:500 26px/1.4 var(--f-sans);color:#E6ECF7}
 .end .thanks{margin-top:auto}
 
+
+/* ---------- 5 pokok pembahasan ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.pcell{border:0;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:14px;padding:28px 24px;border-radius:24px;background:var(--mist);color:var(--navy);font-family:var(--f-sans)}
+.pcell:hover{outline:3px solid var(--gold)}
+.pcell .badge{width:64px;height:64px;font-size:32px;border-radius:16px;margin:0}
+.pcell b{font:800 30px/1.15 var(--f-sans);text-wrap:balance}
+.pcell .pd{font:600 22px/1.35 var(--f-sans);color:var(--muted);text-wrap:pretty}
+.pcell .pm{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.pcell .pm i{font:800 20px/1 var(--f-sans);font-style:normal;padding:8px 12px;border-radius:999px;background:var(--navy);color:var(--gold)}
+.divider{background:var(--navy);color:#fff}
+.divider .s-in{padding:70px 92px 100px;gap:24px}
+.divider .rail{display:flex;gap:14px}
+.divider .rail span{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.16)}
+.divider .rail span.done{background:rgba(226,168,23,.45)}
+.divider .rail span.on{background:var(--gold)}
+.divider .pk{margin-top:44px;font:800 26px/1 var(--f-sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.divider h2{font:800 92px/1.04 var(--f-sans);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.divider .tor{font:500 34px/1.45 var(--f-sans);color:#DCE4F2;margin:0;max-width:1300px;text-wrap:pretty}
+.divider .dms{margin-top:auto;display:flex;flex-wrap:wrap;gap:14px}
+.divider .dm{border:0;cursor:pointer;display:inline-flex;align-items:center;gap:14px;padding:12px 26px 12px 12px;border-radius:999px;background:rgba(255,255,255,.09);color:#fff;font:700 26px/1 var(--f-sans)}
+.divider .dm:hover{background:rgba(255,255,255,.18)}
+.divider .dm .badge{width:48px;height:48px;font-size:24px;border-radius:50%;background:var(--gold);color:var(--navy);margin:0}
+.divider .s-foot{color:#B8C6E0}
+.divider .dm.st{cursor:default}
+.divider .dm.st:hover{background:rgba(255,255,255,.09)}
+.divider .punch{color:var(--gold);font-size:38px}
+
+/* ---------- Poin 1: grafik dan komponen ---------- */
+.go{cursor:pointer;transition:outline-color .2s}
+.go:hover{outline:3px solid var(--gold)}
+.hb{display:flex;flex-direction:column;justify-content:center;gap:22px}
+.hb .r{display:grid;grid-template-columns:300px 1fr 150px;align-items:center;gap:26px}
+.hb .nm{font:800 30px/1.1 var(--f-sans);color:var(--navy)}
+.hb .nm small{display:block;font:600 21px/1.3 var(--f-sans);color:var(--muted);margin-top:4px;white-space:nowrap}
+.hb .nm small + small{margin-top:0}
+.hb .tr{position:relative;height:58px;border-radius:14px;background:#D5DDEA;overflow:hidden}
+.hb .fi{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:14px;background:var(--navy);transition:width 1.1s cubic-bezier(.2,.8,.2,1) var(--dl,0s)}
+.hb .fi.g{background:var(--gold)}
+.slide.active .hb .fi{width:var(--w)}
+.hb .pc{font:800 58px/1 var(--f-sans);color:var(--navy);text-align:right;font-variant-numeric:tabular-nums}
+.hb.money .r{grid-template-columns:360px 1fr 300px}
+.hb.money .tr{background:transparent;height:72px}
+.hb.money .pc{font-size:46px}
+.hkey{display:flex;gap:30px;font:600 22px/1 var(--f-sans);color:var(--muted)}
+.hkey i{display:inline-block;width:26px;height:18px;border-radius:5px;margin-right:10px;vertical-align:-2px;background:#D5DDEA}
+.hkey i.n{background:var(--navy)}
+.dur{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:40px 0 0}
+.dur .r{display:grid;grid-template-columns:250px 1fr;align-items:center;gap:20px;height:44px}
+.dur .nm{font:700 24px/1 var(--f-sans);color:var(--text);text-align:right;white-space:nowrap}
+.dur .tr{position:relative;height:38px}
+.dur .fi{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:0 10px 10px 0;background:var(--navy);transition:width 1s cubic-bezier(.2,.8,.2,1) var(--dl,0s)}
+.dur .fi.lo{background:#C3CEDF}
+.dur .v{position:absolute;left:calc(var(--w) + 12px);top:50%;transform:translateY(-50%);font:800 23px/1 var(--f-sans);color:var(--navy);white-space:nowrap;opacity:0;transition:opacity .4s ease calc(var(--dl,0s) + .8s)}
+.slide.active .dur .fi{width:var(--w)}
+.slide.active .dur .v{opacity:1}
+.dur .five{position:absolute;top:0;bottom:0;left:calc(270px + (100% - 270px) * 5 / 14);border-left:3px dashed var(--gold-ink)}
+.dur .five span{position:absolute;top:0;left:10px;font:800 21px/1 var(--f-sans);color:var(--gold-ink);white-space:nowrap}
+.eq{display:flex;align-items:center;gap:22px;flex:none}
+.eq .q{padding:22px 34px;border-radius:20px;background:var(--mist);font:800 34px/1.15 var(--f-sans);color:var(--navy)}
+.eq .q.n{background:var(--navy);color:#fff}
+.eq .q.g{background:var(--gold);color:var(--navy)}
+.eq .op{font:800 56px/1 var(--f-sans);color:var(--gold-ink)}
+.eq small{display:block;font:700 18px/1.2 var(--f-sans);letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:6px}
+.tile .ay{font:800 20px/1 var(--f-sans);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink)}
+.tile.navy .ay{color:var(--gold)}
+.g2 .tile > :not(.ico){grid-column:2}
+.g2 .tile .ico{grid-row:1 / span 3}
+.cover .sub{max-width:900px}
+.vs{flex:none !important;align-self:center;font:800 40px/1 var(--f-sans);color:var(--gold-ink)}
 
 /* ---------- efek dokumen (v3) ---------- */
 #paper{max-width:820px;font-size:18px}
@@ -283,15 +353,17 @@ button{font:inherit;color:inherit}
 .kop{text-align:center;line-height:1.35}
 .kop.k0,.kop.k1{font:700 15px/1.3 var(--f-serif);letter-spacing:.02em}
 .kop.k2{font:800 19px/1.35 var(--f-serif)}
-.kop.k3,.kop.k4,.kop.k5{font-size:13.5px}
-.kop.k5{padding-bottom:12px;border-bottom:3px double #1A1E26;margin-bottom:26px}
+.kop.k3{font:800 15.5px/1.35 var(--f-serif);padding:6px 0 12px;border-bottom:3px double #1A1E26;margin-bottom:26px}
 .judul{text-align:center;font-weight:700;line-height:1.4}
 .judul.j9{margin:4px 40px 18px;font-weight:600}
 .blk{position:relative;margin:0 0 .75em;padding-left:calc(var(--ind,0) * 1.9em);border-radius:4px}
 .h1{font-weight:700;text-transform:uppercase;margin-top:1.6em;display:grid;grid-template-columns:2.2em 1fr}
 .h2,.h3,.li{display:grid;grid-template-columns:2em 1fr;column-gap:.2em}
 .h2{font-weight:700;margin-top:1.3em}
-.h3{font-weight:700;margin-top:1em}
+.h3,.h4{font-weight:700;margin-top:1em}
+.h4{margin-bottom:.4em}
+.fig{margin:.4em 0 .4em;text-align:center}
+.fig img{max-width:100%;height:auto;display:inline-block;border-radius:4px}
 .li .lb{text-align:left}
 .quote-d{margin-left:calc(var(--ind,0)*1.9em + 2.5em);margin-right:2.5em;padding-left:0;font-style:italic}
 .cite{text-align:right}
@@ -306,7 +378,7 @@ button{font:inherit;color:inherit}
 .card .ct .ctt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .card .ct em{font:600 12.5px/1.2 var(--f-sans);font-style:normal;color:#B8C6E0}
 .card.flash{box-shadow:0 0 0 4px rgba(226,168,23,.65),0 10px 30px rgba(20,40,75,.18)}
-.sub{text-align:center;font-weight:700;margin:-.2em 0 1em}
+#paper .sub{text-align:center;font-weight:400;font-size:15px;margin:-.2em 0 1.2em}
 .mb{margin:1em 0 .6em calc(var(--ind,0)*1.9em);padding:12px 16px 12px 18px;border-left:5px solid var(--gold);background:#FBF6E6;border-radius:0 6px 6px 0}
 .mb .b{color:var(--gold-ink)}
 .ref{margin-top:-.2em;font-size:.94em}
@@ -540,7 +612,7 @@ kbd{display:inline-block;min-width:30px;text-align:center;padding:5px 8px;border
   <div class="ov" id="pal" hidden>
     <div id="palBox" role="dialog" aria-label="Cari di dokumen">
       <label class="sr" for="palIn">Cari di dokumen</label>
-      <input id="palIn" autocomplete="off" placeholder="Cari kata dalam dokumen, misalnya: rahasia bank, 6 (enam) bulan, Pasal 234">
+      <input id="palIn" autocomplete="off" placeholder="Cari kata dalam dokumen, misalnya: imbalan jasa, harta kecil, Pasal B">
       <div id="palRes"></div>
       <div id="palFoot">↑ ↓ pilih · Enter buka di dokumen dan slide terkait · Esc tutup</div>
     </div>
@@ -592,28 +664,16 @@ const META = []; {
     else if(b.k==="h2"){h2=b.l.replace(".","");h3="";h2t=plain(i);ind=1}
     else if(b.k==="h3" && b.v===2){h3=b.l.replace(".","");ind=2}
     if(b.k==="cs"){card=i;cardTitle=""}
-    if(b.k==="ct"){cardTitle=plain(i).trim();cardNo=(b.l||"").replace(".","")}
+    if(b.k==="ct"){cardTitle=plain(i).trim()+(b.m?" ("+b.m+")":"");cardNo=(b.l||"").replace(".","")}
     const path=[h1,h2,h3].filter(Boolean).join(".");
     META[i]={path,h1t,h2t,card:card,cardTitle,cardNo,ind};
     if(b.k==="ce"){card=-1}
   });
 }
 const COUNT = {
-  pasal: DOC.filter(b=>b.k==="cc"&&plain(DOC.indexOf(b)).startsWith("Pasal")).length,
+  pasal: DOC.filter(b=>b.k==="ct").length,
   ayat: DOC.filter((b,i)=>b.k==="li"&&META[i].card>=0&&/^\(\d+\)$/.test(b.l)).length,
-  definisi: DOC.filter((b,i)=>b.k==="li"&&META[i].card===DOC.findIndex(x=>x.k==="cs")).length,
-  kartu: DOC.filter(b=>b.k==="ct").length,
-  penjelasan: DOC.filter(b=>b.k==="note").length,
 };
-// rujukan per kelompok (hitung otomatis dari Daftar Rujukan)
-const RUJ = (()=>{const r={uu:0,pm:0,put:0,res:0,int:0};let g="",on=false;
-  const G={"Peraturan Menteri":"pm","Putusan Pengadilan":"put","Dokumen Resmi":"res","Dokumen Internasional":"int"};
-  DOC.forEach((b,i)=>{ const t=plain(i).trim();
-    if(b.k==="h1"){ on = t==="DAFTAR RUJUKAN"; return; }
-    if(!on) return;
-    if(b.k==="h3"){ g = t.startsWith("Undang-Undang dan") ? "uu" : (G[t]||""); return; }
-    if(b.k==="li" && g) r[g]++; });
-  return r;})();
 // nomor Lampiran I -> indeks awal kartu
 const LAMP = {}; DOC.forEach((b,i)=>{ if(b.k==="ct") LAMP[(b.l||"").replace(".","")]=i-1; });
 function pasalCount(cardStart){let n=0,a=0;for(let i=cardStart+1;DOC[i].k!=="ce";i++){if(DOC[i].k==="cc"&&plain(i).startsWith("Pasal"))n++;if(DOC[i].k==="li"&&/^\(\d+\)$/.test(DOC[i].l))a++;}return {n,a};}
@@ -623,7 +683,7 @@ const I = n => ICON[n]||"";
 const logoHTML = (cls="") => LOGOS.map(l=>`<img src="${l.src}" alt="${l.alt}" class="${cls}">`).join("");
 function foot(docIds){
   const p = docIds && docIds.length ? META[docIds[0]] : null;
-  const label = p ? (p.card>=0 ? "Lampiran I angka "+p.cardNo+": "+p.cardTitle : "Dokumen "+(p.path||(p.h1t?p.h1t.charAt(0)+p.h1t.slice(1).toLowerCase():""))) : "";
+  const label = p ? (p.card>=0 ? "Usulan "+p.cardTitle : p.path ? "Dokumen bagian "+p.path : "Dokumen pembuka") : "";
   return `<div class="s-foot"><span class="logos">${logoHTML()}</span><span>BHP Medan · RDP Komisi XIII DPR RI</span><span class="grow"></span>${p?`<button class="srcchip" data-act="doc">${I("doc")}<span>${esc(label)}</span></button>`:""}<span class="pg"></span></div>`;
 }
 /*__SLIDES__*/
@@ -648,6 +708,7 @@ function tblHTML(b, hl){
 function blockInner(i, hl){
   const b = DOC[i];
   if(b.k==="tbl") return tblHTML(b, hl);
+  if(b.k==="img") return `<img src="${b.src}" alt="Grafik ${b.n}" loading="lazy">`;
   const tx = `<span class="tx">${segHTML(b.s, hl)}</span>`;
   if(b.k==="ref") return `<a class="lk" data-lamp="${esc((b.n||"").replace(".",""))}">${tx}<span class="go">Buka kartu</span></a>`;
   if(["h1","h2","h3","li"].includes(b.k)) return `<span class="lb">${esc(b.l||"")}</span><span>${tx}</span>`;
@@ -659,14 +720,15 @@ function renderDoc(){
     const ind = META[i].ind;
     if(b.k==="cs"){ html+=`<section class="card" id="c${i}" style="--ind:${ind}">`; inCard=true; return; }
     if(b.k==="ce"){ html+=`</section>`; inCard=false; return; }
-    if(b.k==="ct"){ html+=`<div class="ct" id="p${i}"><div class="ctt"><small>LAMPIRAN I ANGKA ${esc(META[i].cardNo)} · USULAN RUMUSAN PASAL</small><b>${esc(plain(i))}</b>${b.m?`<em>${esc(b.m)}</em>`:""}</div><button class="copy" data-copy="${META[i].card}">Salin</button></div>`; return; }
+    if(b.k==="ct"){ html+=`<div class="ct" id="p${i}"><div class="ctt"><small>USULAN PASAL · RUU PROFESI KURATOR</small><b>${esc(plain(i))}</b>${b.m?`<em>${esc(b.m)}</em>`:""}</div><button class="copy" data-copy="${META[i].card}">Salin</button></div>`; return; }
     let cls=b.k, style="";
     if(b.k==="kop") cls+=" k"+i;
     if(b.k==="judul") cls+=" j"+i;
     if(b.k==="quote") cls="quote-d";
+    if(b.k==="img") cls="fig";
     if(b.k==="sign"){ signN++; cls+= signN===1?" first":signN===3?" last":""; }
     if(b.k==="li"){ cls+=" v"+(b.v||0); if(!inCard) style=`--ind:${ind+(b.v>=3?1:0)}`; }
-    else if(!inCard && ["p","quote","cite","mb","ref","tbl"].includes(b.k)) style=`--ind:${ind}`;
+    else if(!inCard && ["p","quote","cite","mb","ref","tbl","h4"].includes(b.k)) style=`--ind:${ind}`;
     if(b.k==="h1" && !b.l) { cls+=" center"; inRuj = plain(i).trim()==="DAFTAR RUJUKAN"; }
     if(b.k==="h3" && !inCard) style=`--ind:${inRuj ? (b.v||0) : Math.max(0,ind-1)}`;
     if(b.k==="li" && inRuj) style=`--ind:${b.v||0}`;
@@ -677,7 +739,7 @@ function renderDoc(){
   $("#toc").innerHTML = DOC.map((b,i)=>{
     if(b.k==="h1") return `<a href="#p${i}" data-j="${i}" class="l1">${esc(b.l)} ${esc(plain(i))}</a>`;
     if(b.k==="h2") return `<a href="#p${i}" data-j="${i}" class="l2">${esc(b.l)} ${esc(plain(i))}</a>`;
-    if(b.k==="ct") return `<a href="#p${i}" data-j="${i}" class="l3">Angka ${esc(META[i].cardNo)}: ${esc(plain(i))}</a>`;
+    if(b.k==="ct") return `<a href="#p${i}" data-j="${i}" class="l3">${esc(plain(i))}: ${esc(b.m||"")}</a>`;
     return "";
   }).join("");
 }
@@ -703,7 +765,6 @@ SLIDES.forEach((s,i)=>{
   const pg=el.querySelector(".pg"); if(pg) pg.textContent=`${i+1} / ${SLIDES.length}`;
   deck.appendChild(el); s.el=el;
 });
-const SEC_FIRST={}; SLIDES.forEach((s,i)=>{ if(s.sec && SEC_FIRST[s.sec]==null) SEC_FIRST[s.sec]=i; });
 $("#progress").innerHTML = SLIDES.map((s,i)=>`<i data-go="${i}" title="${i+1}. ${esc(s.title)}"></i>`).join("");
 
 function fit(){
@@ -732,16 +793,16 @@ function morphNames(el, on){
   set(el.querySelector(".s-foot"),"m-foot");
   set(el.querySelector(".cover > .s-in > .logos, .end .s-in > .logos"),"m-logos");
   el.querySelectorAll(".content .row > *, .content .g2 > *, .content .mgrid > *").forEach((n,j)=>set(n,"m-t"+j));
-  ["cmp","flow","steps","tl","legend","punch"].forEach(c=>set(el.querySelector(".content ."+c),"m-"+c));
+  ["cmp","flow","steps","tl","legend","punch","hb","dur","eq","hkey"].forEach(c=>set(el.querySelector(".content ."+c),"m-"+c));
   set(el.querySelector(".content > .chips"),"m-chips");
 }
 // keterangan di bawah slide (hanya tampil di HP berdiri)
 function mcapUpdate(){
   const el=SLIDES[cur].el, s=SLIDES[cur], box=$("#mcap");
   const q=sel=>(el.querySelector(sel)?.textContent||"").replace(/\s+/g," ").trim();
-  const k=q(".eyebrow")||(s.sec?"Masukan "+s.sec:"");
-  const t=q(".s-title")||q("h1")||s.title;
-  const ld=q(".s-lead")||q(".cover .sub")||q(".end .lead");
+  const k=q(".eyebrow")||q(".divider .pk");
+  const t=q(".s-title")||q("h1")||q(".divider h2")||s.title;
+  const ld=q(".s-lead")||q(".divider .tor")||q(".cover .sub")||q(".end .lead");
   box.innerHTML=`<div class="mc-k">${cur+1} / ${SLIDES.length}${k?" · "+esc(k):""}</div><h2>${esc(t)}</h2>${ld?`<p>${esc(ld)}</p>`:""}`+
     (s.doc&&s.doc.length?`<button class="mc-doc" data-act="doc">${I("doc")}Lihat di dokumen</button>`:"")+
     `<div class="mc-tips"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg>Geser slide ke kiri atau kanan untuk berpindah</span><span class="rot">${I("rotate")}Putar HP agar slide tampil lebih besar</span></div>`;
@@ -804,8 +865,8 @@ function focusDoc(ids, hl, delay, instant){
   const first=document.getElementById("p"+ids[0]);
   const m=META[ids[0]];
   const ttlB=document.querySelector("#docBar .ttl b");
-  if(m.card>=0){ const c=pasalCount(m.card); const cnt = c.a ? `${c.n>1?c.n+" PASAL · ":""}${c.a} AYAT` : `PASAL 1 · ${COUNT.definisi} DEFINISI`; ttlB.innerHTML=`Usulan Rumusan Pasal<span class="pill">${cnt}</span>`; $("#docPath").textContent=`Lampiran I angka ${m.cardNo} · ${m.cardTitle}`; }
-  else { ttlB.textContent="Bahan Masukan BHP Medan"; $("#docPath").textContent = m.path ? `Bagian ${m.path}${m.h2t?" · "+m.h2t:""}${DOC[ids[0]].k==="tbl"?" · Ringkasan masukan":""}` : (m.h1t ? m.h1t.charAt(0)+m.h1t.slice(1).toLowerCase() : "Pembuka"); }
+  if(m.card>=0){ const c=pasalCount(m.card); ttlB.innerHTML=`Usulan Pasal<span class="pill">${c.a} AYAT</span>`; $("#docPath").textContent=`Bagian ${m.path} · ${m.cardTitle}`; }
+  else { ttlB.textContent="Bahan Masukan BHP Medan"; $("#docPath").textContent = m.path ? `Bagian ${m.path} · ${m.h2t || (m.h1t.charAt(0)+m.h1t.slice(1).toLowerCase()).replace(/\b(bhp|ruu|pkpu)\b/g,x=>x.toUpperCase())}` : "Pembuka"; }
   const cardIds=new Set(ids.map(i=>META[i].card).filter(c=>c>=0));
   cardIds.forEach(c=>document.getElementById("c"+c)?.classList.add("hot"));
   const anyCard=[...cardIds][0];
@@ -884,9 +945,9 @@ new ResizeObserver(()=>{ if(app.classList.contains("doc-open")||app.classList.co
 // ======================= HITUNG NAIK =======================
 function countUp(el){
   el.querySelectorAll("[data-count]").forEach(n=>{
-    const end=+n.dataset.count; if(!isFinite(end)||matchMedia("(prefers-reduced-motion: reduce)").matches){ n.textContent=n.dataset.count; return; }
+    const end=+n.dataset.count, dec=(n.dataset.count.split(".")[1]||"").length; if(!isFinite(end)||matchMedia("(prefers-reduced-motion: reduce)").matches){ n.textContent=n.dataset.count.replace(".",","); return; }
     const t0=performance.now(), dur=900;
-    const step=t=>{ const p=Math.min(1,(t-t0)/dur); n.textContent=Math.round(end*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); };
+    const step=t=>{ const p=Math.min(1,(t-t0)/dur); const v=end*(1-Math.pow(1-p,3)); n.textContent=dec?v.toFixed(dec).replace(".",","):Math.round(v); if(p<1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   });
 }
@@ -901,7 +962,7 @@ function thumbInto(box, i){
 }
 function openOverview(){
   const g=$("#ovGrid");
-  g.innerHTML=SLIDES.map((s,i)=>`<button class="thumb${i===cur?" cur":""}" data-go="${i}"><div class="tw"></div><div class="cap"><span>${String(i+1).padStart(2,"0")}</span><span>${s.sec?"Masukan "+s.sec+" · ":""}${esc(s.title)}</span></div></button>`).join("");
+  g.innerHTML=SLIDES.map((s,i)=>`<button class="thumb${i===cur?" cur":""}" data-go="${i}"><div class="tw"></div><div class="cap"><span>${String(i+1).padStart(2,"0")}</span><span>${esc(s.title)}</span></div></button>`).join("");
   showOv("#ov");
   g.querySelectorAll(".thumb").forEach((t,i)=>thumbInto(t.querySelector(".tw"),i));
   g.querySelector(".thumb.cur")?.scrollIntoView({block:"center"});
@@ -1047,7 +1108,9 @@ document.addEventListener("click",e=>{
   if(t.dataset.lamp){ e.preventDefault(); const el=document.getElementById("c"+LAMP[t.dataset.lamp]); if(el){ progScroll=false; paper.classList.remove("focus"); clearLink(); docScroll.scrollTo({top:Math.max(0,offTop(el)-16),behavior:"smooth"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800); } return; }
   if(t.dataset.close!=null){ closeOv(); return; }
   if(t.dataset.go!=null){ closeOv(); go(+t.dataset.go); return; }
-  if(t.dataset.goto){ const n=+t.dataset.goto.slice(1); go(SEC_FIRST[n]??cur); return; }
+  if(t.dataset.goto){ const g=t.dataset.goto, n=+g.slice(1);
+    const idx = g[0]==="#" ? SLIDES.findIndex(s=>s.id===g.slice(1)) : g[0]==="p" ? SLIDES.findIndex(s=>s.pk===n) : -1;
+    go(idx>=0 ? idx : cur); return; }
   if(t.dataset.j){ e.preventDefault(); const el=document.getElementById("p"+t.dataset.j); if(el){ const top=el.getBoundingClientRect().top-docScroll.getBoundingClientRect().top+docScroll.scrollTop; docScroll.scrollTo({top:top-20,behavior:"smooth"}); el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1800);} return; }
   if(t.dataset.copy!=null){ copyCard(t.dataset.copy); return; }
   if(t.dataset.act==="doc"){ pinned=true; readMode=false; render(); return; }

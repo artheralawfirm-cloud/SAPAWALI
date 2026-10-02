@@ -1,5 +1,7 @@
-# Ekstraksi .docx -> dokumen.json (sadar tabel). Pemakaian: python3 ekstrak_dokumen.py Bahan_Masukan.docx dokumen.json
-import zipfile,re,json,sys
+# Ekstraksi .docx -> dokumen.json (sadar tabel dan gambar).
+# Pemakaian: python3 ekstrak_dokumen.py Masukan_BHP_Medan_Poin_1_Ringkas.docx dokumen.json
+# Gambar grafik disimpan di samping dokumen.json sebagai grafik-1.png, grafik-2.png, dan seterusnya.
+import zipfile,re,json,sys,os
 src,dst=sys.argv[1],sys.argv[2]
 z=zipfile.ZipFile(src)
 num=z.read('word/numbering.xml').decode()
@@ -8,6 +10,7 @@ for a in re.findall(r'<w:abstractNum .*?</w:abstractNum>',num,re.S):
     aid=re.search(r'w:abstractNumId="(\d+)"',a).group(1)
     absf[aid]={int(l):(f,t) for l,f,t in re.findall(r'<w:lvl w:ilvl="(\d)".*?<w:numFmt w:val="([^"]+)"/>.*?<w:lvlText w:val="([^"]*)"/>',a,re.S)}
 nmap=dict(re.findall(r'<w:num w:numId="(\d+)"[^>]*><w:abstractNumId w:val="(\d+)"/>',num))
+rels=dict(re.findall(r'Id="(rId\d+)"[^>]*Target="([^"]+)"',z.read('word/_rels/document.xml.rels').decode()))
 x=z.read('word/document.xml').decode()
 body=x[x.find('<w:body>'):]
 def roman(n):
@@ -22,9 +25,8 @@ def clean(t): return t.replace('–','-').replace('—','-')
 def para(s):
     segs=[]
     for r in re.findall(r'<w:r[ >].*?</w:r>',s,re.S):
-        tt=''.join(re.findall(r'<w:t[^>]*>([^<]*)</w:t>|<w:br/>',r)) if False else ''
-        parts=re.findall(r'<w:t[^>]*>([^<]*)</w:t>|(<w:br/>)',r)
-        tt=''.join(p[0] if p[0] else ('\n' if p[1] else '') for p in parts)
+        parts=re.findall(r'<w:t[^>]*>([^<]*)</w:t>|(<w:br/>)|(<w:tab/>)',r)
+        tt=''.join(p[0] if p[0] else ('\n' if p[1] else ('\t' if p[2] else '')) for p in parts)
         if not tt: continue
         f=(1 if re.search(r'<w:b/>|<w:b w:val="1"/>',r) else 0)|(2 if re.search(r'<w:i/>|<w:i w:val="1"/>',r) else 0)
         tt=clean(tt)
@@ -33,6 +35,7 @@ def para(s):
     t=''.join(q[0] for q in segs)
     st=re.search(r'<w:pStyle w:val="([^"]+)"',s); np=re.search(r'<w:ilvl w:val="(\d)"/>.*?<w:numId w:val="(\d+)"',s,re.S)
     al=re.search(r'<w:jc w:val="([^"]+)"',s)
+    img=re.search(r'r:embed="([^"]+)"',s)
     label='';lv=None;nid=None
     if np and t.strip():
         lv=int(np.group(1)); nid=np.group(2); a=nmap[nid]
@@ -40,75 +43,44 @@ def para(s):
         for k in range(lv+1,9): c[k]=0
         f,tx=absf[a].get(lv,('decimal','%1.'))
         if f!='bullet': label=re.sub(r'%(\d)',lambda mm: fmt(absf[a][int(mm.group(1))-1][0], c[int(mm.group(1))-1]),tx)
-    return {'text':t,'segs':segs,'style':st.group(1) if st else '','label':label,'lvl':lv,'num':nid,'align':al.group(1) if al else ''}
+    return {'text':t,'segs':segs,'style':st.group(1) if st else '','label':label,'lvl':lv,'num':nid,'align':al.group(1) if al else '','img':img.group(1) if img else None}
 raw=[]
 for m in re.finditer(r'<w:tbl>.*?</w:tbl>|<w:p[ >].*?</w:p>',body,re.S):
     s=m.group(0)
     if s.startswith('<w:tbl>'):
-        rows=[]
-        for tr in re.findall(r'<w:tr[ >].*?</w:tr>',s,re.S):
-            cells=[]
-            for tc in re.findall(r'<w:tc>.*?</w:tc>',tr,re.S):
-                sp=re.search(r'<w:gridSpan w:val="(\d+)"/>',tc)
-                ps=[para(p) for p in re.findall(r'<w:p[ >].*?</w:p>',tc,re.S)]
-                cells.append({'span':int(sp.group(1)) if sp else 1,'ps':[p for p in ps if p['text'].strip()]})
-            rows.append(cells)
-        ncol=max(len(r) for r in rows)
-        raw.append({'table':rows,'ncol':ncol})
+        raw.append({'table':[para(p) for p in re.findall(r'<w:p[ >].*?</w:p>',s,re.S) if para(p)['text'].strip()]})
     else:
         p=para(s)
-        if p['text'].strip(): raw.append(p)
+        if p['text'].strip() or p['img']: raw.append(p)
 
-# Lampiran II (sistematika RUU) tidak dipakai dalam paparan: berhenti saat judulnya ditemukan.
-cut=next((k for k,o in enumerate(raw) if 'table' not in o and o['style']=='Heading1' and o['text'].strip()=='LAMPIRAN II'),None)
-if cut is not None: raw=raw[:cut]
-out=[]
-def plain(p): return p['text']
-sec=None; pending_lt=None; i_par=0
+out=[]; sec=''; nimg=0; signing=False
+def bold(o): return o['segs'] and all(s[1]&1 for s in o['segs'] if s[0].strip())
 for o in raw:
     if 'table' in o:
-        if o['ncol']==1:
-            out.append({'k':'cs'})
-            first=True
-            for row in o['table']:
-                for p in row[0]['ps']:
-                    t=p['text'].strip()
-                    if first and t=='USULAN RUMUSAN PASAL':
-                        first=False
-                        ct={'k':'ct','s':[[pending_lt['title'],1]],'l':pending_lt['n'],'m':pending_lt['m']}
-                        out.append(ct); continue
-                    b={'s':p['segs'],'l':p['label']}
-                    if t.startswith('Usulan penjelasan'): b['k']='note'
-                    elif t.startswith('Terkait huruf'): b['k']='csub'
-                    elif p['align']=='center': b['k']='cc'
-                    elif p['label']: b['k']='li'; b['v']=p['lvl']
-                    else: b['k']='p'
-                    out.append(b)
-            out.append({'k':'ce'})
-        else:
-            rows=[[{'s':[s for p in c['ps'] for s in (p['segs']+[['\n',0]])][:-1] if c['ps'] else [['',0]],'sp':c['span'],'a':(c['ps'][0]['align'] if c['ps'] else '')} for c in r] for r in o['table']]
-            out.append({'k':'tbl','id':'ringkasan' if sec=='II' else 'sistematika','rows':rows})
-        continue
+        # kartu usulan pasal: baris judul "Pasal A (Kedudukan BHP)" lalu ayat "(1)<tab>..."
+        out.append({'k':'cs'})
+        for p in o['table']:
+            t=p['text'].strip()
+            mm=re.match(r'(Pasal \S+)\s*\((.*)\)$',t)
+            if mm and p['align']=='center':
+                out.append({'k':'ct','s':[[mm.group(1),1]],'l':mm.group(1).split()[1],'m':mm.group(2)}); continue
+            ay=re.match(r'(\(\d+\))\t?\s*(.*)$',t,re.S)
+            if ay: out.append({'k':'li','l':ay.group(1),'v':0,'s':[[ay.group(2),0]]})
+            else: out.append({'k':'p','l':'','s':p['segs']})
+        out.append({'k':'ce'}); continue
+    if o['img']:
+        nimg+=1; name=f'grafik-{nimg}.png'
+        open(os.path.join(os.path.dirname(os.path.abspath(dst)),name),'wb').write(z.read('word/'+rels[o['img']]))
+        out.append({'k':'img','src':name,'n':nimg}); continue
     t=o['text'].strip(); b={'s':o['segs'],'l':o['label']}
-    n=len([q for q in out if q['k'] in('kop','judul')]) if out else 0
-    if not out or (len(out)<6 and out[-1]['k']=='kop'): b['k']='kop'
-    elif len(out)<10: b['k']='judul'
-    elif o['style']=='Heading1':
-        b['k']='h1'; sec=o['label'].rstrip('.') or t
-    elif o['style']=='ListParagraph' and sec=='LAMPIRAN I':
-        mm=re.match(r'(.*?)\s*\((Masukan angka [^)]*)\)\s*$',t)
-        pending_lt={'n':o['label'],'title':mm.group(1) if mm else t,'m':mm.group(2) if mm else ''}
-        continue
-    elif t.startswith('Masukan BHP Medan:'): b['k']='mb'
-    elif t.startswith('Usulan rumusan pasal: lihat Lampiran I angka'):
-        b['k']='ref'; b['n']=re.search(r'angka (\d+)',t).group(1)+'.'
-    elif t.startswith('“Yang dapat'): b['k']='quote'
-    elif t.startswith('(Pasal 234 ayat (3)'): b['k']='cite'
-    elif t in('Medan, 1 Oktober 2026','Kepala,','Syafriadi Lubis'): b['k']='sign'
-    elif o['num']=='11' and o['lvl']==1: b['k']='h2'
-    elif o['label'] and all(s[1]&1 for s in o['segs']) and (o['num']=='13' or (o['num']=='11' and o['lvl']==2)): b['k']='h3'; b['v']=o['lvl']
-    elif o['label']: b['k']='li'; b['v']=o['lvl']
+    if not any(q['k']=='h1' for q in out) and o['num'] is None: b['k']='kop'
+    elif o['lvl']==0: b['k']='h1'; sec=o['label']
+    elif t.startswith('Medan, ') or signing: b['k']='sign'; signing=True
+    elif o['lvl'] is not None and sec=='III.' and o['lvl']==1 and bold(o): b['k']='h2'
+    elif o['lvl'] is not None: b['k']='li'; b['v']=o['lvl']
     elif o['align']=='center': b['k']='sub'
+    elif t.startswith('Analisis.'): b['k']='mb'
+    elif bold(o) and len(t)<40: b['k']='h4'
     else: b['k']='p'
     out.append(b)
 js=json.dumps(out,ensure_ascii=False,separators=(',',':'))

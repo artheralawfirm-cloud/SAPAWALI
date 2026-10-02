@@ -1,5 +1,5 @@
 // Generator slide paparan Kepala BHP Medan: RDP Komisi XIII DPR RI, RUU Profesi Kurator.
-// Seluruh kalimat diambil dari dokumen Bahan Masukan BHP Medan (1 Oktober 2026).
+// Seluruh kalimat diambil dari dokumen Masukan BHP Medan Poin 1: Kewenangan dan Pembagian Peran Kurator (2 Oktober 2026).
 // Jalankan: NODE_PATH=<folder node_modules> node build_slides.cjs
 // Butuh: pptxgenjs, react, react-dom, react-icons, sharp.
 const pptxgen = require("pptxgenjs");
@@ -62,18 +62,19 @@ function badge(slide, num, y = 0.45) {
   });
 }
 
-// Judul slide konten: lencana nomor masukan (opsional) + judul besar.
-function header(slide, title, num) {
+// Judul slide konten: lencana (opsional) + label bagian + judul besar.
+function header(slide, title, num, eyebrow) {
   let x = 0.6;
   if (num) { badge(slide, num); x = 1.95; }
+  if (eyebrow) text(slide, eyebrow.toUpperCase(), { x, y: 0.42, w: W - x - 0.6, h: 0.38, fontSize: 15, bold: true, color: DARKGOLD, charSpacing: 2, margin: 0, valign: "middle" });
   text(slide, title, {
-    x, y: 0.45, w: W - x - 0.6, h: 1.05, fontSize: 34, bold: true, color: NAVY,
+    x, y: eyebrow ? 0.8 : 0.45, w: W - x - 0.6, h: eyebrow ? 0.75 : 1.05, fontSize: title.length > 40 ? 26 : 32, bold: true, color: NAVY,
     valign: "middle", margin: 0,
   });
 }
 
 function footer(slide) {
-  text(slide, "BHP Medan · RDP Komisi XIII DPR RI · RUU tentang Profesi Kurator", {
+  text(slide, "BHP Medan · RDP Komisi XIII DPR RI · RUU tentang Profesi Kurator · Poin 1", {
     x: 0.6, y: 6.98, w: 9, h: 0.35, fontSize: 14, color: MUTED, margin: 0, valign: "middle",
   });
   text(slide, String(slideNo), {
@@ -96,6 +97,27 @@ function numDot(slide, n, x, y, d = 0.6, size = 22) {
   });
 }
 
+// Slide pembatas tiap bagian dokumen (I sampai V).
+function dividerSlide(n, title, tor, items) {
+  const s = newSlide(NAVY);
+  for (let k = 1; k <= 5; k++) {
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, {
+      x: 0.8 + (k - 1) * 2.38, y: 0.6, w: 2.2, h: 0.08, rectRadius: 0.04,
+      fill: { color: k === n ? GOLD : k < n ? "8A7A4A" : "34456A" }, line: { color: k === n ? GOLD : k < n ? "8A7A4A" : "34456A" },
+    });
+  }
+  text(s, `BAGIAN ${["","I","II","III","IV","V"][n]} DARI V`, { x: 0.8, y: 1.15, w: 11.7, h: 0.5, fontSize: 18, bold: true, color: GOLD, charSpacing: 3, margin: 0 });
+  text(s, title, { x: 0.8, y: 1.7, w: 11.7, h: 1.1, fontSize: title.length > 30 ? 36 : 48, bold: true, color: WHITE, margin: 0, valign: "middle" });
+  text(s, tor, { x: 0.8, y: 2.95, w: 11.2, h: 1.3, fontSize: 22, color: "DCE4F2", margin: 0 });
+  items.forEach(([num, t], i) => {
+    const y = 4.55 + i * 0.58;
+    s.addShape(pres.shapes.OVAL, { x: 0.8, y, w: 0.46, h: 0.46, fill: { color: GOLD }, line: { color: GOLD } });
+    text(s, num, { x: 0.8, y, w: 0.46, h: 0.46, fontSize: 15, bold: true, color: NAVY, align: "center", valign: "middle", margin: 0 });
+    text(s, t, { x: 1.45, y, w: 10.5, h: 0.46, fontSize: 19, bold: true, color: WHITE, valign: "middle", margin: 0 });
+  });
+  s.addNotes(`Bagian ${["","I","II","III","IV","V"][n]}: ${title}.`);
+}
+
 // ---------------------------------------------------------------------------
 // Kartu usulan rumusan pasal. Baris:
 //   ["pasal", "Pasal …"]        judul pasal, rata tengah
@@ -106,11 +128,11 @@ function numDot(slide, n, x, y, d = 0.6, size = 22) {
 //   ["note", "teks"]            usulan penjelasan (miring)
 // Kartu yang panjang otomatis dipecah ke slide lanjutan pada batas baris.
 // ---------------------------------------------------------------------------
-const PF = 21;              // ukuran huruf teks pasal
-const LINE_H = 0.36;        // tinggi satu baris pada 22 pt (inci)
+const PF = 19;              // ukuran huruf teks pasal
+const LINE_H = 0.30;        // tinggi satu baris pada 19 pt (inci)
 const ROW_PAD = 0.12;       // ruang antar baris tabel
-const BUDGET = 4.75;        // tinggi area tabel dalam kartu
-const CPL = { ayat: 70, para: 70, sub: 66, note: 80, pasal: 999, head: 999 };
+const BUDGET = 5.0;         // tinggi area tabel dalam kartu
+const CPL = { ayat: 80, para: 80, sub: 76, note: 90, pasal: 999, head: 999 };
 
 function rowHeight(r) {
   const t = r[r.length - 1].replace(/\*\*/g, "");
@@ -126,7 +148,7 @@ function tableRow(r) {
     return [{ text: r[1], options: { ...base, bold: true, color: NAVY, align: "center", colspan: 3 } }];
   }
   if (type === "note") {
-    return [{ text: rich("Usulan penjelasan: " + r[1], { fontFace: FONT, fontSize: 20, color: "2D3748", italic: true }), options: { ...base, fontSize: 20, color: "2D3748", colspan: 3, fill: { color: "F3F6FA" } } }];
+    return [{ text: rich(r[1], { fontFace: FONT, fontSize: 18, color: "2D3748", italic: true }), options: { ...base, fontSize: 18, color: "2D3748", colspan: 3, fill: { color: "F3F6FA" } } }];
   }
   if (type === "para") {
     return [{ text: "", options: base }, { text: rich(r[1], run), options: { ...base, colspan: 2 } }];
@@ -156,12 +178,12 @@ function paginate(rows) {
   return pages;
 }
 
-function pasalSlides(num, title, rows, notes, lamp) {
+function pasalSlides(num, title, rows, notes) {
   const pages = paginate(rows);
   pages.forEach((page, pi) => {
     const s = newSlide(PAPER_BG);
     badge(s, num);
-    text(s, (lamp ? `LAMPIRAN I ANGKA ${lamp} · ` : "") + "USULAN RUMUSAN PASAL" + (pages.length > 1 ? `  (${pi + 1}/${pages.length})` : ""), {
+    text(s, "BAGIAN IV · USULAN PASAL UNTUK RUU PROFESI KURATOR" + (pages.length > 1 ? `  (${pi + 1}/${pages.length})` : ""), {
       x: 1.95, y: 0.42, w: 10.8, h: 0.42, fontSize: 18, bold: true, color: DARKGOLD, margin: 0, valign: "middle", charSpacing: 2,
     });
     text(s, title, {
@@ -197,572 +219,215 @@ function pasalSlides(num, title, rows, notes, lamp) {
     check: await icon(fa.FaCheckCircle, GOLD),
     arrow: await icon(fa.FaArrowRight, NAVY),
     quote: await icon(fa.FaQuoteLeft, GOLD),
+    hand: await icon(fa.FaHandshake, NAVY),
+  };
+  const G = {};
+  for (const [k, c] of [["gov", fa.FaLandmark], ["users", fa.FaUsers], ["folder", fa.FaFolderOpen], ["coins", fa.FaCoins], ["balance", fa.FaBalanceScale], ["book", fa.FaBookOpen], ["hand", fa.FaHandshake], ["db", fa.FaDatabase]]) G[k] = await icon(c, GOLD);
+
+  // ======================= HELPER TATA LETAK =======================
+  const lead = (s, t, y = 1.62) => text(s, t, { x: 0.6, y, w: 12.13, h: 0.8, fontSize: 20, color: MUTED, margin: 0, valign: "top" });
+  function tiles(s, arr, y, h, gap = 0.3, x0 = 0.6, wTot = 12.13) {
+    const w = (wTot - gap * (arr.length - 1)) / arr.length;
+    arr.forEach((o, i) => {
+      const x = x0 + i * (w + gap);
+      card(s, x, y, w, h, o.navy ? NAVY : SOFT);
+      let yy = y + 0.28;
+      if (o.icon) { s.addImage({ data: (o.navy ? G : I)[o.icon], x: x + 0.3, y: yy, w: 0.55, h: 0.55 }); yy += 0.78; }
+      const runs = [];
+      if (o.k) runs.push({ text: o.k.toUpperCase(), options: { fontSize: 13, bold: true, color: o.navy ? GOLD : DARKGOLD, charSpacing: 1.5, breakLine: true } });
+      if (o.big) runs.push({ text: o.big, options: { fontSize: o.bs || 54, bold: true, color: o.navy ? GOLD : NAVY, breakLine: true } });
+      if (o.h) runs.push({ text: o.h, options: { fontSize: o.hs || 22, bold: true, color: o.navy ? WHITE : NAVY, breakLine: !!o.t } });
+      if (o.t) runs.push({ text: o.t, options: { fontSize: o.ts || 17, color: o.navy ? "DCE4F2" : INK } });
+      text(s, runs, { x: x + 0.3, y: yy, w: w - 0.6, h: y + h - yy - 0.2, margin: 0, valign: "top", paraSpaceAfter: 4 });
+    });
+  }
+  const punch = (s, t, y = 5.95, h = 0.85) => text(s, t, { x: 0.6, y, w: 12.13, h, fontSize: 22, bold: true, color: NAVY, margin: 0, valign: "middle" });
+  function slide(title, num, eyebrow, leadText, notes, body) {
+    const s = newSlide(); header(s, title, num, eyebrow); if (leadText) lead(s, leadText); body(s); footer(s); if (notes) s.addNotes(notes); return s;
+  }
+  const E = (n, sub) => `Bagian ${["", "I", "II", "III", "IV", "V"][n]} · ${["", "Pokok Sikap", "Pengalaman BHP Medan", "Jawaban Klaster 1", "Usulan Pasal", "Catatan"][n]}${sub ? " · " + sub : ""}`;
+
+  // ======================= USULAN PASAL (Bagian IV dokumen) =======================
+  const P = {
+    A: [["pasal", "Pasal A (Kedudukan BHP)"],
+      ["ayat", "(1)", "Kurator terdiri atas **Balai Harta Peninggalan** dan **Kurator perseorangan**."],
+      ["ayat", "(2)", "Balai Harta Peninggalan merupakan lembaga negara yang menjalankan tugas Kurator dan Pengurus berdasarkan undang-undang, dan **tidak memerlukan izin atau pendaftaran**."],
+      ["ayat", "(3)", "Tugas Kurator dan Pengurus pada Balai Harta Peninggalan dilaksanakan oleh **pejabat fungsional Kurator Keperdataan**."],
+      ["note", "**Analisis.** Pasal ini memastikan BHP masuk dalam sistem profesi kurator tanpa harus mengikuti aturan izin yang dirancang untuk orang perseorangan."]],
+    B: [["pasal", "Pasal B (Pembagian Peran)"],
+      ["ayat", "(1)", "Balai Harta Peninggalan menjalankan tugas Kurator dan Pengurus pada perkara yang menyangkut **kepentingan publik, hak pekerja, harta peninggalan yang tidak terurus, Debitor yang tidak diketahui keberadaannya, dan perkara dengan nilai harta kecil**."],
+      ["ayat", "(2)", "Di luar perkara sebagaimana dimaksud pada ayat (1), Kurator dan Pengurus diangkat **berdasarkan usulan para pihak**."],
+      ["ayat", "(3)", "Kriteria dan tata cara penunjukan sebagaimana dimaksud pada ayat (1) diatur dalam undang-undang mengenai kepailitan dan penundaan kewajiban pembayaran utang."],
+      ["note", "**Analisis.** Pasal ini memberi kepastian pembagian peran tanpa mengulang materi hukum acara kepailitan, sehingga RUU Profesi Kurator tetap selaras dengan RUU Kepailitan dan PKPU."]],
+    C: [["pasal", "Pasal C (Standar dan Pembinaan BHP)"],
+      ["ayat", "(1)", "Balai Harta Peninggalan tunduk pada **standar profesi dan kode etik Kurator yang sama** dengan Kurator perseorangan."],
+      ["ayat", "(2)", "Pembinaan dan pengawasan terhadap Balai Harta Peninggalan dilakukan oleh **Menteri** dengan melibatkan unsur lembaga pengawas profesi."],
+      ["note", "**Analisis.** Status lembaga negara tidak boleh menjadi keistimewaan. Standarnya satu, hanya jalur pembinaannya yang menyesuaikan."]],
+    D: [["pasal", "Pasal D (Koordinasi dan Penugasan Bersama)"],
+      ["ayat", "(1)", "Dalam hal Balai Harta Peninggalan dan Kurator perseorangan ditunjuk dalam perkara yang sama, masing-masing bertanggung jawab atas tugas yang ditetapkan baginya, dan **imbalan jasa dibagi sesuai porsi tugas**."],
+      ["ayat", "(2)", "Bagian imbalan jasa Balai Harta Peninggalan merupakan **Penerimaan Negara Bukan Pajak**."],
+      ["ayat", "(3)", "Setiap Kurator **wajib mengungkapkan hubungan yang dapat menimbulkan benturan kepentingan**."],
+      ["ayat", "(4)", "Menteri menyelenggarakan data Kurator dan perkara yang terintegrasi, dan **Balai Harta Peninggalan menjadi simpul data** di wilayah kerjanya."],
+      ["note", "**Analisis.** Pada perkara PT Jasa Prima Mandiri, imbalan BHP dan kurator tambahan dihitung dengan aturan yang berbeda tanpa melihat porsi tugas. Pasal ini mencegah hal tersebut, menjaga independensi, dan menyediakan data yang saat ini belum ada, termasuk perbandingan perkara BHP dan kurator perorangan."]],
   };
 
-  // ======================= DATA USULAN RUMUSAN PASAL =======================
-  const P = {};
-  P.ku = [
-    ["pasal", "Pasal 1"],
-    ["para", "Dalam Undang-Undang ini yang dimaksud dengan:"],
-    ["sub", "1.", "**Kurator** adalah Kurator Negara atau Kurator Perseorangan yang ditunjuk oleh Pengadilan untuk melakukan pengurusan dan/atau pemberesan harta Debitor Pailit di bawah pengawasan Hakim Pengawas."],
-    ["sub", "2.", "**Kurator Negara** adalah Balai Harta Peninggalan yang melaksanakan tugas Kurator melalui pejabat Kurator Keperdataan."],
-    ["sub", "3.", "**Kurator Perseorangan** adalah orang perseorangan yang memenuhi persyaratan dan terdaftar pada Kementerian untuk melaksanakan tugas Kurator."],
-    ["sub", "7.", "**Kurator Keperdataan** adalah pegawai negeri sipil yang diberi tugas, tanggung jawab, dan wewenang secara penuh oleh pejabat yang berwenang untuk melaksanakan tugas Kurator dan Pengurus pada Balai Harta Peninggalan."],
-    ["sub", "8.", "**Tim Kurator Keperdataan** adalah tim yang dibentuk oleh Kepala Balai Harta Peninggalan untuk menangani perkara kepailitan dan/atau penundaan kewajiban pembayaran utang."],
-    ["para", "Pasal 1 juga mendefinisikan Pengurus, Pengurus Perseorangan, Balai Harta Peninggalan, Organisasi Profesi, Majelis Pengawas Kurator, Majelis Kehormatan Kurator, Kementerian, dan Menteri."],
-  ];
-  P.m1 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Kurator terdiri atas: a. **Kurator Negara**; dan b. **Kurator Perseorangan**."],
-    ["ayat", "(2)", "Pengurus terdiri atas: a. **Balai Harta Peninggalan**; dan b. **Pengurus Perseorangan**."],
-    ["ayat", "(3)", "Dalam hal Debitor atau Kreditor yang mengajukan permohonan penundaan kewajiban pembayaran utang tidak mengajukan usul pengangkatan Pengurus, atau Pengurus yang diusulkan tidak memenuhi persyaratan, **Balai Harta Peninggalan diangkat selaku Pengurus** sepanjang masih memiliki Tim Kurator Keperdataan yang belum mencapai batas jumlah perkara sebagaimana dimaksud dalam Pasal …."],
-    ["ayat", "(4)", "Dalam hal seluruh Tim Kurator Keperdataan pada Balai Harta Peninggalan telah mencapai batas jumlah perkara, **Pengadilan mengangkat Pengurus Perseorangan**."],
-    ["ayat", "(5)", "Tugas Kurator Negara dan tugas Balai Harta Peninggalan selaku Pengurus dilaksanakan oleh pejabat Kurator Keperdataan."],
-    ["ayat", "(6)", "Ketentuan mengenai tugas, wewenang, kewajiban, dan tanggung jawab Pengurus berlaku bagi Balai Harta Peninggalan yang diangkat selaku Pengurus."],
-    ["note", "Ayat (3) **mengisi kekosongan pengaturan** mengenai pengurus yang ditunjuk oleh undang-undang dalam penundaan kewajiban pembayaran utang, dengan pola yang sama seperti pengangkatan Balai Harta Peninggalan selaku Kurator dalam kepailitan. Yang dimaksud dengan “tidak memenuhi persyaratan” antara lain tidak independen, memiliki benturan kepentingan, atau telah mencapai batas jumlah perkara."],
-  ];
-  P.m2 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Kurator Perseorangan dan Pengurus Perseorangan tidak sedang menangani perkara kepailitan dan/atau penundaan kewajiban pembayaran utang lebih dari **3 (tiga) perkara**."],
-    ["ayat", "(2)", "Batas jumlah perkara sebagaimana dimaksud pada ayat (1) **berlaku juga bagi Balai Harta Peninggalan** dan **dihitung untuk setiap Tim Kurator Keperdataan**."],
-    ["ayat", "(3)", "Tim Kurator Keperdataan sebagaimana dimaksud pada ayat (2) terdiri atas 3 (tiga) orang pejabat Kurator Keperdataan."],
-    ["ayat", "(4)", "Perkara penundaan kewajiban pembayaran utang yang ditangani Balai Harta Peninggalan selaku Pengurus diperhitungkan dalam batas jumlah perkara sebagaimana dimaksud pada ayat (2)."],
-    ["ayat", "(5)", "Perkara penundaan kewajiban pembayaran utang yang berakhir dengan pernyataan pailit dan tetap ditangani Balai Harta Peninggalan selaku Kurator **dihitung sebagai 1 (satu) perkara**."],
-    ["ayat", "(6)", "Dalam hal seluruh Tim Kurator Keperdataan telah mencapai batas jumlah perkara, Kepala Balai Harta Peninggalan memberitahukan secara tertulis kepada Pengadilan agar Pengadilan mengangkat Kurator atau Pengurus lain."],
-    ["ayat", "(7)", "Ketentuan lebih lanjut mengenai pembentukan dan penugasan Tim Kurator Keperdataan diatur dengan Peraturan Menteri."],
-    ["note", "Batas jumlah perkara bagi Balai Harta Peninggalan dihitung per tim karena Pengadilan mengangkat Balai Harta Peninggalan sebagai lembaga dan pekerjaan dilaksanakan secara tim. Dengan demikian, **kapasitas Balai Harta Peninggalan sama dengan jumlah Tim Kurator Keperdataan dikalikan 3 (tiga) perkara**."],
-  ];
-  P.peralihan = [
-    ["head", "BAB …\nKETENTUAN PERALIHAN"],
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Pada saat Undang-Undang ini mulai berlaku, perkara kepailitan dan/atau penundaan kewajiban pembayaran utang yang sedang ditangani Balai Harta Peninggalan **tetap dilaksanakan oleh Balai Harta Peninggalan**."],
-    ["ayat", "(2)", "Dalam hal jumlah perkara sebagaimana dimaksud pada ayat (1) melebihi batas jumlah perkara sebagaimana dimaksud dalam Pasal …, Balai Harta Peninggalan wajib mengalihkan kelebihan perkara **paling lama 6 (enam) bulan** terhitung sejak Undang-Undang ini diundangkan."],
-    ["ayat", "(3)", "Pengalihan kelebihan perkara sebagaimana dimaksud pada ayat (2) dilakukan dengan cara:"],
-    ["sub", "a.", "menugaskan Tim Kurator Keperdataan lain pada Balai Harta Peninggalan yang sama; dan/atau"],
-    ["sub", "b.", "mengajukan permohonan penggantian Kurator atau Pengurus kepada Pengadilan."],
-    ["ayat", "(4)", "Balai Harta Peninggalan tetap melaksanakan tugas atas perkara sebagaimana dimaksud pada ayat (1) sampai dengan pengalihan sebagaimana dimaksud pada ayat (3) selesai dilaksanakan."],
-    ["ayat", "(5)", "Kelebihan jumlah perkara selama jangka waktu sebagaimana dimaksud pada ayat (2) **tidak dianggap sebagai pelanggaran** batas jumlah perkara."],
-    ["note", "Pengalihan sebagaimana dimaksud pada ayat (3) huruf a cukup dilakukan melalui **surat tugas Kepala Balai Harta Peninggalan** karena Pengadilan mengangkat Balai Harta Peninggalan sebagai lembaga."],
-  ];
-  P.m3 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Pendidikan, sertifikasi, registrasi, kode etik, disiplin, asuransi, dan perlindungan hukum bagi Kurator Perseorangan dan Pengurus Perseorangan **dilaksanakan oleh Organisasi Profesi**."],
-    ["ayat", "(2)", "Pendidikan, pengembangan kompetensi, disiplin, dan perlindungan hukum bagi pejabat Kurator Keperdataan **dilaksanakan oleh Menteri** sesuai dengan ketentuan peraturan perundang-undangan di bidang aparatur sipil negara."],
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "**Menteri membentuk Majelis Pengawas Kurator.**"],
-    ["ayat", "(2)", "Majelis Pengawas Kurator terdiri atas unsur: a. pemerintah; b. Organisasi Profesi; dan c. akademisi."],
-    ["ayat", "(3)", "Majelis Pengawas Kurator bertugas:"],
-    ["sub", "a.", "melaksanakan pengawasan teknis dan administratif terhadap pelaksanaan tugas Kurator dan Pengurus;"],
-    ["sub", "b.", "menerima dan memeriksa pengaduan terhadap Kurator dan Pengurus; dan"],
-    ["sub", "c.", "menjatuhkan sanksi administratif kepada Kurator Perseorangan dan Pengurus Perseorangan, atau menyampaikan rekomendasi kepada Menteri dalam hal pelanggaran dilakukan oleh pejabat Kurator Keperdataan."],
-  ];
-  P.m4 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Dalam melaksanakan pendidikan, sertifikasi, registrasi, kode etik, dan disiplin, Organisasi Profesi **wajib berpedoman pada standar profesi nasional** yang ditetapkan oleh Menteri setelah mendengar pertimbangan Organisasi Profesi dan Majelis Pengawas Kurator."],
-    ["ayat", "(2)", "Standar profesi nasional sebagaimana dimaksud pada ayat (1) paling sedikit meliputi:"],
-    ["sub", "a.", "kurikulum pendidikan profesi;"],
-    ["sub", "b.", "materi dan tata cara ujian profesi;"],
-    ["sub", "c.", "kode etik;"],
-    ["sub", "d.", "standar pelaksanaan tugas; dan"],
-    ["sub", "e.", "jenis sanksi dan tata cara penjatuhannya."],
-  ];
-  P.m5 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Untuk kepentingan proses peradilan, penyidik, penuntut umum, atau hakim **dengan persetujuan Majelis Kehormatan Kurator** berwenang memanggil Kurator atau Pengurus untuk hadir dalam pemeriksaan yang berkaitan dengan tindakan dalam pelaksanaan tugasnya."],
-    ["ayat", "(2)", "Dalam memberikan persetujuan sebagaimana dimaksud pada ayat (1), Majelis Kehormatan Kurator terlebih dahulu memeriksa dan menentukan apakah laporan terhadap Kurator atau Pengurus merupakan: a. sengketa teknis kepailitan; b. pelanggaran kode etik; c. pelanggaran administratif; d. tanggung jawab perdata; atau e. dugaan tindak pidana."],
-    ["ayat", "(3)", "Majelis Kehormatan Kurator wajib memberikan jawaban menerima atau menolak permintaan persetujuan **paling lama 30 (tiga puluh) hari kerja** terhitung sejak permintaan diterima."],
-    ["ayat", "(4)", "Dalam hal Majelis Kehormatan Kurator tidak memberikan jawaban dalam jangka waktu sebagaimana dimaksud pada ayat (3), Majelis Kehormatan Kurator **dianggap menerima** permintaan persetujuan."],
-    ["ayat", "(5)", "Majelis Kehormatan Kurator terdiri atas unsur pemerintah, Organisasi Profesi, dan akademisi."],
-  ];
-  P.m6 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "**Kepolisian Negara Republik Indonesia wajib memberikan pendampingan dan pengamanan** kepada Kurator dan Pengurus dalam pelaksanaan tugasnya atas permintaan Kurator, Pengurus, atau Hakim Pengawas."],
-    ["ayat", "(2)", "Permintaan sebagaimana dimaksud pada ayat (1) diajukan secara tertulis dengan melampirkan salinan putusan Pengadilan dan/atau penetapan Hakim Pengawas."],
-    ["ayat", "(3)", "Debitor Pailit dan setiap pihak yang menguasai harta pailit **wajib memberikan akses, keterangan, dan dokumen** yang diminta oleh Kurator dalam pelaksanaan tugasnya."],
-    ["head", "Ketentuan Pidana"],
-    ["pasal", "Pasal …"],
-    ["para", "Setiap Orang yang dengan sengaja menghalang-halangi atau merintangi Kurator atau Pengurus dalam melaksanakan tugasnya dipidana dengan **pidana penjara paling lama 2 (dua) tahun atau pidana denda paling banyak kategori IV**."],
-  ];
-  P.m7 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Kurator wajib menyimpan seluruh uang harta pailit dalam **1 (satu) rekening kepailitan untuk setiap perkara**."],
-    ["ayat", "(2)", "Setiap penerimaan dan pengeluaran uang harta pailit wajib dicatat, didukung dengan bukti, dan dilaporkan kepada Hakim Pengawas."],
-    ["ayat", "(3)", "Rekening kepailitan yang dikelola Kurator Negara ditatausahakan sesuai dengan ketentuan peraturan perundang-undangan mengenai penatausahaan uang pihak ketiga pada Balai Harta Peninggalan."],
-    ["pasal", "Pasal …"],
-    ["para", "Dalam melakukan pembagian hasil pemberesan harta pailit, Kurator melakukan pembayaran dengan urutan sebagai berikut:"],
-    ["sub", "a.", "biaya kepailitan dan imbalan jasa Kurator;"],
-    ["sub", "b.", "**upah pekerja yang terutang**;"],
-    ["sub", "c.", "tagihan Kreditor pemegang hak jaminan kebendaan, sebatas hasil penjualan benda yang dibebani jaminan;"],
-    ["sub", "d.", "**hak pekerja lainnya**;"],
-    ["sub", "e.", "tagihan negara dan tagihan lain yang menurut undang-undang mempunyai hak didahulukan; dan"],
-    ["sub", "f.", "tagihan Kreditor konkuren secara seimbang."],
-    ["note", "Urutan huruf b dan huruf d disusun dengan memperhatikan **Putusan Mahkamah Konstitusi Nomor 67/PUU-XI/2013**, yang menempatkan upah pekerja di atas semua jenis tagihan, termasuk tagihan Kreditor pemegang hak jaminan kebendaan, serta menempatkan hak pekerja lainnya di atas tagihan negara, kecuali tagihan Kreditor pemegang hak jaminan kebendaan."],
-  ];
-  P.m8 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Pengawasan terhadap Kurator dan Pengurus dilaksanakan oleh:"],
-    ["sub", "a.", "**Hakim Pengawas**, berupa pengawasan yuridis atas pengurusan dan pemberesan harta pailit;"],
-    ["sub", "b.", "**Majelis Pengawas Kurator**, berupa pengawasan teknis dan administratif atas tahapan pelaksanaan pekerjaan Kurator dan Pengurus; dan"],
-    ["sub", "c.", "**Komite Bersama**, berupa pengawasan terhadap pengembangan profesi dan Organisasi Profesi."],
-    ["ayat", "(2)", "Pengawasan sebagaimana dimaksud pada ayat (1) tidak mengurangi kewenangan Menteri dalam pembinaan kepegawaian pejabat Kurator Keperdataan."],
-    ["ayat", "(3)", "Ketentuan lebih lanjut mengenai tata cara pengawasan diatur dengan Peraturan Pemerintah."],
-  ];
-  P.m9 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Kementerian, lembaga, pemerintah daerah, dan badan hukum yang menyimpan data mengenai harta Debitor Pailit **wajib memberikan data tersebut** atas permintaan Kurator **paling lama 14 (empat belas) hari kerja** terhitung sejak permintaan diterima."],
-    ["ayat", "(2)", "Permintaan data sebagaimana dimaksud pada ayat (1) diajukan dengan melampirkan salinan putusan pernyataan pailit dan bukti pengangkatan Kurator."],
-    ["ayat", "(3)", "**Ketentuan mengenai rahasia bank tidak berlaku** terhadap pemberian data sebagaimana dimaksud pada ayat (1) kepada Kurator."],
-    ["ayat", "(4)", "Menteri menyelenggarakan sistem informasi Kurator dan Pengurus yang terintegrasi dengan sistem informasi kementerian dan lembaga terkait."],
-    ["ayat", "(5)", "Pemberian, pengelolaan, dan penggunaan data sebagaimana dimaksud pada ayat (1) dan ayat (4) dilaksanakan sesuai dengan ketentuan peraturan perundang-undangan di bidang pelindungan data pribadi."],
-  ];
-  P.m10 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Kurator dan Pengurus berhak atas imbalan jasa."],
-    ["ayat", "(2)", "Besarnya imbalan jasa sebagaimana dimaksud pada ayat (1) ditetapkan oleh Pengadilan berdasarkan pedoman yang ditetapkan oleh Menteri."],
-    ["ayat", "(3)", "Imbalan jasa yang diterima Balai Harta Peninggalan selaku Kurator Negara atau Pengurus **merupakan Penerimaan Negara Bukan Pajak**."],
-  ];
-  P.m11 = [
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Dalam melaksanakan tugas yang berkaitan dengan harta, Kreditor, atau proses kepailitan di negara lain, Kurator **wajib mematuhi ketentuan hukum internasional dan perjanjian internasional** yang mengikat Negara Republik Indonesia."],
-    ["ayat", "(2)", "Pengadilan dan Kurator dapat bekerja sama dan berkomunikasi dengan pengadilan dan wakil kepailitan di negara lain."],
-    ["ayat", "(3)", "Wakil kepailitan asing hanya dapat melakukan tindakan atas harta Debitor yang berada di wilayah Negara Republik Indonesia **bersama dengan Kurator yang terdaftar di Indonesia**."],
-    ["ayat", "(4)", "Ketentuan lebih lanjut mengenai kepailitan lintas batas diatur dengan Peraturan Pemerintah."],
-  ];
-  P.m12 = [
-    ["para", "Pembentukan Majelis Pengawas Kurator dan Majelis Kehormatan Kurator mengikuti usulan rumusan pada Lampiran I angka 5 dan angka 7."],
-    ["pasal", "Pasal …"],
-    ["ayat", "(1)", "Debitor, Kreditor, pekerja, atau pihak lain yang dirugikan oleh tindakan Kurator atau Pengurus **dapat mengajukan pengaduan kepada Majelis Pengawas Kurator**."],
-    ["ayat", "(2)", "Majelis Pengawas Kurator wajib memeriksa dan memutus pengaduan **paling lama 60 (enam puluh) hari** terhitung sejak pengaduan diterima."],
-    ["ayat", "(3)", "Pengajuan pengaduan **tidak menghentikan** proses pengurusan dan/atau pemberesan harta pailit."],
-  ];
-
-  const allCards = Object.values(P);
-  const totalPasal = allCards.reduce((n, rows) => n + rows.filter((r) => r[0] === "pasal").length, 0);
-  const totalPenjelasan = allCards.reduce((n, rows) => n + rows.filter((r) => r[0] === "note").length, 0);
-
   // ================================ SLIDE ================================
-
-  // Judul
+  // Sampul
   {
     const s = newSlide(NAVY);
-    text(s, "KEMENTERIAN HUKUM REPUBLIK INDONESIA\nKANTOR WILAYAH SUMATERA UTARA\nBALAI HARTA PENINGGALAN MEDAN", {
-      x: 0.8, y: 0.5, w: 11.7, h: 1.2, fontSize: 18, bold: true, color: GOLD, margin: 0,
-    });
-    text(s, "BAHAN MASUKAN\nBALAI HARTA PENINGGALAN MEDAN", {
-      x: 0.8, y: 1.85, w: 11.7, h: 1.6, fontSize: 44, bold: true, color: WHITE, margin: 0,
-    });
-    text(s, "Dalam Rapat Dengar Pendapat dengan Komisi XIII DPR RI", {
-      x: 0.8, y: 3.5, w: 11.7, h: 0.6, fontSize: 26, bold: true, color: GOLD, margin: 0,
-    });
-    text(s, "Penyusunan Rancangan Undang-Undang tentang Profesi Kurator terkait Peran Balai Harta Peninggalan dalam Pelaksanaan Tugas Kurator", {
-      x: 0.8, y: 4.2, w: 11.4, h: 1.1, fontSize: 22, color: WHITE, margin: 0,
-    });
-    text(s, [
-      { text: "Syafriadi Lubis", options: { bold: true, breakLine: true } },
-      { text: "Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026" },
-    ], { x: 0.8, y: 5.85, w: 11.7, h: 0.95, fontSize: 22, color: WHITE, margin: 0 });
-    s.addNotes("Pembukaan. Salam hormat kepada Pimpinan dan Anggota Komisi XIII DPR RI.");
+    text(s, "KEMENTERIAN HUKUM REPUBLIK INDONESIA\nKANTOR WILAYAH SUMATERA UTARA\nBALAI HARTA PENINGGALAN MEDAN", { x: 0.8, y: 0.5, w: 11.7, h: 1.2, fontSize: 18, bold: true, color: GOLD, margin: 0 });
+    text(s, "BAHAN MASUKAN\nBALAI HARTA PENINGGALAN MEDAN", { x: 0.8, y: 1.85, w: 11.7, h: 1.6, fontSize: 44, bold: true, color: WHITE, margin: 0 });
+    text(s, "Poin 1: Kewenangan dan Pembagian Peran Kurator", { x: 0.8, y: 3.5, w: 11.7, h: 0.6, fontSize: 28, bold: true, color: GOLD, margin: 0 });
+    text(s, "Rapat Dengar Pendapat Komisi XIII DPR RI tentang Rancangan Undang-Undang tentang Profesi Kurator", { x: 0.8, y: 4.2, w: 11.4, h: 1.1, fontSize: 22, color: WHITE, margin: 0 });
+    text(s, [{ text: "Syafriadi Lubis, M.H.", options: { bold: true, breakLine: true } }, { text: "Kepala Balai Harta Peninggalan Medan · Medan, 2 Oktober 2026" }],
+      { x: 0.8, y: 5.85, w: 11.7, h: 0.95, fontSize: 22, color: WHITE, margin: 0 });
+    s.addNotes("Salam pembuka.");
   }
 
-  // Pendahuluan
-  {
-    const s = newSlide();
-    header(s, "Pendahuluan");
-    card(s, 0.6, 1.75, 5.6, 3.55, NAVY);
-    text(s, "Balai Harta Peninggalan (BHP) Medan mendukung penuh pembentukan Rancangan Undang-Undang tentang Profesi Kurator (RUU).", {
-      x: 0.95, y: 1.95, w: 4.9, h: 3.15, fontSize: 28, bold: true, color: WHITE, valign: "middle", margin: 0,
+  // Alur paparan
+  slide("Alur Paparan", null, "Poin 1 · Kewenangan dan Pembagian Peran Kurator", "Dari masalah, sikap, dan pengalaman nyata BHP Medan, sampai usulan pasal yang siap dipakai.", "Lima bagian paparan.", (s) => {
+    [["I", "Pokok Sikap", "4 sikap"], ["II", "Pengalaman BHP Medan", "9 perkara"], ["III", "Jawaban Klaster 1", "3 pertanyaan"], ["IV", "Usulan Pasal", "Pasal A sampai D"], ["V", "Catatan untuk RUU Kepailitan dan PKPU", "4 hal"]].forEach(([n, t, m], i) => {
+      const x = 0.6 + i * 2.45;
+      card(s, x, 2.5, 2.25, 4.2);
+      numDot(s, n, x + 0.25, 2.75, 0.7, 20);
+      text(s, t, { x: x + 0.25, y: 3.65, w: 1.85, h: 1.6, fontSize: 20, bold: true, color: NAVY, margin: 0 });
+      text(s, m, { x: x + 0.25, y: 5.5, w: 1.85, h: 0.9, fontSize: 16, bold: true, color: DARKGOLD, margin: 0, valign: "bottom" });
     });
-    const rows = [
-      ["BHP merupakan kurator dari unsur pemerintah", "Pasal 70 ayat (1) UU Kepailitan dan PKPU"],
-      ["kedudukan BHP perlu diatur secara khusus dalam RUU", "Oleh karena itu"],
-    ];
-    rows.forEach(([a, b], i) => {
-      const y = 1.75 + i * 1.85;
-      card(s, 6.6, y, 6.13, 1.7);
-      s.addImage({ data: I.gov, x: 6.85, y: y + 0.5, w: 0.7, h: 0.7 });
-      text(s, [
-        { text: a, options: { bold: true, breakLine: true } },
-        { text: b, options: { fontSize: 20, bold: false, color: INK } },
-      ], { x: 7.8, y: y + 0.12, w: 4.8, h: 1.46, fontSize: 24, color: NAVY, valign: "middle", margin: 0 });
-    });
-    text(s, rich("Dalam bahan masukan ini, BHP disebut **Kurator Negara** dan kurator selain BHP disebut **Kurator Perseorangan**. Setiap masukan disertai usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU."), {
-      x: 0.6, y: 5.55, w: 12.13, h: 1.25, fontSize: 24, margin: 0, valign: "middle",
-    });
-    footer(s);
-    s.addNotes("Sesuai dengan agenda rapat, bahan masukan ini difokuskan pada peran BHP dalam pelaksanaan tugas kurator.");
-  }
+  });
 
-  // Kekuatan dokumen
-  {
-    const s = newSlide();
-    header(s, "Bahan Masukan yang Siap Dipakai");
-    const stats = [
-      ["12", "masukan"],
-      [String(totalPasal), "usulan rumusan pasal"],
-      ["13", "definisi dalam Ketentuan Umum"],
-    ];
-    stats.forEach(([big, lbl], i) => {
-      const x = 0.6 + i * 4.15;
-      card(s, x, 1.75, 3.85, 2.45, NAVY);
-      text(s, big, { x, y: 1.85, w: 3.85, h: 1.35, fontSize: 80, bold: true, color: GOLD, align: "center", valign: "middle", margin: 0 });
-      text(s, lbl, { x: x + 0.2, y: 3.2, w: 3.45, h: 0.85, fontSize: 22, bold: true, color: WHITE, align: "center", valign: "middle", margin: 0 });
-    });
-    const flow = [[I.search, "Uraian setiap masukan"], [I.check, "Kesimpulan: Masukan BHP Medan"], [I.file, "Usulan rumusan pasal dalam Lampiran I"]];
-    flow.forEach(([ic, t], i) => {
-      const x = 0.6 + i * 4.15;
-      card(s, x, 4.5, 3.85, 1.1);
-      s.addImage({ data: ic, x: x + 0.3, y: 4.75, w: 0.6, h: 0.6 });
-      text(s, t, { x: x + 1.1, y: 4.5, w: 2.65, h: 1.1, fontSize: 22, bold: true, color: NAVY, valign: "middle", margin: 0 });
-      if (i < 2) s.addImage({ data: I.arrow, x: x + 3.9, y: 4.87, w: 0.3, h: 0.35 });
-    });
-    text(s, "Setiap masukan disertai usulan rumusan pasal yang dapat langsung digunakan dalam penyusunan draf RUU.", {
-      x: 0.6, y: 5.85, w: 12.13, h: 0.95, fontSize: 24, bold: true, color: NAVY, valign: "middle", margin: 0,
-    });
-    footer(s);
-    s.addNotes(`Bahan masukan memuat ${totalPasal} usulan pasal (termasuk Pasal 1 Ketentuan Umum dengan 13 definisi) dan ${totalPenjelasan} usulan penjelasan. Setiap masukan disertai usulan rumusan pasal yang dihimpun dalam Lampiran I. Penomoran pasal ditulis "Pasal …" karena bersifat sementara dan akan disesuaikan dengan sistematika RUU.`);
-  }
+  // ================= I. POKOK SIKAP =================
+  dividerSlide(1, "Pokok Sikap", "RUU Profesi Kurator akan mengatur profesi kurator, padahal kurator tidak hanya orang perseorangan. BHP juga menjalankan tugas kurator berdasarkan undang-undang.", [["1", "Masalah"], ["2", "Sikap BHP Medan"], ["3", "Pembagian peran"], ["4", "Koordinasi antarlembaga"]]);
 
-  // Daftar masukan
-  {
-    const s = newSlide();
-    header(s, "12 Masukan BHP Medan");
-    const list = [
-      "Batas Jumlah Perkara bagi BHP", "BHP sebagai Pengurus dalam PKPU", "Kekosongan Rezim Profesi",
-      "Standar yang Terfragmentasi", "Batas Perlindungan dan Tanggung Jawab", "Hambatan Pelaksanaan Tugas",
-      "Akuntabilitas Pengelolaan Boedel", "Pengawasan Berlapis yang Belum Terpadu", "Data yang Belum Optimal",
-      "Imbalan dan Risiko Profesi", "Kepailitan Lintas Batas", "Perlindungan Pihak Terdampak",
-    ];
-    list.forEach((t, i) => {
-      const col = i < 6 ? 0 : 1;
-      const x = 0.6 + col * 6.3;
-      const y = 1.7 + (i % 6) * 0.72;
-      numDot(s, i + 1, x, y, 0.58, 20);
-      text(s, t, { x: x + 0.8, y, w: 5.4, h: 0.58, fontSize: 22, bold: i < 2, color: i < 2 ? NAVY : INK, valign: "middle", margin: 0 });
-    });
-    text(s, rich("**2 (dua) masukan terkait peran BHP** sesuai agenda rapat ditambah **10 (sepuluh) masukan atas isu strategis** dalam Term of Reference Kunjungan Kerja Komisi XIII DPR RI, sehingga seluruhnya berjumlah 12 (dua belas) masukan."), {
-      x: 0.6, y: 6.0, w: 12.13, h: 0.9, fontSize: 20, margin: 0, valign: "middle",
-    });
-    footer(s);
-  }
+  slide("Kurator Tidak Hanya Orang Perseorangan", "I", E(1, "Masalah"), "Apabila RUU hanya disusun untuk kurator perorangan, kedudukan BHP menjadi tidak jelas:", "Kurator ada dua: perseorangan dan BHP. Bila RUU hanya untuk perseorangan, tiga hal tentang BHP menjadi tidak jelas.", (s) => {
+    tiles(s, [{ icon: "file", k: "Tidak jelas 1", h: "Apakah BHP ikut aturan izin dan sertifikasi profesi?", hs: 24 }, { icon: "balance", k: "Tidak jelas 2", h: "Siapa yang membina dan mengawasinya?", hs: 24 }, { icon: "users", k: "Tidak jelas 3", h: "Bagaimana pembagian perannya dengan kurator privat?", hs: 24 }], 2.55, 3.1);
+    punch(s, "BHP juga menjalankan tugas kurator berdasarkan undang-undang.");
+  });
 
-  // Ketentuan Umum
-  pasalSlides("KU", "Ketentuan Umum (petikan)", P.ku,
-    "Sebagai dasar istilah bagi seluruh usulan rumusan pasal, BHP Medan mengusulkan ketentuan umum ini. Pasal 1 memuat 13 definisi; yang ditampilkan adalah definisi yang berkaitan langsung dengan BHP.", "1");
+  slide("Empat Sikap BHP Medan", "I", E(1, "Sikap BHP Medan"), "Keempatnya dijabarkan lebih lanjut dalam usulan Pasal A sampai Pasal D.", "Empat sikap BHP Medan.", (s) => {
+    tiles(s, [{ k: "Sikap 1", h: "BHP dimuat dalam RUU sebagai lembaga negara", t: "Tugasnya dijalankan oleh pejabat fungsional Kurator Keperdataan." }, { k: "Sikap 2", h: "Satu standar profesi untuk semua kurator", t: "Yang berbeda hanya pembinaannya, karena BHP adalah lembaga pemerintah." }], 2.4, 2.1);
+    tiles(s, [{ k: "Sikap 3", h: "Pembagian peran BHP dan kurator perorangan ditegaskan", t: "RUU Profesi Kurator memuat prinsipnya." }, { k: "Sikap 4", h: "Koordinasi antarlembaga diatur dengan jelas", t: "BHP sendiri adalah kurator, bukan pengawas kurator privat." }], 4.7, 2.1);
+  });
 
-  // ---------------- Masukan 1: Batas Jumlah Perkara ----------------
-  {
-    const s = newSlide();
-    header(s, "Batas Jumlah Perkara Juga Berlaku bagi BHP", "1");
-    const tiles = [
-      ["3", "orang pejabat Kurator Keperdataan dalam setiap tim"],
-      ["3", "perkara paling banyak per tim pada waktu yang sama"],
-      ["Tim × 3", "kapasitas setiap BHP menjadi terukur"],
-    ];
-    tiles.forEach(([big, lbl], i) => {
-      const x = 0.6 + i * 4.15;
-      card(s, x, 1.75, 3.85, 2.75);
-      text(s, big, { x, y: 1.85, w: 3.85, h: 1.35, fontSize: big.length > 2 ? 52 : 80, bold: true, color: NAVY, align: "center", valign: "middle", margin: 0 });
-      text(s, lbl, { x: x + 0.25, y: 3.25, w: 3.35, h: 1.1, fontSize: 20, color: INK, align: "center", margin: 0 });
-    });
-    text(s, "Pasal 15 ayat (3) UU Kepailitan dan PKPU menentukan bahwa kurator yang diangkat tidak sedang menangani perkara kepailitan lebih dari 3 (tiga) perkara. Oleh karena BHP merupakan kurator berdasarkan Pasal 70 ayat (1), batas tersebut seharusnya juga berlaku bagi BHP.", {
-      x: 0.6, y: 4.8, w: 12.13, h: 1.95, fontSize: 24, margin: 0, valign: "middle",
-    });
-    footer(s);
-    s.addNotes("Pertimbangannya: tujuan batas jumlah perkara, yaitu memastikan kurator memiliki kapasitas yang cukup agar pengurusan dan pemberesan dilakukan secara cermat dan tepat waktu, sama pentingnya bagi BHP; tanpa batas, mutu penanganan perkara menurun, penyelesaian perkara tertunda sehingga merugikan Kreditor dan pekerja, dan pejabat BHP menanggung risiko tanggung jawab (Pasal 72); dan batas yang sama bagi seluruh kurator menjaga kesetaraan perlakuan antara Kurator Negara dan Kurator Perseorangan.");
-  }
-  pasalSlides("1", "Batas Jumlah Perkara", P.m2, null, "2");
-  {
-    const s = newSlide();
-    header(s, "Pengalihan Kelebihan Perkara sebagai Mitigasi Risiko", "1");
-    const steps = [
-      "Perkara yang sedang ditangani BHP tetap dilaksanakan oleh BHP",
-      "Pengalihan terlebih dahulu kepada tim lain dalam BHP yang sama",
-      "Bila tidak tertampung, permohonan penggantian kurator (Pasal 71)",
-    ];
-    steps.forEach((t, i) => {
-      const x = 0.6 + i * 4.15;
-      card(s, x, 1.75, 3.6, 2.7);
-      numDot(s, i + 1, x + 0.3, 1.95, 0.6);
-      text(s, t, { x: x + 0.3, y: 2.7, w: 3.05, h: 1.65, fontSize: 21, bold: true, color: NAVY, margin: 0 });
-      if (i < 2) s.addImage({ data: I.arrow, x: x + 3.7, y: 2.9, w: 0.4, h: 0.4 });
-    });
-    card(s, 0.6, 4.75, 12.13, 2.0, NAVY);
-    text(s, "6 BULAN", { x: 0.9, y: 4.75, w: 3.4, h: 2.0, fontSize: 48, bold: true, color: GOLD, valign: "middle", margin: 0 });
-    text(s, "Kelebihan perkara wajib dialihkan paling lama 6 (enam) bulan sejak undang-undang diundangkan. Selama jangka waktu tersebut, kelebihan perkara tidak dianggap sebagai pelanggaran batas jumlah perkara.", {
-      x: 4.3, y: 4.75, w: 8.15, h: 2.0, fontSize: 22, color: WHITE, valign: "middle", margin: 0,
-    });
-    footer(s);
-    s.addNotes("Tanpa ketentuan peralihan, terdapat tiga risiko: BHP langsung dianggap melanggar batas jumlah perkara, keabsahan tindakan BHP dalam perkara yang sedang berjalan dapat dipersoalkan, dan BHP tidak dapat menerima penunjukan baru meskipun diwajibkan oleh undang-undang. Pengalihan ke tim lain cukup dilakukan secara administratif melalui surat tugas Kepala BHP karena putusan Pengadilan mengangkat BHP sebagai lembaga, bukan pejabat tertentu. Selama jangka waktu tersebut, kelebihan perkara tidak dianggap sebagai pelanggaran batas jumlah perkara.");
-  }
-  pasalSlides("1", "Ketentuan Peralihan", P.peralihan, null, "3");
+  slide("Pembagian Peran yang Tegas", "I", E(1, "Sikap 3"), "BHP dan kurator perorangan tidak berebut perkara. Masing-masing punya wilayahnya sendiri.", "BHP mengisi perkara publik dan yang tidak diminati. Perkara bisnis tetap pilihan para pihak.", (s) => {
+    tiles(s, [{ navy: true, icon: "gov", k: "BHP menangani", h: "Perkara yang menyangkut kepentingan publik atau tidak diminati", t: "seperti perkara pekerja dan perkara dengan harta kecil", hs: 24, ts: 19 }, { icon: "users", k: "Kurator perorangan menangani", h: "Perkara bisnis atas pilihan para pihak", hs: 24 }], 2.5, 3.3);
+    punch(s, "RUU Profesi Kurator memuat prinsipnya, sedangkan rinciannya diatur dalam RUU Kepailitan dan PKPU.");
+  });
 
-  // ---------------- Masukan 2: BHP sebagai Pengurus dalam PKPU ----------------
-  {
-    const s = newSlide();
-    header(s, "BHP sebagai Pengurus dalam PKPU", "2");
-    const cols = [
-      ["KEPAILITAN", NAVY, WHITE, "UU Kepailitan dan PKPU menyebut BHP secara tegas sebagai kurator (Pasal 70 ayat (1)) dan menjadikannya kurator yang ditunjuk oleh undang-undang (Pasal 15 ayat (2))."],
-      ["PKPU", SOFT, INK, "Pasal 234 ayat (3) hanya menyebut orang perseorangan sebagai pihak yang dapat menjadi pengurus."],
-    ];
-    cols.forEach(([h, fill, fg, body], i) => {
-      const x = 0.6 + i * 6.28;
-      card(s, x, 1.75, 5.85, 3.3, fill);
-      text(s, h, { x: x + 0.35, y: 1.9, w: 5.2, h: 0.6, fontSize: 26, bold: true, color: i ? NAVY : GOLD, margin: 0 });
-      text(s, body, { x: x + 0.35, y: 2.6, w: 5.2, h: 2.3, fontSize: 24, color: fg, margin: 0 });
-    });
-    s.addImage({ data: I.quote, x: 0.6, y: 5.4, w: 0.55, h: 0.5 });
-    text(s, "Ketentuan tersebut tidak melarang BHP menjadi pengurus. BHP hanya tidak disebutkan dalam rumusan pasal tersebut.", {
-      x: 1.4, y: 5.3, w: 11.3, h: 1.4, fontSize: 30, bold: true, color: NAVY, valign: "middle", margin: 0,
-    });
-    footer(s);
-    s.addNotes("BHP Medan mengusulkan agar RUU memberikan kewenangan kepada BHP untuk diangkat sebagai pengurus dalam PKPU. Selain itu, BHP diusulkan menjadi pengurus yang diangkat oleh undang-undang apabila pemohon tidak mengusulkan pengurus atau pengurus yang diusulkan tidak memenuhi persyaratan, sama seperti kedudukannya dalam kepailitan.");
-  }
-  {
-    const s = newSlide();
-    header(s, "Celah Hukum: PKPU Tidak Memiliki Pengurus yang Ditunjuk oleh Undang-Undang", "2");
-    const tiles = [["3 hari", "paling lambat untuk permohonan Debitor"], ["20 hari", "paling lambat untuk permohonan Kreditor"]];
-    tiles.forEach(([big, lbl], i) => {
-      const x = 0.6 + i * 3.2;
-      card(s, x, 1.75, 2.95, 2.6, NAVY);
-      text(s, big, { x, y: 1.85, w: 2.95, h: 1.2, fontSize: 48, bold: true, color: GOLD, align: "center", valign: "middle", margin: 0 });
-      text(s, lbl, { x: x + 0.2, y: 3.05, w: 2.55, h: 1.15, fontSize: 18, bold: true, color: WHITE, align: "center", margin: 0 });
-    });
-    text(s, "Pasal 225 ayat (2) dan ayat (3) mewajibkan Pengadilan mengabulkan PKPU sementara dalam waktu yang sangat singkat. Pada saat yang sama, Pengadilan harus mengangkat satu atau lebih pengurus.", {
-      x: 7.1, y: 1.75, w: 5.63, h: 2.6, fontSize: 22, margin: 0, valign: "middle",
-    });
-    card(s, 0.6, 4.65, 12.13, 2.1);
-    text(s, rich("Dalam kepailitan, keadaan yang sama sudah diselesaikan oleh Pasal 15 ayat (2). **Dalam PKPU, jalan keluar tersebut tidak tersedia, padahal batas waktunya bersifat memaksa.**"), {
-      x: 0.95, y: 4.65, w: 11.45, h: 2.1, fontSize: 26, valign: "middle", margin: 0,
-    });
-    footer(s);
-    s.addNotes("Undang-undang tidak mengatur siapa yang diangkat sebagai pengurus apabila pemohon tidak mengusulkan pengurus, atau apabila pengurus yang diusulkan tidak memenuhi syarat dalam Pasal 234 ayat (1), yaitu independen, tidak memiliki benturan kepentingan, dan tidak sedang menangani lebih dari 3 (tiga) perkara.");
-  }
-  {
-    const s = newSlide();
-    header(s, "Pokok Analisis Hukum", "2");
-    const pts = [
-      "Pengaturan kepailitan dan PKPU tidak seimbang",
-      "Terdapat celah hukum: PKPU tidak memiliki pengurus yang ditunjuk oleh undang-undang",
-      "Lembaga yang dipercaya untuk tugas yang lebih berat layak dipercaya untuk tugas yang lebih ringan",
-      "BHP menjamin independensi pengurus, khususnya dalam PKPU yang diajukan Kreditor",
-      "Penanganan perkara dari PKPU ke kepailitan menjadi berkesinambungan",
-      "Kewenangan BHP harus diberikan secara tegas oleh undang-undang",
-      "Kesimpulan dan usulan",
-    ];
-    pts.forEach((t, i) => {
-      const y = 1.7 + i * 0.73;
-      numDot(s, "abcdefg"[i], 0.6, y + 0.04, 0.55, 20);
-      text(s, t, { x: 1.4, y, w: 11.33, h: 0.65, fontSize: 22, bold: true, color: NAVY, valign: "middle", margin: 0 });
-    });
-    footer(s);
-    s.addNotes("Huruf c: kewenangan kurator jauh lebih luas daripada pengurus; sejak putusan pailit Debitor kehilangan hak menguasai hartanya (Pasal 24) dan kurator melakukan pengurusan sekaligus pemberesan (Pasal 69), sedangkan dalam PKPU tindakan Debitor hanya memerlukan persetujuan pengurus (Pasal 240 ayat (1)). Huruf d: imbalan jasa BHP disetorkan ke kas negara sebagai PNBP berdasarkan UU 9/2018, pejabat tidak memperoleh keuntungan pribadi. Huruf e: PKPU dapat berakhir pailit (Pasal 230 ayat (1), Pasal 289); bila BHP sejak awal menjadi pengurus, data harta Debitor, hasil pencocokan tagihan, dan pemahaman perkara tetap berada pada lembaga yang sama. Huruf g: perkara PKPU yang ditangani BHP diperhitungkan dalam batas jumlah perkara; dalam hal seluruh tim telah mencapai batas, Pengadilan mengangkat Pengurus Perseorangan.");
-  }
-  {
-    const s = newSlide();
-    header(s, "Dua Argumen Kunci", "2");
-    const quotes = [
-      ["Lembaga yang dipercaya untuk tugas yang lebih berat", "Dalam hal undang-undang telah mempercayakan kewenangan yang lebih berat, yaitu mengambil alih dan membereskan seluruh harta Debitor, kepada BHP, maka secara logika hukum (argumentum a maiore ad minus) BHP juga mampu melaksanakan kewenangan yang lebih ringan sebagai pengurus."],
-      ["Kewenangan harus tegas dalam undang-undang", "BHP tidak dapat menjadi pengurus hanya berdasarkan penafsiran, meskipun tidak ada ketentuan yang melarangnya. Sebagai badan pemerintahan, BHP hanya dapat bertindak berdasarkan kewenangan yang diberikan oleh peraturan perundang-undangan."],
-    ];
-    quotes.forEach(([h, q], i) => {
-      const x = 0.6 + i * 6.28;
-      card(s, x, 1.75, 5.85, 5.0, i ? NAVY : SOFT);
-      s.addImage({ data: I.quote, x: x + 0.35, y: 2.0, w: 0.6, h: 0.55 });
-      text(s, h, { x: x + 1.15, y: 1.95, w: 4.45, h: 0.7, fontSize: 20, bold: true, color: i ? GOLD : DARKGOLD, valign: "middle", margin: 0 });
-      text(s, q, { x: x + 0.35, y: 2.85, w: 5.15, h: 3.7, fontSize: 23, bold: !!i, color: i ? WHITE : INK, margin: 0 });
-    });
-    footer(s);
-    s.addNotes("Kewenangan badan pemerintahan diperoleh melalui atribusi, delegasi, atau mandat (Pasal 11 UU 30/2014 tentang Administrasi Pemerintahan), dan kewenangan atribusi hanya dapat diberikan oleh UUD atau undang-undang (Pasal 12 ayat (1)).");
-  }
-  pasalSlides("2", "BHP sebagai Pengurus dalam PKPU", P.m1,
-    "Masukan BHP Medan: RUU memberikan kewenangan kepada BHP untuk diangkat sebagai pengurus PKPU dan menjadikan BHP pengurus yang diangkat oleh undang-undang.", "4");
+  slide("Koordinasi Antarlembaga", "I", E(1, "Sikap 4"), "Setiap lembaga punya peran yang jelas, sehingga tidak ada tumpang tindih.", "Empat lembaga, empat peran. Tekankan: BHP bukan pengawas kurator privat.", (s) => {
+    tiles(s, [{ icon: "gov", k: "Kementerian", h: "Membina" }, { icon: "gavel", k: "Hakim Pengawas", h: "Mengawasi perkara" }, { icon: "users", k: "Organisasi profesi", h: "Menegakkan etik kurator perorangan" }, { navy: true, icon: "db", k: "BHP", h: "Simpul data di wilayahnya" }], 2.5, 3.1, 0.25);
+    punch(s, "BHP tidak ditempatkan sebagai pengawas kurator privat, karena BHP sendiri adalah kurator.");
+  });
 
-  // ---------------- Masukan 3 dan 4 ----------------
-  {
-    const s = newSlide();
-    header(s, "Kekosongan Rezim Profesi dan Standar yang Terfragmentasi", "3, 4");
-    const cols = [
-      [I.users, "Kurator Perseorangan", "Bagi Kurator Perseorangan, hal tersebut dilaksanakan oleh organisasi profesi."],
-      [I.gov, "Kurator Negara", "Bagi Kurator Negara, hal tersebut dilaksanakan oleh Kementerian Hukum karena pejabat Kurator Keperdataan merupakan Aparatur Sipil Negara."],
-    ];
-    cols.forEach(([ic, h, b], i) => {
-      const x = 0.6 + i * 6.28;
-      card(s, x, 1.75, 5.85, 2.55);
-      s.addImage({ data: ic, x: x + 0.3, y: 1.98, w: 0.6, h: 0.6 });
-      text(s, h, { x: x + 1.1, y: 1.95, w: 4.5, h: 0.65, fontSize: 24, bold: true, color: NAVY, valign: "middle", margin: 0 });
-      text(s, b, { x: x + 0.3, y: 2.7, w: 5.25, h: 1.5, fontSize: 21, margin: 0 });
-    });
-    text(s, rich("RUU perlu membentuk **Majelis Pengawas Kurator** yang terdiri atas unsur pemerintah, organisasi profesi, dan akademisi. Seluruh organisasi profesi wajib berpedoman pada **satu standar profesi nasional** yang ditetapkan oleh Menteri. Seluruh kurator berada di bawah pengawasan Majelis Pengawas Kurator yang sama."), {
-      x: 0.6, y: 4.55, w: 12.13, h: 2.2, fontSize: 23, margin: 0, valign: "middle",
-    });
-    footer(s);
-  }
-  pasalSlides("3", "Pembinaan Profesi dan Majelis Pengawas Kurator", P.m3, null, "5");
-  pasalSlides("4", "Standar Profesi Nasional", P.m4, null, "6");
+  // ================= II. PENGALAMAN BHP MEDAN =================
+  dividerSlide(2, "Pengalaman BHP Medan", "BHP Medan saat ini menangani 9 perkara kepailitan yang masih berjalan dengan total tagihan sekitar Rp47,35 miliar.", [["1", "Hartanya kecil"], ["2", "Perkaranya panjang"], ["3", "Menyangkut hak pekerja dan uang negara"], ["4", "Debitor menghilang"]]);
 
-  // ---------------- Masukan 5 ----------------
-  {
-    const s = newSlide();
-    header(s, "Batas Perlindungan dan Tanggung Jawab", "5");
-    text(s, "RUU perlu membentuk Majelis Kehormatan Kurator. Majelis ini memeriksa lebih dahulu laporan terhadap kurator sebelum kurator dipanggil oleh aparat penegak hukum, untuk membedakan:", {
-      x: 0.6, y: 1.7, w: 7.3, h: 1.75, fontSize: 21, margin: 0,
-    });
-    ["sengketa teknis kepailitan", "pelanggaran etik", "pelanggaran administratif", "tanggung jawab perdata", "tindak pidana"].forEach((t, i) => {
-      const y = 3.55 + i * 0.64;
-      card(s, 0.6, y, 7.3, 0.54);
-      text(s, t, { x: 0.85, y, w: 6.9, h: 0.54, fontSize: 21, bold: true, color: NAVY, valign: "middle", margin: 0 });
-    });
-    card(s, 8.25, 1.75, 4.48, 5.0, NAVY);
-    text(s, "30", { x: 8.25, y: 1.9, w: 4.48, h: 1.5, fontSize: 96, bold: true, color: GOLD, align: "center", valign: "middle", margin: 0 });
-    text(s, "hari kerja", { x: 8.25, y: 3.4, w: 4.48, h: 0.55, fontSize: 24, bold: true, color: WHITE, align: "center", margin: 0 });
-    text(s, "Majelis wajib memberikan jawaban dalam jangka waktu tertentu agar mekanisme ini tidak menjadi imunitas yang menghambat proses hukum.", {
-      x: 8.5, y: 4.1, w: 3.98, h: 2.5, fontSize: 19, color: WHITE, align: "center", valign: "middle", margin: 0,
-    });
-    footer(s);
-    s.addNotes("Model ini sejalan dengan saran dalam Term of Reference untuk mempertimbangkan praktik profesi Notaris yang telah memiliki Majelis Kehormatan Notaris.");
-  }
-  pasalSlides("5", "Majelis Kehormatan Kurator", P.m5, null, "7");
+  slide("Perkara yang Sedang Berjalan", "II", E(2), "Seluruhnya jatuh ke BHP karena pemohon tidak mengusulkan kurator.", "Sembilan perkara, seluruhnya datang karena pemohon tidak mengusulkan kurator.", (s) => {
+    tiles(s, [{ navy: true, big: "9", k: "Perkara kepailitan", t: "yang masih berjalan", ts: 20 }, { big: "Rp47,35 M", bs: 46, k: "Total tagihan", t: "sekitar Rp47,35 miliar", ts: 20 }, { icon: "folder", k: "Asal perkara", h: "Seluruhnya jatuh ke BHP", t: "karena pemohon tidak mengusulkan kurator", ts: 20 }], 2.5, 2.9);
+    text(s, rich("Selain itu, BHP Medan telah menyelesaikan perkara lain, antara lain **PT Jasa Prima Mandiri** yang ditangani bersama kurator perorangan."), { x: 0.6, y: 5.75, w: 12.13, h: 1.0, fontSize: 20, margin: 0, valign: "middle" });
+  });
 
-  // ---------------- Masukan 6 ----------------
-  {
-    const s = newSlide();
-    header(s, "Hambatan Pelaksanaan Tugas", "6");
-    const cards = [
-      [I.shield, "Pengamanan", "Kepolisian Negara Republik Indonesia wajib memberikan pendampingan dan pengamanan kepada kurator sesuai dengan permintaan."],
-      [I.folder, "Akses dan Dokumen", "Kewajiban para pihak untuk memberikan akses dan dokumen kepada kurator."],
-      [I.gavel, "Sanksi", "Sanksi bagi setiap orang yang dengan sengaja menghalangi pelaksanaan tugas kurator."],
-    ];
-    cards.forEach(([ic, h, b], i) => {
-      const x = 0.6 + i * 4.15;
-      card(s, x, 1.75, 3.85, 5.0);
-      s.addImage({ data: ic, x: x + 1.47, y: 2.05, w: 0.9, h: 0.9 });
-      text(s, h, { x: x + 0.25, y: 3.15, w: 3.35, h: 0.65, fontSize: 25, bold: true, color: NAVY, align: "center", margin: 0 });
-      text(s, b, { x: x + 0.3, y: 3.95, w: 3.25, h: 2.6, fontSize: 21, align: "center", margin: 0 });
+  slide("Hartanya Kecil", "1", E(2, "Temuan 1"), "Pada empat perkara yang sudah dinilai, harta pailit hanya 12% sampai 40% dari tagihan.", "Empat perkara yang sudah dinilai. Sumber: Buku Register Kepailitan BHP Medan, pemutakhiran Juni 2026.", (s) => {
+    [["Badaruddin HSB", "2,30", "0,93", 40], ["Gwe Tjoen", "25,66", "8,00", 31], ["CV Hitado", "1,94", "0,53", 27], ["PT Rata Makmur", "1,43", "0,17", 12]].forEach(([n, tg, h, p], i) => {
+      const y = 2.5 + i * 0.85;
+      text(s, [{ text: n, options: { bold: true, color: NAVY, fontSize: 20, breakLine: true } }, { text: `Tagihan Rp${tg} miliar`, options: { fontSize: 12, color: MUTED, breakLine: true } }, { text: `Harta Rp${h} miliar`, options: { fontSize: 12, color: MUTED } }], { x: 0.6, y: y - 0.05, w: 3.4, h: 0.8, margin: 0, valign: "middle" });
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 4.1, y: y + 0.14, w: 7.0, h: 0.42, rectRadius: 0.08, fill: { color: "D5DDEA" }, line: { color: "D5DDEA" } });
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 4.1, y: y + 0.14, w: 7.0 * p / 100, h: 0.42, rectRadius: 0.08, fill: { color: NAVY }, line: { color: NAVY } });
+      text(s, p + "%", { x: 11.2, y, w: 1.53, h: 0.7, fontSize: 32, bold: true, color: NAVY, align: "right", margin: 0, valign: "middle" });
     });
-    footer(s);
-    s.addNotes("Masukan ini menjawab penolakan akses, penyembunyian aset dan dokumen, perlawanan pihak ketiga, dan tidak tersedianya pengamanan.");
-  }
-  pasalSlides("6", "Dukungan Pengamanan dan Ketentuan Pidana", P.m6, null, "8");
+    punch(s, "Perkara seperti ini tidak menarik bagi kurator yang bekerja atas dasar imbalan.");
+  });
 
-  // ---------------- Masukan 7 ----------------
-  {
-    const s = newSlide();
-    header(s, "Akuntabilitas Pengelolaan Boedel", "7");
-    card(s, 0.6, 1.75, 4.6, 5.0, NAVY);
-    text(s, "1", { x: 0.6, y: 1.9, w: 4.6, h: 1.5, fontSize: 96, bold: true, color: GOLD, align: "center", valign: "middle", margin: 0 });
-    text(s, "rekening kepailitan untuk setiap perkara", { x: 0.85, y: 3.45, w: 4.1, h: 1.0, fontSize: 24, bold: true, color: WHITE, align: "center", margin: 0 });
-    text(s, "Bagi Kurator Negara, rekening dikelola sesuai ketentuan penatausahaan uang pihak ketiga pada BHP.", { x: 0.85, y: 4.6, w: 4.1, h: 1.9, fontSize: 19, color: WHITE, align: "center", margin: 0 });
-    text(s, "Untuk pembagian hasil pemberesan, RUU perlu memuat urutan prioritas pembayaran kepada Kreditor sebagai pedoman bagi kurator, dengan memperhatikan Putusan Mahkamah Konstitusi Nomor 67/PUU-XI/2013 mengenai kedudukan upah dan hak pekerja.", {
-      x: 5.6, y: 1.75, w: 7.13, h: 5.0, fontSize: 25, margin: 0, valign: "middle",
+  slide("Perkaranya Panjang", "2", E(2, "Temuan 2"), "Enam dari sembilan perkara berjalan lebih dari lima tahun, yang terlama sejak 2016.", "Lama perkara sejak putusan sampai Oktober 2026 (PT Rata Makmur sejak PKPU). Sumber: Buku Register Kepailitan BHP Medan, diolah.", (s) => {
+    const R = [["Gwe Tjoen", 10.6], ["CV Hitado", 9.4], ["PT Pro Mekanika", 8.3], ["Badaruddin HSB", 7.8], ["Suparjo Rustam", 6.9], ["Hermanto", 6.6], ["PT Rata Makmur", 4.1], ["KSO Maju Abadi", 3.0], ["Frans Winner", 0.8]];
+    const X0 = 2.75, WB = 5.0, S = WB / 12;
+    s.addShape(pres.shapes.LINE, { x: X0 + 5 * S, y: 2.35, w: 0, h: 4.45, line: { color: DARKGOLD, width: 1.5, dashType: "dash" } });
+    text(s, "5 tahun", { x: X0 + 5 * S + 0.08, y: 2.3, w: 1.2, h: 0.25, fontSize: 12, bold: true, color: DARKGOLD, margin: 0 });
+    R.forEach(([n, v], i) => {
+      const y = 2.6 + i * 0.46;
+      text(s, n, { x: 0.6, y, w: 2.0, h: 0.36, fontSize: 14, align: "right", margin: 0, valign: "middle" });
+      s.addShape(pres.shapes.RECTANGLE, { x: X0, y: y + 0.03, w: v * S, h: 0.3, fill: { color: v >= 5 ? NAVY : "C3CEDF" }, line: { color: v >= 5 ? NAVY : "C3CEDF" } });
+      text(s, String(v.toFixed(1)).replace(".", ",") + " tahun", { x: X0 + v * S + 0.08, y, w: 1.3, h: 0.36, fontSize: 13, bold: true, color: NAVY, margin: 0, valign: "middle" });
     });
-    footer(s);
-    s.addNotes("Standar rekening terpisah, jejak audit, penilaian aset, penjualan, pembagian, pengungkapan konflik kepentingan, dan pelaporan diperkuat melalui kewajiban menyimpan seluruh uang harta pailit dalam satu rekening kepailitan untuk setiap perkara.");
-  }
-  pasalSlides("7", "Rekening Kepailitan dan Urutan Pembayaran", P.m7, null, "9");
+    tiles(s, [{ navy: true, big: "6", k: "dari 9 perkara", t: "berjalan lebih dari lima tahun. Kurator perorangan bisa berhenti atau meninggal dunia, sedangkan BHP tetap berjalan sebagai lembaga.", ts: 19 }], 2.45, 4.35, 0, 9.4, 3.33);
+  });
 
-  // ---------------- Masukan 8 ----------------
-  {
-    const s = newSlide();
-    header(s, "Pengawasan Berlapis yang Belum Terpadu", "8");
-    const cols = [
-      [I.gavel, "Hakim Pengawas", "pengawasan yuridis atas pengurusan dan pemberesan harta pailit"],
-      [I.balance, "Majelis Pengawas Kurator", "pengawasan teknis dan administratif atas tahapan pelaksanaan pekerjaan kurator"],
-      [I.users, "Komite Bersama", "pengawasan terkait pengembangan profesi dan organisasi kurator"],
-    ];
-    cols.forEach(([ic, h, b], i) => {
-      const x = 0.6 + i * 4.15;
-      card(s, x, 1.75, 3.85, 3.95);
-      s.addImage({ data: ic, x: x + 1.47, y: 2.0, w: 0.9, h: 0.9 });
-      text(s, h, { x: x + 0.25, y: 3.0, w: 3.35, h: 0.95, fontSize: 23, bold: true, color: NAVY, align: "center", valign: "middle", margin: 0 });
-      text(s, b, { x: x + 0.3, y: 4.0, w: 3.25, h: 1.6, fontSize: 20, align: "center", margin: 0 });
-    });
-    text(s, "Pembagian pengawasan perlu ditegaskan agar hubungan kewenangan Hakim Pengawas, Kementerian Hukum, Komite Bersama, dan organisasi profesi tidak menimbulkan celah atau tumpang tindih.", {
-      x: 0.6, y: 5.85, w: 12.13, h: 0.95, fontSize: 21, bold: true, color: NAVY, valign: "middle", margin: 0,
-    });
-    footer(s);
-  }
-  pasalSlides("8", "Pembagian Pengawasan", P.m8, null, "10");
+  slide("Hak Pekerja dan Debitor yang Menghilang", "II", E(2, "Temuan 3 dan 4"), "Perkara yang menyangkut kepentingan publik ditangani BHP sampai tuntas.", "Dua contoh nyata: PT Rata Makmur dan CV Hitado.", (s) => {
+    tiles(s, [{ navy: true, icon: "users", k: "Temuan 3 · PT Rata Makmur", h: "Menyangkut hak pekerja dan uang negara", t: "Permohonan diajukan pekerja dan pengadilan menunjuk BHP Medan sebagai pengurus lalu kurator. Tagihan para pekerja pemohon sudah lunas, sisanya tagihan pajak.", hs: 24, ts: 19 }, { icon: "search", k: "Temuan 4 · CV Hitado", h: "Debitor menghilang", t: "Debitor tidak ditemukan sekitar lima tahun sehingga penyelesaian perkara tertahan.", hs: 24, ts: 19 }], 2.5, 4.2);
+  });
 
-  // ---------------- Masukan 9 dan 10 ----------------
-  {
-    const s = newSlide();
-    header(s, "Data yang Belum Optimal; Imbalan dan Risiko Profesi", "9, 10");
-    const cols = [
-      [I.db, "Data harta Debitor Pailit", "RUU perlu mewajibkan instansi atau lembaga terkait, seperti Badan Pertanahan Nasional, SAMSAT, PT Kustodian Sentral Efek Indonesia (KSEI), dan perbankan, untuk memberikan data harta Debitor Pailit yang dibutuhkan kurator dalam jangka waktu tertentu."],
-      [I.coins, "Imbalan jasa", "RUU cukup menegaskan kembali dasar hukum imbalan jasa berdasarkan pedoman Menteri, serta menegaskan bahwa imbalan jasa yang diterima BHP merupakan Penerimaan Negara Bukan Pajak."],
-    ];
-    cols.forEach(([ic, h, b], i) => {
-      const x = 0.6 + i * 6.28;
-      card(s, x, 1.75, 5.85, 5.0);
-      s.addImage({ data: ic, x: x + 0.3, y: 1.98, w: 0.6, h: 0.6 });
-      text(s, h, { x: x + 1.1, y: 1.95, w: 4.5, h: 0.65, fontSize: 24, bold: true, color: NAVY, valign: "middle", margin: 0 });
-      text(s, b, { x: x + 0.3, y: 2.85, w: 5.25, h: 3.7, fontSize: 22, margin: 0 });
-    });
-    footer(s);
-    s.addNotes("Data diintegrasikan dalam satu sistem informasi terpusat dengan tetap melindungi data pribadi dan kerahasiaan perkara sesuai UU 27/2022. Menurut BHP Medan, transparansi imbalan, biaya operasional, jaminan pembayaran, dan asuransi tanggung jawab profesi tidak menjadi permasalahan pokok; imbalan jasa telah ditetapkan berdasarkan pedoman Menteri (Pasal 75 dan Pasal 234 ayat (5)), saat ini Peraturan Menteri Hukum Nomor 20 Tahun 2025.");
-  }
-  pasalSlides("9", "Kewajiban Penyediaan Data", P.m9, null, "11");
-  pasalSlides("10", "Imbalan Jasa", P.m10, null, "12");
+  slide("Perkara Naik, Datanya Belum Ada", "II", E(2, "Secara nasional"), "Laporan Tahunan Mahkamah Agung 2025 mencatat perkara niaga naik 19,18%.", "Perkara niaga naik, tetapi tidak ada data siapa kurator yang diangkat. Ini dijawab Pasal D ayat (4).", (s) => {
+    tiles(s, [{ k: "Dari", big: "782", t: "perkara niaga" }, { navy: true, k: "Menjadi", big: "932", t: "perkara niaga" }, { k: "Naik", big: "19,18%", t: "Laporan Tahunan Mahkamah Agung 2025" }], 2.5, 2.6);
+    punch(s, "Data perbandingan perkara BHP dan kurator privat belum tersedia, karena pengadilan tidak mencatat siapa kurator yang diangkat.", 5.4, 1.3);
+  });
 
-  // ---------------- Masukan 11 dan 12 ----------------
-  {
-    const s = newSlide();
-    header(s, "Kepailitan Lintas Batas; Perlindungan Pihak Terdampak", "11, 12");
-    const cols = [
-      [I.globe, "Lintas batas", "Kurator wajib mematuhi ketentuan hukum internasional dan perjanjian internasional yang mengikat Indonesia. UNCITRAL Model Law on Cross-Border Insolvency (1997) dapat dijadikan acuan."],
-      [I.comment, "Pengaduan", "Setiap pihak yang dirugikan dapat menyampaikan pengaduan melalui prosedur yang terbuka, sederhana, dan memiliki batas waktu penyelesaian yang jelas, tanpa menghentikan proses pengurusan dan pemberesan harta pailit."],
-    ];
-    cols.forEach(([ic, h, b], i) => {
-      const x = 0.6 + i * 6.28;
-      card(s, x, 1.75, 5.85, 5.0);
-      s.addImage({ data: ic, x: x + 0.3, y: 1.98, w: 0.6, h: 0.6 });
-      text(s, h, { x: x + 1.1, y: 1.95, w: 4.5, h: 0.65, fontSize: 24, bold: true, color: NAVY, valign: "middle", margin: 0 });
-      text(s, b, { x: x + 0.3, y: 2.85, w: 5.25, h: 3.7, fontSize: 22, margin: 0 });
-    });
-    footer(s);
-    s.addNotes("Masukan 11 menjawab belum adanya kerangka mengenai pengakuan proses kepailitan asing, kerja sama pengadilan, aset di luar negeri, dan kualifikasi praktisi asing. Masukan 12: kepentingan Debitor, Kreditor, pekerja, negara, konsumen, dan pihak ketiga diakomodasi melalui Majelis Pengawas Kurator dan Majelis Kehormatan Kurator.");
-  }
-  pasalSlides("11", "Kepailitan Lintas Batas", P.m11, null, "13");
-  pasalSlides("12", "Pengaduan", P.m12, null, "14");
+  // ================= III. JAWABAN KLASTER 1 =================
+  dividerSlide(3, "Jawaban Klaster 1", "Tidak perlu memisahkan BHP dari tugas kurator. Yang diperlukan adalah pembagian peran yang jelas.", [["1", "Mekanisme BHP sebagai kurator dan kendalanya"], ["2", "Perlukah pemisahan peran"], ["3", "Kewajiban memakai BHP pada kasus tertentu"]]);
 
-  // Rujukan
-  {
-    const s = newSlide();
-    header(s, "Disusun di Atas Rujukan yang Kuat");
-    const stats = [
-      ["12", "undang-undang dan peraturan setingkat undang-undang"],
-      ["5", "peraturan menteri"],
-      ["1", "Putusan Mahkamah Konstitusi Nomor 67/PUU-XI/2013"],
-      ["2", "dokumen UNCITRAL tentang hukum kepailitan"],
-    ];
-    stats.forEach(([big, lbl], i) => {
-      const x = 0.6 + (i % 2) * 6.28;
-      const y = 1.75 + Math.floor(i / 2) * 1.75;
-      card(s, x, y, 5.85, 1.55);
-      text(s, big, { x: x + 0.2, y, w: 1.5, h: 1.55, fontSize: 54, bold: true, color: NAVY, align: "center", valign: "middle", margin: 0 });
-      text(s, lbl, { x: x + 1.85, y, w: 3.8, h: 1.55, fontSize: 21, valign: "middle", margin: 0 });
+  slide("Bagaimana BHP Bekerja sebagai Kurator", "1", E(3, "Pertanyaan 1"), "Bagaimana mekanisme BHP sebagai kurator, dan adakah kendala dengan kurator privat?", "Alur kerja BHP dari penunjukan sampai laporan.", (s) => {
+    [[I.gavel, "Ditunjuk pengadilan"], [I.users, "Kepala BHP menugaskan tim Kurator Keperdataan"], [I.folder, "Tim mengurus, menilai, dan menjual harta"], [I.file, "Melapor secara berkala"]].forEach(([ic, t], i) => {
+      const x = 0.6 + i * 3.1;
+      card(s, x, 2.5, 2.75, 1.5, WHITE, "B8C4D8");
+      s.addImage({ data: ic, x: x + 0.2, y: 2.95, w: 0.5, h: 0.5 });
+      text(s, t, { x: x + 0.85, y: 2.5, w: 1.8, h: 1.5, fontSize: 16, bold: true, color: NAVY, margin: 0, valign: "middle" });
+      if (i < 3) s.addImage({ data: I.arrow, x: x + 2.8, y: 3.1, w: 0.25, h: 0.3 });
     });
-    text(s, rich("Termasuk **UU 37/2004** tentang Kepailitan dan PKPU, **UU 30/2014** tentang Administrasi Pemerintahan, **UU 9/2018** tentang PNBP, **UU 27/2022** tentang Pelindungan Data Pribadi, **UU 20/2023** tentang ASN, dan **Permenkum 20/2025** tentang Pedoman Imbalan Jasa bagi Kurator dan Pengurus."), {
-      x: 0.6, y: 5.35, w: 12.13, h: 1.45, fontSize: 20, margin: 0, valign: "middle",
+    tiles(s, [{ icon: "gavel", k: "Pengawasan", h: "Di bawah pengawasan Hakim Pengawas" }, { navy: true, icon: "coins", k: "Imbalan jasa", h: "Imbalan jasa BHP disetor ke kas negara" }], 4.3, 2.4);
+  });
+
+  slide("Bersama Kurator Perorangan: PT Jasa Prima Mandiri", "1", E(3, "Pertanyaan 1"), "Nomor 1/Pdt.Sus-Pailit/2015/PN Niaga Mdn. Kerja sama berjalan baik.", "Contoh nyata kerja sama BHP dan kurator perorangan.", (s) => {
+    tiles(s, [{ k: "Putusan pailit", h: "BHP Medan diangkat sebagai kurator", hs: 20 }, { k: "Mei 2015", h: "Kurator tambahan diangkat", hs: 20 }, { k: "Mei 2019", h: "Kepailitan berakhir, sekitar empat tahun", hs: 20 }], 2.5, 1.5);
+    tiles(s, [{ navy: true, big: "Rp12,85 M", bs: 46, t: "harta berhasil dibereskan", ts: 20 }, { icon: "hand", k: "Hasilnya", h: "Kerja sama berjalan baik" }], 4.25, 2.5);
+  });
+
+  slide("Kendalanya: Imbalan Jasa", "1", E(3, "Pertanyaan 1"), "Kurator tambahan memperoleh imbalan lebih besar daripada BHP sebagai kurator yang diangkat lebih dahulu.", "Aturannya berbeda. Ini dijawab Pasal D.", (s) => {
+    [["BHP Medan", "PNBP · 8% dari nilai bersih", 379.8, NAVY], ["Kurator tambahan", "5% dari nilai kotor", 642.7, GOLD]].forEach(([n, d, v, c], i) => {
+      const y = 2.6 + i * 1.25;
+      text(s, [{ text: n, options: { bold: true, color: NAVY, fontSize: 22, breakLine: true } }, { text: d, options: { fontSize: 15, color: MUTED } }], { x: 0.6, y, w: 3.3, h: 0.95, margin: 0, valign: "middle" });
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 4.0, y: y + 0.15, w: 6.0 * v / 642.7, h: 0.65, rectRadius: 0.1, fill: { color: c }, line: { color: c } });
+      text(s, "Rp" + String(v).replace(".", ",") + " juta", { x: 10.2, y, w: 2.53, h: 0.95, fontSize: 26, bold: true, color: NAVY, align: "right", margin: 0, valign: "middle" });
     });
-    footer(s);
-    s.addNotes("Bahan masukan juga merujuk pada Term of Reference Kunjungan Kerja Komisi XIII DPR RI serta Buku Register Kepailitan dan Laporan Pengurusan dan Pemberesan Boedel Pailit Triwulan III Tahun 2026 BHP Medan.");
-  }
+    punch(s, "Tidak ada aturan pembagian imbalan berdasarkan porsi tugas. Aturan juga belum mengatur pembagian tugas dan tanggung jawab di antara keduanya.", 5.3, 1.4);
+  });
+
+  slide("Tidak Perlu Dipisahkan, Cukup Dibagi dengan Jelas", "2", E(3, "Pertanyaan 2"), "Perlukah pemisahan tegas peran BHP sebagai balai harta atau wali pengawas dengan peran kurator privat?", "Tidak perlu memisahkan BHP dari tugas kurator. Yang diperlukan adalah pembagian peran yang jelas, karena tiga alasan.", (s) => {
+    tiles(s, [{ icon: "folder", k: "Alasan a", h: "Tanpa BHP, perkara yang tidak diminati kurator privat tidak punya pelaksana.", hs: 18 }, { icon: "hand", k: "Alasan b", h: "BHP tidak berebut perkara dengan kurator privat.", t: "Yang ditangani BHP adalah perkara yang tidak diambil pihak lain.", hs: 18, ts: 15 }, { navy: true, icon: "book", k: "Alasan c", h: "Pengalaman BHP mengurus warisan, perwalian anak, dan harta orang yang menghilang", t: "membuat BHP paling siap menangani perkara yang berkaitan dengan hal tersebut.", hs: 17, ts: 15 }], 2.5, 3.4);
+    text(s, rich("Perlu dicatat, **wali pengawas** adalah tugas BHP dalam perwalian anak (Pasal 366 KUHPerdata), bukan pengawas kurator."), { x: 0.6, y: 6.0, w: 12.13, h: 0.8, fontSize: 19, margin: 0, valign: "middle" });
+  });
+
+  slide("Kewajiban Memakai BHP: Setuju", "3", E(3, "Pertanyaan 3"), "Bagaimana pandangan BHP tentang kewajiban memakai BHP pada kasus tertentu?", "Setuju untuk lima jenis perkara. Di luar itu para pihak tetap bebas memilih.", (s) => {
+    card(s, 0.6, 2.5, 7.3, 4.25, NAVY);
+    text(s, "BHP MEDAN SETUJU, TERUTAMA UNTUK", { x: 0.9, y: 2.7, w: 6.8, h: 0.35, fontSize: 13, bold: true, color: GOLD, charSpacing: 1.5, margin: 0 });
+    ["debitor yang meninggal tanpa ahli waris atau hartanya tidak terurus", "debitor yang tidak diketahui keberadaannya", "perkara pekerja", "perkara dengan harta kecil", "perkara yang kehilangan kurator"].forEach((t, i) => {
+      const y = 3.2 + i * 0.68;
+      s.addShape(pres.shapes.OVAL, { x: 0.9, y: y + 0.05, w: 0.42, h: 0.42, fill: { color: GOLD }, line: { color: GOLD } });
+      text(s, String(i + 1), { x: 0.9, y: y + 0.05, w: 0.42, h: 0.42, fontSize: 14, bold: true, color: NAVY, align: "center", valign: "middle", margin: 0 });
+      text(s, t, { x: 1.5, y, w: 6.2, h: 0.55, fontSize: 18, bold: true, color: WHITE, margin: 0, valign: "middle" });
+    });
+    tiles(s, [{ icon: "users", k: "Di luar itu", h: "Para pihak tetap bebas memilih kurator", t: "RUU Profesi Kurator cukup memuat dasar penugasan ini, sedangkan kriteria dan tata cara penunjukannya diatur dalam RUU Kepailitan dan PKPU." }], 2.5, 4.25, 0, 8.2, 4.53);
+  });
+
+  // ================= IV. USULAN PASAL =================
+  dividerSlide(4, "Usulan Pasal untuk RUU Profesi Kurator", "Empat pasal yang dapat langsung dipakai, masing-masing disertai analisisnya.", [["A", "Kedudukan BHP"], ["B", "Pembagian Peran"], ["C", "Standar dan Pembinaan BHP"], ["D", "Koordinasi dan Penugasan Bersama"]]);
+  pasalSlides("A", "Kedudukan BHP", P.A, "BHP masuk sistem profesi kurator tanpa harus mengikuti aturan izin untuk orang perseorangan.");
+  pasalSlides("B", "Pembagian Peran", P.B, "Kepastian pembagian peran tanpa mengulang hukum acara kepailitan.");
+  pasalSlides("C", "Standar dan Pembinaan BHP", P.C, "Status lembaga negara bukan keistimewaan. Standarnya satu.");
+  pasalSlides("D", "Koordinasi dan Penugasan Bersama", P.D, "Menjawab kendala PT Jasa Prima Mandiri dan kekosongan data perkara.");
+
+  // ================= V. CATATAN =================
+  dividerSlide(5, "Catatan untuk RUU Kepailitan dan PKPU", "Beberapa hal lebih tepat diatur dalam RUU Kepailitan dan PKPU. Kedua RUU perlu disusun selaras sejak awal.", [["1", "Kewenangan BHP menjadi pengurus PKPU"], ["2", "Kriteria dan tata cara penunjukan BHP pada perkara tertentu"], ["3", "Kepailitan harta peninggalan tanpa ahli waris"], ["4", "Kelanjutan perkara apabila debitor menghilang"]]);
 
   // Penutup
   {
     const s = newSlide(NAVY);
     text(s, "Penutup", { x: 0.8, y: 0.5, w: 11.7, h: 0.85, fontSize: 40, bold: true, color: GOLD, margin: 0 });
-    text(s, "BHP Medan berharap RUU tentang Profesi Kurator dapat memperkuat kedudukan BHP sebagai Kurator Negara.", {
-      x: 0.8, y: 1.45, w: 11.7, h: 1.7, fontSize: 32, bold: true, color: WHITE, margin: 0, valign: "top",
+    text(s, "BHP dimuat dalam RUU sebagai lembaga negara yang menjalankan tugas kurator, dengan satu standar profesi untuk semua kurator.", {
+      x: 0.8, y: 1.45, w: 11.7, h: 1.9, fontSize: 32, bold: true, color: WHITE, margin: 0, valign: "top",
     });
-    text(s, "Demikian bahan masukan ini disampaikan. Atas perhatian Pimpinan dan Anggota Komisi XIII DPR RI, kami ucapkan terima kasih.", {
-      x: 0.8, y: 3.5, w: 11.7, h: 1.2, fontSize: 24, color: WHITE, margin: 0, valign: "top",
-    });
-    text(s, "Terima kasih", { x: 0.8, y: 5.4, w: 11.7, h: 0.9, fontSize: 44, bold: true, color: GOLD, margin: 0 });
-    s.addNotes("Penutup bahan masukan BHP Medan.");
+    text(s, "Terima kasih", { x: 0.8, y: 5.0, w: 11.7, h: 0.9, fontSize: 44, bold: true, color: GOLD, margin: 0 });
+    text(s, [{ text: "Syafriadi Lubis, M.H.", options: { bold: true } }, { text: " · Kepala Balai Harta Peninggalan Medan" }], { x: 0.8, y: 5.95, w: 11.7, h: 0.6, fontSize: 22, color: WHITE, margin: 0 });
+    s.addNotes("Harapan BHP Medan dan ucapan terima kasih.");
   }
 
   await pres.writeFile({ fileName: "Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx" });
-  console.log("slides:", slideNo, "pasal:", totalPasal, "penjelasan:", totalPenjelasan);
+  console.log("slides:", slideNo);
 })();
