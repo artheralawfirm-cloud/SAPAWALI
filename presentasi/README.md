@@ -12,8 +12,10 @@ Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tek
   penuh lebih dulu. Tekan lanjut sekali, slide bergeser ke kiri (tetap utuh, tidak tertutup) dan panel
   dokumen masuk dari kanan, menggulir ke bagian yang dibahas dan menandai kalimatnya. Tekan lanjut lagi,
   panel menutup dan slide berikutnya tampil penuh.
-- **Pratinjau dokumen yang rapi**: kop, penomoran asli (I., 1., a., 1), (1)), dan kartu
-  *Usulan Rumusan Pasal* lengkap dengan tombol **Salin** untuk menyalin teks pasal.
+- **Pratinjau dokumen yang rapi**: kop, penomoran asli (I., 1., a., 1), (1)), tabel ringkasan masukan,
+  kotak *Masukan BHP Medan*, dan 14 kartu *Usulan Rumusan Pasal* pada Lampiran I lengkap dengan tombol
+  **Salin**. Nomor Lampiran I di tabel ringkasan dan tautan *Buka kartu* di setiap uraian masukan dapat
+  diklik untuk langsung melompat ke kartu pasalnya.
 - **Cari** (`/` atau `Ctrl+K`) di seluruh dokumen saat tanya jawab; hasil langsung membuka bagian dokumen dan slide terkait.
 - **Mode presenter** (`P`): slide sekarang, slide berikutnya, poin bicara, naskah dari dokumen, pengatur waktu.
 - **Dua layar**: buka file yang sama di dua jendela; keduanya bergerak bersama, termasuk titik **laser** (`L`).
@@ -38,13 +40,17 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 - `template.html`: halaman dan gaya.
 - `slides.js`: isi slide.
 - `vercel.json`: konfigurasi hosting Vercel.
-- `dokumen.json`: isi dokumen terstruktur (hasil ekstraksi .docx, lengkap dengan penomoran).
+- `dokumen.json`: isi dokumen terstruktur (hasil ekstraksi .docx, lengkap dengan penomoran dan tabel).
+- `ekstrak_dokumen.py`: membuat ulang `dokumen.json` dari file .docx bila dokumennya diperbarui:
+  `python3 ekstrak_dokumen.py Bahan_Masukan.docx dokumen.json`, lalu jalankan `build_web.py`.
+  Nomor blok dokumen yang dirujuk slide ada di `slides.js` (kolom `doc`), jadi periksa kembali bila
+  susunan dokumen berubah.
 - `fonts_embedded.css`: font Plus Jakarta Sans dan Source Serif 4 yang ditanam.
 - `build_web.py`: menggabungkan semuanya menjadi `Paparan_BHP_Medan.html`.
 
 ## 2. Cadangan PowerPoint: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
 
-48 slide 16:9, memuat seluruh 17 usulan rumusan pasal sesuai dokumen, dengan catatan pembicara.
+48 slide 16:9, memuat seluruh 17 usulan rumusan pasal (Lampiran I) sesuai dokumen, dengan catatan pembicara.
 Dibuat ulang dengan `build_slides.cjs` (pptxgenjs).
 
 Versi Canva awal: https://www.canva.com/d/3PGEyDAsl1neFqh
