@@ -640,7 +640,7 @@ function segHTML(segs, hl){
     return h.replace(/\n/g,"<br>");
   }).join("");
 }
-// tabel dokumen (ringkasan masukan dan sistematika RUU); rujukan "Angka N" dapat diklik
+// tabel dokumen (bila ada); rujukan "Angka N" dapat diklik
 function tblHTML(b, hl){
   const link = h => h.replace(/Angka (\d+)((?: dan \d+)*)/g,(m,a,rest)=>`Angka <a class="lk" data-lamp="${a}">${a}</a>`+rest.replace(/(\d+)/g,'<a class="lk" data-lamp="$1">$1</a>'));
   return `<div class="tblw"><table class="dtbl ${b.id}">`+b.rows.map((r,ri)=>`<tr>`+r.map(c=>{ const tag=ri?"td":"th"; const h=segHTML(c.s,hl); return `<${tag}${c.sp>1?` colspan="${c.sp}"`:""}${c.a==="center"?' class="c"':""}>${ri?link(h):h}</${tag}>`; }).join("")+`</tr>`).join("")+`</table></div>`;

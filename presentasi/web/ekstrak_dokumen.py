@@ -59,6 +59,9 @@ for m in re.finditer(r'<w:tbl>.*?</w:tbl>|<w:p[ >].*?</w:p>',body,re.S):
         p=para(s)
         if p['text'].strip(): raw.append(p)
 
+# Lampiran II (sistematika RUU) tidak dipakai dalam paparan: berhenti saat judulnya ditemukan.
+cut=next((k for k,o in enumerate(raw) if 'table' not in o and o['style']=='Heading1' and o['text'].strip()=='LAMPIRAN II'),None)
+if cut is not None: raw=raw[:cut]
 out=[]
 def plain(p): return p['text']
 sec=None; pending_lt=None; i_par=0
