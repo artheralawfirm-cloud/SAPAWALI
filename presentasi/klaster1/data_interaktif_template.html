@@ -260,6 +260,52 @@ h1.light mark{color:var(--gold);font-style:italic}
 .sopList .wk{font-weight:800;color:var(--maroon);white-space:nowrap;font-size:16px;padding-top:8px}
 @media (max-width:1000px){.stats.four{grid-template-columns:1fr 1fr}.phases{grid-template-columns:repeat(3,minmax(0,1fr))}.band{margin:-28px -24px 16px;padding:40px 24px 36px}}
 @media (max-width:560px){.band{margin:-18px -16px 14px;padding:32px 16px 30px}.phases{grid-template-columns:1fr 1fr}.sopList li{grid-template-columns:36px 1fr}.sopList .wk{grid-column:2;padding-top:0}.sopList .no{width:32px;height:32px}}
+
+/* dasbor hidup */
+.dash{position:relative;margin:-28px -24px 0;padding:36px 24px 30px;background:linear-gradient(135deg,#0F2355 0%,#1C3A8A 55%,#153077 100%);color:#fff;overflow:hidden;border-radius:0 0 28px 28px;min-height:calc(100vh - 150px)}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none}
+.blob.a{width:520px;height:520px;background:#2E5BD6;right:-120px;top:-160px;animation:drift 14s ease-in-out infinite}
+.blob.b{width:420px;height:420px;background:#F5C23D;left:-160px;bottom:-200px;opacity:.28;animation:drift 18s ease-in-out infinite reverse}
+.blob.c{width:300px;height:300px;background:#6FA0FF;left:40%;top:60%;opacity:.25;animation:drift 22s ease-in-out infinite}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.12)}}
+.dash-in{position:relative;max-width:1312px;margin:0 auto;display:grid;gap:18px}
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.dash-head h1{margin:0;font-size:clamp(36px,4.6vw,62px)}
+.live{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:800;display:flex;align-items:center;gap:8px}
+.live i{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(245,194,61,.7);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,194,61,.7)}70%{box-shadow:0 0 0 14px rgba(245,194,61,0)}100%{box-shadow:0 0 0 0 rgba(245,194,61,0)}}
+.tiles{display:grid;grid-template-columns:1fr 1.6fr 1fr 1fr;gap:14px}
+.tile{position:relative;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);backdrop-filter:blur(8px);border-radius:22px;padding:18px 20px;color:#fff;text-align:left;cursor:pointer;display:flex;align-items:center;gap:16px;min-height:150px;transition:transform .25s,background .25s;animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+.tile:nth-child(2){animation-delay:.08s}.tile:nth-child(3){animation-delay:.16s}.tile:nth-child(4){animation-delay:.24s}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.tile:hover{transform:translateY(-4px);background:rgba(255,255,255,.14)}
+.tile.wide{flex-direction:column;align-items:stretch;justify-content:space-between}
+.tn b{display:block;font-size:clamp(40px,3.6vw,56px);font-weight:800;line-height:1;letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums}
+.tn b small{font-size:.38em;color:var(--gold);margin-left:8px;letter-spacing:0;font-weight:800}
+.tn > span{display:block;margin-top:6px;font-size:14.5px;color:#D6DEF5}
+.ring{width:96px;height:96px;flex:none;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:12}
+.ring .bg{stroke:rgba(255,255,255,.14)}
+.ring .fg{stroke:#fff;stroke-linecap:round;stroke-dasharray:327;stroke-dashoffset:327;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1)}
+.ring .fg.gold{stroke:var(--gold)}
+.mini{display:flex;align-items:flex-end;gap:5px;height:58px}
+.mini i{flex:1;background:linear-gradient(180deg,var(--gold),#C9962A);border-radius:4px 4px 2px 2px;height:0;transition:height .9s cubic-bezier(.2,.8,.2,1)}
+.dots9{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;flex:none}
+.dots9 i{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.14);transition:background .3s,transform .3s}
+.dots9 i.on{background:var(--gold);transform:scale(1.1)}
+.race{border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:16px 20px}
+.race-h{display:flex;justify-content:space-between;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:10px}
+.race .r{display:grid;grid-template-columns:190px 1fr 70px;gap:12px;align-items:center;margin:5px 0;font-size:15px}
+.race .r .nm{color:#E6ECFB;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.race .r .tr{height:16px;border-radius:8px;background:rgba(255,255,255,.1);overflow:hidden;display:block}
+.race .r .fi{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,#FFD24A,var(--gold));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.race .r .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;color:#fff}
+.ticker{display:flex;align-items:center;gap:14px;padding:12px 18px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);font-size:16px;min-height:52px}
+.tk-k{flex:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.tk-t{animation:tk .6s ease both}
+@keyframes tk{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (max-width:1000px){.tiles{grid-template-columns:1fr 1fr}.race .r{grid-template-columns:120px 1fr 60px}.dash{margin:-28px -24px 0;min-height:0}}
+@media (max-width:560px){.dash{margin:-18px -16px 0;padding:26px 16px 24px}.tiles{grid-template-columns:1fr 1fr}.tile{min-height:120px;padding:14px}.ring{width:70px;height:70px}.race .r{grid-template-columns:96px 1fr 54px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -281,21 +327,21 @@ h1.light mark{color:var(--gold);font-style:italic}
 </header>
 
 <main>
-  <!-- 1 PEMBUKA -->
+  <!-- 1 PEMBUKA: dasbor hidup -->
   <section class="scene on" data-scene="0">
-    <div class="band">
-      <div class="band-in">
-        <div class="eyebrow light">Klaster 1 · Tumpang Tindih Kewenangan · Data BHP Medan</div>
-        <h1 class="light">Tumpang tindih BHP dan kurator perseorangan <mark>bukan perebutan perkara.</mark></h1>
-        <p class="lead light">Datanya di bawah ini. Perkara apa yang jatuh ke BHP, berapa lama, siapa yang diangkat pengadilan, dan bagaimana BHP bekerja.</p>
-        <button class="cta gold" data-go="1">Mulai dari perkaranya <span>›</span></button>
+    <div class="dash">
+      <div class="blob a"></div><div class="blob b"></div><div class="blob c"></div>
+      <div class="dash-in">
+        <div class="dash-head"><div><div class="eyebrow light">Data Kepailitan BHP Medan</div><h1 class="light">Sembilan perkara. <mark>Satu pola.</mark></h1></div><div class="live"><i></i>data per 2 Oktober 2026</div></div>
+        <div class="tiles">
+          <button class="tile" data-go="1"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="ring1" cx="60" cy="60" r="52"/></svg><div class="tn"><b data-count="9">0</b><span>perkara kepailitan sedang ditangani</span></div></button>
+          <button class="tile wide" data-go="1"><div class="tn"><b><span data-count="47.35" data-dec="2">0</span><small>Rp miliar</small></b><span>total tagihan kreditor</span></div><div class="mini" id="miniBars"></div></button>
+          <button class="tile" data-go="2"><div class="dots9" id="dots9"></div><div class="tn"><b><span data-count="6">0</span><small>dari 9</small></b><span>berjalan lebih dari 5 tahun</span></div></button>
+          <button class="tile" data-go="3"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg gold" id="ring2" cx="60" cy="60" r="52"/></svg><div class="tn"><b><span data-count="2">0</span><small>dari 16</small></b><span>putusan pailit mengangkat BHP</span></div></button>
+        </div>
+        <div class="race card-dark"><div class="race-h"><span>Tagihan kreditor per perkara</span><span class="unit">Rp miliar</span></div><div id="race"></div></div>
+        <div class="ticker" id="ticker"><span class="tk-k">Perkara</span><span class="tk-t" id="tkT"></span></div>
       </div>
-    </div>
-    <div class="stats four">
-      <button class="stat" data-go="1"><div class="n" data-count="9">0</div><div class="l">perkara kepailitan</div><div class="s">sedang ditangani BHP Medan</div></button>
-      <button class="stat" data-go="1"><div class="n"><span data-count="47.35" data-dec="2">0</span><small>Rp miliar</small></div><div class="l">total tagihan kreditor</div><div class="s">dari sembilan perkara itu</div></button>
-      <button class="stat" data-go="2"><div class="n"><span data-count="6">0</span><small>dari 9</small></div><div class="l">lebih dari 5 tahun</div><div class="s">yang terlama sejak 2016</div></button>
-      <button class="stat" data-go="3"><div class="n"><span data-count="2">0</span><small>dari 16</small></div><div class="l">putusan mengangkat BHP</div><div class="s">PN Niaga Medan 2025 dan 2026</div></button>
     </div>
   </section>
 
@@ -617,8 +663,20 @@ h1.light mark{color:var(--gold);font-style:italic}
   // ===== NAVIGASI =====
   var cur=0,scenes=document.querySelectorAll(".scene"),tabs=document.querySelectorAll(".tabs button"),dots=document.getElementById("dots");
   scenes.forEach(function(_,i){var d=document.createElement("i");d.addEventListener("click",function(){go(i)});dots.appendChild(d)});
-  var drawers=[function(){document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp)},function(){renderDetail();drawCases(true)},drawGantt,function(){drawCmp();drawDonut(true);drawTable()},drawSteps,drawWajib,drawPasal];
-  function go(n){cur=Math.max(0,Math.min(scenes.length-1,n));hideTip();clearInterval(sopTimer);
+  var tkI=0,tkTimer=null;
+  function drawDash(){document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp);
+    setTimeout(function(){document.getElementById("ring1").style.strokeDashoffset=0;document.getElementById("ring2").style.strokeDashoffset=327*(1-2/16)},150);
+    var mb=document.getElementById("miniBars");mb.innerHTML=cases.map(function(){return "<i></i>"}).join("");var mx=Math.max.apply(null,cases.map(function(c){return c.tag}));
+    setTimeout(function(){mb.querySelectorAll("i").forEach(function(i,k){i.style.height=Math.max(6,cases[k].tag/mx*100)+"%";i.style.transitionDelay=(k*60)+"ms"})},120);
+    var d9=document.getElementById("dots9");d9.innerHTML=cases.map(function(){return "<i></i>"}).join("");var old=cases.slice().sort(function(a,b){return new Date(a.d)-new Date(b.d)});
+    old.forEach(function(c,k){setTimeout(function(){if(yrs(c.d)>=5)d9.children[k].classList.add("on")},400+k*140)});
+    var race=document.getElementById("race"),arr=cases.slice().sort(function(a,b){return b.tag-a.tag});
+    race.innerHTML=arr.map(function(c){return "<div class='r'><span class='nm'>"+c.n+"</span><span class='tr'><span class='fi'></span></span><span class='v' data-v='"+c.tag+"'>0</span></div>"}).join("");
+    setTimeout(function(){race.querySelectorAll(".r").forEach(function(r,k){var c=arr[k];r.querySelector(".fi").style.transitionDelay=(k*90)+"ms";r.querySelector(".fi").style.width=(c.tag/mx*100)+"%";var v=r.querySelector(".v");tween(1300,k*90,function(p){v.textContent=c.tag?fmt(c.tag*p,2):"0"})})},200);
+    var facts=cases.map(function(c){return (c.full||c.n)+" · putusan "+tgl(c.d)+" · "+fmt(yrs(c.d),1)+" tahun berjalan · "+(c.tag?"tagihan Rp"+fmt(c.tag,2)+" miliar":"tidak ada kreditor diakui")});
+    var t=document.getElementById("tkT");function tk(){t.style.animation="none";void t.offsetWidth;t.style.animation="";t.textContent=facts[tkI%facts.length];tkI++}tk();clearInterval(tkTimer);tkTimer=setInterval(tk,3200)}
+  var drawers=[drawDash,function(){renderDetail();drawCases(true)},drawGantt,function(){drawCmp();drawDonut(true);drawTable()},drawSteps,drawWajib,drawPasal];
+  function go(n){cur=Math.max(0,Math.min(scenes.length-1,n));hideTip();clearInterval(sopTimer);clearInterval(tkTimer);
     scenes.forEach(function(s,i){s.classList.toggle("on",i===cur)});tabs.forEach(function(b,i){b.setAttribute("aria-selected",i===cur?"true":"false");if(i===cur)b.scrollIntoView({block:"nearest",inline:"center"})});
     dots.querySelectorAll("i").forEach(function(d,i){d.classList.toggle("on",i===cur)});
     document.getElementById("prev").disabled=cur===0;document.getElementById("next").textContent=cur===scenes.length-1?"Kembali ke awal":"Berikutnya ›";
