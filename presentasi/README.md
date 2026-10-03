@@ -69,11 +69,12 @@ disimpan apa adanya; slide dan data interaktif disesuaikan dengannya.
 - `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide (transisi fade dan morph, animasi,
   tombol tautan ke data interaktif). Dari file asli hanya dua hal diubah agar sama dengan dokumen: rumusan pertanyaan 1
   ("kurator privat dari asosiasi") dan koma menggantung pada kalimat kendala menjadi titik.
-- `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: pelengkap slide, hanya memuat yang tidak muat di slide:
-  rincian 9 perkara, garis waktu, daftar 16 putusan dan 11 permohonan (SIPP), alur kerja dan dasar hukum dua tugas BHP,
-  kutipan pasal, kriteria perkara wajib BHP (Tabel 3), dua kasus koordinasi, dan contoh rumusan pasal Lampiran II
-  (dengan tombol Salin). Adegan pembuka memetakan tiap angka di slide ke penjelasannya. Namanya harus persis seperti ini
-  dan satu folder dengan .pptx agar tombol di slide bisa membukanya.
+- `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: halaman pendamping slide, satu berkas mandiri (font dan
+  logo tertanam), gaya feed Instagram bhpmedan_kemenkum (biru navy, kuning emas, putih). Enam layar, satu pesan per layar:
+  Pembuka, Perkara BHP (grafik tagihan dan harta, klik batang untuk rincian), Lama Perkara (garis waktu), SOP Kepailitan
+  (tujuh tahap berjalan sendiri), Pembagian Peran (BHP, kurator perseorangan, perkara wajib BHP), Usulan Pasal (Lampiran II,
+  tombol Salin). Navigasi: tab, tombol bawah, panah kiri kanan, geser di HP. Dibangun oleh `build_data_interaktif.py` dari
+  `data_interaktif_template.html`. Namanya harus persis seperti ini dan satu folder dengan .pptx agar tombol di slide bisa membukanya.
 - `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara pendamping (opsional), dibangun oleh
   `build_narasi.cjs`.
 
