@@ -8,10 +8,17 @@ Seluruh kalimat pada slide diambil dari dokumen tersebut.
 
 Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tekan **F** untuk layar penuh.
 
-- **Alur mengikuti 5 bagian dokumen** (26 slide): I Pokok Sikap, II Pengalaman BHP Medan, III Jawaban Klaster 1,
-  IV Usulan Pasal (Pasal A sampai D), V Catatan untuk RUU Kepailitan dan PKPU. Slide *Alur Paparan* dan setiap
-  slide pembatas dapat diklik untuk lompat ke bagian atau slide mana pun. Kartu *Empat Sikap* juga dapat diklik
-  menuju uraian atau pasalnya.
+- **Alur mengikuti 5 bagian dokumen** (28 slide): I Pokok Sikap, II Pengalaman BHP Medan, III Jawaban Klaster 1,
+  IV Usulan Pasal (Pasal A sampai D), V Catatan untuk RUU Kepailitan dan PKPU. Benang merahnya satu:
+  *Masalah, Sikap, Bukti, Jawaban, Pasal, Catatan*. Setiap sikap diuraikan (Sikap 1 dan 2 pada slide
+  *Lembaga Negara, dengan Standar yang Sama*; Sikap 3 dan 4 pada slide masing-masing), setiap temuan Bagian II
+  ditutup dengan **jembatan** "Artinya" yang menunjuk pasal yang menjawabnya, dan setiap pasal ditutup dengan
+  jembatan "Menjawab" yang menunjuk sikap, temuan, atau pertanyaan yang dijawabnya. Tombol pada jembatan dapat diklik.
+- **Slide pembatas memuat pesan utama** bagian itu; pembatas Bagian III langsung memuat tiga pertanyaan Komisi
+  beserta jawaban singkatnya. Slide *Alur Paparan*, setiap pembatas, dan kartu *Empat Sikap* dapat diklik untuk
+  lompat ke bagian, uraian, atau pasalnya.
+- **Rekap *Benang Merah*** sebelum penutup: satu tabel yang menghubungkan tiap hal yang tidak jelas, sikap BHP Medan,
+  buktinya, dan pasal usulannya.
 - **Grafik hidup** dari data dokumen: harta hanya 12% sampai 40% dari tagihan, lama perkara dengan garis 5 tahun,
   dan perbandingan imbalan jasa pada PT Jasa Prima Mandiri. Batang tumbuh saat slide tampil, angka menghitung naik.
 - **Slide sederhana, dokumen di sampingnya.** Mode *Otomatis* menyala sejak awal: setiap slide tampil
@@ -42,7 +49,7 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 - `template.html`: halaman dan gaya.
 - `slides.js`: isi slide.
-- `vercel.json`: konfigurasi hosting Vercel.
+- `vercel.json`: konfigurasi hosting Vercel. `data.html` adalah salinan data interaktif Klaster 1 agar bisa dibuka online di `/data`.
 - `dokumen.json`: isi dokumen terstruktur (hasil ekstraksi .docx, lengkap dengan penomoran).
 - `grafik-1.png`, `grafik-2.png`: grafik dari dokumen, ditanam ke pratinjau dokumen saat build.
 - `ekstrak_dokumen.py`: membuat ulang `dokumen.json` dan grafiknya dari file .docx bila dokumennya diperbarui:
@@ -52,9 +59,34 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 - `fonts_embedded.css`: font Plus Jakarta Sans dan Source Serif 4 yang ditanam.
 - `build_web.py`: menggabungkan semuanya menjadi `Paparan_BHP_Medan.html`.
 
-## 2. Cadangan PowerPoint: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
+## 2. Bahan RDP 6 Oktober 2026 (maksimal 2 slide): folder `klaster1/`
 
-26 slide 16:9 dengan alur 5 bagian yang sama, memuat Pasal A sampai Pasal D lengkap dengan analisisnya, dan catatan pembicara.
-Dibuat ulang dengan `build_slides.cjs` (pptxgenjs).
+Bahan Klaster 1 (BHP Medan: Tumpang Tindih Kewenangan). Sumber tunggalnya adalah dokumen Telaah buatan Kepala BHP Medan,
+disimpan apa adanya; slide dan data interaktif disesuaikan dengannya.
+
+- `BHP Medan - Telaah Poin 1 dan Klaster 1 - Tumpang Tindih Kewenangan.docx`: dokumen masukan dan telaah (3 Oktober 2026),
+  tidak disunting.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide (transisi fade dan morph, animasi,
+  tombol tautan ke data interaktif). Dari file asli hanya dua hal diubah agar sama dengan dokumen: rumusan pertanyaan 1
+  ("kurator privat dari asosiasi") dan koma menggantung pada kalimat kendala menjadi titik.
+- `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: halaman pendamping slide, satu berkas mandiri (font dan
+  logo tertanam), gaya feed Instagram bhpmedan_kemenkum (biru navy, kuning emas, putih). Tujuh layar, satu pesan per layar:
+  Pembuka, Perkara BHP (grafik tagihan dan harta, klik batang untuk rincian), Lama Perkara (garis waktu), Penunjukan Kurator
+  (data SIPP 2025 dan 2026: permohonan pailit dan PKPU, putusan, donat 11 permohonan yang meminta BHP, tabel yang bisa dicari),
+  SOP Kepailitan (21 tahap dari SK Kepala BHP Medan Nomor W.2.AHU.AHU.1-OT.02.02-594 dalam 6 fase, dengan pelaksana, waktu baku,
+  dan keluaran), Pembagian Peran, Usulan Pasal (Lampiran II, tombol Salin). Logo `logo-pengayoman-ig.png`. Navigasi: tab, tombol bawah, panah kiri kanan, geser di HP. Dibangun oleh `build_data_interaktif.py` dari
+  `data_interaktif_template.html`. Namanya harus persis seperti ini dan satu folder dengan .pptx agar tombol di slide bisa membukanya.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara pendamping (opsional), dibangun oleh
+  `build_narasi.cjs`.
+
+## 3. Cadangan PowerPoint lengkap: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
+
+28 slide 16:9 dengan alur dan urutan yang sama persis dengan presentasi web (termasuk jembatan "Artinya" dan
+"Menjawab", pembatas tanya jawab, dan rekap *Benang Merah*), memuat Pasal A sampai Pasal D lengkap dengan
+analisisnya, dan catatan pembicara. Dibuat ulang dengan `build_slides.cjs` (pptxgenjs):
+
+```bash
+cd presentasi && NODE_PATH=<folder node_modules berisi pptxgenjs, react, react-dom, react-icons, sharp> node build_slides.cjs
+```
 
 Versi Canva awal: https://www.canva.com/d/3PGEyDAsl1neFqh

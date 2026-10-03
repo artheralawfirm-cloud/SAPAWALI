@@ -64,7 +64,7 @@ t = t.replace("/*__LOGOS__*/[]", json.dumps(L))
 icons = dict(P); icons["doc"] = svg(P["doc"]); icons["rotate"] = svg(P["rotate"])
 t = t.replace("/*__ICONS__*/{}", json.dumps(icons))
 t = re.sub(r"__I_(\w+)__", lambda m: svg(P[m.group(1)]), t)
-assert not re.search(r"[–—]", t), "masih ada tanda pisah"
+assert not re.search("[\u2013\u2014]", t), "masih ada tanda pisah"
 out = os.path.join(HERE, "Paparan_BHP_Medan.html")
 open(out, "w", encoding="utf8").write(t)
 # salinan untuk hosting (Vercel, GitHub Pages): halaman depan situs
