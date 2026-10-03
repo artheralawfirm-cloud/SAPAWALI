@@ -21,7 +21,7 @@ def roman(n):
 def fmt(f,n):
     return {'decimal':str(n),'lowerLetter':'abcdefghijklmnopqrstuvwxyz'[n-1],'upperLetter':'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[n-1],'upperRoman':roman(n)}.get(f,'')
 counters={}
-def clean(t): return t.replace('–','-').replace('—','-')
+def clean(t): return t.replace('\u2013','-').replace('\u2014','-')
 def para(s):
     segs=[]
     for r in re.findall(r'<w:r[ >].*?</w:r>',s,re.S):
@@ -84,6 +84,6 @@ for o in raw:
     else: b['k']='p'
     out.append(b)
 js=json.dumps(out,ensure_ascii=False,separators=(',',':'))
-assert not re.search('[–—]',js)
+assert not re.search('[\u2013\u2014]',js)
 open(dst,'w').write(js)
 from collections import Counter; print(len(out),Counter(b['k'] for b in out))
