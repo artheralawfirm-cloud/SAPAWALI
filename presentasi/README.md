@@ -68,7 +68,10 @@ Sumber tunggalnya adalah dokumen Telaah; slide, data interaktif, dan narasi disa
   (arah jawaban, fakta dan data, jawaban tiga pertanyaan Klaster 1 dengan telaah filosofis, sosiologis, yuridis,
   koordinasi, pengalaman, Lampiran I data perkara dan SIPP, Lampiran II contoh rumusan pasal).
 - `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide. Slide 1 jawaban tiga pertanyaan
-  dengan bukti perkara; slide 2 materi yang perlu dimuat dalam RUU dan koordinasi antarlembaga.
+  dengan bukti perkara dan pita pengalaman BHP Medan; slide 2 materi yang perlu dimuat dalam RUU dan koordinasi
+  antarlembaga. Tombol kanan atas membuka data interaktif (berkas HTML harus berada di folder yang sama).
+  Dibangun oleh `build_paparan.cjs` (pptxgenjs):
+  `cd presentasi/klaster1 && NODE_PATH=<folder node_modules berisi pptxgenjs, react, react-dom, react-icons, sharp> node build_paparan.cjs`.
 - `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara 9 sampai 10 menit dengan penanda
   slide; dibangun oleh `build_narasi.cjs` (`node build_narasi.cjs`, pustaka docx dari node-tools).
 - `BHP Medan - Data Interaktif.html`: grafik perkara BHP Medan (6 adegan) yang ditautkan dari slide.
