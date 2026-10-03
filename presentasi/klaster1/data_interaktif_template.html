@@ -27,7 +27,7 @@ button{font:inherit;color:inherit}
 /* ---------- bilah atas ---------- */
 .top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,var(--maroon),var(--maroon-2));color:#fff;border-bottom:3px solid var(--gold)}
 .top .in{max-width:1360px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px}
-.top img{height:46px;width:auto}
+.top img{height:48px;width:auto;border-radius:8px}
 .top .org{line-height:1.2}
 .top .org small{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream)}
 .top .org b{font-size:18px}
@@ -40,7 +40,8 @@ button{font:inherit;color:inherit}
 .tabs button[aria-selected="true"]{background:var(--bg);color:var(--maroon);opacity:1}
 .tabs button[aria-selected="true"] i{background:var(--maroon);color:var(--gold)}
 h1{font-family:var(--fs);font-weight:700;color:var(--maroon)}
-h1 mark{background:linear-gradient(transparent 55%,var(--gold) 55%);color:inherit;padding:0 2px}
+h1 mark{background:none;color:var(--maroon-2);font-style:italic}
+.eyebrow::after{content:"";display:block;width:56px;height:4px;border-radius:2px;background:var(--gold);margin-top:8px}
 .tabs button:hover{opacity:1}
 
 /* ---------- layar ---------- */
@@ -154,6 +155,16 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
 .wajib .why{margin-top:12px;padding:16px 18px;border-radius:18px;background:var(--panel);border:1px solid var(--line);font-size:16.5px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .wajib .why b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:4px}
 
+/* tabel penunjukan */
+.h2{font-size:24px;margin:0 0 8px;letter-spacing:-.01em}
+.scroll{overflow:auto;max-height:420px;margin-top:10px}
+.dt{width:100%;border-collapse:collapse;font-size:15px}
+.dt th{position:sticky;top:0;background:var(--panel);text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);padding:10px 10px;border-bottom:2px solid var(--line)}
+.dt td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.dt td.b{font-weight:700;color:var(--maroon)}
+.dt tr.bhp td{background:var(--cream)}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:13px;font-weight:700}
+.pill.ok{background:var(--maroon);color:var(--gold)}.pill.no{background:#FCE3E3;color:#9B1C1C}.pill.cb{background:var(--panel-2);color:var(--muted)}.pill.wt{background:#E6F1FF;color:#1C3A8A}
 /* usulan pasal */
 .pasal{border:1px solid var(--line);border-radius:22px;background:var(--panel);margin-bottom:12px;overflow:hidden}
 .pasal .ph{width:100%;border:0;background:var(--panel);display:flex;align-items:center;gap:14px;padding:18px 22px;text-align:left;cursor:pointer}
@@ -215,12 +226,46 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
   .dots i.on{width:18px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* pita navy pembuka */
+.band{margin:-28px -24px 20px;padding:54px 24px 46px;background:radial-gradient(1200px 500px at 10% -20%,#2A4FB0 0%,var(--maroon) 45%,var(--maroon-2) 100%);color:#fff;position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;right:-120px;top:-120px;width:460px;height:460px;border-radius:50%;border:70px solid rgba(245,194,61,.12)}
+.band-in{max-width:1312px;margin:0 auto;position:relative}
+.eyebrow.light{color:var(--gold)}
+h1.light{color:#fff;font-size:clamp(40px,5.2vw,74px);max-width:18ch}
+h1.light mark{color:var(--gold);font-style:italic}
+.lead.light{color:#D6DEF5;max-width:56ch}
+.cta.gold{background:var(--gold);color:var(--maroon-2);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.cta.gold:hover{background:#FFD24A}
+.stats.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stat{text-align:left;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.stat:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(28,58,138,.14)}
+/* SOP fase */
+.phases{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.phase{border:2px solid var(--line);background:var(--panel);border-radius:18px;padding:14px 14px 12px;text-align:left;cursor:pointer;display:grid;gap:6px;transition:transform .25s,border-color .25s,background .25s}
+.phase .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);font-weight:800}
+.phase .t{font-weight:800;font-size:17px;line-height:1.2;color:var(--maroon)}
+.phase .w{font-size:13.5px;color:var(--muted)}
+.phase .bar{height:6px;border-radius:3px;background:var(--panel-2);overflow:hidden}.phase .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--maroon),var(--gold));width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.phase.on{border-color:var(--maroon);background:var(--cream);transform:translateY(-5px)}
+.sopHead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.phTot{font-size:15px;color:var(--muted)}.phTot b{display:block;font-size:30px;color:var(--maroon);line-height:1}
+.sopList{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.sopList li{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.sopList .no{width:40px;height:40px;border-radius:12px;background:var(--maroon);color:var(--gold);font-weight:800;display:grid;place-items:center}
+.sopList .t{font-weight:700;font-size:18px;line-height:1.3}
+.sopList .m{margin-top:4px;display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;color:var(--muted)}
+.sopList .m span{border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--panel-2)}
+.sopList .m span.p{background:var(--cream);border-color:var(--cream-2);color:var(--maroon);font-weight:700}
+.sopList .wk{font-weight:800;color:var(--maroon);white-space:nowrap;font-size:16px;padding-top:8px}
+@media (max-width:1000px){.stats.four{grid-template-columns:1fr 1fr}.phases{grid-template-columns:repeat(3,minmax(0,1fr))}.band{margin:-28px -24px 16px;padding:40px 24px 36px}}
+@media (max-width:560px){.band{margin:-18px -16px 14px;padding:32px 16px 30px}.phases{grid-template-columns:1fr 1fr}.sopList li{grid-template-columns:36px 1fr}.sopList .wk{grid-column:2;padding-top:0}.sopList .no{width:32px;height:32px}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="in">
-    <img src="/*__LOGO__*/" alt="Logo Kementerian Hukum">
+    <img src="/*__LOGO__*/" alt="Logo Pengayoman" class="logo">
     <div class="org"><small>Kementerian Hukum · Kanwil Sumatera Utara</small><b>Balai Harta Peninggalan Medan</b></div>
     <div class="ev"><b>RDP Komisi XIII DPR RI</b>RUU tentang Profesi Kurator · 6 Oktober 2026</div>
   </div>
@@ -228,28 +273,29 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
     <button role="tab" data-s="0" aria-selected="true"><i>1</i>Pembuka</button>
     <button role="tab" data-s="1" aria-selected="false"><i>2</i>Perkara BHP</button>
     <button role="tab" data-s="2" aria-selected="false"><i>3</i>Lama Perkara</button>
-    <button role="tab" data-s="3" aria-selected="false"><i>4</i>SOP Kepailitan</button>
-    <button role="tab" data-s="4" aria-selected="false"><i>5</i>Pembagian Peran</button>
-    <button role="tab" data-s="5" aria-selected="false"><i>6</i>Usulan Pasal</button>
+    <button role="tab" data-s="3" aria-selected="false"><i>4</i>Penunjukan Kurator</button>
+    <button role="tab" data-s="4" aria-selected="false"><i>5</i>SOP Kepailitan</button>
+    <button role="tab" data-s="5" aria-selected="false"><i>6</i>Pembagian Peran</button>
+    <button role="tab" data-s="6" aria-selected="false"><i>7</i>Usulan Pasal</button>
   </nav>
 </header>
 
 <main>
   <!-- 1 PEMBUKA -->
   <section class="scene on" data-scene="0">
-    <div class="hero">
-      <div>
-        <div class="eyebrow">Klaster 1 · Tumpang Tindih Kewenangan</div>
-        <h1>Tumpang tindih BHP dan kurator perseorangan <mark>bukan perebutan perkara.</mark></h1>
-        <p class="lead">Yang belum ada adalah aturannya. Data perkara BHP Medan di bawah ini menunjukkannya: perkara apa yang jatuh ke BHP, berapa lama, dan bagaimana BHP bekerja.</p>
-        <button class="cta" data-go="1">Lihat perkaranya <span>›</span></button>
+    <div class="band">
+      <div class="band-in">
+        <div class="eyebrow light">Klaster 1 · Tumpang Tindih Kewenangan · Data BHP Medan</div>
+        <h1 class="light">Tumpang tindih BHP dan kurator perseorangan <mark>bukan perebutan perkara.</mark></h1>
+        <p class="lead light">Datanya di bawah ini. Perkara apa yang jatuh ke BHP, berapa lama, siapa yang diangkat pengadilan, dan bagaimana BHP bekerja.</p>
+        <button class="cta gold" data-go="1">Mulai dari perkaranya <span>›</span></button>
       </div>
-      <div class="stats">
-        <div class="stat"><div class="n" data-count="9">0</div><div class="l">perkara kepailitan</div><div class="s">sedang ditangani BHP Medan</div></div>
-        <div class="stat"><div class="n"><span data-count="47.35" data-dec="2">0</span><small>Rp miliar</small></div><div class="l">total tagihan kreditor</div><div class="s">dari sembilan perkara itu</div></div>
-        <div class="stat"><div class="n"><span data-count="6">0</span><small>dari 9</small></div><div class="l">berjalan lebih dari 5 tahun</div><div class="s">yang terlama sejak 2016</div></div>
-        <div class="stat"><div class="n"><span data-count="2">0</span><small>dari 16</small></div><div class="l">putusan pailit mengangkat BHP</div><div class="s">PN Niaga Medan 2025 sampai 2026; keduanya diminta pemohon</div></div>
-      </div>
+    </div>
+    <div class="stats four">
+      <button class="stat" data-go="1"><div class="n" data-count="9">0</div><div class="l">perkara kepailitan</div><div class="s">sedang ditangani BHP Medan</div></button>
+      <button class="stat" data-go="1"><div class="n"><span data-count="47.35" data-dec="2">0</span><small>Rp miliar</small></div><div class="l">total tagihan kreditor</div><div class="s">dari sembilan perkara itu</div></button>
+      <button class="stat" data-go="2"><div class="n"><span data-count="6">0</span><small>dari 9</small></div><div class="l">lebih dari 5 tahun</div><div class="s">yang terlama sejak 2016</div></button>
+      <button class="stat" data-go="3"><div class="n"><span data-count="2">0</span><small>dari 16</small></div><div class="l">putusan mengangkat BHP</div><div class="s">PN Niaga Medan 2025 dan 2026</div></button>
     </div>
   </section>
 
@@ -257,7 +303,7 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
   <section class="scene" data-scene="1">
     <div class="eyebrow">Perkara BHP Medan</div>
     <h1>Sembilan perkara, hartanya <mark>jauh di bawah tagihan.</mark></h1>
-    <p class="lead">Pilih batang untuk membuka rincian perkara. Batang kuning tagihan kreditor, batang biru nilai harta yang tercatat.</p>
+    <p class="lead">Kuning tagihan kreditor, biru nilai harta tercatat. Pilih batang untuk rincian.</p>
     <div class="grid g2">
       <div class="card">
         <div class="chips"><span class="lbl">Urutkan</span><button class="chip" data-sort="tag" aria-pressed="true">Tagihan</button><button class="chip" data-sort="harta" aria-pressed="false">Harta</button><button class="chip" data-sort="d" aria-pressed="false">Tahun putusan</button></div>
@@ -273,7 +319,7 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
   <section class="scene" data-scene="2">
     <div class="eyebrow">Lama Perkara</div>
     <h1>Enam dari sembilan perkara berjalan <mark>lebih dari lima tahun.</mark></h1>
-    <p class="lead">Setiap garis dimulai dari tanggal putusan pailit sampai hari ini. Arahkan kursor atau sentuh garis untuk melihat keadaan terakhirnya.</p>
+    <p class="lead">Dari tanggal putusan pailit sampai hari ini. Sentuh garis untuk keadaan terakhir.</p>
     <div class="grid g2">
       <div class="card"><svg class="chart" id="cGantt" viewBox="0 0 800 470" role="img" aria-label="Lama perkara"></svg>
         <div class="legend"><span><i style="background:var(--maroon)"></i>Lebih dari 5 tahun</span><span><i style="background:var(--gold)"></i>Kurang dari 5 tahun</span></div></div>
@@ -285,39 +331,47 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
     <div class="take"><span class="k">Intinya</span>Perkara yang panjang butuh pelaksana yang berkesinambungan. Kurator perorangan bisa berganti; BHP tetap berjalan sebagai lembaga.</div>
   </section>
 
-  <!-- 4 SOP -->
+  <!-- 4 PENUNJUKAN KURATOR -->
   <section class="scene" data-scene="3">
-    <div class="eyebrow">SOP Kepailitan</div>
-    <h1>Begini BHP bekerja sebagai kurator, <mark>tahap demi tahap.</mark></h1>
-    <p class="lead">Tujuh tahap dari putusan sampai imbalan jasa disetor ke kas negara. Klik tahap mana pun; biarkan berjalan sendiri untuk melihat alurnya.</p>
-    <div class="card">
-      <div class="steps" id="steps"></div>
-      <div class="rail"><i id="rail"></i></div>
-      <div class="sop">
-        <div><div class="eyebrow" id="sopK">Tahap 1 dari 7</div><h2 class="big" id="sopT"></h2><p id="sopD"></p>
-          <div class="ctrl"><button id="sopPrev">‹ Sebelumnya</button><button id="sopNext">Berikutnya ›</button><button id="sopPlay">Jeda</button></div></div>
-        <div class="side"><b>Berlaku di semua tahap</b><ul><li>Kurator BHP bertanggung jawab kepada <strong>Hakim Pengawas</strong> (Pasal 65 UU Kepailitan) dan melapor berkala.</li><li>Tugas dijalankan oleh pejabat fungsional <strong>Kurator Keperdataan</strong>.</li><li>Imbalan jasa BHP disetor ke kas negara sebagai <strong>PNBP</strong>, bukan menjadi penghasilan pribadi.</li></ul></div>
-      </div>
+    <div class="eyebrow">Penunjukan Kurator · PN Niaga Medan 2025 dan 2026</div>
+    <h1>Dari 16 putusan pailit, BHP diangkat <mark>hanya 2 kali.</mark></h1>
+    <p class="lead">Seluruh perkara pailit dan PKPU di Pengadilan Niaga Medan 2025 dan 2026 (sampai 2 Oktober 2026). Sumber: SIPP PN Medan.</p>
+    <div class="grid g2">
+      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan dan putusan</div><h2 class="h2">2025 dibanding 2026</h2>
+        <svg class="chart" id="cCmp" viewBox="0 0 800 360" role="img" aria-label="Perbandingan 2025 dan 2026"></svg>
+        <div class="legend"><span><i style="background:var(--cream-2)"></i>2025</span><span><i style="background:var(--maroon)"></i>2026 sampai 2 Oktober</span></div></div>
+      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Nasib permohonan yang meminta BHP</div><h2 class="h2">11 permohonan, 2 dikabulkan</h2>
+        <svg class="chart" id="cDonut" viewBox="0 0 320 260" role="img" aria-label="Hasil permohonan yang meminta BHP"></svg>
+        <div class="legend" id="lgDonut"></div><p class="hint">Pilih bagian lingkaran untuk menyaring daftar di bawah.</p></div>
     </div>
-    <div class="take"><span class="k">Intinya</span>Mekanismenya sudah jelas dan berjalan. Yang belum diatur adalah saat BHP bertugas bersama kurator perseorangan: pembagian imbalan, tanggung jawab, dan serah terima.</div>
+    <div class="card" style="margin-top:18px">
+      <div class="chips"><button class="chip" data-tab="v" aria-pressed="true">16 putusan pailit</button><button class="chip" data-tab="r" aria-pressed="false">11 permohonan meminta BHP</button><span style="flex:1"></span><input type="search" id="q" placeholder="Cari debitor, pemohon, atau kurator" aria-label="Cari" class="chip" style="min-width:260px;font-weight:600"></div>
+      <div class="scroll"><table id="tbl" class="dt"></table></div>
+    </div>
+    <div class="take"><span class="k">Intinya</span>BHP diangkat hanya bila diminta pemohon. Enam permohonan yang meminta BHP dicabut atau ditolak, jadi penugasan BHP masih sepenuhnya bergantung pada pilihan pemohon.</div>
+  </section>
+
+  <!-- 5 SOP -->
+  <section class="scene" data-scene="4">
+    <div class="eyebrow">SOP Kepailitan · SK Kepala BHP Medan Nomor W.2.AHU.AHU.1-OT.02.02-594, 30 Maret 2026</div>
+    <h1>Dua puluh satu tahap, <mark>dari putusan sampai pengakhiran.</mark></h1>
+    <p class="lead">Pilih fase untuk membuka tahapnya. Setiap tahap punya pelaksana, waktu baku, dan keluaran sesuai SK.</p>
+    <div class="phases" id="phases"></div>
+    <div class="card" style="margin-top:14px"><div class="sopHead"><div><div class="eyebrow" id="phK"></div><h2 class="h2" id="phT"></h2></div><div class="phTot" id="phTot"></div></div><ol class="sopList" id="sopList"></ol></div>
+    <div class="take"><span class="k">Intinya</span>Mekanismenya baku dan diawasi Hakim Pengawas di setiap rapat. Yang belum diatur adalah saat BHP bertugas bersama kurator perseorangan.</div>
   </section>
 
   <!-- 5 PEMBAGIAN PERAN -->
-  <section class="scene" data-scene="4">
+  <section class="scene" data-scene="5">
     <div class="eyebrow">Pembagian Peran</div>
     <h1>BHP dan kurator perseorangan: <mark>siapa mengerjakan apa.</mark></h1>
-    <p class="lead">Usulan pembagian peran dalam RUU Profesi Kurator. Keduanya kurator yang sama di mata Hakim Pengawas; yang berbeda hanya kedudukan dan sumber kewenangannya.</p>
+    <p class="lead">Keduanya kurator yang sama di mata Hakim Pengawas. Yang berbeda hanya kedudukan dan sumber kewenangannya.</p>
     <div class="roles">
       <div class="role bhp"><h3>BHP</h3><div class="s">Kurator negara dan pelaksana tugas keperdataan</div>
         <ul><li>Kewenangan dari undang-undang, tanpa izin atau pendaftaran</li><li>Dijalankan pejabat Kurator Keperdataan sesuai SOP Kepailitan</li><li>Wajib pada perkara tertentu, boleh semua jenis perkara</li><li>Imbalan jasa menjadi PNBP</li><li>Dibina Kementerian, tunduk pada kode etik ASN</li></ul></div>
       <div class="role mid"><div class="e">Sama</div><div>Sebagai kurator, diawasi Hakim Pengawas</div><div>Satu standar profesi kurator</div><div>Pembagian tugas, tanggung jawab, dan imbalan ditetapkan sejak awal bila bertugas bersama</div><div>Wajib serah berkas saat kurator berganti</div></div>
       <div class="role priv"><h3>Kurator perseorangan</h3><div class="s">Orang perseorangan</div>
         <ul><li>Terdaftar pada Kementerian, memiliki keahlian khusus</li><li>Perkara atas usulan pemohon</li><li>Pada perkara tertentu menjadi kurator tambahan</li><li>Imbalan jasa menjadi penghasilan</li><li>Tunduk pada kode etik organisasi profesi</li></ul></div>
-    </div>
-    <div class="two">
-      <div class="box"><b>Tugas keperdataan BHP</b><span>Wali pengawas, pengampu pengawas, harta orang tidak hadir, harta peninggalan tak terurus. Dasar: KUHPerdata. Dibina Kementerian.</span></div>
-      <div class="neq">≠</div>
-      <div class="box"><b>Tugas BHP sebagai kurator</b><span>Pengurusan dan pemberesan harta pailit. Dasar: UU Kepailitan. Diawasi Hakim Pengawas. Yang dipisah dasar hukum, pelaksana, dan pertanggungjawabannya, bukan lembaganya.</span></div>
     </div>
     <div class="wajib card">
       <h2>Pengadilan wajib mengangkat BHP bila:</h2>
@@ -328,10 +382,10 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
   </section>
 
   <!-- 6 USULAN PASAL -->
-  <section class="scene" data-scene="5">
+  <section class="scene" data-scene="6">
     <div class="eyebrow">Usulan Rumusan Pasal</div>
     <h1>Empat pasal yang <mark>siap dipakai</mark> dalam RUU Profesi Kurator.</h1>
-    <p class="lead">Bahan pertimbangan dari Lampiran II dokumen BHP Medan. Nomor pasal dapat disesuaikan dengan sistematika RUU. Klik judul untuk membuka, tombol Salin untuk menyalin teksnya.</p>
+    <p class="lead">Dari Lampiran II dokumen BHP Medan. Klik judul untuk membuka, Salin untuk menyalin teksnya.</p>
     <div id="pasal"></div>
     <div class="take"><span class="k">Intinya</span>Satu pasal untuk tiap kendala: tugas bersama dan serah terima, kedudukan BHP, penugasan pada perkara tertentu, serta koordinasi dan dukungan instansi.</div>
   </section>
@@ -434,24 +488,89 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
     var mx=document.getElementById("kMax"),av=document.getElementById("kAvg");tween(1200,200,function(p){mx.textContent=fmt(max*p,1);av.textContent=fmt(sum/arr.length*p,1)});
   }
 
-  // ===== LAYAR 4: SOP =====
-  var steps=[
-    ["Putusan pengadilan mengangkat BHP","Pengadilan Niaga menyatakan debitor pailit dan mengangkat BHP sebagai kurator. Salinan putusan wajib disampaikan kepada kurator paling lambat tiga hari (Pasal 9 UU Kepailitan). Sejak putusan diucapkan, kurator sudah berwenang bekerja walaupun ada kasasi (Pasal 16 ayat 1)."],
-    ["Kepala BHP menugaskan tim Kurator Keperdataan","Kepala BHP menerbitkan surat tugas kepada tim pejabat fungsional Kurator Keperdataan. Tim inilah yang menjalankan seluruh pengurusan dan pemberesan harta pailit atas nama BHP."],
-    ["Pengumuman dan rapat kreditor","Kepailitan diumumkan dalam Berita Negara dan surat kabar. Para kreditor mendaftarkan tagihannya dan bertemu dalam rapat kreditor yang dipimpin Hakim Pengawas."],
-    ["Pencatatan harta dan pencocokan tagihan","Tim mencatat seluruh harta pailit dan mencocokkan tagihan yang masuk dengan bukti dan pembukuan debitor. Tagihan yang dibantah diselesaikan melalui prosedur renvoi di pengadilan."],
-    ["Penilaian dan lelang","Harta pailit dinilai oleh penilai, lalu dijual, umumnya melalui lelang di kantor lelang negara, agar nilainya terbuka dan dapat dipertanggungjawabkan."],
-    ["Pembagian hasil","Hasil penjualan dibagikan kepada para kreditor menurut urutan haknya: kreditor separatis, kreditor yang didahulukan seperti pekerja dan pajak, lalu kreditor konkuren."],
-    ["Imbalan jasa ke kas negara (PNBP)","Imbalan jasa kurator BHP ditetapkan dan disetor ke kas negara sebagai penerimaan negara bukan pajak. Setelah pembagian selesai, kepailitan berakhir dan laporan akhir disampaikan kepada Hakim Pengawas."]
+  // ===== LAYAR 4: penunjukan kurator (Tabel I.4 sampai I.6) =====
+  var verdicts=[
+    ["2025-02-27","PT Jambi Nusantara Energi","1/Pdt.Sus-Pailit/2025","Tatang Rusmaya dan kawan","Eri Lukmanul Hakim Pulungan",0],
+    ["2025-07-01","Rosihan Arbie","5/Pdt.Sus-PKPU/2025","Suriati","Goncalwes Sirait",0],
+    ["2025-07-07","CV Sukses Jaya Perkasa","8/Pdt.Sus-Pailit/2025","Debitor sendiri","Benjamin Parsaoran Manurung",0],
+    ["2025-10-24","PT Golden Gate Mandiri","10/Pdt.Sus-Pailit/2025","Soeryo Soemirat","Haris Marselius Perangin-angin",0],
+    ["2025-11-21","PT Jasa Rahayu Gumpueng","19/Pdt.Sus-PKPU/2025","Edgar Handoko","Susy Tan",0],
+    ["2025-11-27","CV Riau Sukses Abadi dan Sukrianto","11/Pdt.Sus-Pailit/2025","PT Sicoma Indo Perkasa","salinan putusan tidak dikirimkan karena diajukan kasasi",1],
+    ["2025-12-11","Frans Winner","12/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","",1],
+    ["2025-12-16","PT Usaha Sepakat Maju Bersama","9/Pdt.Sus-PKPU/2025","PT Fairbanc Technologies Indonesia","Lutfy Mubarok",0],
+    ["2025-12-29","PT Riau Crumb Rubber Factory","13/Pdt.Sus-Pailit/2025","Buha Togatorop","Binsar Simbolon",0],
+    ["2026-03-05","Armayanti","41/Pdt.Sus-PKPU/2025","Adam Nicholas Barclay","Christian Pranata",0],
+    ["2026-04-20","PT Palm Lestari Makmur","3/Pdt.Sus-PKPU/2026","Hermanto dan kawan-kawan","Binsar Simbolon",0],
+    ["2026-04-24","PT Kemuning Tambang Sentosa (dalam likuidasi)","2/Pdt.Sus-Pailit/2026","Wahyu Ardhitya Prartono dan kawan-kawan","Arman Chandra dan Jhonny Pratama Simanjuntak",0],
+    ["2026-05-25","PT Maruwa Indonesia (dalam likuidasi)","1/Pdt.Sus-Pailit/2026","Salvian Salmon dan Nico Lambert Gultom","Kenny Wangestu",0],
+    ["2026-07-01","PT Srimas Raya International","20/Pdt.Sus-PKPU/2026","Jimmy dan Febda Wilis","Dedi Ismanto",0],
+    ["2026-07-22","PT Anugerah Makmur Rejeki","10/Pdt.Sus-PKPU/2026","Windriani dan kawan","Halman Simanullang",0],
+    ["2026-09-09","PT Keritang Buana Mining (dalam likuidasi)","6/Pdt.Sus-Pailit/2026","Likuidator PT Keritang Buana Mining","La Ode Kudus dan Muhammad Taufan Eprom Hasibuan",0]
   ];
-  var sopI=0,sopTimer=null,playing=true;
-  function drawSteps(){var s=document.getElementById("steps");s.innerHTML="";steps.forEach(function(st,i){var b=document.createElement("button");b.className="step";b.innerHTML="<span class='k'>"+(i+1)+"</span><span class='t'>"+st[0]+"</span>";b.addEventListener("click",function(){sopI=i;stopPlay();sopRender()});s.appendChild(b)});sopRender();startPlay()}
-  function sopRender(){document.querySelectorAll("#steps .step").forEach(function(b,j){b.classList.toggle("on",j===sopI);b.classList.toggle("done",j<sopI)});document.getElementById("rail").style.width=((sopI+1)/steps.length*100)+"%";document.getElementById("sopK").textContent="Tahap "+(sopI+1)+" dari "+steps.length;document.getElementById("sopT").textContent=steps[sopI][0];document.getElementById("sopD").textContent=steps[sopI][1]}
-  function startPlay(){clearInterval(sopTimer);playing=true;document.getElementById("sopPlay").textContent="Jeda";if(!reduce)sopTimer=setInterval(function(){sopI=(sopI+1)%steps.length;sopRender()},3600)}
-  function stopPlay(){clearInterval(sopTimer);playing=false;document.getElementById("sopPlay").textContent="Jalankan"}
-  document.getElementById("sopPrev").addEventListener("click",function(){sopI=(sopI+steps.length-1)%steps.length;stopPlay();sopRender()});
-  document.getElementById("sopNext").addEventListener("click",function(){sopI=(sopI+1)%steps.length;stopPlay();sopRender()});
-  document.getElementById("sopPlay").addEventListener("click",function(){playing?stopPlay():startPlay()});
+  var requests=[
+    ["3/Pdt.Sus-Pailit/2025","Apriani Yosephin Manalu dan kawan","Yayasan Sari Mutiara","Dicabut",""],
+    ["4/Pdt.Sus-Pailit/2025","Juriah dan kawan","PT Prima Citra Agro Sawita","Dicabut",""],
+    ["6/Pdt.Sus-Pailit/2025","Muhammad Arif dan kawan","PT PD Paya Pinang","Dicabut",""],
+    ["7/Pdt.Sus-Pailit/2025","Adi dan kawan","PT Agro Rubberindo Industry","Ditolak",""],
+    ["9/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","Frans Winner dan PT Cahaya Berjaya Sejahtera","Dicabut","13 Oktober 2025; diajukan kembali sebagai 12/Pdt.Sus-Pailit/2025"],
+    ["11/Pdt.Sus-Pailit/2025","PT Sicoma Indo Perkasa","CV Riau Sukses Abadi dan Sukrianto","Dikabulkan","27 November 2025; BHP Medan diangkat, salinan putusan tidak dikirimkan karena diajukan kasasi"],
+    ["12/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","Frans Winner","Dikabulkan","11 Desember 2025; BHP Medan diangkat"],
+    ["22/Pdt.Sus-PKPU/2026","Susi Angelica Br Situmeang","Asman","Ditolak","8 Juni 2026; meminta BHP sebagai pengurus dan kurator"],
+    ["3/Pdt.Sus-Pailit/2026","Jamilah dan kawan-kawan","PT Sinar Mulia Muara Sentosa","Dicabut","6 Juli 2026"],
+    ["5/Pdt.Sus-Pailit/2026","Taufik Ritonga dan 8 pemohon lain","PT Sinar Bandar Indotama","Ditolak","28 Agustus 2026"],
+    ["4/Pdt.Sus-Pailit/2026","PT Waskita Karya (Persero) Tbk","PT Makmur Permata Putra","Masih diperiksa","Masih dalam persidangan"]
+  ];
+  var cmpData=[["Permohonan pailit teregister",14,6],["Permohonan PKPU teregister",51,38],["Putusan pailit (termasuk PKPU berakhir pailit)",9,7],["Kurator perseorangan diangkat",7,7],["BHP Medan diangkat",2,0],["Permohonan meminta BHP dalam petitum",7,4]];
+  function drawCmp(){var svg=document.getElementById("cCmp");svg.innerHTML="";var narrow=svg.parentElement.clientWidth<620,W=narrow?440:800,L=narrow?10:330,T=10,rowH=narrow?74:54,max=52,R=70,sx=(W-L-R)/max;
+    cmpData.forEach(function(d,i){var y=T+i*rowH;var g=el("g",{},svg);
+      if(narrow){txt(g,{x:L,y:y+14,"font-size":13,"font-weight":700,fill:C.ink},d[0]);y+=20}else txt(g,{x:L-12,y:y+rowH/2+2,"text-anchor":"end","font-size":14,"font-weight":600,fill:C.ink},d[0]);
+      var r1=el("rect",{x:L,y:y+6,height:14,rx:4,fill:"#FFE68A",width:0},g),r2=el("rect",{x:L,y:y+24,height:14,rx:4,fill:C.maroon,width:0},g);
+      var a=txt(g,{x:L+6,y:y+18,"font-size":13,"font-weight":800,fill:C.ink},d[1]),b=txt(g,{x:L+6,y:y+36,"font-size":13,"font-weight":800,fill:C.maroon},d[2]);
+      tween(900,i*80,function(p){r1.setAttribute("width",d[1]*sx*p);a.setAttribute("x",L+d[1]*sx*p+6);r2.setAttribute("width",d[2]*sx*p);b.setAttribute("x",L+d[2]*sx*p+6)});
+      g.addEventListener("pointermove",function(e){showTip("<b>"+d[0]+"</b><div>2025: "+d[1]+"</div><div>2026 sampai 2 Oktober: "+d[2]+"</div>",e.clientX,e.clientY)});g.addEventListener("pointerleave",hideTip)});
+    svg.setAttribute("viewBox","0 0 "+W+" "+(T+cmpData.length*rowH+6))}
+  var groups=[["Dikabulkan","BHP diangkat",C.maroon],["Dicabut","Dicabut","#FFE68A"],["Ditolak","Ditolak","#F2A1A1"],["Masih diperiksa","Masih diperiksa","#C9D3EA"]];
+  var donutSel=null,tabSel="v";
+  function drawDonut(anim){var svg=document.getElementById("cDonut");svg.innerHTML="";var cx=130,cy=130,r=100,ri=62,tot=requests.length,a0=-Math.PI/2;
+    groups.forEach(function(gr){var n=requests.filter(function(q){return q[3]===gr[0]}).length;if(!n)return;var a1=a0+n/tot*2*Math.PI;
+      function arc(t){var e=a0+(a1-a0)*t,x1=cx+r*Math.cos(a0),y1=cy+r*Math.sin(a0),x2=cx+r*Math.cos(e),y2=cy+r*Math.sin(e),xi1=cx+ri*Math.cos(e),yi1=cy+ri*Math.sin(e),xi2=cx+ri*Math.cos(a0),yi2=cy+ri*Math.sin(a0),big=(e-a0)>Math.PI?1:0;return "M"+x1+","+y1+" A"+r+","+r+" 0 "+big+" 1 "+x2+","+y2+" L"+xi1+","+yi1+" A"+ri+","+ri+" 0 "+big+" 0 "+xi2+","+yi2+"Z"}
+      var path=el("path",{d:arc(0.001),fill:gr[2],stroke:"#fff","stroke-width":3,style:"cursor:pointer",opacity:donutSel&&donutSel!==gr[0]?.35:1},svg);
+      tween(anim===false?0:900,0,function(p){path.setAttribute("d",arc(Math.max(.001,p)))});
+      path.addEventListener("click",function(){donutSel=donutSel===gr[0]?null:gr[0];tabSel="r";document.querySelectorAll("[data-tab]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.tab==="r"?"true":"false")});drawDonut(false);drawTable()});
+      path.addEventListener("pointermove",function(e){showTip("<b>"+gr[1]+"</b><div>"+n+" dari "+tot+" permohonan</div>",e.clientX,e.clientY)});path.addEventListener("pointerleave",hideTip);
+      a0=a1});
+    txt(svg,{x:cx,y:cy+2,"text-anchor":"middle","font-size":44,"font-weight":800,fill:C.maroon},"2");txt(svg,{x:cx,y:cy+26,"text-anchor":"middle","font-size":13,fill:C.muted},"dari 11 dikabulkan");
+    document.getElementById("lgDonut").innerHTML=groups.map(function(gr){var n=requests.filter(function(q){return q[3]===gr[0]}).length;return n?"<span><i style='background:"+gr[2]+"'></i>"+gr[1]+" ("+n+")</span>":""}).join("")}
+  function drawTable(){var t=document.getElementById("tbl"),q=(document.getElementById("q").value||"").toLowerCase();
+    if(tabSel==="v"){var rows=verdicts.filter(function(v){return v.join(" ").toLowerCase().indexOf(q)>=0});
+      t.innerHTML="<thead><tr><th>Putusan</th><th>Debitor</th><th>Nomor perkara</th><th>Pemohon</th><th>Kurator yang diangkat</th></tr></thead><tbody>"+rows.map(function(v){return "<tr"+(v[5]?" class='bhp'":"")+"><td>"+tgl(v[0])+"</td><td class='b'>"+v[1]+"</td><td>"+v[2]+"</td><td>"+v[3]+"</td><td>"+(v[5]?"<span class='pill ok'>BHP Medan</span> "+v[4].replace(/^BHP Medan;?\s*/,""):v[4])+"</td></tr>"}).join("")+"</tbody>"}
+    else{var rows2=requests.filter(function(r){return (!donutSel||r[3]===donutSel)&&r.join(" ").toLowerCase().indexOf(q)>=0});
+      t.innerHTML="<thead><tr><th>Nomor perkara</th><th>Pemohon</th><th>Termohon</th><th>Hasil</th><th>Keterangan</th></tr></thead><tbody>"+rows2.map(function(r){var cls=r[3]==="Dikabulkan"?"ok":r[3]==="Ditolak"?"no":r[3]==="Dicabut"?"cb":"wt";return "<tr><td>"+r[0]+"</td><td class='b'>"+r[1]+"</td><td>"+r[2]+"</td><td><span class='pill "+cls+"'>"+r[3]+"</span></td><td>"+r[4]+"</td></tr>"}).join("")+"</tbody>"}}
+  document.querySelectorAll("[data-tab]").forEach(function(b){b.addEventListener("click",function(){tabSel=b.dataset.tab;donutSel=null;document.querySelectorAll("[data-tab]").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});drawDonut();drawTable()})});
+  document.getElementById("q").addEventListener("input",drawTable);
+
+  // ===== LAYAR 5: SOP Kepailitan (SK W.2.AHU.AHU.1-OT.02.02-594) =====
+  var SOP=[
+    ["Penunjukan dan nota dinas",[["Mempelajari, memahami, dan mendisposisikan salinan putusan pailit dari Pengadilan Niaga","Kepala","30 menit","Disposisi penunjukan JF Madya sebagai kurator"],["Mempelajari, mencatat, memahami, dan menyusun konsep nota dinas, lalu meneruskan disposisi Kepala BHP","Kasi HPW","30 menit","Dokumen dan putusan pailit"],["Mencatat dan mempersiapkan bahan dokumen kepailitan","Kasi HPW","1 jam","Dokumen dan putusan pailit"],["Memeriksa dokumen, menyiapkan konsep nota dinas dan konsep surat penunjukan, menandatangani nota dinas, dan memaraf konsep surat penunjukan JFKK","JFKK","4 jam","Dokumen dan putusan pailit"],["Menyetujui dan menandatangani konsep surat nota dinas","Kepala","1 jam","Nota dinas"]]],
+    ["Rencana kerja dan pengumuman",[["Menyiapkan bahan rencana kerja, surat penunjukan, dan konsep pengumuman","JFKK","1 jam","Rencana kerja"],["Membuat pengumuman kepailitan di 2 koran dan mengumpulkan data dukung","JFKK","1 jam","Pengumuman"]]],
+    ["Rapat kreditur dan verifikasi",[["Melaksanakan rapat kreditur pertama yang dipimpin Hakim Pengawas, dihadiri debitur dan kreditur","JFKK","4 jam","Notulen rapat kreditur pertama"],["Mengumpulkan atau melengkapi bukti tagihan kreditur sampai batas akhir pengajuan tagihan","JFKK","4 jam","Notulen atau laporan"],["Melaksanakan rapat pra-verifikasi yang dipimpin Hakim Pengawas untuk memeriksa bukti tagihan kreditur","JFKK","4 jam","Berita acara rapat ditandatangani Hakim Pengawas"],["Melaksanakan rapat verifikasi yang dipimpin Hakim Pengawas, dihadiri debitur dan kreditur; membuat pernyataan insolvensi jika debitur tidak mengajukan perdamaian","JFKK","1 hari","Notulen rapat verifikasi"]]],
+    ["Inventarisasi dan penilaian aset",[["Daftar inventarisasi aset, verifikasi aset ke lokasi, sita umum, dan penagihan utang piutang","JFKK","3 bulan","Daftar inventaris aset dan laporan"],["Mengundang beberapa Penilai Publik untuk mengajukan penawaran atas aset pailit","JFKK","14 hari","Dokumen penawaran appraisal"],["Memohon kepada Hakim Pengawas untuk menetapkan appraisal dan mengangkat sumpah di depan hakim","JFKK","1 hari","Surat usulan penetapan appraisal"],["Menerima buku hasil penilaian dari appraisal sebagai pedoman penjualan, dan melakukan penjualan aset pailit","JFKK","14 hari","Buku hasil penaksiran, tanda terima berkas asli"]]],
+    ["Penjualan dan pembagian",[["Mengajukan permohonan penjualan aset yang telah dinilai melalui KPKNL setempat dan mengumumkannya di koran","JFKK","1 bulan","Dokumen lelang"],["Mengajukan permohonan penetapan daftar pembagian harta pailit yang disetujui Hakim Pengawas dan mengumumkannya di 2 koran","JFKK","7 hari","Penetapan pembagian kepada kreditur"],["Konfirmasi keberatan kreditur, pembayaran kepada kreditur atas hasil pembagian aset pailit, dan penyetoran PNBP","JFKK","14 hari","Bukti pembayaran kreditur melalui transfer"]]],
+    ["Pengakhiran",[["Mengajukan penetapan likuidasi kepada Hakim; jika utang tidak dilunasi diproses likuidasi, jika dilunasi diajukan pemulihan nama baik melalui koran","JFKK","7 hari","Penetapan likuidasi"],["Mengajukan permohonan penetapan pengakhiran kepailitan kepada Hakim, lalu mengumumkannya pada 2 koran dan berita negara","JFKK","1 hari","Penetapan pengakhiran kepailitan"],["Menyetujui laporan pelaksanaan pengakhiran kepailitan dan melaporkannya kepada Dirjen AHU melalui Direktur Perdata","Kepala","1 hari","Dokumen laporan pengakhiran"]]]
+  ];
+  function hari(w){var n=parseFloat(w.replace(",","."));if(/menit/.test(w))return n/60/8;if(/jam/.test(w))return n/8;if(/bulan/.test(w))return n*30;return n}
+  function fmtHari(d){if(d<1)return "kurang dari 1 hari";if(d>=30)return fmt(d/30,1)+" bulan";return fmt(d,0)+" hari"}
+  var phSel=0,PH_MAX=Math.max.apply(null,SOP.map(function(ph){return ph[1].reduce(function(a,x){return a+hari(x[2])},0)}));
+  function drawSteps(){var w=document.getElementById("phases");w.innerHTML="";var start=1;
+    SOP.forEach(function(ph,i){var tot=ph[1].reduce(function(a,x){return a+hari(x[2])},0);var b=document.createElement("button");b.className="phase"+(i===phSel?" on":"");
+      b.innerHTML="<span class='k'>Fase "+(i+1)+" · tahap "+start+" sampai "+(start+ph[1].length-1)+"</span><span class='t'>"+ph[0]+"</span><span class='w'>waktu baku "+fmtHari(tot)+"</span><span class='bar'><i data-w='"+Math.max(4,tot/PH_MAX*100)+"'></i></span>";
+      b.addEventListener("click",function(){phSel=i;drawSteps()});b.addEventListener("pointerenter",function(){if(phSel!==i){phSel=i;drawSteps()}});w.appendChild(b);start+=ph[1].length});
+    requestAnimationFrame(function(){requestAnimationFrame(function(){w.querySelectorAll(".bar i").forEach(function(i){i.style.width=i.dataset.w+"%"})})});
+    var ph=SOP[phSel],first=1;for(var k=0;k<phSel;k++)first+=SOP[k][1].length;
+    document.getElementById("phK").textContent="Fase "+(phSel+1)+" dari 6";document.getElementById("phT").textContent=ph[0];
+    var tot=ph[1].reduce(function(a,x){return a+hari(x[2])},0);document.getElementById("phTot").innerHTML="<b>"+fmtHari(tot)+"</b>waktu baku fase ini";
+    document.getElementById("sopList").innerHTML=ph[1].map(function(st,j){return "<li><span class='no'>"+(first+j)+"</span><div><div class='t'>"+st[0]+"</div><div class='m'><span class='p'>"+st[1]+"</span><span>Keluaran: "+st[3]+"</span></div></div><span class='wk'>"+st[2]+"</span></li>"}).join("")}
+  var sopTimer=null;
 
   // ===== LAYAR 5: perkara wajib BHP =====
   var wajib=[
@@ -498,21 +617,21 @@ h1{font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-.02em;margi
   // ===== NAVIGASI =====
   var cur=0,scenes=document.querySelectorAll(".scene"),tabs=document.querySelectorAll(".tabs button"),dots=document.getElementById("dots");
   scenes.forEach(function(_,i){var d=document.createElement("i");d.addEventListener("click",function(){go(i)});dots.appendChild(d)});
-  var drawers=[function(){document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp)},function(){renderDetail();drawCases(true)},drawGantt,drawSteps,drawWajib,drawPasal];
+  var drawers=[function(){document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp)},function(){renderDetail();drawCases(true)},drawGantt,function(){drawCmp();drawDonut(true);drawTable()},drawSteps,drawWajib,drawPasal];
   function go(n){cur=Math.max(0,Math.min(scenes.length-1,n));hideTip();clearInterval(sopTimer);
     scenes.forEach(function(s,i){s.classList.toggle("on",i===cur)});tabs.forEach(function(b,i){b.setAttribute("aria-selected",i===cur?"true":"false");if(i===cur)b.scrollIntoView({block:"nearest",inline:"center"})});
     dots.querySelectorAll("i").forEach(function(d,i){d.classList.toggle("on",i===cur)});
     document.getElementById("prev").disabled=cur===0;document.getElementById("next").textContent=cur===scenes.length-1?"Kembali ke awal":"Berikutnya ›";
     window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});drawers[cur]();
-    try{localStorage.setItem("bhp-data-scene",cur)}catch(e){}}
+    try{localStorage.setItem("bhp-data-scene2",cur)}catch(e){}}
   tabs.forEach(function(b){b.addEventListener("click",function(){go(+b.dataset.s)})});
   document.querySelectorAll("[data-go]").forEach(function(b){b.addEventListener("click",function(){go(+b.dataset.go)})});
   document.getElementById("prev").addEventListener("click",function(){go(cur-1)});
   document.getElementById("next").addEventListener("click",function(){go(cur===scenes.length-1?0:cur+1)});
   document.addEventListener("keydown",function(e){if(e.target.tagName==="INPUT")return;if(e.key==="ArrowRight"||e.key==="PageDown")go(cur+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(cur-1)});
   var sx0=null;document.addEventListener("touchstart",function(e){sx0=e.touches[0].clientX},{passive:true});document.addEventListener("touchend",function(e){if(sx0==null)return;var dx=e.changedTouches[0].clientX-sx0;if(Math.abs(dx)>70&&!e.target.closest("svg,.tabs"))go(dx<0?cur+1:cur-1);sx0=null},{passive:true});
-  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(cur===1)drawCases(false);if(cur===2)drawGantt()},200)});
-  var st=0;try{st=+(localStorage.getItem("bhp-data-scene")||0)}catch(e){}
+  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(cur===1)drawCases(false);if(cur===2)drawGantt();if(cur===3){drawCmp();drawDonut(false)}},200)});
+  var st=0;try{st=+(localStorage.getItem("bhp-data-scene2")||0)}catch(e){}
   go(st>=0&&st<scenes.length?st:0);
 })();
 </script>
