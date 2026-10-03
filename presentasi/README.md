@@ -61,21 +61,18 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 ## 2. Bahan RDP 6 Oktober 2026 (maksimal 2 slide): folder `klaster1/`
 
-Bahan Klaster 1 (BHP Medan: Tumpang Tindih Kewenangan) sesuai permintaan Direktorat, diberi nama mengikuti format surat.
-Sumber tunggalnya adalah dokumen Telaah; slide, data interaktif, dan narasi disamakan dengannya (3 Oktober 2026).
+Bahan Klaster 1 (BHP Medan: Tumpang Tindih Kewenangan). Sumber tunggalnya adalah dokumen Telaah buatan Kepala BHP Medan,
+disimpan apa adanya; slide dan data interaktif disesuaikan dengannya.
 
-- `BHP Medan - Telaah Poin 1 dan Klaster 1 - Tumpang Tindih Kewenangan.docx`: dokumen masukan dan telaah lengkap
-  (arah jawaban, fakta dan data, jawaban tiga pertanyaan Klaster 1 dengan telaah filosofis, sosiologis, yuridis,
-  koordinasi, pengalaman, Lampiran I data perkara dan SIPP, Lampiran II contoh rumusan pasal).
-- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide buatan Kepala BHP Medan
-  (transisi fade dan morph, animasi, tombol tautan ke data interaktif). Hanya kalimatnya yang disamakan dengan
-  dokumen Telaah; animasi dan tata letaknya tidak disentuh.
-- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara 9 sampai 10 menit dengan penanda
-  slide; dibangun oleh `build_narasi.cjs` (`node build_narasi.cjs`, pustaka docx dari node-tools).
-- `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: grafik perkara BHP Medan (6 adegan). Namanya
-  harus persis seperti ini dan berada satu folder dengan .pptx agar tombol di slide bisa membukanya.
-- `grafik_I1.py`: membuat ulang Grafik I.1 dokumen (matplotlib) bila angka Tabel I.1 berubah.
-- Lampiran I pada dokumen Telaah sekaligus memenuhi permintaan data penanganan kepailitan tiga tahun terakhir.
+- `BHP Medan - Telaah Poin 1 dan Klaster 1 - Tumpang Tindih Kewenangan.docx`: dokumen masukan dan telaah (3 Oktober 2026),
+  tidak disunting.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide (transisi fade dan morph, animasi,
+  tombol tautan ke data interaktif). Dari file asli hanya dua hal diubah agar sama dengan dokumen: rumusan pertanyaan 1
+  ("kurator privat dari asosiasi") dan koma menggantung pada kalimat kendala menjadi titik.
+- `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: grafik perkara BHP Medan (6 adegan), sudah cocok dengan
+  Lampiran I dokumen. Namanya harus persis seperti ini dan satu folder dengan .pptx agar tombol di slide bisa membukanya.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara pendamping (opsional), dibangun oleh
+  `build_narasi.cjs`.
 
 ## 3. Cadangan PowerPoint lengkap: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
 
