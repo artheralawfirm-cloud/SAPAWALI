@@ -90,3 +90,9 @@ cd presentasi && NODE_PATH=<folder node_modules berisi pptxgenjs, react, react-d
 ```
 
 Versi Canva awal: https://www.canva.com/d/3PGEyDAsl1neFqh
+
+## 4. Situs slide online: `slide-bhp-medan/`
+
+Salinan situs https://embamtaufik13-collab.github.io/Slide-bhp-medan/ dengan thumbnail Lampiran II yang berkedip
+dan lembar rumusan Usulan Pasal 1 sampai 3 pada kartu *Usulan dalam RUU*. Lihat `slide-bhp-medan/README.md`
+untuk cara memasangnya ke repo situs.

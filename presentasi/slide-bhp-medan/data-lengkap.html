@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Lengkap Kepailitan BHP Medan</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{--maroon:#1C3A8A;--maroon-2:#102563;--maroon-3:#0B1A47;--gold:#F5C23D;--gold-2:#8C6D0C;--cream:#FFF3C7;--bg:#F4F6FB;--panel:#FFFFFF;--panel-2:#EEF2FA;--line:#D9E0EF;--ink:#141A2E;--muted:#5B6478;--ok:#2E7D5B;--f:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--fs:"Source Serif 4",Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,var(--maroon),var(--maroon-2));color:#fff;border-bottom:3px solid var(--gold)}
+.top .in{max-width:1360px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:16px}
+.top img{height:48px;width:auto;border-radius:8px}
+.top .org{line-height:1.2}.top .org small{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream)}.top .org b{font-size:18px}
+.top a.back{margin-left:auto;color:var(--gold);font-weight:800;text-decoration:none;border:2px solid var(--gold);border-radius:999px;padding:8px 16px;font-size:14px;white-space:nowrap}
+.top a.back .sm{display:none}
+.top a.back:hover{background:var(--gold);color:var(--maroon-2)}
+
+/* pita atas */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0F2355 0%,#1C3A8A 55%,#153077 100%);color:#fff;border-radius:0 0 32px 32px}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;pointer-events:none}
+.blob.a{width:520px;height:520px;background:#2E5BD6;right:-140px;top:-180px;animation:drift 14s ease-in-out infinite}
+.blob.b{width:380px;height:380px;background:#F5C23D;left:-160px;bottom:-200px;opacity:.25;animation:drift 18s ease-in-out infinite reverse}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.1)}}
+.hero-in{position:relative;max-width:1360px;margin:0 auto;padding:34px 24px 30px;display:grid;gap:22px}
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2);font-weight:800;margin-bottom:8px}
+.eyebrow::after{content:"";display:block;width:56px;height:4px;border-radius:2px;background:var(--gold);margin-top:8px}
+.hero .eyebrow{color:var(--gold)}
+h1{font-family:var(--fs);font-weight:700;margin:0;font-size:clamp(34px,4.4vw,60px);line-height:1.04;letter-spacing:-.02em;max-width:20ch;text-wrap:balance}
+h1 mark{background:none;color:var(--gold);font-style:italic}
+.hero p{margin:10px 0 0;color:#D6DEF5;font-size:clamp(17px,1.5vw,20px);max-width:62ch}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-top:14px}
+.live i{width:10px;height:10px;border-radius:50%;background:var(--gold);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(245,194,61,.7)}70%{box-shadow:0 0 0 14px rgba(245,194,61,0)}100%{box-shadow:0 0 0 0 rgba(245,194,61,0)}}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tile{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);backdrop-filter:blur(8px);border-radius:22px;padding:18px 20px;animation:up .7s cubic-bezier(.2,.8,.2,1) both}
+.tile:nth-child(2){animation-delay:.08s}.tile:nth-child(3){animation-delay:.16s}.tile:nth-child(4){animation-delay:.24s}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.tile b{display:block;font-size:clamp(38px,3.6vw,54px);font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile b small{font-size:.38em;color:var(--gold);margin-left:8px;letter-spacing:0}
+.tile span{display:block;margin-top:6px;font-size:14.5px;color:#D6DEF5}
+.tile b span{display:inline;margin:0;font-size:inherit;color:#fff}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.ph{position:relative;border-radius:16px;padding:12px 44px 10px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);cursor:pointer;text-align:left;color:#fff;transition:background .25s,transform .25s}
+.ph:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.ph[aria-pressed="true"]{background:var(--gold);color:var(--maroon-2);border-color:var(--gold)}
+.ph .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;font-weight:800}
+.ph .t{display:block;font-weight:800;font-size:14.5px;line-height:1.2;margin-top:4px}
+.ph .c{position:absolute;top:10px;right:10px;min-width:26px;height:26px;border-radius:13px;background:rgba(255,255,255,.16);display:grid;place-items:center;font-weight:800;font-size:13px;padding:0 7px}
+.ph[aria-pressed="true"] .c{background:var(--maroon-2);color:var(--gold)}
+.ph .c.z{opacity:.45}
+
+/* isi */
+main{max-width:1360px;margin:0 auto;padding:28px 24px 70px}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.h2{font-size:clamp(22px,2.2vw,28px);margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:15px;margin-top:4px;max-width:70ch}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 14px;min-width:300px}
+.search input{border:0;outline:0;font:inherit;font-size:15px;width:100%;background:transparent}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.cc{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;box-shadow:0 10px 30px rgba(28,58,138,.06);cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:10px;transition:transform .25s,box-shadow .25s,border-color .25s;animation:up .6s cubic-bezier(.2,.8,.2,1) both;width:100%}
+.cc:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(28,58,138,.14);border-color:var(--gold)}
+.cc[aria-expanded="true"]{border-color:var(--maroon);box-shadow:0 18px 40px rgba(28,58,138,.18)}
+.cc .row1{display:flex;align-items:flex-start;gap:12px}
+.cc .ix{flex:none;width:38px;height:38px;border-radius:12px;background:var(--maroon);color:var(--gold);display:grid;place-items:center;font-weight:800}
+.cc .nm{font-weight:800;font-size:17px;line-height:1.25;color:var(--maroon)}
+.cc .no{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cc .meta{display:flex;flex-wrap:wrap;gap:6px;font-size:12.5px}
+.cc .meta span{border:1px solid var(--line);background:var(--panel-2);border-radius:999px;padding:3px 10px;color:var(--ink)}
+.track{display:grid;grid-template-columns:repeat(21,1fr);gap:3px}
+.track i{height:9px;border-radius:3px;background:var(--panel-2)}
+.track i.done{background:var(--maroon)}
+.track i.now{background:var(--gold);box-shadow:0 0 0 3px rgba(245,194,61,.35);animation:glow 1.8s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 6px rgba(245,194,61,.12)}}
+.track i.gap{margin-left:5px}
+.tr-l{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--muted);margin-top:6px}
+.tr-l b{color:var(--maroon);white-space:nowrap}
+.cc .act{font-size:14.5px;font-weight:600;line-height:1.35}
+.cc .more{display:none;border-top:1px dashed var(--line);padding-top:10px;font-size:14px}
+.cc[aria-expanded="true"] .more{display:block;animation:up .35s ease both}
+.cc .more dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;margin:0}
+.cc .more dt{color:var(--muted);font-size:12.5px;padding-top:2px}
+.cc .more dd{margin:0}
+.cc .hint{font-size:12px;color:var(--gold-2);font-weight:700}
+.empty{display:none;padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px}
+
+/* tabel lengkap, terkunci sampai diklik */
+.vault{margin-top:28px;position:relative;border-radius:26px;overflow:hidden;background:linear-gradient(135deg,var(--maroon-3),var(--maroon));color:#fff;box-shadow:0 20px 50px rgba(11,26,71,.25)}
+.vault .face{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;padding:26px 28px}
+.vault .lock{width:68px;height:68px;border-radius:20px;background:rgba(245,194,61,.14);border:1px solid rgba(245,194,61,.5);display:grid;place-items:center}
+.vault .lock svg{width:34px;height:34px}
+.vault h3{margin:0;font-size:clamp(20px,2vw,26px)}
+.vault p{margin:4px 0 0;color:#D6DEF5;font-size:15px;max-width:62ch}
+.open{border:0;background:var(--gold);color:var(--maroon-2);font-weight:800;font-size:16px;border-radius:999px;padding:14px 22px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 10px 24px rgba(0,0,0,.25);white-space:nowrap;transition:transform .2s}
+.open:hover{transform:translateY(-2px)}
+.open .arr{transition:transform .3s}
+.vault.on .open .arr{transform:rotate(180deg)}
+.ghost{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,1fr);gap:10px;padding:18px;opacity:.07;pointer-events:none}
+.ghost i{background:#fff;border-radius:6px;height:14px}
+.vault.on .ghost{display:none}
+.body{display:none;background:var(--panel);color:var(--ink);padding:22px 24px 24px}
+.vault.on .body{display:block;animation:up .45s ease both}
+.sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.sum div{border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:var(--panel-2)}
+.sum b{display:block;font-size:clamp(24px,2.4vw,34px);color:var(--maroon);line-height:1.05;font-variant-numeric:tabular-nums}
+.sum b small{font-size:.45em;color:var(--gold-2);margin-left:4px}
+.sum span{font-size:13.5px;color:var(--muted)}
+.scroll{overflow:auto;border:1px solid var(--line);border-radius:16px}
+.dt{width:100%;border-collapse:collapse;font-size:14.5px;min-width:1400px}
+.dt th{position:sticky;top:0;background:var(--panel-2);text-align:left;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-2);padding:12px 10px;border-bottom:2px solid var(--line);vertical-align:bottom}
+.dt td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.dt tr:last-child td{border-bottom:0}
+.dt tbody tr:hover{background:#FAFBFE}
+.dt td.b{font-weight:700;color:var(--maroon)}
+.dt td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}.dt .v{white-space:nowrap}
+.dt .m{color:var(--muted);font-size:13px;font-weight:400}
+.dt td:nth-child(1){width:36px}.dt td:nth-child(2){min-width:160px}.dt td:nth-child(3){min-width:180px}.dt td:nth-child(4){min-width:150px}.dt td:nth-child(5){min-width:200px}.dt td:nth-child(6){min-width:130px}.dt td:nth-child(7){min-width:150px}.dt td:nth-child(8){min-width:190px}.dt td:nth-child(9){min-width:280px}
+.dt .bar{height:6px;border-radius:3px;background:var(--panel-2);margin:6px 0 3px;overflow:hidden}.dt .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--maroon),var(--gold));border-radius:3px}
+.dt .pct{font-size:12.5px;color:var(--ok);font-weight:800}
+.pill{display:inline-block;padding:4px 10px;border-radius:10px;font-size:12.5px;font-weight:700;background:var(--cream);color:var(--maroon);line-height:1.35;margin-bottom:6px}
+.src{font-size:13px;color:var(--muted);margin-top:12px}
+/* navigasi kembali */
+.crumb{background:var(--maroon-3);color:#C9D3EA;font-size:13px}
+.crumb .in{max-width:1360px;margin:0 auto;padding:8px 24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.crumb a{color:var(--gold);font-weight:700;text-decoration:none}.crumb a:hover{text-decoration:underline}
+.crumb b{color:#fff}
+.endback{margin-top:26px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 24px;border-radius:22px;background:var(--panel);border:1px solid var(--line)}
+.endback b{display:block;font-size:18px;color:var(--maroon)}.endback span{color:var(--muted);font-size:15px}
+.endback .open{text-decoration:none}
+.fabw{position:fixed;left:20px;bottom:20px;z-index:40}
+.fab{position:relative;display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:var(--maroon);color:#fff;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 12px 30px rgba(11,26,71,.35);border:2px solid var(--gold);transition:transform .2s}
+.fab:hover{transform:translateY(-2px)}
+.fab::after{content:"";position:absolute;inset:-6px;border-radius:999px;border:2px solid rgba(245,194,61,.55);opacity:0;animation:ring 2.4s ease-out 1.2s 2}
+@keyframes ring{0%{opacity:.9;transform:scale(.92)}100%{opacity:0;transform:scale(1.25)}}
+.pop{position:absolute;left:0;bottom:calc(100% + 14px);width:330px;padding:16px 16px 12px;border-radius:22px;background:rgba(255,255,255,.86);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(28,58,138,.14);box-shadow:0 24px 60px rgba(11,26,71,.30),0 2px 0 rgba(255,255,255,.7) inset;color:var(--ink);opacity:0;transform:translateY(10px) scale(.96);transform-origin:bottom left;pointer-events:none;transition:opacity .22s ease,transform .32s cubic-bezier(.2,.9,.25,1.2)}
+.pop::after{content:"";position:absolute;left:0;right:0;bottom:-16px;height:16px}
+.pop::before{content:"";position:absolute;left:30px;bottom:-7px;width:14px;height:14px;background:inherit;border-right:1px solid rgba(28,58,138,.14);border-bottom:1px solid rgba(28,58,138,.14);transform:rotate(45deg)}
+@media (hover:hover){.fabw:hover .pop{opacity:1;transform:none;pointer-events:auto}}
+.fabw.is-open .pop{opacity:1;transform:none;pointer-events:auto}
+.fabw.nudge .pop{animation:nudge .6s ease .1s}
+@keyframes nudge{30%{transform:translateY(-6px)}60%{transform:translateY(0)}80%{transform:translateY(-2px)}}
+.pv{position:relative;height:92px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#0F2355 0%,#1C3A8A 60%,#153077 100%);padding:10px;display:grid;gap:6px;margin-bottom:12px}
+.pv::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);transform:translateX(-100%);animation:shine 2.6s ease-in-out infinite}
+@keyframes shine{60%,100%{transform:translateX(100%)}}
+.pv-h{display:flex;gap:6px}.pv-h i{height:7px;border-radius:4px;background:rgba(255,255,255,.55);width:38%}.pv-h i+i{width:18%;background:var(--gold)}
+.pv-t{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.pv-t i{height:20px;border-radius:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18)}
+.pv-b{display:grid;gap:3px}.pv-b i{height:4px;border-radius:3px;background:linear-gradient(90deg,#FFD24A,var(--gold))}
+.pv-l{position:absolute;right:8px;bottom:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.pop b{display:block;font-size:17px;color:var(--maroon);letter-spacing:-.01em}
+.pop p{margin:4px 0 12px;font-size:13.5px;color:var(--muted);line-height:1.45}
+.acts{display:grid;gap:8px}
+.pbtn{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;text-decoration:none;font-weight:800;font-size:14.5px;border:1px solid var(--line);background:var(--panel);color:var(--maroon);transition:transform .18s,box-shadow .18s,background .18s}
+.pbtn:hover{transform:translateX(3px);box-shadow:0 8px 18px rgba(28,58,138,.12)}
+.pbtn.pri{background:linear-gradient(135deg,var(--maroon),var(--maroon-2));color:#fff;border-color:transparent}
+.pbtn .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(245,194,61,.2);color:var(--gold-2);font-size:15px}
+.pbtn.pri .ic{background:var(--gold);color:var(--maroon-2)}
+.stay{display:block;margin:10px auto 0;border:0;background:none;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+main{padding-bottom:110px}
+@media (max-width:1100px){.cards{grid-template-columns:1fr 1fr}.flow{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:820px){.tiles,.sum{grid-template-columns:1fr 1fr}.vault .face{grid-template-columns:1fr}.search{min-width:0;width:100%}}
+@media (max-width:560px){.fabw:not(.is-open)>.pop{pointer-events:none}.top a.back .lg{display:none}.top a.back .sm{display:inline}.crumb .in{padding:6px 16px}.fabw{left:0;right:0;bottom:14px;display:flex;justify-content:center;pointer-events:none}.fabw>*{pointer-events:auto}.pop{left:16px;right:16px;bottom:calc(100% + 14px);width:auto;margin:0;transform-origin:bottom center}.pop::before{left:calc(50% - 7px)}.endback{padding:16px}.endback .open{width:100%;justify-content:center}.hero-in,main{padding-left:16px;padding-right:16px}.cards{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.top .org b{font-size:15px}.top .in{padding:8px 16px}.top a.back{padding:6px 12px;font-size:13px}.vault .face{padding:20px}.body{padding:16px}.tile{padding:14px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <img src="logo.png" alt="Logo Pengayoman">
+  <div class="org"><small>Kementerian Hukum · Kanwil Sumatera Utara</small><b>Balai Harta Peninggalan Medan</b></div>
+  <a class="back js-back" href="index.html#perkara">‹ <span class="lg">Kembali ke slide</span><span class="sm">Kembali</span></a>
+</div></header>
+
+<nav class="crumb" aria-label="Lokasi halaman"><div class="in"><a class="js-back" href="index.html#perkara">Slide interaktif</a><span>›</span><a class="js-back" href="index.html#perkara">Perkara BHP</a><span>›</span><b>Data lengkap</b></div></nav>
+
+<section class="hero">
+  <div class="blob a"></div><div class="blob b"></div>
+  <div class="hero-in">
+    <div>
+      <div class="eyebrow">Data lengkap kepailitan</div>
+      <h1>Sembilan perkara, <mark>satu prosedur baku.</mark></h1>
+      <p>Seluruh perkara kepailitan yang sedang ditangani BHP Medan, beserta posisi masing-masing pada 21 tahap SOP Kepailitan. Pilih fase untuk menyaring, pilih kartu untuk rincian.</p>
+      <div class="live"><i></i>data per 2 Oktober 2026</div>
+    </div>
+    <div class="tiles">
+      <div class="tile"><b data-count="9">0</b><span>perkara kepailitan sedang ditangani</span></div>
+      <div class="tile"><b><span data-count="3">0</span><small>perkara</small></b><span>telah membagikan hasil pemberesan kepada kreditor</span></div>
+      <div class="tile"><b><span data-count="5">0</span><small>perkara</small></b><span>pada tahap pengurusan, penilaian, dan penjualan aset</span></div>
+      <div class="tile"><b><span data-count="21">0</span><small>tahap</small></b><span>SOP Kepailitan yang dijalankan pada setiap perkara</span></div>
+    </div>
+    <div class="flow" id="flow" role="group" aria-label="Saring menurut fase SOP"></div>
+  </div>
+</section>
+
+<main>
+  <div class="head">
+    <div><h2 class="h2" id="listT">Perkara kepailitan BHP Medan</h2><div class="sub">Garis 21 kotak di setiap kartu adalah tahap SOP Kepailitan; kotak emas menandai tahap yang sedang dikerjakan kurator.</div></div>
+    <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6478" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" placeholder="Cari debitor, nomor perkara, atau pemohon" aria-label="Cari perkara"></label>
+  </div>
+  <div class="cards" id="cards"></div>
+  <div class="empty" id="empty">Tidak ada perkara yang cocok.</div>
+
+  <section class="vault" id="vault">
+    <div class="ghost" aria-hidden="true"></div>
+    <div class="face">
+      <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="#F5C23D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4" fill="#F5C23D"/></svg></div>
+      <div><h3>Tabel lengkap perkara</h3><p>Nilai tagihan, harta tercatat, kreditor, dan debitor per perkara menurut Buku Register Kepailitan dan laporan pengurusan BHP Medan.</p></div>
+      <button class="open" id="openBtn" aria-expanded="false" aria-controls="vaultBody"><span id="openL">Buka tabel lengkap</span> <span class="arr">⌄</span></button>
+    </div>
+    <div class="body" id="vaultBody">
+      <div class="sum">
+        <div><b>9</b><span>perkara kepailitan</span></div>
+        <div><b>47,35<small>Rp miliar</small></b><span>total tagihan kreditor menurut register</span></div>
+        <div><b>23,03<small>Rp miliar</small></b><span>harta tercatat pada enam perkara yang telah dinilai</span></div>
+        <div><b>5,06<small>Rp miliar</small></b><span>telah dibagikan kepada kreditor pada tiga perkara, setara 10,7% dari total tagihan</span></div>
+      </div>
+      <div class="scroll"><table class="dt" id="tbl"></table></div>
+      <div class="src">Sumber: Buku Register Kepailitan dan laporan pengurusan BHP Medan per 2 Oktober 2026. Nilai dalam rupiah. "Belum dinilai" berarti nilai aset ditetapkan setelah Penilai Publik menyampaikan buku hasil penilaian (tahap 13 sampai 15 SOP Kepailitan).</div>
+    </div>
+  </section>
+  <div class="endback">
+    <div><b>Selesai melihat data lengkap?</b><span>Kembali ke slide interaktif, tepat di tab Perkara BHP.</span></div>
+    <a class="open js-back" href="index.html#perkara">‹ Kembali ke slide Perkara BHP</a>
+  </div>
+</main>
+
+<div class="fabw" id="fabw">
+  <div class="pop" id="pop" role="dialog" aria-modal="false" aria-labelledby="popT">
+    <div class="pv" aria-hidden="true">
+      <div class="pv-h"><i></i><i></i></div>
+      <div class="pv-t"><i></i><i></i><i></i><i></i></div>
+      <div class="pv-b"><i style="width:92%"></i><i style="width:78%"></i><i style="width:64%"></i><i style="width:50%"></i></div>
+      <span class="pv-l">Dashboard utama</span>
+    </div>
+    <b id="popT">Kembali ke dashboard utama?</b>
+    <p>Anda sedang melihat data lengkap. Pilih tujuan kembali di slide interaktif.</p>
+    <div class="acts">
+      <a class="pbtn pri" href="index.html#dashboard"><span class="ic">⌂</span>Ya, ke dashboard utama</a>
+      <a class="pbtn js-back" href="index.html#perkara"><span class="ic">‹</span>Ke tab Perkara BHP</a>
+    </div>
+    <button type="button" class="stay" id="stay">Tetap di halaman ini</button>
+  </div>
+  <a class="fab" id="fab" href="index.html#dashboard" aria-haspopup="dialog" aria-expanded="false" aria-controls="pop">‹ <span>Kembali ke slide</span></a>
+</div>
+
+<script>
+(function(){
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function fmt(x,d){return Number(x).toLocaleString("id-ID",{minimumFractionDigits:d||0,maximumFractionDigits:d||0})}
+function tgl(d){return new Date(d).toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}
+function countUp(n){var to=+n.dataset.count;if(reduce){n.textContent=fmt(to);return}var t0=null;requestAnimationFrame(function st(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1300);n.textContent=fmt(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(st)})}
+document.querySelectorAll("[data-count]").forEach(countUp);
+
+var FASE=[{n:"Penunjukan dan nota dinas",a:1,b:5},{n:"Rencana kerja dan pengumuman",a:6,b:7},{n:"Rapat kreditur dan verifikasi",a:8,b:11},{n:"Inventarisasi dan penilaian aset",a:12,b:15},{n:"Penjualan dan pembagian",a:16,b:18},{n:"Pengakhiran",a:19,b:21}];
+function faseOf(s){for(var i=0;i<FASE.length;i++)if(s>=FASE[i].a&&s<=FASE[i].b)return i;return 0}
+
+var cases=[
+{n:"Gwe Tjoen alias Atman Wiratman",no:"2/Pdt.Sus-Pailit/2016/PN Niaga Mdn",d:"2016-02-17",pem:"Debitor sendiri",dom:"Binjai, Sumatera Utara",s:17,st:"Tahap 16 dan 17",act:"Penjualan aset melalui lelang dan penetapan daftar pembagian",out:"dokumen lelang; penetapan pembagian kepada kreditur",ket:"Enam dari sepuluh aset telah terjual melalui lelang dan hasilnya telah disetorkan kepada kreditor separatis. Penjualan aset berikutnya sedang dipersiapkan.",
+ kred:"Kreditor separatis dan kreditor konkuren",tag:25.66,harta:8.00,hn:"10 bidang tanah dan bangunan",sudah:"",bayar:2.74,bk:"disetorkan kepada kreditor separatis dari hasil lelang Rp4,48 miliar (6 dari 10 aset)"},
+{n:"Muhammad Arifin Hasibuan (CV Hitado)",no:"01/Pdt.Sus-Pailit/2017/PN Niaga Mdn",d:"2017-04-25",pem:"Muhammad Arifin Nasution",dom:"Medan, Sumatera Utara",s:11,st:"Tahap 11",act:"Rapat verifikasi dan pernyataan insolvensi",out:"notulen rapat verifikasi",ket:"Rapat kreditor dilaksanakan 16 September 2026 di hadapan Hakim Pengawas. Pemberesan aset dilanjutkan setelah penetapan insolvensi.",
+ kred:"Kreditor menurut daftar tagihan",tag:1.94,harta:0.53,hn:"1 ruko",sudah:"",bayar:0,bk:"menunggu tahap pemberesan"},
+{n:"PT Pro Mekanika Indonusa",no:"2/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-06-28",pem:"PT Trimurti Perkasa dan Hotmaulin Simare Mare",dom:"Medan, Sumatera Utara",s:20,st:"Tahap 20",act:"Permohonan penetapan pengakhiran kepailitan",out:"Penetapan pengakhiran kepailitan",ket:"Seluruh aset telah terjual dan hasilnya dibagikan kepada kreditor sesuai daftar pembagian. Pengakhiran kepailitan telah dimohonkan kepada Hakim.",
+ kred:"Kreditor menurut daftar pembagian",tag:2.75,harta:3.44,hn:"Tanah, bangunan, dan 2 kendaraan, seluruhnya terjual",sudah:"",bayar:2.19,bk:"dibagikan kepada kreditor dari hasil bersih penjualan Rp2,45 miliar"},
+{n:"Badaruddin HSB bin Multen Hasibuan",no:"7/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-12-20",pem:"Debitor sendiri",dom:"Aceh Singkil, Aceh",s:12,st:"Tahap 12",act:"Inventarisasi aset dan sita umum",out:"daftar inventaris aset dan laporan",ket:"Kurator memenangkan gugatan actio pauliana pada 21 Desember 2021, sehingga tanah dan bangunan kembali masuk ke harta pailit. Kurator memproses balik nama sertifikat sebelum penilaian dan penjualan.",
+ kred:"Kreditor menurut daftar tagihan; kreditor terbesar KPP Pratama Subulussalam",tag:2.30,harta:0.93,hn:"1 tanah dan bangunan",sudah:"",bayar:0,bk:"menunggu penilaian dan penjualan aset"},
+{n:"Suparjo Rustam",no:"8/Pdt.Sus-Pailit/2019/PN Niaga Mdn",d:"2019-11-08",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 13",act:"Penawaran Penilai Publik atas aset pailit",out:"dokumen penawaran appraisal",ket:"Kurator telah menelusuri aset ke 3 kantor pertanahan dan 7 bank. Aset yang ditemukan disiapkan untuk penilaian dan lelang.",
+ kred:"Kreditor menurut daftar tagihan",tag:0.28,harta:null,hn:"1 kendaraan",sudah:"",bayar:0,bk:"menunggu penilaian dan lelang"},
+{n:"PT Rimba Cipta Niaga",no:"2/Pdt.Sus-Pailit/2020/PN Niaga Mdn",d:"2020-03-12",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 13",act:"Penawaran Penilai Publik atas aset pailit",out:"dokumen penawaran appraisal",ket:"Aset berupa 2 portable camp dan 1 alat pengupas kayu telah diinventarisasi dan disiapkan untuk penilaian dan lelang.",
+ kred:"Tidak terdapat tagihan kreditor yang diakui",tag:0,harta:null,hn:"2 portable camp dan 1 alat pengupas kayu",sudah:"",bayar:null,bk:"tidak ada tagihan yang diakui"},
+{n:"PT Rata Makmur",no:"33/Pdt.Sus-PKPU/2022/PN Niaga Mdn",d:"2023-04-10",pem:"Samin K dan kawan-kawan (eks pekerja)",dom:"Medan dan Langkat, Sumatera Utara",s:18,st:"Tahap 18",act:"Pembayaran kepada kreditur dan penyetoran PNBP",out:"bukti pembayaran kreditur melalui transfer",ket:"BHP menjadi pengurus PKPU lalu kurator atas permohonan eks pekerja. Pembayaran kepada enam eks pekerja telah dilaksanakan sesuai daftar pembagian.",
+ kred:"Enam eks pekerja (kreditor preferen) dan kantor pajak dengan tagihan Rp1,11 miliar",tag:1.43,harta:0.17,hn:"Uang tunai",sudah:"",bayar:0.13365,bk:"dibayarkan kepada enam eks pekerja, setara 43,2% dari tagihan eks pekerja"},
+{n:"KSO PT Maju Abadi Jaya Utama dan PT Kurnia Putra Maduma",no:"6/Pdt.Sus-Pailit/2023/PN Niaga Mdn jo. 1123 K/Pdt.Sus-Pailit/2023",d:"2023-10-17",pem:"Koperasi Yantek Maju Bersama dan kawan-kawan",dom:"Medan, Sumatera Utara",s:11,st:"Tahap 11",act:"Verifikasi tagihan dan renvoi prosedur",out:"notulen rapat verifikasi",ket:"Kurator membantah tagihan yang tidak didukung bukti untuk melindungi hak 348 eks karyawan dan kreditor lain. Empat perkara renvoi prosedur sedang diperiksa pada tingkat kasasi; pembagian dilaksanakan setelah putusan berkekuatan hukum tetap.",
+ kred:"348 eks karyawan melalui Koperasi Yantek Maju Bersama dan kreditor lain; tagihan Rp13,46 miliar dibantah kurator dan diperiksa melalui renvoi prosedur",tag:4.29,harta:9.96,hn:"Kas",sudah:"",bayar:0,bk:"dibagikan setelah putusan renvoi berkekuatan hukum tetap"},
+{n:"Frans Winner",no:"12/Pdt.Sus-Pailit/2025/PN Niaga Mdn",d:"2025-12-11",pem:"Salim Hadi Saputra dan Maratur P. Siregar",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 12 dan 13",act:"Inventarisasi aset dan penawaran Penilai Publik",out:"daftar inventaris aset; dokumen penawaran appraisal",ket:"Insolvensi ditetapkan 23 Februari 2026. Kurator menginventarisasi 143 item barang dan menyiapkan penilaian untuk penjualan.",
+ kred:"1 kreditor separatis dan 13 kreditor konkuren",tag:8.70,harta:null,hn:"143 item barang",sudah:"",bayar:0,bk:"menunggu penilaian dan penjualan aset"}
+];
+
+/* kembali ke slide: pakai riwayat browser bila datang dari slide, agar posisi tetap */
+var fromSlide=false;try{var r=document.referrer?new URL(document.referrer):null;fromSlide=!!r&&r.origin===location.origin&&/(\/|index\.html)$/.test(r.pathname)}catch(e){}
+function goBack(e){if(fromSlide&&history.length>1){e&&e.preventDefault();history.back()}}
+document.querySelectorAll(".js-back").forEach(function(a){a.addEventListener("click",goBack)});
+var fabw=document.getElementById("fabw"),fab=document.getElementById("fab"),canHover=window.matchMedia&&window.matchMedia("(hover:hover)").matches;
+function popOpen(nudge){fabw.classList.add("is-open");fab.setAttribute("aria-expanded","true");if(nudge){fabw.classList.remove("nudge");void fabw.offsetWidth;fabw.classList.add("nudge")}}
+function popClose(){fabw.classList.remove("is-open","nudge");fab.setAttribute("aria-expanded","false")}
+fab.addEventListener("click",function(e){if(!fabw.classList.contains("is-open")&&!canHover){e.preventDefault();popOpen()}});
+document.getElementById("stay").addEventListener("click",function(e){e.stopPropagation();popClose();if(canHover){fabw.style.pointerEvents="none";setTimeout(function(){fabw.style.pointerEvents=""},400)}});
+document.addEventListener("click",function(e){if(fabw.classList.contains("is-open")&&!fabw.contains(e.target))popClose()});
+document.addEventListener("keydown",function(e){if(e.key!=="Escape"||document.activeElement.tagName==="INPUT")return;if(fabw.classList.contains("is-open"))popClose();else{popOpen(true);fab.focus()}});
+/* niat keluar: kursor bergerak ke atas jendela, tampilkan tawaran sekali */
+var t0=Date.now(),asked=false;
+document.addEventListener("mouseout",function(e){if(asked||!canHover||e.relatedTarget||e.clientY>8||Date.now()-t0<6000)return;asked=true;popOpen(true)});
+
+/* filter fase */
+var fSel=null,flow=document.getElementById("flow");
+function drawFlow(){flow.innerHTML="";FASE.forEach(function(f,i){var n=cases.filter(function(c){return faseOf(c.s)===i}).length,b=document.createElement("button");b.className="ph";b.setAttribute("aria-pressed",fSel===i?"true":"false");
+  b.innerHTML="<span class='k'>Fase "+(i+1)+" · tahap "+f.a+"–"+f.b+"</span><span class='t'>"+f.n+"</span><span class='c"+(n?"":" z")+"'>"+n+"</span>";
+  b.addEventListener("click",function(){fSel=fSel===i?null:i;drawFlow();drawCards()});flow.appendChild(b)})}
+
+/* kartu perkara: tanpa nominal */
+var open=null,cards=document.getElementById("cards"),q=document.getElementById("q");
+function track(s){var h="";for(var k=1;k<=21;k++){var cls=k<s?"done":k===s?"now":"";if(k>1&&FASE.some(function(f){return f.a===k}))cls+=" gap";h+="<i class='"+cls+"' title='Tahap "+k+"'></i>"}return h}
+function drawCards(){
+  var term=(q.value||"").toLowerCase(),shown=0;cards.innerHTML="";
+  cases.forEach(function(c,i){
+    var okF=fSel===null||faseOf(c.s)===fSel,okQ=!term||[c.n,c.no,c.pem,c.dom].join(" ").toLowerCase().indexOf(term)>=0;
+    if(!okF||!okQ)return;shown++;
+    var b=document.createElement("button");b.className="cc";b.style.animationDelay=(shown*50)+"ms";b.setAttribute("aria-expanded",open===i?"true":"false");
+    b.innerHTML="<div class='row1'><span class='ix'>"+(i+1)+"</span><div><div class='nm'>"+c.n+"</div><div class='no'>"+c.no+"</div></div></div>"+
+      "<div class='meta'><span>Putusan "+tgl(c.d)+"</span><span>"+c.dom+"</span></div>"+
+      "<div><div class='track'>"+track(c.s)+"</div><div class='tr-l'><span>Fase "+(faseOf(c.s)+1)+" · "+FASE[faseOf(c.s)].n+"</span><b>"+c.st+"</b></div></div>"+
+      "<div class='act'>"+c.act+"</div>"+
+      "<div class='more'><dl><dt>Pemohon</dt><dd>"+c.pem+"</dd><dt>Output</dt><dd>"+c.out+"</dd><dt>Keterangan</dt><dd>"+c.ket+"</dd></dl></div>"+
+      "<div class='hint'>"+(open===i?"Tutup rincian ⌃":"Lihat rincian ⌄")+"</div>";
+    b.addEventListener("click",function(){open=open===i?null:i;drawCards()});
+    cards.appendChild(b)});
+  document.getElementById("empty").style.display=shown?"none":"block";
+  document.getElementById("listT").textContent=fSel===null?"Perkara kepailitan BHP Medan":"Fase "+(fSel+1)+": "+FASE[fSel].n;
+}
+q.addEventListener("input",drawCards);
+drawFlow();drawCards();
+
+/* tabel lengkap: baru dibangun setelah tombol diklik */
+document.querySelector(".ghost").innerHTML=new Array(49).join("<i></i>");
+var vault=document.getElementById("vault"),btn=document.getElementById("openBtn"),built=false;
+function payCell(c){
+  if(c.bayar==null)return "<span class='m'>"+c.bk+"</span>";
+  if(!c.bayar)return "<span class='v'>-</span><br><span class='m'>"+c.bk+"</span>";
+  var pct=c.tag?c.bayar/c.tag*100:0;
+  return "<span class='v'>"+fmt(c.bayar*1e9)+"</span><div class='bar'><i style='width:"+Math.min(100,pct).toFixed(1)+"%'></i></div><span class='pct'>"+fmt(pct,1)+"% dari tagihan</span><br><span class='m'>"+c.bk+"</span>";
+}
+function buildTable(){
+  document.getElementById("tbl").innerHTML="<thead><tr><th>No</th><th>Nomor perkara dan tanggal putusan</th><th>Debitor dan domisili</th><th>Pemohon menurut register</th><th>Kreditor</th><th>Tagihan (Rp)</th><th>Harta tercatat (Rp)</th><th>Telah dibagikan kepada kreditor</th><th>Posisi di SOP dan keterangan</th></tr></thead><tbody>"+
+  cases.map(function(c,i){return "<tr><td>"+(i+1)+"</td><td class='b'>"+c.no+"<br><span class='m'>"+tgl(c.d)+"</span></td><td class='b'>"+c.n+"<br><span class='m'>"+c.dom+"</span></td><td>"+c.pem+"</td><td>"+c.kred+(c.sudah?"<br><span class='m' style='color:var(--ok);font-weight:700'>"+c.sudah+"</span>":"")+"</td>"+
+    "<td class='num'><span class='v'>"+(c.tag?fmt(c.tag*1e9):"-")+"</span></td>"+
+    "<td class='num'>"+(c.harta==null?"<span class='m'>belum dinilai</span>":"<span class='v'>"+fmt(c.harta*1e9)+"</span>")+"<br><span class='m'>"+c.hn+"</span></td>"+
+    "<td class='num'>"+payCell(c)+"</td>"+
+    "<td><span class='pill'>"+c.st+" · "+c.act+"</span><br><span class='m'>"+c.ket+"</span></td></tr>"}).join("")+"</tbody>";
+  built=true}
+btn.addEventListener("click",function(){var on=!vault.classList.contains("on");if(on&&!built)buildTable();vault.classList.toggle("on",on);btn.setAttribute("aria-expanded",on?"true":"false");document.getElementById("openL").textContent=on?"Tutup tabel lengkap":"Buka tabel lengkap";if(on)setTimeout(function(){vault.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})},60)});
+})();
+</script>
+</body>
+</html>
