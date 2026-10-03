@@ -67,14 +67,13 @@ Sumber tunggalnya adalah dokumen Telaah; slide, data interaktif, dan narasi disa
 - `BHP Medan - Telaah Poin 1 dan Klaster 1 - Tumpang Tindih Kewenangan.docx`: dokumen masukan dan telaah lengkap
   (arah jawaban, fakta dan data, jawaban tiga pertanyaan Klaster 1 dengan telaah filosofis, sosiologis, yuridis,
   koordinasi, pengalaman, Lampiran I data perkara dan SIPP, Lampiran II contoh rumusan pasal).
-- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide. Slide 1 jawaban tiga pertanyaan
-  dengan bukti perkara dan pita pengalaman BHP Medan; slide 2 materi yang perlu dimuat dalam RUU dan koordinasi
-  antarlembaga. Tombol kanan atas membuka data interaktif (berkas HTML harus berada di folder yang sama).
-  Dibangun oleh `build_paparan.cjs` (pptxgenjs):
-  `cd presentasi/klaster1 && NODE_PATH=<folder node_modules berisi pptxgenjs, react, react-dom, react-icons, sharp> node build_paparan.cjs`.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide buatan Kepala BHP Medan
+  (transisi fade dan morph, animasi, tombol tautan ke data interaktif). Hanya kalimatnya yang disamakan dengan
+  dokumen Telaah; animasi dan tata letaknya tidak disentuh.
 - `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara 9 sampai 10 menit dengan penanda
   slide; dibangun oleh `build_narasi.cjs` (`node build_narasi.cjs`, pustaka docx dari node-tools).
-- `BHP Medan - Data Interaktif.html`: grafik perkara BHP Medan (6 adegan) yang ditautkan dari slide.
+- `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: grafik perkara BHP Medan (6 adegan). Namanya
+  harus persis seperti ini dan berada satu folder dengan .pptx agar tombol di slide bisa membukanya.
 - `grafik_I1.py`: membuat ulang Grafik I.1 dokumen (matplotlib) bila angka Tabel I.1 berubah.
 - Lampiran I pada dokumen Telaah sekaligus memenuhi permintaan data penanganan kepailitan tiga tahun terakhir.
 
