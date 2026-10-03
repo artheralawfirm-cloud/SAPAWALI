@@ -61,17 +61,19 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 ## 2. Bahan RDP 6 Oktober 2026 (maksimal 2 slide): folder `klaster1/`
 
-Sesuai permintaan Direktorat: paparan **2 slide** dan **naskah narasi** untuk Klaster 1 (BHP Medan: Tumpang Tindih
-Kewenangan), diberi nama sesuai format surat.
+Bahan Klaster 1 (BHP Medan: Tumpang Tindih Kewenangan) sesuai permintaan Direktorat, diberi nama mengikuti format surat.
+Sumber tunggalnya adalah dokumen Telaah; slide, data interaktif, dan narasi disamakan dengannya (3 Oktober 2026).
 
-- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: slide 1 masalah, empat sikap, bukti dari
-  sembilan perkara, dan jawaban tiga pertanyaan Klaster 1; slide 2 Pasal A sampai D beserta analisisnya dan catatan
-  untuk RUU Kepailitan dan PKPU.
-- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara 7 sampai 8 menit yang menjelaskan
-  seluruh poin, kalimatnya diambil dari dokumen.
-- Keduanya dibangun dari `web/dokumen.json` oleh `klaster1/build_klaster1.cjs`:
-  `cd presentasi/klaster1 && NODE_PATH=<folder node_modules berisi pptxgenjs> node build_klaster1.cjs`.
-- Data penanganan kepailitan 3 tahun terakhir (lampiran Klaster 3) belum dibuat di sini.
+- `BHP Medan - Telaah Poin 1 dan Klaster 1 - Tumpang Tindih Kewenangan.docx`: dokumen masukan dan telaah lengkap
+  (arah jawaban, fakta dan data, jawaban tiga pertanyaan Klaster 1 dengan telaah filosofis, sosiologis, yuridis,
+  koordinasi, pengalaman, Lampiran I data perkara dan SIPP, Lampiran II contoh rumusan pasal).
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: paparan 2 slide. Slide 1 jawaban tiga pertanyaan
+  dengan bukti perkara; slide 2 materi yang perlu dimuat dalam RUU dan koordinasi antarlembaga.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara 9 sampai 10 menit dengan penanda
+  slide; dibangun oleh `build_narasi.cjs` (`node build_narasi.cjs`, pustaka docx dari node-tools).
+- `BHP Medan - Data Interaktif.html`: grafik perkara BHP Medan (6 adegan) yang ditautkan dari slide.
+- `grafik_I1.py`: membuat ulang Grafik I.1 dokumen (matplotlib) bila angka Tabel I.1 berubah.
+- Lampiran I pada dokumen Telaah sekaligus memenuhi permintaan data penanganan kepailitan tiga tahun terakhir.
 
 ## 3. Cadangan PowerPoint lengkap: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
 
