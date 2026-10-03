@@ -59,7 +59,21 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 - `fonts_embedded.css`: font Plus Jakarta Sans dan Source Serif 4 yang ditanam.
 - `build_web.py`: menggabungkan semuanya menjadi `Paparan_BHP_Medan.html`.
 
-## 2. Cadangan PowerPoint: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
+## 2. Bahan RDP 6 Oktober 2026 (maksimal 2 slide): folder `klaster1/`
+
+Sesuai permintaan Direktorat: paparan **2 slide** dan **naskah narasi** untuk Klaster 1 (BHP Medan: Tumpang Tindih
+Kewenangan), diberi nama sesuai format surat.
+
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Paparan.pptx`: slide 1 masalah, empat sikap, bukti dari
+  sembilan perkara, dan jawaban tiga pertanyaan Klaster 1; slide 2 Pasal A sampai D beserta analisisnya dan catatan
+  untuk RUU Kepailitan dan PKPU.
+- `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara 7 sampai 8 menit yang menjelaskan
+  seluruh poin, kalimatnya diambil dari dokumen.
+- Keduanya dibangun dari `web/dokumen.json` oleh `klaster1/build_klaster1.cjs`:
+  `cd presentasi/klaster1 && NODE_PATH=<folder node_modules berisi pptxgenjs> node build_klaster1.cjs`.
+- Data penanganan kepailitan 3 tahun terakhir (lampiran Klaster 3) belum dibuat di sini.
+
+## 3. Cadangan PowerPoint lengkap: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
 
 28 slide 16:9 dengan alur dan urutan yang sama persis dengan presentasi web (termasuk jembatan "Artinya" dan
 "Menjawab", pembatas tanya jawab, dan rekap *Benang Merah*), memuat Pasal A sampai Pasal D lengkap dengan
