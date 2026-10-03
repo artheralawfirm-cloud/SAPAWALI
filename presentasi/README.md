@@ -8,10 +8,17 @@ Seluruh kalimat pada slide diambil dari dokumen tersebut.
 
 Satu file mandiri (font tertanam, tanpa internet). Buka di Chrome atau Edge, tekan **F** untuk layar penuh.
 
-- **Alur mengikuti 5 bagian dokumen** (26 slide): I Pokok Sikap, II Pengalaman BHP Medan, III Jawaban Klaster 1,
-  IV Usulan Pasal (Pasal A sampai D), V Catatan untuk RUU Kepailitan dan PKPU. Slide *Alur Paparan* dan setiap
-  slide pembatas dapat diklik untuk lompat ke bagian atau slide mana pun. Kartu *Empat Sikap* juga dapat diklik
-  menuju uraian atau pasalnya.
+- **Alur mengikuti 5 bagian dokumen** (28 slide): I Pokok Sikap, II Pengalaman BHP Medan, III Jawaban Klaster 1,
+  IV Usulan Pasal (Pasal A sampai D), V Catatan untuk RUU Kepailitan dan PKPU. Benang merahnya satu:
+  *Masalah, Sikap, Bukti, Jawaban, Pasal, Catatan*. Setiap sikap diuraikan (Sikap 1 dan 2 pada slide
+  *Lembaga Negara, dengan Standar yang Sama*; Sikap 3 dan 4 pada slide masing-masing), setiap temuan Bagian II
+  ditutup dengan **jembatan** "Artinya" yang menunjuk pasal yang menjawabnya, dan setiap pasal ditutup dengan
+  jembatan "Menjawab" yang menunjuk sikap, temuan, atau pertanyaan yang dijawabnya. Tombol pada jembatan dapat diklik.
+- **Slide pembatas memuat pesan utama** bagian itu; pembatas Bagian III langsung memuat tiga pertanyaan Komisi
+  beserta jawaban singkatnya. Slide *Alur Paparan*, setiap pembatas, dan kartu *Empat Sikap* dapat diklik untuk
+  lompat ke bagian, uraian, atau pasalnya.
+- **Rekap *Benang Merah*** sebelum penutup: satu tabel yang menghubungkan tiap hal yang tidak jelas, sikap BHP Medan,
+  buktinya, dan pasal usulannya.
 - **Grafik hidup** dari data dokumen: harta hanya 12% sampai 40% dari tagihan, lama perkara dengan garis 5 tahun,
   dan perbandingan imbalan jasa pada PT Jasa Prima Mandiri. Batang tumbuh saat slide tampil, angka menghitung naik.
 - **Slide sederhana, dokumen di sampingnya.** Mode *Otomatis* menyala sejak awal: setiap slide tampil
@@ -54,7 +61,12 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 ## 2. Cadangan PowerPoint: `Paparan_BHP_Medan_RUU_Profesi_Kurator.pptx`
 
-26 slide 16:9 dengan alur 5 bagian yang sama, memuat Pasal A sampai Pasal D lengkap dengan analisisnya, dan catatan pembicara.
-Dibuat ulang dengan `build_slides.cjs` (pptxgenjs).
+28 slide 16:9 dengan alur dan urutan yang sama persis dengan presentasi web (termasuk jembatan "Artinya" dan
+"Menjawab", pembatas tanya jawab, dan rekap *Benang Merah*), memuat Pasal A sampai Pasal D lengkap dengan
+analisisnya, dan catatan pembicara. Dibuat ulang dengan `build_slides.cjs` (pptxgenjs):
+
+```bash
+cd presentasi && NODE_PATH=<folder node_modules berisi pptxgenjs, react, react-dom, react-icons, sharp> node build_slides.cjs
+```
 
 Versi Canva awal: https://www.canva.com/d/3PGEyDAsl1neFqh
