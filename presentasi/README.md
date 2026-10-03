@@ -49,7 +49,7 @@ Logo otomatis tampil di sampul, penutup, dan kaki setiap slide.
 
 - `template.html`: halaman dan gaya.
 - `slides.js`: isi slide.
-- `vercel.json`: konfigurasi hosting Vercel.
+- `vercel.json`: konfigurasi hosting Vercel. `data.html` adalah salinan data interaktif Klaster 1 agar bisa dibuka online di `/data`.
 - `dokumen.json`: isi dokumen terstruktur (hasil ekstraksi .docx, lengkap dengan penomoran).
 - `grafik-1.png`, `grafik-2.png`: grafik dari dokumen, ditanam ke pratinjau dokumen saat build.
 - `ekstrak_dokumen.py`: membuat ulang `dokumen.json` dan grafiknya dari file .docx bila dokumennya diperbarui:
