@@ -166,6 +166,42 @@ kbd { font-family: var(--f-body); font-size: 11px; border: 1px solid var(--line)
 }
 @media (max-width: 480px) { .wrap { padding-inline: 16px; } .g-4 { grid-template-columns: minmax(0, 1fr); } .kpi .big { font-size: 38px; } nav button { padding: 6px 9px; font-size: 12.5px; } }
 @media (prefers-reduced-motion: reduce) { .float, .scene { animation: none; } * { transition-duration: 0s !important; } }
+
+/* pelengkap slide: kartu peta, kutipan pasal, tabel kriteria, rumusan pasal */
+.map { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.map button { font: inherit; text-align: left; color: var(--fg); background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; cursor: pointer; display: grid; gap: 4px; transition: border-color .2s, transform .2s; }
+.map button:hover { border-color: var(--maroon); transform: translateY(-3px); }
+.map .k { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-2); font-weight: 700; }
+.map .h { font-family: var(--f-display); font-size: 17px; font-weight: 700; color: var(--maroon); }
+.map .d { color: var(--muted); font-size: 13px; }
+.map .go { margin-top: 4px; font-size: 12.5px; font-weight: 700; color: var(--maroon); }
+.dt { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.dt th { text-align: left; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: #f0dfb6; padding: 8px 10px; border-bottom: 2px solid var(--line); }
+.dt td { padding: 9px 10px; border-bottom: 1px solid var(--faint); vertical-align: top; }
+.dt td:first-child { font-weight: 700; }
+.dt .ex { color: var(--maroon); font-weight: 700; }
+.laws { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.law { border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 12px; padding: 10px 14px; background: var(--panel-2); }
+.law .t { font-weight: 700; color: var(--maroon); margin-bottom: 4px; }
+.law .q { font-family: var(--f-display); font-size: 14px; line-height: 1.45; }
+.law .m { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+.law .m b { color: var(--gold-2); }
+.cases2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.case { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--panel-2); }
+.case h3 { font-family: var(--f-display); font-size: 17px; margin: 0 0 4px; color: var(--maroon); }
+.case .no { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+.case p { margin: 0; font-size: 14px; }
+.pasal { border: 1px solid var(--line); border-radius: 14px; background: #fff; margin-top: 10px; overflow: hidden; }
+.pasal .ph { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: linear-gradient(160deg, var(--maroon), var(--maroon-2)); color: #fff; padding: 9px 14px; }
+.pasal .ph b { font-family: var(--f-display); font-size: 15px; }
+.pasal .ph button { font: inherit; font-size: 12px; font-weight: 700; color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.5); border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+.pasal .ph button:hover { background: rgba(255,255,255,.12); }
+.pasal ol { margin: 0; padding: 10px 14px 12px 40px; display: grid; gap: 6px; font-family: var(--f-display); font-size: 14px; line-height: 1.5; }
+.pasal ol ol { padding: 4px 0 0 28px; gap: 3px; list-style: lower-alpha; }
+.pasal ol > li::marker { font-weight: 700; color: var(--maroon); }
+.pasal .ket { padding: 0 14px 12px; font-size: 12.5px; color: var(--muted); }
+@media (max-width: 1000px) { .map { grid-template-columns: repeat(2, minmax(0, 1fr)); } .laws, .cases2 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .map { grid-template-columns: minmax(0, 1fr); } }
 </style>
 
 <div class="topbar"><div class="in">
@@ -179,31 +215,26 @@ kbd { font-family: var(--f-body); font-size: 11px; border: 1px solid var(--line)
 <div class="wrap">
   <header style="justify-content:center">
     <nav role="tablist" aria-label="Pilih bagian">
-      <button role="tab" data-s="0" aria-selected="true">Ringkasan</button>
+      <button role="tab" data-s="0" aria-selected="true">Pelengkap slide</button>
       <button role="tab" data-s="1" aria-selected="false">Perkara BHP Medan</button>
       <button role="tab" data-s="2" aria-selected="false">Lama perkara</button>
       <button role="tab" data-s="3" aria-selected="false">Penunjukan kurator</button>
       <button role="tab" data-s="4" aria-selected="false">Peta peran</button>
-      <button role="tab" data-s="5" aria-selected="false">Arah RUU</button>
+      <button role="tab" data-s="5" aria-selected="false">Dasar hukum</button>
     </nav>
   </header>
 
-  <!-- 0 RINGKASAN -->
+  <!-- 0 PELENGKAP SLIDE -->
   <section class="scene" data-scene="0">
-    <div class="head"><h1>Tumpang tindih BHP dan kurator perseorangan bukan perebutan perkara</h1>
-      <p>Masalahnya ada pada aturan yang belum lengkap dalam tiga keadaan. Data perkara BHP Medan dan seluruh putusan pailit di PN Niaga Medan menunjukkan polanya.</p></div>
-    <div class="grid g-4">
-      <div class="panel kpi float"><div class="big" data-count="9">0</div><div class="lbl">perkara kepailitan sedang ditangani BHP Medan</div><div class="bar"><i data-w="100"></i></div></div>
-      <div class="panel kpi float b"><div class="big" data-count="47.35" data-dec="2" data-pre="Rp" data-suf=" M">0</div><div class="lbl">total tagihan kreditor</div><div class="note">Harta yang sudah dinilai hanya 12% s.d. 40% dari tagihan.</div></div>
-      <div class="panel kpi float c"><div class="big"><span data-count="6">0</span> dari 9</div><div class="lbl">perkara berjalan lebih dari 5 tahun</div><div class="bar"><i data-w="66.7"></i></div></div>
-      <div class="panel kpi float b"><div class="big"><span data-count="2">0</span> dari 16</div><div class="lbl">putusan pailit 2025 s.d. 2026 yang mengangkat BHP Medan</div><div class="note">Keduanya karena diminta pemohon. Pada 2026: 0 dari 7.</div></div>
-    </div>
-    <div class="panel float c">
-      <div class="thesis">Arah jawaban BHP Medan: RUU Profesi Kurator perlu <b>menegaskan peran BHP</b>, <b>menyamakan standar profesi</b>, dan <b>memperjelas pengawasan serta pertanggungjawaban</b>.</div>
-      <div class="points">
-        <div class="point"><div class="n">1</div><div class="h">Tugas bersama</div><div class="d">Pembagian imbalan dan tanggung jawab antara BHP dan kurator perseorangan belum diatur.</div></div>
-        <div class="point"><div class="n">2</div><div class="h">Dua tugas BHP</div><div class="d">Tugas keperdataan BHP berbeda dengan tugasnya sebagai kurator; dasar, pelaksana, dan pertanggungjawabannya perlu dipisah.</div></div>
-        <div class="point"><div class="n">3</div><div class="h">Perkara tertentu</div><div class="d">Debitor tanpa ahli waris atau harta tak terurus belum punya pelaksana pasti; BHP hanya diangkat bila diminta.</div></div>
+    <div class="head"><h1>Penjelasan pendukung dua slide paparan</h1>
+      <p>Slide memuat jawaban dan angka ringkasnya. Halaman ini memuat yang tidak muat di slide: rincian tiap perkara, daftar putusan pengadilan, alur kerja, kutipan pasal, kriteria perkara, dan contoh rumusan pasal. Pilih kartu untuk membuka penjelasannya.</p></div>
+    <div class="panel float">
+      <div class="map">
+        <button data-go="1"><span class="k">Slide 1 · pita bawah</span><span class="h">9 perkara, Rp47,35 miliar</span><span class="d">Rincian tagihan, harta tercatat, pemohon, dan keadaan terakhir tiap perkara; pelajaran dari masing-masing.</span><span class="go">Perkara BHP Medan ›</span></button>
+        <button data-go="2"><span class="k">Slide 1 · pita bawah</span><span class="h">6 dari 9 lebih dari 5 tahun</span><span class="d">Garis waktu tiap perkara sejak putusan pailit dan hambatan yang membuatnya lama.</span><span class="go">Lama perkara ›</span></button>
+        <button data-go="3"><span class="k">Slide 1 · bukti pertanyaan 3</span><span class="h">2 dari 16 putusan mengangkat BHP</span><span class="d">Daftar 16 putusan pailit 2025 dan 2026 beserta kuratornya, dan nasib 11 permohonan yang meminta BHP.</span><span class="go">Penunjukan kurator ›</span></button>
+        <button data-go="4"><span class="k">Slide 1 · pertanyaan 1 dan 2</span><span class="h">Mekanisme dan dua tugas BHP</span><span class="d">Alur kerja tujuh tahap, tiga keadaan yang belum diatur, dan dasar hukum tiap tugas BHP.</span><span class="go">Peta peran ›</span></button>
+        <button data-go="5"><span class="k">Slide 2 · pijakan saat ini</span><span class="h">Pasal, kriteria, dan rumusan</span><span class="d">Kutipan pasal yang dirujuk, kriteria perkara wajib BHP, dua kasus koordinasi, dan contoh rumusan pasal Lampiran II.</span><span class="go">Dasar hukum ›</span></button>
       </div>
     </div>
     <div class="panel float b"><h2 style="margin-bottom:8px">Istilah singkat</h2>
@@ -217,6 +248,7 @@ kbd { font-family: var(--f-body); font-size: 11px; border: 1px solid var(--line)
         <span><b>Petitum</b>: isi permintaan pemohon kepada pengadilan, termasuk siapa yang diminta menjadi kurator</span>
       </div>
     </div>
+  
   </section>
 
   <!-- glossary placed in ringkasan -->
@@ -295,17 +327,73 @@ kbd { font-family: var(--f-body); font-size: 11px; border: 1px solid var(--line)
     </div>
   </section>
 
-  <!-- 5 ARAH RUU -->
+  <!-- 5 DASAR HUKUM -->
   <section class="scene" data-scene="5" hidden>
-    <div class="head"><h1>Materi yang perlu dimuat dalam RUU Profesi Kurator</h1><p>Disusun menurut tiga tujuan penggalian masukan: penegasan peran BHP, peningkatan kualitas profesi, serta penguatan pengawasan dan pertanggungjawaban.</p></div>
-    <div class="grid g-3" id="goals"></div>
-    <div class="panel float c"><h2 style="margin-bottom:8px">Pembagian peran BHP dan kurator perseorangan</h2>
-      <div class="roles">
-        <div class="role bhp"><h3>BHP</h3><div class="s" style="color:#f0dfb6">Kurator negara</div><ul><li>Kewenangan dari undang-undang, tanpa izin atau pendaftaran</li><li>Dijalankan Kurator Keperdataan</li><li>Semua jenis perkara; wajib pada perkara tertentu</li><li>Imbalan jasa menjadi PNBP</li><li>Dibina Kementerian</li></ul></div>
-        <div class="role mid"><div class="eyebrow">Sama</div><div style="font-family:var(--f-display);font-size:18px;font-weight:700">Diawasi Hakim Pengawas</div><div style="font-family:var(--f-display);font-size:18px;font-weight:700">Satu standar profesi dan kode etik</div></div>
-        <div class="role priv"><h3>Kurator perseorangan</h3><div class="s">Orang perseorangan</div><ul><li>Terdaftar pada Kementerian</li><li>Memiliki keahlian khusus</li><li>Perkara atas usulan pemohon; kurator tambahan pada perkara tertentu</li><li>Imbalan jasa menjadi penghasilan</li><li>Etik ditegakkan organisasi profesi</li></ul></div>
+    <div class="head"><h1>Dasar hukum, kriteria perkara, dan contoh rumusan pasal</h1>
+      <p>Slide 2 hanya menyebut pasalnya. Di sini kutipan pasalnya, kriteria perkara yang diusulkan wajib ditangani BHP, dua pengalaman koordinasi, dan contoh rumusan pasal dari Lampiran II dokumen.</p></div>
+
+    <div class="panel float"><h2>Kriteria perkara yang diusulkan wajib ditangani BHP</h2><p class="sub">Tabel 3 dokumen. Kriteria bertumpu pada tugas yang sudah dijalankan BHP selama ini; kurator perseorangan dapat menjadi kurator tambahan.</p>
+      <div class="scroll"><table class="dt">
+        <thead><tr><th>Kriteria perkara</th><th>Kaitan dengan tugas BHP</th><th>Contoh di BHP Medan</th></tr></thead>
+        <tbody>
+          <tr><td>Debitor meninggal tanpa ahli waris, atau hartanya tidak terurus</td><td>BHP wajib mengurus harta peninggalan tak terurus (Pasal 1126 dan 1127 KUHPerdata)</td><td class="ex">Gwe Tjoen</td></tr>
+          <tr><td>Debitor tidak diketahui keberadaannya</td><td>BHP mengurus harta orang yang tidak hadir (Pasal 463 KUHPerdata)</td><td>Belum ada</td></tr>
+          <tr><td>Ahli waris atau pihak yang berkepentingan masih anak atau dalam pengampuan</td><td>BHP menjadi wali pengawas (Pasal 366 KUHPerdata)</td><td>Belum ada</td></tr>
+          <tr><td>Permohonan diajukan buruh</td><td>Upah buruh didahulukan (Pasal 95 UU Ketenagakerjaan)</td><td class="ex">PT Rata Makmur</td></tr>
+          <tr><td>Perkara kehilangan kurator</td><td>Perkara tidak boleh terhenti</td><td>Belum ada</td></tr>
+        </tbody></table></div>
+    </div>
+
+    <div class="panel float b"><h2>Kutipan pasal yang dirujuk slide</h2><p class="sub">UU Nomor 37 Tahun 2004 tentang Kepailitan dan PKPU, serta KUHPerdata</p>
+      <div class="laws">
+        <div class="law"><div class="t">Pasal 15 ayat (2) UU Kepailitan</div><div class="q">Dalam hal Debitor, Kreditor, atau pihak yang berwenang mengajukan permohonan pernyataan pailit sebagaimana dimaksud dalam Pasal 2 ayat (2), ayat (3), ayat (4), atau ayat (5), tidak mengajukan usul pengangkatan Kurator kepada Pengadilan maka Balai Harta Peninggalan diangkat selaku Kurator.</div><div class="m"><b>Artinya:</b> satu-satunya jalan masuk BHP yang diatur tegas adalah bila pemohon tidak mengusulkan kurator.</div></div>
+        <div class="law"><div class="t">Pasal 70 ayat (1) UU Kepailitan</div><div class="q">Kurator sebagaimana dimaksud dalam Pasal 69 adalah: a. Balai Harta Peninggalan; atau b. Kurator lainnya.</div><div class="m"><b>Artinya:</b> undang-undang sudah menyebut BHP sebagai kurator.</div></div>
+        <div class="law"><div class="t">Pasal 73 ayat (1) UU Kepailitan</div><div class="q">Apabila diangkat lebih dari satu Kurator maka untuk melakukan tindakan yang sah dan mengikat, para Kurator memerlukan persetujuan lebih dari ½ (satu perdua) jumlah para Kurator.</div><div class="m"><b>Artinya:</b> untuk kurator lebih dari satu hanya diatur cara mengambil persetujuan, bukan pembagian tugas, tanggung jawab, dan imbalan.</div></div>
+        <div class="law"><div class="t">Pasal 65 UU Kepailitan</div><div class="q">Hakim Pengawas mengawasi pengurusan dan pemberesan harta pailit.</div><div class="m"><b>Artinya:</b> tugas kurator, oleh BHP maupun kurator perseorangan, dipertanggungjawabkan kepada Hakim Pengawas.</div></div>
+        <div class="law"><div class="t">Pasal 9 UU Kepailitan</div><div class="q">Salinan putusan Pengadilan sebagaimana dimaksud dalam Pasal 8 ayat (6) wajib disampaikan oleh juru sita dengan surat kilat tercatat kepada Debitor, pihak yang mengajukan permohonan pernyataan pailit, Kurator, dan Hakim Pengawas paling lambat 3 (tiga) hari setelah tanggal putusan atas permohonan pernyataan pailit diucapkan.</div><div class="m"><b>Artinya:</b> kurator berhak menerima salinan putusan paling lambat tiga hari.</div></div>
+        <div class="law"><div class="t">Pasal 16 ayat (1) UU Kepailitan</div><div class="q">Kurator berwenang melaksanakan tugas pengurusan dan/atau pemberesan atas harta pailit sejak tanggal putusan pailit diucapkan meskipun terhadap putusan tersebut diajukan kasasi atau peninjauan kembali.</div><div class="m"><b>Artinya:</b> kasasi tidak menghentikan tugas kurator.</div></div>
+        <div class="law"><div class="t">Pasal 366 KUHPerdata</div><div class="q">Dalam tiap-tiap perwalian yang diperintahkan di Indonesia, Balai Harta Peninggalan berwajib melakukan tugas wali pengawas.</div><div class="m"><b>Artinya:</b> wali pengawas adalah tugas keperdataan BHP, bukan pengawas kurator.</div></div>
+        <div class="law"><div class="t">Pasal 1127 KUHPerdata (kalimat pertama)</div><div class="q">Balai Harta Peninggalan, menurut hukum wajib mengurus setiap harta peninggalan tak terurus yang terbuka dalam daerah hukumnya, tanpa memperhatikan apakah harta itu cukup atau tidak untuk melunasi utang pewarisnya.</div><div class="m"><b>Artinya:</b> harta tak terurus sudah menjadi kewajiban BHP, tetapi belum dihubungkan dengan aturan penunjukan kurator.</div></div>
       </div>
-      <div class="coord" style="margin-top:12px"><span><b>Kementerian</b> membina dan mengelola data kurator aktif</span><span><b>Hakim Pengawas</b> mengawasi tiap perkara</span><span><b>Organisasi profesi</b> menegakkan etik kurator perseorangan</span><span><b>BHP dan BPN</b> mengamankan aset, mencegah sertifikat ganda</span></div>
+    </div>
+
+    <div class="panel float c"><h2>Dua pengalaman koordinasi</h2><p class="sub">Pokok Bahasan 1 dokumen: kebutuhan kurator terhadap lembaga lain</p>
+      <div class="cases2">
+        <div class="case"><h3>Koordinasi dengan pengadilan</h3><div class="no">CV Riau Sukses Abadi dan Sukrianto · 11/Pdt.Sus-Pailit/2025/PN Niaga Mdn</div><p>Pengadilan mengangkat BHP Medan sebagai kurator pada 27 November 2025. Oleh karena debitor mengajukan kasasi, salinan putusan tidak pernah dikirimkan kepada BHP. Padahal, kasasi seharusnya tidak menghentikan tugas kurator. Tanpa salinan putusan, BHP tidak mengetahui pengangkatannya secara resmi sehingga tidak dapat mulai bekerja. Kedudukan BHP sebagai kurator perlu dipertegas, termasuk kewajiban pengadilan untuk segera memberitahukan pengangkatan kepada BHP.</p></div>
+        <div class="case"><h3>Koordinasi dengan kantor pertanahan</h3><div class="no">Badaruddin HSB · 7/Pdt.Sus-Pailit/2018/PN Niaga Mdn</div><p>Kurator memenangkan gugatan pembatalan hibah (actio pauliana) pada 2021, tetapi sertifikat masih atas nama penerima hibah karena kantor pertanahan meminta sertifikat asli yang dipegang pihak lain. Kerja sama BHP dan kantor pertanahan di daerah diperlukan untuk mengamankan aset dan mencegah sertifikat ganda.</p></div>
+      </div>
+      <div class="coord" style="margin-top:12px"><span><b>Yang perlu diatur:</b> pembagian peran Kementerian, Hakim Pengawas, dan organisasi profesi; kewajiban pengadilan dan instansi menindaklanjuti kebutuhan kurator dalam waktu tertentu; forum koordinasi berkala</span></div>
+    </div>
+
+    <div class="panel float"><h2>Contoh rumusan pasal RUU Profesi Kurator</h2><p class="sub">Lampiran II dokumen. Bahan pertimbangan; nomor pasal dapat disesuaikan dengan sistematika RUU. Tombol Salin menyalin teks pasal.</p>
+      <div class="pasal"><div class="ph"><b>Usulan Pasal 1 (Tugas Bersama dan Serah Terima)</b><button data-copy>Salin</button></div>
+        <ol>
+          <li>Dalam hal diangkat lebih dari satu Kurator atau Pengurus, Hakim Pengawas menetapkan pembagian tugas, tanggung jawab, dan imbalan jasa masing-masing paling lambat pada rapat Kreditor pertama.</li>
+          <li>Bagian imbalan jasa Balai Harta Peninggalan merupakan penerimaan negara bukan pajak.</li>
+          <li>Kurator atau Pengurus yang digantikan, termasuk Pengurus dalam hal penundaan kewajiban pembayaran utang berakhir dengan pernyataan pailit, wajib menyerahkan berkas, harta, dan laporan kepada Kurator paling lama 14 (empat belas) hari.</li>
+        </ol><div class="ket">Menjawab Pertanyaan 1: pembagian imbalan dan tanggung jawab, serta serah terima.</div></div>
+      <div class="pasal"><div class="ph"><b>Usulan Pasal 2 (Kedudukan Balai Harta Peninggalan)</b><button data-copy>Salin</button></div>
+        <ol>
+          <li>Balai Harta Peninggalan merupakan Kurator negara dan Pengurus negara yang dapat menangani seluruh jenis perkara kepailitan dan penundaan kewajiban pembayaran utang.</li>
+          <li>Kewenangan Balai Harta Peninggalan sebagai Kurator dan Pengurus bersumber dari Undang-Undang ini dan tidak memerlukan izin atau pendaftaran.</li>
+          <li>Tugas Kurator dan Pengurus pada Balai Harta Peninggalan dilaksanakan oleh pegawai aparatur sipil negara yang menduduki jabatan fungsional Kurator Keperdataan.</li>
+          <li>Dalam hal Balai Harta Peninggalan menjalankan tugas keperdataan dan tugas Kurator dalam perkara yang sama, masing-masing tugas dilaksanakan oleh pejabat yang berbeda dan dipertanggungjawabkan secara terpisah.</li>
+        </ol><div class="ket">Menjawab Pertanyaan 2: kedudukan BHP dan pemisahan dua tugas.</div></div>
+      <div class="pasal"><div class="ph"><b>Usulan Pasal 3 (Penugasan Balai Harta Peninggalan pada Perkara Tertentu)</b><button data-copy>Salin</button></div>
+        <ol>
+          <li>Pengadilan wajib mengangkat Balai Harta Peninggalan sebagai Kurator atau Pengurus dalam hal:
+            <ol><li>tidak terdapat usulan Kurator atau Pengurus;</li><li>Debitor telah meninggal dunia dan tidak terdapat ahli waris atau harta peninggalannya tidak terurus;</li><li>Debitor tidak diketahui tempat tinggal atau keberadaannya;</li><li>ahli waris atau pihak yang berkepentingan masih di bawah umur atau berada di bawah pengampuan;</li><li>permohonan diajukan oleh pekerja; atau</li><li>Kurator atau Pengurus berhenti, diberhentikan, atau meninggal dunia, dan tidak terdapat usulan pengganti yang memenuhi syarat.</li></ol></li>
+          <li>Dalam perkara sebagaimana dimaksud pada ayat (1) huruf b sampai dengan huruf f, Kurator atau Pengurus orang perseorangan dapat diangkat sebagai Kurator atau Pengurus tambahan.</li>
+          <li>Di luar perkara sebagaimana dimaksud pada ayat (1), Pengadilan mengangkat Kurator atau Pengurus berdasarkan usulan pemohon.</li>
+          <li>Kriteria rinci dan tata cara penunjukan sebagaimana dimaksud pada ayat (1) diatur dalam Undang-Undang mengenai kepailitan dan penundaan kewajiban pembayaran utang.</li>
+        </ol><div class="ket">Menjawab Pertanyaan 3: kewajiban memakai BHP pada perkara tertentu.</div></div>
+      <div class="pasal"><div class="ph"><b>Usulan Pasal 4 (Koordinasi dan Dukungan Instansi)</b><button data-copy>Salin</button></div>
+        <ol>
+          <li>Menteri menyelenggarakan data Kurator dan Pengurus aktif beserta jumlah perkara yang sedang ditangani, yang dapat diakses oleh Pengadilan sebelum mengangkat Kurator atau Pengurus.</li>
+          <li>Pengadilan memberitahukan pengangkatan Kurator dan menyampaikan salinan putusan kepada Kurator secara elektronik pada hari putusan diucapkan.</li>
+          <li>Instansi pemerintah, kantor pertanahan, bank, dan lembaga keuangan wajib menindaklanjuti permintaan Kurator paling lama 14 (empat belas) hari kerja sejak permintaan diterima.</li>
+          <li>Balai Harta Peninggalan, Pengadilan, dan organisasi profesi Kurator menyelenggarakan forum koordinasi berkala tanpa mengurangi kewenangan Hakim Pengawas.</li>
+        </ol><div class="ket">Menjawab koordinasi antarlembaga pada slide 2.</div></div>
     </div>
   </section>
 
@@ -556,21 +644,31 @@ kbd { font-family: var(--f-body); font-size: 11px; border: 1px solid var(--line)
     var k = 0; act(0); clearInterval(stepTimer); if (!reduce) stepTimer = setInterval(function () { k = (k + 1) % steps.length; act(k); }, 1400);
   }
 
-  // ===== SCENE 5 =====
-  function drawGoals() {
-    var goals = [
-      { h: "Penegasan peran BHP", q: "Menjawab Pertanyaan 2 dan 3", u: ["BHP sebagai kurator negara dan pengurus negara; kewenangan dari undang-undang tanpa izin atau pendaftaran.", "Pengadilan wajib mengangkat BHP bila debitor meninggal tanpa ahli waris atau hartanya tak terurus, tidak diketahui keberadaannya, ahli waris masih anak atau dalam pengampuan, permohonan pekerja, atau perkara kehilangan kurator.", "Di luar itu pemohon bebas memilih; rincian di RUU Kepailitan dan PKPU."], b: "Pijakan: Pasal 15 ayat (2) UU 37/2004; Pasal 1127 KUHPerdata." },
-      { h: "Peningkatan kualitas profesi", q: "Menjawab Pertanyaan 1 dan 2", u: ["Satu standar profesi dan kode etik bagi BHP dan kurator perseorangan.", "Tugas kurator BHP dijalankan pejabat fungsional Kurator Keperdataan.", "Data kurator aktif dan beban perkaranya dikelola Kementerian."], b: "Pijakan: TOR Komisi XIII mencatat standar profesi yang terfragmentasi." },
-      { h: "Pengawasan dan pertanggungjawaban", q: "Menjawab Pertanyaan 1 dan 2", u: ["Hakim Pengawas mengawasi pengurusan dan pemberesan oleh setiap kurator.", "Pembagian tugas, tanggung jawab, dan imbalan dalam tugas bersama ditetapkan sejak awal.", "Serah terima wajib saat kurator atau pejabat BHP berganti dan saat PKPU berakhir pailit.", "Tugas keperdataan dan tugas kurator BHP dijalankan pejabat berbeda."], b: "Pijakan: Pasal 65 dan Pasal 73 UU 37/2004." }
-    ];
-    var w = document.getElementById("goals"); w.innerHTML = "";
-    goals.forEach(function (g, i) { var d = document.createElement("div"); d.className = "panel goal-card float" + (i === 1 ? " b" : i === 2 ? " c" : ""); d.innerHTML = "<div class='q'>" + g.q + "</div><h3>" + g.h + "</h3><ul>" + g.u.map(function (u) { return "<li>" + u + "</li>"; }).join("") + "</ul><div class='base'>" + g.b + "</div>"; w.appendChild(d); });
+  // ===== SCENE 5: salin rumusan pasal =====
+  function drawLaw() {
+    document.querySelectorAll('[data-scene="5"] [data-copy]').forEach(function (b) {
+      if (b.dataset.ready) return; b.dataset.ready = "1";
+      b.addEventListener("click", function () {
+        var box = b.closest(".pasal"); var judul = box.querySelector(".ph b").textContent;
+        var lines = [judul]; var n = 0;
+        box.querySelectorAll("ol > li").forEach(function (li) {
+          if (li.parentElement.parentElement.tagName === "LI") return;
+          n++; var own = Array.prototype.filter.call(li.childNodes, function (x) { return x.nodeType === 3; }).map(function (x) { return x.textContent.trim(); }).join(" ").trim();
+          lines.push("(" + n + ") " + own);
+          var h = 0; li.querySelectorAll("ol > li").forEach(function (sub) { h++; lines.push("    " + String.fromCharCode(96 + h) + ". " + sub.textContent.trim()); });
+        });
+        var t = lines.join("\n");
+        function done() { var o = b.textContent; b.textContent = "Tersalin"; setTimeout(function () { b.textContent = o; }, 1400); }
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, function () { fallback(t); done(); }); else { fallback(t); done(); }
+      });
+    });
+    function fallback(t) { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} ta.remove(); }
   }
 
   // ===== NAV =====
   var cur = 0, scenes = document.querySelectorAll(".scene"), tabs = document.querySelectorAll("nav button");
   var drawers = [function () { document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp); document.querySelectorAll('[data-scene="0"] .bar i').forEach(function (b) { b.style.width = 0; requestAnimationFrame(function () { requestAnimationFrame(function () { b.style.width = b.dataset.w + "%"; }); }); }); },
-    function () { renderDetail(); drawCases(); }, drawGantt, function () { drawCmp(); drawDonut(); drawTime(); drawTable(); }, function () { drawMeet(); drawSteps(); }, drawGoals];
+    function () { renderDetail(); drawCases(); }, drawGantt, function () { drawCmp(); drawDonut(); drawTime(); drawTable(); }, function () { drawMeet(); drawSteps(); }, drawLaw];
   function go(n) {
     cur = (n + scenes.length) % scenes.length; hideTip(); clearInterval(stepTimer);
     scenes.forEach(function (s, i) { s.hidden = i !== cur; });
@@ -579,6 +677,7 @@ kbd { font-family: var(--f-body); font-size: 11px; border: 1px solid var(--line)
     try { localStorage.setItem("bhp-scene", cur); } catch (e) {}
   }
   tabs.forEach(function (b) { b.addEventListener("click", function () { go(+b.dataset.s); }); });
+  document.querySelectorAll(".map [data-go]").forEach(function (b) { b.addEventListener("click", function () { go(+b.dataset.go); window.scrollTo({ top: 0, behavior: "smooth" }); }); });
   document.getElementById("prev").addEventListener("click", function () { go(cur - 1); });
   document.getElementById("next").addEventListener("click", function () { go(cur + 1); });
   document.addEventListener("keydown", function (e) { if (e.target.tagName === "INPUT") return; if (e.key === "ArrowRight" || e.key === "PageDown") go(cur + 1); if (e.key === "ArrowLeft" || e.key === "PageUp") go(cur - 1); });
