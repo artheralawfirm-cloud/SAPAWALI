@@ -187,8 +187,8 @@ main{padding-bottom:110px}
     </div>
     <div class="tiles">
       <div class="tile"><b data-count="9">0</b><span>perkara kepailitan sedang ditangani</span></div>
-      <div class="tile"><b><span data-count="3">0</span><small>perkara</small></b><span>telah membagikan hasil pemberesan kepada kreditor</span></div>
-      <div class="tile"><b><span data-count="5">0</span><small>perkara</small></b><span>pada tahap pengurusan, penilaian, dan penjualan aset</span></div>
+      <div class="tile"><b><span data-count="1">0</span><small>penunjukan</small></b><span>baru tercatat dalam register sejak 2024 sampai 2 Oktober 2026</span></div>
+      <div class="tile"><b><span data-count="3">0</span><small>perkara</small></b><span>dengan harta yang belum dinilai</span></div>
       <div class="tile"><b><span data-count="21">0</span><small>tahap</small></b><span>SOP Kepailitan yang dijalankan pada setiap perkara</span></div>
     </div>
     <div class="flow" id="flow" role="group" aria-label="Saring menurut fase SOP"></div>
@@ -207,18 +207,18 @@ main{padding-bottom:110px}
     <div class="ghost" aria-hidden="true"></div>
     <div class="face">
       <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="#F5C23D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4" fill="#F5C23D"/></svg></div>
-      <div><h3>Tabel lengkap perkara</h3><p>Nilai tagihan, harta tercatat, kreditor, dan debitor per perkara menurut Buku Register Kepailitan dan laporan pengurusan BHP Medan.</p></div>
+      <div><h3>Tabel lengkap perkara</h3><p>Nomor perkara, debitor, pemohon, jumlah tagihan, harta tercatat, dan kegiatan pokok per perkara menurut Lampiran I (Tabel I.1 dan I.3).</p></div>
       <button class="open" id="openBtn" aria-expanded="false" aria-controls="vaultBody"><span id="openL">Buka tabel lengkap</span> <span class="arr">⌄</span></button>
     </div>
     <div class="body" id="vaultBody">
       <div class="sum">
         <div><b>9</b><span>perkara kepailitan</span></div>
         <div><b>47,35<small>Rp miliar</small></b><span>total tagihan kreditor menurut register</span></div>
-        <div><b>23,03<small>Rp miliar</small></b><span>harta tercatat pada enam perkara yang telah dinilai</span></div>
-        <div><b>5,06<small>Rp miliar</small></b><span>telah dibagikan kepada kreditor pada tiga perkara, setara 10,7% dari total tagihan</span></div>
+        <div><b>19,46<small>Rp miliar</small></b><span>harta bernilai tercatat pada lima perkara</span></div>
+        <div><b>3<small>perkara</small></b><span>harta belum dinilai; pada satu perkara harta seluruhnya terjual</span></div>
       </div>
       <div class="scroll"><table class="dt" id="tbl"></table></div>
-      <div class="src">Sumber: Buku Register Kepailitan dan laporan pengurusan BHP Medan per 2 Oktober 2026. Nilai dalam rupiah. "Belum dinilai" berarti nilai aset ditetapkan setelah Penilai Publik menyampaikan buku hasil penilaian (tahap 13 sampai 15 SOP Kepailitan).</div>
+      <div class="src">Sumber: Buku Register Kepailitan dan laporan pengurusan kurator BHP Medan (Lampiran I, Tabel I.1 dan I.3). Nilai harta adalah nilai pasar menurut penilaian atau nilai yang tercatat dalam register, bukan hasil penjualan, kecuali disebutkan lain.</div>
     </div>
   </section>
   <div class="endback">
@@ -258,24 +258,24 @@ var FASE=[{n:"Penunjukan dan nota dinas",a:1,b:5},{n:"Rencana kerja dan pengumum
 function faseOf(s){for(var i=0;i<FASE.length;i++)if(s>=FASE[i].a&&s<=FASE[i].b)return i;return 0}
 
 var cases=[
-{n:"Gwe Tjoen alias Atman Wiratman",no:"2/Pdt.Sus-Pailit/2016/PN Niaga Mdn",d:"2016-02-17",pem:"Debitor sendiri",dom:"Binjai, Sumatera Utara",s:17,st:"Tahap 16 dan 17",act:"Penjualan aset melalui lelang dan penetapan daftar pembagian",out:"dokumen lelang; penetapan pembagian kepada kreditur",ket:"Enam dari sepuluh aset telah terjual melalui lelang dan hasilnya telah disetorkan kepada kreditor separatis. Penjualan aset berikutnya sedang dipersiapkan.",
- kred:"Kreditor separatis dan kreditor konkuren",tag:25.66,harta:8.00,hn:"10 bidang tanah dan bangunan",sudah:"",bayar:2.74,bk:"disetorkan kepada kreditor separatis dari hasil lelang Rp4,48 miliar (6 dari 10 aset)"},
-{n:"Muhammad Arifin Hasibuan (CV Hitado)",no:"01/Pdt.Sus-Pailit/2017/PN Niaga Mdn",d:"2017-04-25",pem:"Muhammad Arifin Nasution",dom:"Medan, Sumatera Utara",s:11,st:"Tahap 11",act:"Rapat verifikasi dan pernyataan insolvensi",out:"notulen rapat verifikasi",ket:"Rapat kreditor dilaksanakan 16 September 2026 di hadapan Hakim Pengawas. Pemberesan aset dilanjutkan setelah penetapan insolvensi.",
- kred:"Kreditor menurut daftar tagihan",tag:1.94,harta:0.53,hn:"1 ruko",sudah:"",bayar:0,bk:"menunggu tahap pemberesan"},
-{n:"PT Pro Mekanika Indonusa",no:"2/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-06-28",pem:"PT Trimurti Perkasa dan Hotmaulin Simare Mare",dom:"Medan, Sumatera Utara",s:20,st:"Tahap 20",act:"Permohonan penetapan pengakhiran kepailitan",out:"Penetapan pengakhiran kepailitan",ket:"Seluruh aset telah terjual dan hasilnya dibagikan kepada kreditor sesuai daftar pembagian. Pengakhiran kepailitan telah dimohonkan kepada Hakim.",
- kred:"Kreditor menurut daftar pembagian",tag:2.75,harta:3.44,hn:"Tanah, bangunan, dan 2 kendaraan, seluruhnya terjual",sudah:"",bayar:2.19,bk:"dibagikan kepada kreditor dari hasil bersih penjualan Rp2,45 miliar"},
-{n:"Badaruddin HSB bin Multen Hasibuan",no:"7/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-12-20",pem:"Debitor sendiri",dom:"Aceh Singkil, Aceh",s:12,st:"Tahap 12",act:"Inventarisasi aset dan sita umum",out:"daftar inventaris aset dan laporan",ket:"Kurator memenangkan gugatan actio pauliana pada 21 Desember 2021, sehingga tanah dan bangunan kembali masuk ke harta pailit. Kurator memproses balik nama sertifikat sebelum penilaian dan penjualan.",
- kred:"Kreditor menurut daftar tagihan; kreditor terbesar KPP Pratama Subulussalam",tag:2.30,harta:0.93,hn:"1 tanah dan bangunan",sudah:"",bayar:0,bk:"menunggu penilaian dan penjualan aset"},
-{n:"Suparjo Rustam",no:"8/Pdt.Sus-Pailit/2019/PN Niaga Mdn",d:"2019-11-08",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 13",act:"Penawaran Penilai Publik atas aset pailit",out:"dokumen penawaran appraisal",ket:"Kurator telah menelusuri aset ke 3 kantor pertanahan dan 7 bank. Aset yang ditemukan disiapkan untuk penilaian dan lelang.",
- kred:"Kreditor menurut daftar tagihan",tag:0.28,harta:null,hn:"1 kendaraan",sudah:"",bayar:0,bk:"menunggu penilaian dan lelang"},
-{n:"PT Rimba Cipta Niaga",no:"2/Pdt.Sus-Pailit/2020/PN Niaga Mdn",d:"2020-03-12",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 13",act:"Penawaran Penilai Publik atas aset pailit",out:"dokumen penawaran appraisal",ket:"Aset berupa 2 portable camp dan 1 alat pengupas kayu telah diinventarisasi dan disiapkan untuk penilaian dan lelang.",
- kred:"Tidak terdapat tagihan kreditor yang diakui",tag:0,harta:null,hn:"2 portable camp dan 1 alat pengupas kayu",sudah:"",bayar:null,bk:"tidak ada tagihan yang diakui"},
-{n:"PT Rata Makmur",no:"33/Pdt.Sus-PKPU/2022/PN Niaga Mdn",d:"2023-04-10",pem:"Samin K dan kawan-kawan (eks pekerja)",dom:"Medan dan Langkat, Sumatera Utara",s:18,st:"Tahap 18",act:"Pembayaran kepada kreditur dan penyetoran PNBP",out:"bukti pembayaran kreditur melalui transfer",ket:"BHP menjadi pengurus PKPU lalu kurator atas permohonan eks pekerja. Pembayaran kepada enam eks pekerja telah dilaksanakan sesuai daftar pembagian.",
- kred:"Enam eks pekerja (kreditor preferen) dan kantor pajak dengan tagihan Rp1,11 miliar",tag:1.43,harta:0.17,hn:"Uang tunai",sudah:"",bayar:0.13365,bk:"dibayarkan kepada enam eks pekerja, setara 43,2% dari tagihan eks pekerja"},
-{n:"KSO PT Maju Abadi Jaya Utama dan PT Kurnia Putra Maduma",no:"6/Pdt.Sus-Pailit/2023/PN Niaga Mdn jo. 1123 K/Pdt.Sus-Pailit/2023",d:"2023-10-17",pem:"Koperasi Yantek Maju Bersama dan kawan-kawan",dom:"Medan, Sumatera Utara",s:11,st:"Tahap 11",act:"Verifikasi tagihan dan renvoi prosedur",out:"notulen rapat verifikasi",ket:"Kurator membantah tagihan yang tidak didukung bukti untuk melindungi hak 348 eks karyawan dan kreditor lain. Empat perkara renvoi prosedur sedang diperiksa pada tingkat kasasi; pembagian dilaksanakan setelah putusan berkekuatan hukum tetap.",
- kred:"348 eks karyawan melalui Koperasi Yantek Maju Bersama dan kreditor lain; tagihan Rp13,46 miliar dibantah kurator dan diperiksa melalui renvoi prosedur",tag:4.29,harta:9.96,hn:"Kas",sudah:"",bayar:0,bk:"dibagikan setelah putusan renvoi berkekuatan hukum tetap"},
-{n:"Frans Winner",no:"12/Pdt.Sus-Pailit/2025/PN Niaga Mdn",d:"2025-12-11",pem:"Salim Hadi Saputra dan Maratur P. Siregar",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 12 dan 13",act:"Inventarisasi aset dan penawaran Penilai Publik",out:"daftar inventaris aset; dokumen penawaran appraisal",ket:"Insolvensi ditetapkan 23 Februari 2026. Kurator menginventarisasi 143 item barang dan menyiapkan penilaian untuk penjualan.",
- kred:"1 kreditor separatis dan 13 kreditor konkuren",tag:8.70,harta:null,hn:"143 item barang",sudah:"",bayar:0,bk:"menunggu penilaian dan penjualan aset"}
+{n:"Gwe Tjoen alias Atman Wiratman",no:"2/Pdt.Sus-Pailit/2016/PN Niaga Mdn",d:"2016-02-17",pem:"Debitor sendiri",dom:"Binjai, Sumatera Utara",s:17,st:"Tahap 16 dan 17",act:"Penjualan aset melalui lelang dan penetapan daftar pembagian",out:"dokumen lelang; penetapan pembagian kepada kreditur",ket:"Harta tercatat: 10 bidang tanah dan bangunan, nilai tercatat Rp7.999.000.000. Jumlah tagihan: Rp25.664.759.360. Kegiatan pokok tercatat: penilaian aset 25 November 2024; laporan 8 April dan 26 Juni 2026.",
+ tag:25664759360,harta:7999000000,hn:"10 bidang tanah dan bangunan, nilai tercatat Rp7.999.000.000",keg:"Penilaian aset 25 November 2024; laporan 8 April dan 26 Juni 2026."},
+{n:"Muhammad Arifin Hasibuan (CV Hitado)",no:"01/Pdt.Sus-Pailit/2017/PN Niaga Mdn",d:"2017-04-25",pem:"Muhammad Arifin Nasution",dom:"Medan, Sumatera Utara",s:11,st:"Tahap 11",act:"Rapat verifikasi dan pernyataan insolvensi",out:"notulen rapat verifikasi",ket:"Harta tercatat: 1 ruko, nilai pasar Rp405.000.000 (2017). Jumlah tagihan: Rp1.937.880.500. Kegiatan pokok tercatat: laporan pengurusan 19 Agustus 2025; berita acara koordinasi 11 Agustus 2026 dan rapat kreditor 16 September 2026.",
+ tag:1937880500,harta:405000000,hn:"1 ruko, nilai pasar Rp405.000.000 (2017)",keg:"Laporan pengurusan 19 Agustus 2025; berita acara koordinasi 11 Agustus 2026 dan rapat kreditor 16 September 2026."},
+{n:"PT Pro Mekanika Indonusa",no:"2/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-06-28",pem:"PT Trimurti Perkasa dan Hotmaulin Simare Mare",dom:"Medan, Sumatera Utara",s:20,st:"Tahap 20",act:"Permohonan penetapan pengakhiran kepailitan",out:"Penetapan pengakhiran kepailitan",ket:"Harta tercatat: tanah dan bangunan serta 2 kendaraan, seluruhnya terjual. Jumlah tagihan: Rp2.754.273.955. Kegiatan pokok tercatat: permohonan pengakhiran 10 Januari 2024; permohonan pengakhiran 9 Maret 2026 dan rapat kreditor 20 Mei 2026.",
+ tag:2754273955,harta:null,hn:"Tanah dan bangunan serta 2 kendaraan, seluruhnya terjual",keg:"Permohonan pengakhiran 10 Januari 2024; permohonan pengakhiran 9 Maret 2026 dan rapat kreditor 20 Mei 2026."},
+{n:"Badaruddin HSB bin Multen Hasibuan",no:"7/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-12-20",pem:"Debitor sendiri",dom:"Aceh Singkil, Aceh",s:12,st:"Tahap 12",act:"Inventarisasi aset dan sita umum",out:"daftar inventaris aset dan laporan",ket:"Harta tercatat: 1 tanah dan bangunan, nilai pasar Rp928.100.000 (2025). Jumlah tagihan: Rp2.296.429.207. Kegiatan pokok tercatat: rapat kreditor lanjutan 28 Mei 2025 dan penilaian aset 17 Desember 2025.",
+ tag:2296429207,harta:928100000,hn:"1 tanah dan bangunan, nilai pasar Rp928.100.000 (2025)",keg:"Rapat kreditor lanjutan 28 Mei 2025 dan penilaian aset 17 Desember 2025."},
+{n:"Suparjo Rustam",no:"8/Pdt.Sus-Pailit/2019/PN Niaga Mdn",d:"2019-11-08",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 13",act:"Penawaran Penilai Publik atas aset pailit",out:"dokumen penawaran appraisal",ket:"Harta tercatat: 1 kendaraan, belum dinilai. Jumlah tagihan: Rp276.763.100. Kegiatan pokok tercatat: laporan 16 April 2026.",
+ tag:276763100,harta:null,hn:"1 kendaraan, belum dinilai",keg:"Laporan 16 April 2026."},
+{n:"PT Rimba Cipta Niaga (Direktur Hermanto)",no:"2/Pdt.Sus-Pailit/2020/PN Niaga Mdn",d:"2020-03-12",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 13",act:"Penawaran Penilai Publik atas aset pailit",out:"dokumen penawaran appraisal",ket:"Harta tercatat: 2 unit portable camp dan 1 alat pengupas kayu, belum dinilai. Jumlah tagihan: Rp0. Kegiatan pokok tercatat: laporan pengurusan 5 Desember 2025.",
+ tag:0,harta:null,hn:"2 unit portable camp dan 1 alat pengupas kayu, belum dinilai",keg:"Laporan pengurusan 5 Desember 2025."},
+{n:"PT Rata Makmur",no:"33/Pdt.Sus-PKPU/2022/PN Niaga Mdn",d:"2023-04-10",pem:"Samin K dan kawan-kawan (eks pekerja)",dom:"Medan dan Langkat, Sumatera Utara",s:18,st:"Tahap 18",act:"Pembayaran kepada kreditur dan penyetoran PNBP",out:"bukti pembayaran kreditur melalui transfer",ket:"Harta tercatat: uang tunai Rp170.000.000 dari debitor. Jumlah tagihan: Rp1.432.871.696. Kegiatan pokok tercatat: laporan pembagian harta 1 Juli 2025 dan rapat kreditor 10 Desember 2025.",
+ tag:1432871696,harta:170000000,hn:"Uang tunai Rp170.000.000 dari debitor",keg:"Laporan pembagian harta 1 Juli 2025 dan rapat kreditor 10 Desember 2025."},
+{n:"KSO PT Maju Abadi Jaya Utama dan PT Kurnia Putra Maduma",no:"6/Pdt.Sus-Pailit/2023/PN Niaga Mdn jo. 1123 K/Pdt.Sus-Pailit/2023",d:"2023-10-17",pem:"Koperasi Yantek Maju Bersama dan kawan-kawan",dom:"Medan, Sumatera Utara",s:11,st:"Tahap 11",act:"Verifikasi tagihan dan renvoi prosedur",out:"notulen rapat verifikasi",ket:"Harta tercatat: kas Rp9.958.982.128. Jumlah tagihan: Rp4.288.085.405. Kegiatan pokok tercatat: pengumuman 10 Januari 2024, rapat kreditor Januari dan Februari 2024, daftar piutang sementara dan daftar piutang dibantah 22 Maret 2024.",
+ tag:4288085405,harta:9958982128,hn:"Kas Rp9.958.982.128",keg:"Pengumuman 10 Januari 2024, rapat kreditor Januari dan Februari 2024, daftar piutang sementara dan daftar piutang dibantah 22 Maret 2024."},
+{n:"Frans Winner",no:"12/Pdt.Sus-Pailit/2025/PN Niaga Mdn",d:"2025-12-11",pem:"Salim Hadi Saputra dan Maratur P. Siregar",dom:"Medan, Sumatera Utara",s:13,st:"Tahap 12 dan 13",act:"Inventarisasi aset dan penawaran Penilai Publik",out:"daftar inventaris aset; dokumen penawaran appraisal",ket:"Harta tercatat: 143 item barang, belum dinilai. Jumlah tagihan: Rp8.700.288.134. Kegiatan pokok tercatat: putusan pailit 11 Desember 2025; pengumuman 16 Januari, rapat kreditor 28 Januari dan 23 Februari, pencatatan harta 29 Januari 2026.",
+ tag:8700288134,harta:null,hn:"143 item barang, belum dinilai",keg:"Putusan pailit 11 Desember 2025; pengumuman 16 Januari, rapat kreditor 28 Januari dan 23 Februari, pencatatan harta 29 Januari 2026."}
 ];
 
 /* kembali ke slide: pakai riwayat browser bila datang dari slide, agar posisi tetap */
@@ -325,19 +325,14 @@ drawFlow();drawCards();
 /* tabel lengkap: baru dibangun setelah tombol diklik */
 document.querySelector(".ghost").innerHTML=new Array(49).join("<i></i>");
 var vault=document.getElementById("vault"),btn=document.getElementById("openBtn"),built=false;
-function payCell(c){
-  if(c.bayar==null)return "<span class='m'>"+c.bk+"</span>";
-  if(!c.bayar)return "<span class='v'>-</span><br><span class='m'>"+c.bk+"</span>";
-  var pct=c.tag?c.bayar/c.tag*100:0;
-  return "<span class='v'>"+fmt(c.bayar*1e9)+"</span><div class='bar'><i style='width:"+Math.min(100,pct).toFixed(1)+"%'></i></div><span class='pct'>"+fmt(pct,1)+"% dari tagihan</span><br><span class='m'>"+c.bk+"</span>";
-}
 function buildTable(){
-  document.getElementById("tbl").innerHTML="<thead><tr><th>No</th><th>Nomor perkara dan tanggal putusan</th><th>Debitor dan domisili</th><th>Pemohon menurut register</th><th>Kreditor</th><th>Tagihan (Rp)</th><th>Harta tercatat (Rp)</th><th>Telah dibagikan kepada kreditor</th><th>Posisi di SOP dan keterangan</th></tr></thead><tbody>"+
-  cases.map(function(c,i){return "<tr><td>"+(i+1)+"</td><td class='b'>"+c.no+"<br><span class='m'>"+tgl(c.d)+"</span></td><td class='b'>"+c.n+"<br><span class='m'>"+c.dom+"</span></td><td>"+c.pem+"</td><td>"+c.kred+(c.sudah?"<br><span class='m' style='color:var(--ok);font-weight:700'>"+c.sudah+"</span>":"")+"</td>"+
-    "<td class='num'><span class='v'>"+(c.tag?fmt(c.tag*1e9):"-")+"</span></td>"+
-    "<td class='num'>"+(c.harta==null?"<span class='m'>belum dinilai</span>":"<span class='v'>"+fmt(c.harta*1e9)+"</span>")+"<br><span class='m'>"+c.hn+"</span></td>"+
-    "<td class='num'>"+payCell(c)+"</td>"+
-    "<td><span class='pill'>"+c.st+" · "+c.act+"</span><br><span class='m'>"+c.ket+"</span></td></tr>"}).join("")+"</tbody>";
+  document.getElementById("tbl").innerHTML="<thead><tr><th>No</th><th>Nomor perkara dan tanggal putusan pailit</th><th>Debitor dan domisili</th><th>Pemohon menurut register</th><th>Jumlah tagihan (Rp)</th><th>Harta tercatat</th><th>Kegiatan pokok 2024 sampai 2026</th><th>Posisi di SOP</th></tr></thead><tbody>"+
+  cases.map(function(c,i){return "<tr><td>"+(i+1)+"</td><td class='b'>"+c.no+"<br><span class='m'>"+tgl(c.d)+"</span></td><td class='b'>"+c.n+"<br><span class='m'>"+c.dom+"</span></td><td>"+c.pem+"</td>"+
+    "<td class='num'><span class='v'>"+fmt(c.tag)+"</span></td>"+
+    "<td>"+(c.harta==null?"":"<span class='v'>"+fmt(c.harta)+"</span><br>")+"<span class='m'>"+c.hn+"</span></td>"+
+    "<td><span class='m'>"+c.keg+"</span></td>"+
+    "<td><span class='pill'>"+c.st+" · "+c.act+"</span></td></tr>"}).join("")+
+    "<tr><td></td><td class='b' colspan='3'>Jumlah</td><td class='num'><span class='v'>"+fmt(cases.reduce(function(a,c){return a+c.tag},0))+"</span></td><td colspan='3'></td></tr></tbody>";
   built=true}
 btn.addEventListener("click",function(){var on=!vault.classList.contains("on");if(on&&!built)buildTable();vault.classList.toggle("on",on);btn.setAttribute("aria-expanded",on?"true":"false");document.getElementById("openL").textContent=on?"Tutup tabel lengkap":"Buka tabel lengkap";if(on)setTimeout(function(){vault.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"})},60)});
 })();

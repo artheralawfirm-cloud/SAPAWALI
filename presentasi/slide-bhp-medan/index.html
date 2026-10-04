@@ -751,16 +751,16 @@ body.lp-on{overflow:hidden}
     <div class="grid g2">
       <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan dan putusan</div><h2 class="h2">2025 dibanding 2026</h2>
         <svg class="chart" id="cCmp" viewBox="0 0 800 360" role="img" aria-label="Perbandingan 2025 dan 2026"></svg>
-        <div class="legend"><span><i style="background:var(--cream-2)"></i>2025</span><span><i style="background:var(--maroon)"></i>2026 sampai 2 Oktober</span></div></div>
-      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan yang menunjuk BHP</div><h2 class="h2">10 permohonan, 1 dikabulkan</h2>
-        <svg class="chart" id="cDonut" viewBox="0 0 320 260" role="img" aria-label="Hasil permohonan yang menunjuk BHP"></svg>
+        <div class="legend"><span><i style="background:var(--cream-2)"></i>2025</span><span><i style="background:var(--maroon)"></i>2026 sampai 2 Oktober</span></div><p class="hint">Perkara 41/Pdt.Sus-PKPU/2025 yang diputus pailit pada 5 Maret 2026 dihitung pada kolom 2026.</p></div>
+      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan yang meminta BHP dalam petitum</div><h2 class="h2">11 permohonan, BHP ditunjuk pada 1</h2>
+        <svg class="chart" id="cDonut" viewBox="0 0 320 260" role="img" aria-label="Hasil permohonan yang meminta BHP"></svg>
         <div class="legend" id="lgDonut"></div><p class="hint">Pilih bagian lingkaran untuk menyaring daftar di bawah.</p></div>
     </div>
     <div class="card" style="margin-top:18px">
-      <div class="chips"><button class="chip" data-tab="v" aria-pressed="true">16 putusan pailit</button><button class="chip" data-tab="r" aria-pressed="false">10 permohonan menunjuk BHP</button><span style="flex:1"></span><input type="search" id="q" placeholder="Cari debitor, pemohon, atau kurator" aria-label="Cari" class="chip" style="min-width:260px;font-weight:600"></div>
+      <div class="chips"><button class="chip" data-tab="v" aria-pressed="true">16 putusan pailit</button><button class="chip" data-tab="r" aria-pressed="false">11 permohonan meminta BHP</button><span style="flex:1"></span><input type="search" id="q" placeholder="Cari debitor, pemohon, atau kurator" aria-label="Cari" class="chip" style="min-width:260px;font-weight:600"></div>
       <div class="scroll"><table id="tbl" class="dt"></table></div>
     </div>
-    <div class="take"><span class="k">Intinya</span>Kurator diangkat pengadilan berdasarkan usulan pemohon, sehingga penunjukan BHP bergantung pada pilihan pemohon.</div>
+    <div class="take"><span class="k">Intinya</span>BHP Medan hanya ditunjuk pada satu dari 16 putusan pailit. Pada perkara yang petitumnya telah diperiksa, kurator yang diangkat adalah kurator yang diusulkan pemohon.</div>
   </section>
 
   <!-- 4 SOP -->
@@ -828,8 +828,8 @@ body.lp-on{overflow:hidden}
           <div class="eyebrow" style="margin-bottom:10px">Saran: RUU Profesi Kurator memuat</div>
           <ol class="sr2">
             <li><span>Pengaturan secara tegas mengenai pembagian imbalan jasa antara BHP dan kurator perseorangan dalam tugas bersama, serta kewenangan BHP untuk ditunjuk sebagai pengurus dalam PKPU.</span><span class="pzs"><button class="pz" data-lp="0" data-hl="0,1,2"><i></i>Pasal A</button></span></li>
-            <li><span>Pengakuan kedudukan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan, penetapan kriteria perkara yang menjadi kewenangan khusus BHP sekaligus larangan bagi kurator perseorangan, serta pemisahan pertanggungjawaban BHP sebagai kurator dan sebagai pelaksana tugas keperdataan.</span><span class="pzs"><button class="pz" data-lp="1" data-hl="0,3"><i></i>Pasal B</button><button class="pz" data-lp="2" data-hl="0,1"><i></i>Pasal C</button></span></li>
-            <li><span>Rumusan pasal yang menjadi dasar penugasan wajib BHP pada perkara tertentu, yang selaras dengan kriteria dan tata cara penunjukan dalam RUU Kepailitan dan PKPU.</span><span class="pzs"><button class="pz" data-lp="2" data-hl="3"><i></i>Pasal C ayat (4)</button></span></li>
+            <li><span>Pengakuan kedudukan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan, penetapan kriteria perkara yang menjadi kewenangan khusus BHP, serta pemisahan pertanggungjawaban BHP sebagai kurator dan sebagai pelaksana tugas keperdataan.</span><span class="pzs"><button class="pz" data-lp="1" data-hl="0,3"><i></i>Pasal B</button><button class="pz" data-lp="2" data-hl="0,1"><i></i>Pasal C</button></span></li>
+            <li><span>Rumusan pasal yang menjadi dasar penugasan wajib BHP pada perkara tertentu, yang selaras dengan kriteria dan tata cara penunjukan dalam RUU Kepailitan dan PKPU.</span><span class="pzs"><button class="pz" data-lp="2" data-hl="2"><i></i>Pasal C ayat (3)</button></span></li>
           </ol>
         </div>
         <div class="lp-pick">
@@ -880,15 +880,15 @@ body.lp-on{overflow:hidden}
   // ===== DATA PERKARA (Buku Register dan laporan pengurusan BHP Medan) =====
   var LANES=[{r:"Tahap 8 sampai 11",n:"Rapat kreditur dan verifikasi"},{r:"Tahap 12 sampai 15",n:"Inventarisasi dan penilaian aset"},{r:"Tahap 16 sampai 18",n:"Penjualan dan pembagian"},{r:"Tahap 19 sampai 21",n:"Pengakhiran"}];
   var cases=[
-    {id:"gwe",n:"Gwe Tjoen",full:"Gwe Tjoen alias Atman Wiratman",no:"2/Pdt.Sus-Pailit/2016/PN Niaga Mdn",d:"2016-02-17",pem:"Debitor sendiri",dom:"Binjai, Sumatera Utara",l:2,s:16,st:"Tahap 16 dan 17",tahap:"Permohonan penjualan aset melalui KPKNL dan penetapan daftar pembagian",kel:"dokumen lelang; penetapan pembagian kepada kreditur",ket:"Penjualan aset tanah dan bangunan berjalan bertahap melalui lelang; hasil penjualan telah disetorkan kepada kreditor separatis. Pemberesan dilanjutkan atas aset yang tersisa."},
-    {id:"hit",n:"CV Hitado",full:"Muhammad Arifin Hasibuan (CV Hitado)",no:"01/Pdt.Sus-Pailit/2017/PN Niaga Mdn",d:"2017-04-25",pem:"Muhammad Arifin Nasution",dom:"Medan, Sumatera Utara",l:0,s:11,st:"Tahap 11",tahap:"Rapat verifikasi dan pernyataan insolvensi",kel:"notulen rapat verifikasi",ket:"Rapat kreditor terakhir dilaksanakan 16 September 2026 di hadapan Hakim Pengawas. Kurator menunggu penetapan insolvensi untuk masuk ke tahap pemberesan."},
-    {id:"pro",n:"PT Pro Mekanika Indonusa",sn:"Pro Mekanika",no:"2/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-06-28",pem:"PT Trimurti Perkasa dan Hotmaulin Simare Mare",dom:"Medan, Sumatera Utara",l:3,s:20,st:"Tahap 20",tahap:"Permohonan penetapan pengakhiran kepailitan",kel:"Penetapan pengakhiran kepailitan",ket:"Seluruh aset telah terjual dan hasilnya dibagikan kepada kreditor sesuai daftar pembagian. Permohonan pengakhiran kepailitan telah diajukan kepada Hakim."},
-    {id:"bad",n:"Badaruddin HSB",sn:"Badaruddin",full:"Badaruddin HSB bin Multen Hasibuan",no:"7/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-12-20",pem:"Debitor sendiri",dom:"Aceh Singkil, Aceh",l:1,s:12,st:"Tahap 12",tahap:"Inventarisasi aset dan sita umum",kel:"daftar inventaris aset dan laporan",ket:"Gugatan actio pauliana atas aset tanah dan bangunan dimenangkan pada 21 Desember 2021. Kurator mengurus peralihan sertifikat ke dalam harta pailit sebelum penilaian dan penjualan."},
-    {id:"sup",n:"Suparjo Rustam",sn:"Suparjo",no:"8/Pdt.Sus-Pailit/2019/PN Niaga Mdn",d:"2019-11-08",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",l:1,s:13,st:"Tahap 13",tahap:"Penawaran Penilai Publik atas aset pailit",kel:"dokumen penawaran appraisal",ket:"Penelusuran aset telah dilakukan ke 3 kantor pertanahan dan 7 bank. Aset yang ditemukan sedang menunggu penilaian untuk lelang."},
-    {id:"rim",n:"PT Rimba Cipta Niaga",sn:"Rimba Cipta",no:"2/Pdt.Sus-Pailit/2020/PN Niaga Mdn",d:"2020-03-12",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",l:1,s:13,st:"Tahap 13",tahap:"Penawaran Penilai Publik atas aset pailit",kel:"dokumen penawaran appraisal",ket:"Aset berupa 2 portable camp dan 1 alat pengupas kayu telah diinventarisasi dan menunggu penilaian untuk lelang."},
-    {id:"rat",n:"PT Rata Makmur",sn:"Rata Makmur",no:"33/Pdt.Sus-PKPU/2022/PN Niaga Mdn",d:"2023-04-10",pem:"Samin K dan kawan-kawan (eks pekerja)",dom:"Medan dan Langkat, Sumatera Utara",l:2,s:18,st:"Tahap 18",tahap:"Pembayaran kepada kreditur dan penyetoran PNBP",kel:"bukti pembayaran kreditur melalui transfer",ket:"BHP menjadi pengurus PKPU lalu kurator atas permohonan eks pekerja. Pembayaran kepada enam eks pekerja telah dilaksanakan sesuai daftar pembagian."},
-    {id:"kso",n:"KSO Maju Abadi",sn:"KSO Maju Abadi",full:"KSO PT Maju Abadi Jaya Utama dan PT Kurnia Putra Maduma",no:"6/Pdt.Sus-Pailit/2023/PN Niaga Mdn",d:"2023-10-17",pem:"Koperasi Yantek Maju Bersama dan kawan-kawan",dom:"Medan, Sumatera Utara",l:0,s:11,st:"Tahap 11",tahap:"Rapat verifikasi tagihan",kel:"notulen rapat verifikasi",ket:"Verifikasi tagihan menghasilkan empat perkara renvoi prosedur yang kini menunggu putusan kasasi. Pembagian dilaksanakan setelah putusan berkekuatan hukum tetap."},
-    {id:"fra",n:"Frans Winner",no:"12/Pdt.Sus-Pailit/2025/PN Niaga Mdn",d:"2025-12-11",pem:"Salim Hadi Saputra dan Maratur P. Siregar",dom:"Medan, Sumatera Utara",l:1,s:12,st:"Tahap 12 dan 13",tahap:"Inventarisasi aset dan penawaran Penilai Publik",kel:"daftar inventaris aset; dokumen penawaran appraisal",ket:"Insolvensi ditetapkan 23 Februari 2026. Kurator menginventarisasi 143 item barang dan menyiapkan penilaian untuk penjualan."}
+    {id:"gwe",n:"Gwe Tjoen",full:"Gwe Tjoen alias Atman Wiratman",no:"2/Pdt.Sus-Pailit/2016/PN Niaga Mdn",d:"2016-02-17",pem:"Debitor sendiri",dom:"Binjai, Sumatera Utara",l:2,s:16,st:"Tahap 16 dan 17",tahap:"Permohonan penjualan aset melalui KPKNL dan penetapan daftar pembagian",kel:"dokumen lelang; penetapan pembagian kepada kreditur",ket:"Harta tercatat: 10 bidang tanah dan bangunan, nilai tercatat Rp7.999.000.000. Jumlah tagihan: Rp25.664.759.360. Kegiatan pokok tercatat: penilaian aset 25 November 2024; laporan 8 April dan 26 Juni 2026."},
+    {id:"hit",n:"CV Hitado",full:"Muhammad Arifin Hasibuan (CV Hitado)",no:"01/Pdt.Sus-Pailit/2017/PN Niaga Mdn",d:"2017-04-25",pem:"Muhammad Arifin Nasution",dom:"Medan, Sumatera Utara",l:0,s:11,st:"Tahap 11",tahap:"Rapat verifikasi dan pernyataan insolvensi",kel:"notulen rapat verifikasi",ket:"Harta tercatat: 1 ruko, nilai pasar Rp405.000.000 (2017). Jumlah tagihan: Rp1.937.880.500. Kegiatan pokok tercatat: laporan pengurusan 19 Agustus 2025; berita acara koordinasi 11 Agustus 2026 dan rapat kreditor 16 September 2026."},
+    {id:"pro",n:"PT Pro Mekanika Indonusa",sn:"Pro Mekanika",no:"2/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-06-28",pem:"PT Trimurti Perkasa dan Hotmaulin Simare Mare",dom:"Medan, Sumatera Utara",l:3,s:20,st:"Tahap 20",tahap:"Permohonan penetapan pengakhiran kepailitan",kel:"Penetapan pengakhiran kepailitan",ket:"Harta tercatat: tanah dan bangunan serta 2 kendaraan, seluruhnya terjual. Jumlah tagihan: Rp2.754.273.955. Kegiatan pokok tercatat: permohonan pengakhiran 10 Januari 2024; permohonan pengakhiran 9 Maret 2026 dan rapat kreditor 20 Mei 2026."},
+    {id:"bad",n:"Badaruddin HSB",sn:"Badaruddin",full:"Badaruddin HSB bin Multen Hasibuan",no:"7/Pdt.Sus-Pailit/2018/PN Niaga Mdn",d:"2018-12-20",pem:"Debitor sendiri",dom:"Aceh Singkil, Aceh",l:1,s:12,st:"Tahap 12",tahap:"Inventarisasi aset dan sita umum",kel:"daftar inventaris aset dan laporan",ket:"Harta tercatat: 1 tanah dan bangunan, nilai pasar Rp928.100.000 (2025). Jumlah tagihan: Rp2.296.429.207. Kegiatan pokok tercatat: rapat kreditor lanjutan 28 Mei 2025 dan penilaian aset 17 Desember 2025."},
+    {id:"sup",n:"Suparjo Rustam",sn:"Suparjo",no:"8/Pdt.Sus-Pailit/2019/PN Niaga Mdn",d:"2019-11-08",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",l:1,s:13,st:"Tahap 13",tahap:"Penawaran Penilai Publik atas aset pailit",kel:"dokumen penawaran appraisal",ket:"Harta tercatat: 1 kendaraan, belum dinilai. Jumlah tagihan: Rp276.763.100. Kegiatan pokok tercatat: laporan 16 April 2026."},
+    {id:"rim",n:"PT Rimba Cipta Niaga",full:"PT Rimba Cipta Niaga (Direktur Hermanto)",sn:"Rimba Cipta",no:"2/Pdt.Sus-Pailit/2020/PN Niaga Mdn",d:"2020-03-12",pem:"Debitor sendiri",dom:"Medan, Sumatera Utara",l:1,s:13,st:"Tahap 13",tahap:"Penawaran Penilai Publik atas aset pailit",kel:"dokumen penawaran appraisal",ket:"Harta tercatat: 2 unit portable camp dan 1 alat pengupas kayu, belum dinilai. Jumlah tagihan: Rp0. Kegiatan pokok tercatat: laporan pengurusan 5 Desember 2025."},
+    {id:"rat",n:"PT Rata Makmur",sn:"Rata Makmur",no:"33/Pdt.Sus-PKPU/2022/PN Niaga Mdn",d:"2023-04-10",pem:"Samin K dan kawan-kawan (eks pekerja)",dom:"Medan dan Langkat, Sumatera Utara",l:2,s:18,st:"Tahap 18",tahap:"Pembayaran kepada kreditur dan penyetoran PNBP",kel:"bukti pembayaran kreditur melalui transfer",ket:"Harta tercatat: uang tunai Rp170.000.000 dari debitor. Jumlah tagihan: Rp1.432.871.696. Kegiatan pokok tercatat: laporan pembagian harta 1 Juli 2025 dan rapat kreditor 10 Desember 2025."},
+    {id:"kso",n:"KSO Maju Abadi",sn:"KSO Maju Abadi",full:"KSO PT Maju Abadi Jaya Utama dan PT Kurnia Putra Maduma",no:"6/Pdt.Sus-Pailit/2023/PN Niaga Mdn jo. 1123 K/Pdt.Sus-Pailit/2023",d:"2023-10-17",pem:"Koperasi Yantek Maju Bersama dan kawan-kawan",dom:"Medan, Sumatera Utara",l:0,s:11,st:"Tahap 11",tahap:"Rapat verifikasi tagihan",kel:"notulen rapat verifikasi",ket:"Harta tercatat: kas Rp9.958.982.128. Jumlah tagihan: Rp4.288.085.405. Kegiatan pokok tercatat: pengumuman 10 Januari 2024, rapat kreditor Januari dan Februari 2024, daftar piutang sementara dan daftar piutang dibantah 22 Maret 2024."},
+    {id:"fra",n:"Frans Winner",no:"12/Pdt.Sus-Pailit/2025/PN Niaga Mdn",d:"2025-12-11",pem:"Salim Hadi Saputra dan Maratur P. Siregar",dom:"Medan, Sumatera Utara",l:1,s:12,st:"Tahap 12 dan 13",tahap:"Inventarisasi aset dan penawaran Penilai Publik",kel:"daftar inventaris aset; dokumen penawaran appraisal",ket:"Harta tercatat: 143 item barang, belum dinilai. Jumlah tagihan: Rp8.700.288.134. Kegiatan pokok tercatat: putusan pailit 11 Desember 2025; pengumuman 16 Januari, rapat kreditor 28 Januari dan 23 Februari, pencatatan harta 29 Januari 2026."}
   ];
 
   // ===== LAYAR 2: papan fase perkara =====
@@ -907,7 +907,7 @@ body.lp-on{overflow:hidden}
     d.innerHTML="<div class='eyebrow'>Rincian perkara</div><h2>"+(c.full||c.n)+"</h2><div class='no'>"+c.no+" · "+c.dom+"</div>"+
       "<div class='kv'><b>Putusan pailit</b><span>"+tgl(c.d)+"</span><b>Pemohon</b><span>"+c.pem+"</span><b>Posisi di SOP</b><span class='big'>"+c.st+"</span><b>Kegiatan</b><span>"+c.tahap+"</span><b>Output</b><span>"+c.kel+"</span></div>"+
       "<div class='ratio'><i id='ratioBar'></i></div><div class='ratio-l'><span>Kemajuan menurut 21 tahap SOP Kepailitan</span><b>tahap "+c.s+" dari 21</b></div>"+
-      "<div class='lesson'><b>Keterangan tugas kurator</b>"+c.ket+"</div>";
+      "<div class='lesson'><b>Harta, tagihan, dan kegiatan tercatat (Lampiran I)</b>"+c.ket+"</div>";
     requestAnimationFrame(function(){requestAnimationFrame(function(){document.getElementById("ratioBar").style.width=Math.round(c.s/21*100)+"%"})});
   }
 
@@ -918,7 +918,7 @@ body.lp-on{overflow:hidden}
     ["2025-07-07","CV Sukses Jaya Perkasa","8/Pdt.Sus-Pailit/2025","Debitor sendiri","Benjamin Parsaoran Manurung",0],
     ["2025-10-24","PT Golden Gate Mandiri","10/Pdt.Sus-Pailit/2025","Soeryo Soemirat","Haris Marselius Perangin-angin",0],
     ["2025-11-21","PT Jasa Rahayu Gumpueng","19/Pdt.Sus-PKPU/2025","Edgar Handoko","Susy Tan",0],
-    ["2025-11-27","CV Riau Sukses Abadi dan Sukrianto","11/Pdt.Sus-Pailit/2025","PT Sicoma Indo Perkasa","-",0],
+    ["2025-11-27","CV Riau Sukses Abadi dan Sukrianto","11/Pdt.Sus-Pailit/2025","PT Sicoma Indo Perkasa","Dalam upaya hukum kasasi",0],
     ["2025-12-11","Frans Winner","12/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","",1],
     ["2025-12-16","PT Usaha Sepakat Maju Bersama","9/Pdt.Sus-PKPU/2025","PT Fairbanc Technologies Indonesia","Lutfy Mubarok",0],
     ["2025-12-29","PT Riau Crumb Rubber Factory","13/Pdt.Sus-Pailit/2025","Buha Togatorop","Binsar Simbolon",0],
@@ -936,13 +936,14 @@ body.lp-on{overflow:hidden}
     ["6/Pdt.Sus-Pailit/2025","Muhammad Arif dan kawan","PT PD Paya Pinang","Dicabut",""],
     ["7/Pdt.Sus-Pailit/2025","Adi dan kawan","PT Agro Rubberindo Industry","Ditolak",""],
     ["9/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","Frans Winner dan PT Cahaya Berjaya Sejahtera","Dicabut","13 Oktober 2025; diajukan kembali sebagai 12/Pdt.Sus-Pailit/2025"],
-    ["12/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","Frans Winner","Dikabulkan","11 Desember 2025; BHP Medan diangkat"],
-    ["22/Pdt.Sus-PKPU/2026","Susi Angelica Br Situmeang","Asman","Ditolak","8 Juni 2026; menunjuk BHP sebagai pengurus dan kurator"],
+    ["11/Pdt.Sus-Pailit/2025","PT Sicoma Indo Perkasa","CV Riau Sukses Abadi dan Sukrianto","Kasasi","Dikabulkan 27 November 2025; dalam upaya hukum kasasi"],
+    ["12/Pdt.Sus-Pailit/2025","Salim Hadi Saputra dan kawan","Frans Winner","Dikabulkan","11 Desember 2025; BHP Medan ditunjuk"],
+    ["22/Pdt.Sus-PKPU/2026","Susi Angelica Br Situmeang","Asman","Ditolak","8 Juni 2026; meminta BHP sebagai pengurus dan kurator"],
     ["3/Pdt.Sus-Pailit/2026","Jamilah dan kawan-kawan","PT Sinar Mulia Muara Sentosa","Dicabut","6 Juli 2026"],
     ["5/Pdt.Sus-Pailit/2026","Taufik Ritonga dan 8 pemohon lain","PT Sinar Bandar Indotama","Ditolak","28 Agustus 2026"],
-    ["4/Pdt.Sus-Pailit/2026","PT Waskita Karya (Persero) Tbk","PT Makmur Permata Putra","Masih diperiksa","Masih dalam persidangan"]
+    ["4/Pdt.Sus-Pailit/2026","PT Waskita Karya (Persero) Tbk","PT Makmur Permata Putra","Masih diperiksa","Meminta kurator dari BHP Medan; masih dalam persidangan"]
   ];
-  var cmpData=[["Permohonan pailit teregister",14,6],["Permohonan PKPU teregister",51,38],["Putusan pailit (termasuk PKPU berakhir pailit)",9,7],["Kurator perseorangan diangkat",7,7],["BHP Medan diangkat",1,0],["Permohonan menunjuk BHP",6,4]];
+  var cmpData=[["Permohonan pailit teregister",14,6],["Permohonan PKPU teregister",51,38],["Putusan pailit (termasuk PKPU berakhir pailit)",9,7],["Kurator perseorangan diangkat",7,7],["BHP Medan diangkat",1,0],["Permohonan yang meminta BHP dalam petitum",7,4]];
   function drawCmp(){var svg=document.getElementById("cCmp");svg.innerHTML="";var narrow=svg.parentElement.clientWidth<620,W=narrow?440:800,L=narrow?10:330,T=10,rowH=narrow?74:54,max=52,R=70,sx=(W-L-R)/max;
     cmpData.forEach(function(d,i){var y=T+i*rowH;var g=el("g",{},svg);
       if(narrow){txt(g,{x:L,y:y+14,"font-size":13,"font-weight":700,fill:C.ink},d[0]);y+=20}else txt(g,{x:L-12,y:y+rowH/2+2,"text-anchor":"end","font-size":14,"font-weight":600,fill:C.ink},d[0]);
@@ -951,7 +952,7 @@ body.lp-on{overflow:hidden}
       tween(900,i*80,function(p){r1.setAttribute("width",d[1]*sx*p);a.setAttribute("x",L+d[1]*sx*p+6);r2.setAttribute("width",d[2]*sx*p);b.setAttribute("x",L+d[2]*sx*p+6)});
       g.addEventListener("pointermove",function(e){showTip("<b>"+d[0]+"</b><div>2025: "+d[1]+"</div><div>2026 sampai 2 Oktober: "+d[2]+"</div>",e.clientX,e.clientY)});g.addEventListener("pointerleave",hideTip)});
     svg.setAttribute("viewBox","0 0 "+W+" "+(T+cmpData.length*rowH+6))}
-  var groups=[["Dikabulkan","BHP diangkat",C.maroon],["Dicabut","Dicabut","#FFE68A"],["Ditolak","Ditolak","#F2A1A1"],["Masih diperiksa","Masih diperiksa","#C9D3EA"]];
+  var groups=[["Dikabulkan","Dikabulkan, BHP ditunjuk",C.maroon],["Kasasi","Dikabulkan, dalam kasasi","#7C93D1"],["Dicabut","Dicabut","#FFE68A"],["Ditolak","Ditolak","#F2A1A1"],["Masih diperiksa","Masih diperiksa","#C9D3EA"]];
   var donutSel=null,tabSel="v";
   function drawDonut(anim){var svg=document.getElementById("cDonut");svg.innerHTML="";var cx=130,cy=130,r=100,ri=62,tot=requests.length,a0=-Math.PI/2;
     groups.forEach(function(gr){var n=requests.filter(function(q){return q[3]===gr[0]}).length;if(!n)return;var a1=a0+n/tot*2*Math.PI;
@@ -961,13 +962,13 @@ body.lp-on{overflow:hidden}
       path.addEventListener("click",function(){donutSel=donutSel===gr[0]?null:gr[0];tabSel="r";document.querySelectorAll("[data-tab]").forEach(function(x){x.setAttribute("aria-pressed",x.dataset.tab==="r"?"true":"false")});drawDonut(false);drawTable()});
       path.addEventListener("pointermove",function(e){showTip("<b>"+gr[1]+"</b><div>"+n+" dari "+tot+" permohonan</div>",e.clientX,e.clientY)});path.addEventListener("pointerleave",hideTip);
       a0=a1});
-    txt(svg,{x:cx,y:cy+2,"text-anchor":"middle","font-size":44,"font-weight":800,fill:C.maroon},"1");txt(svg,{x:cx,y:cy+26,"text-anchor":"middle","font-size":13,fill:C.muted},"dari 10 dikabulkan");
+    txt(svg,{x:cx,y:cy+2,"text-anchor":"middle","font-size":44,"font-weight":800,fill:C.maroon},"1");txt(svg,{x:cx,y:cy+26,"text-anchor":"middle","font-size":13,fill:C.muted},"dari "+tot+" BHP ditunjuk");
     document.getElementById("lgDonut").innerHTML=groups.map(function(gr){var n=requests.filter(function(q){return q[3]===gr[0]}).length;return n?"<span><i style='background:"+gr[2]+"'></i>"+gr[1]+" ("+n+")</span>":""}).join("")}
   function drawTable(){var t=document.getElementById("tbl"),q=(document.getElementById("q").value||"").toLowerCase();
     if(tabSel==="v"){var rows=verdicts.filter(function(v){return v.join(" ").toLowerCase().indexOf(q)>=0});
       t.innerHTML="<thead><tr><th>Putusan</th><th>Debitor</th><th>Nomor perkara</th><th>Pemohon</th><th>Kurator yang diangkat</th></tr></thead><tbody>"+rows.map(function(v){return "<tr"+(v[5]?" class='bhp'":"")+"><td>"+tgl(v[0])+"</td><td class='b'>"+v[1]+"</td><td>"+v[2]+"</td><td>"+v[3]+"</td><td>"+(v[5]?"<span class='pill ok'>BHP Medan</span> "+v[4].replace(/^BHP Medan;?\s*/,""):v[4])+"</td></tr>"}).join("")+"</tbody>"}
     else{var rows2=requests.filter(function(r){return (!donutSel||r[3]===donutSel)&&r.join(" ").toLowerCase().indexOf(q)>=0});
-      t.innerHTML="<thead><tr><th>Nomor perkara</th><th>Pemohon</th><th>Termohon</th><th>Hasil</th><th>Keterangan</th></tr></thead><tbody>"+rows2.map(function(r){var cls=r[3]==="Dikabulkan"?"ok":r[3]==="Ditolak"?"no":r[3]==="Dicabut"?"cb":"wt";return "<tr><td>"+r[0]+"</td><td class='b'>"+r[1]+"</td><td>"+r[2]+"</td><td><span class='pill "+cls+"'>"+r[3]+"</span></td><td>"+r[4]+"</td></tr>"}).join("")+"</tbody>"}}
+      t.innerHTML="<thead><tr><th>Nomor perkara</th><th>Pemohon</th><th>Termohon</th><th>Hasil</th><th>Keterangan</th></tr></thead><tbody>"+rows2.map(function(r){var cls=r[3]==="Dikabulkan"||r[3]==="Kasasi"?"ok":r[3]==="Ditolak"?"no":r[3]==="Dicabut"?"cb":"wt";return "<tr><td>"+r[0]+"</td><td class='b'>"+r[1]+"</td><td>"+r[2]+"</td><td><span class='pill "+cls+"'>"+r[3]+"</span></td><td>"+r[4]+"</td></tr>"}).join("")+"</tbody>"}}
   document.querySelectorAll("[data-tab]").forEach(function(b){b.addEventListener("click",function(){tabSel=b.dataset.tab;donutSel=null;document.querySelectorAll("[data-tab]").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});drawDonut();drawTable()})});
   document.getElementById("q").addEventListener("input",drawTable);
 
@@ -1235,7 +1236,7 @@ body.lp-on{overflow:hidden}
       "Kewenangan Balai Harta Peninggalan sebagai Kurator dan Pengurus bersumber dari Undang-Undang ini dan tidak memerlukan izin atau pendaftaran.",
       "Tugas Kurator dan Pengurus pada Balai Harta Peninggalan dilaksanakan oleh pegawai aparatur sipil negara yang menduduki jabatan fungsional Kurator Keperdataan.",
       "Dalam hal Balai Harta Peninggalan menjalankan tugas keperdataan dan tugas Kurator dalam perkara yang sama, masing-masing tugas dilaksanakan oleh pejabat yang berbeda dan dipertanggungjawabkan secara terpisah."]},
-    {t:"Penugasan Balai Harta Peninggalan pada Perkara Tertentu",tb:"Penugasan BHP pada Perkara Tertentu",s:"Perkara tertentu",ans:"Saran 2 dan 3: kriteria perkara yang menjadi kewenangan khusus BHP sekaligus larangan bagi kurator perseorangan; ayat (4) selaras dengan kriteria dan tata cara penunjukan dalam RUU Kepailitan dan PKPU.",ay:[
+    {t:"Penugasan Balai Harta Peninggalan pada Perkara Tertentu",tb:"Penugasan BHP pada Perkara Tertentu",s:"Perkara tertentu",ans:"Saran 2 dan 3: kriteria perkara yang menjadi kewenangan khusus BHP; ayat (3) selaras dengan kriteria dan tata cara penunjukan dalam RUU Kepailitan dan PKPU.",ay:[
       ["Pengadilan wajib mengangkat Balai Harta Peninggalan sebagai Kurator atau Pengurus dalam hal:",[
         "Debitor telah meninggal dunia dan tidak terdapat ahli waris atau harta peninggalannya tidak terurus;",
         "Debitor tidak diketahui tempat tinggal atau keberadaannya;",
@@ -1243,7 +1244,6 @@ body.lp-on{overflow:hidden}
         "harta Debitor bernilai kecil;",
         "permohonan diajukan oleh pekerja; atau",
         "Kurator atau Pengurus berhenti, diberhentikan, atau meninggal dunia, dan tidak terdapat usulan pengganti yang memenuhi syarat."]],
-      "Dalam perkara sebagaimana dimaksud pada ayat (1), Kurator atau Pengurus orang perseorangan tidak dapat diangkat sebagai Kurator atau Pengurus.",
       "Di luar perkara sebagaimana dimaksud pada ayat (1), Pengadilan mengangkat Kurator atau Pengurus berdasarkan usulan pemohon.",
       "Kriteria rinci dan tata cara penunjukan sebagaimana dimaksud pada ayat (1) diatur dalam Undang-Undang mengenai kepailitan dan penundaan kewajiban pembayaran utang."]}
   ];
