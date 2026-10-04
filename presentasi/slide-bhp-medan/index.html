@@ -809,8 +809,8 @@ body.lp-on{overflow:hidden}
       </div>
       <div class="jk">
         <p class="lbl">Dua hal yang belum diatur</p>
-        <div><i>1</i>Cara membagi imbalan dan tanggung jawab antara BHP dan kurator perseorangan.<span class="r">Rekomendasi: perlu ada aturan yang secara tegas mengatur pembagian imbalan jasa tersebut.</span><button class="pz" data-lp="0" data-hl="0,1"><i></i>Pasal 1 ayat (1) dan (2)</button></div>
-        <div><i>2</i>Kewajiban menyerahkan berkas dan data ketika perkara PKPU yang diurus kurator perseorangan berakhir pailit dan diteruskan kepada kurator lain.<span class="r">Rekomendasi: BHP juga ditunjuk sebagai pengurus.</span><button class="pz" data-lp="0" data-hl="2"><i></i>Pasal 1 ayat (3)</button></div>
+        <div><i>1</i>Cara membagi imbalan dan tanggung jawab antara BHP dan kurator perseorangan.<span class="r">Rekomendasi: perlu ada aturan yang secara tegas mengatur pembagian imbalan jasa tersebut.</span><button class="pz" data-lp="0" data-hl="0,1"><i></i>Pasal A ayat (1) dan (2)</button></div>
+        <div><i>2</i>Kewajiban menyerahkan berkas dan data ketika perkara PKPU yang diurus kurator perseorangan berakhir pailit dan diteruskan kepada kurator lain.<span class="r">Rekomendasi: BHP juga ditunjuk sebagai pengurus.</span><button class="pz" data-lp="0" data-hl="2"><i></i>Pasal A ayat (3)</button></div>
       </div>
     </div>
     <div class="wajib card">
@@ -827,15 +827,15 @@ body.lp-on{overflow:hidden}
         <div>
           <div class="eyebrow" style="margin-bottom:10px">Saran: RUU Profesi Kurator memuat</div>
           <ol class="sr2">
-            <li><span>Pengaturan secara tegas mengenai pembagian imbalan jasa antara BHP dan kurator perseorangan dalam tugas bersama, serta kewenangan BHP untuk ditunjuk sebagai pengurus dalam PKPU.</span><span class="pzs"><button class="pz" data-lp="0" data-hl="0,1,2"><i></i>Pasal 1</button></span></li>
-            <li><span>Pengakuan kedudukan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan, penetapan kriteria perkara yang menjadi kewenangan khusus BHP sekaligus larangan bagi kurator perseorangan, serta pemisahan pertanggungjawaban BHP sebagai kurator dan sebagai pelaksana tugas keperdataan.</span><span class="pzs"><button class="pz" data-lp="1" data-hl="0,3"><i></i>Pasal 2</button><button class="pz" data-lp="2" data-hl="0,1"><i></i>Pasal 3</button></span></li>
-            <li><span>Rumusan pasal yang menjadi dasar penugasan wajib BHP pada perkara tertentu, yang selaras dengan kriteria dan tata cara penunjukan dalam RUU Kepailitan dan PKPU.</span><span class="pzs"><button class="pz" data-lp="2" data-hl="3"><i></i>Pasal 3 ayat (4)</button></span></li>
+            <li><span>Pengaturan secara tegas mengenai pembagian imbalan jasa antara BHP dan kurator perseorangan dalam tugas bersama, serta kewenangan BHP untuk ditunjuk sebagai pengurus dalam PKPU.</span><span class="pzs"><button class="pz" data-lp="0" data-hl="0,1,2"><i></i>Pasal A</button></span></li>
+            <li><span>Pengakuan kedudukan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan, penetapan kriteria perkara yang menjadi kewenangan khusus BHP sekaligus larangan bagi kurator perseorangan, serta pemisahan pertanggungjawaban BHP sebagai kurator dan sebagai pelaksana tugas keperdataan.</span><span class="pzs"><button class="pz" data-lp="1" data-hl="0,3"><i></i>Pasal B</button><button class="pz" data-lp="2" data-hl="0,1"><i></i>Pasal C</button></span></li>
+            <li><span>Rumusan pasal yang menjadi dasar penugasan wajib BHP pada perkara tertentu, yang selaras dengan kriteria dan tata cara penunjukan dalam RUU Kepailitan dan PKPU.</span><span class="pzs"><button class="pz" data-lp="2" data-hl="3"><i></i>Pasal C ayat (4)</button></span></li>
           </ol>
         </div>
         <div class="lp-pick">
-          <div class="hd"><div><small>Lampiran II</small><b>Contoh rumusan pasal RUU tentang Profesi Kurator</b></div><span class="lp-live"><i></i>3 PASAL</span></div>
+          <div class="hd"><div><small>Lampiran II</small><b>Contoh rumusan pasal RUU tentang Profesi Kurator</b></div><span class="lp-live"><i></i>3 USULAN</span></div>
           <div class="lp-thumbs" id="lpThumbs"></div>
-          <div class="ht">Ketuk lembar untuk membaca rumusan pasalnya.</div>
+          <div class="ht">Ketuk lembar untuk membaca rumusan pasalnya. Nomor pasal menyesuaikan sistematika RUU.</div>
         </div>
       </div>
     </div>
@@ -1247,20 +1247,21 @@ body.lp-on{overflow:hidden}
       "Di luar perkara sebagaimana dimaksud pada ayat (1), Pengadilan mengangkat Kurator atau Pengurus berdasarkan usulan pemohon.",
       "Kriteria rinci dan tata cara penunjukan sebagaimana dimaksud pada ayat (1) diatur dalam Undang-Undang mengenai kepailitan dan penundaan kewajiban pembayaran utang."]}
   ];
+  var LPN=["A","B","C"];
   var LP_HL=[[0,1,2],[0,3],[0,1]];
   var lp=document.getElementById("lp"),lpBody=document.getElementById("lpBody"),lpTabs=document.getElementById("lpTabs"),lpCopy=document.getElementById("lpCopy"),lpSel=0,lpBack=null;
   document.getElementById("lpLogo").src=LOGO;
   function abc(i){return String.fromCharCode(97+i)+"."}
   // thumbnail: lembar mini berkedip, garis emas = ayat yang dibahas di layar ini
   (function(){var w=document.getElementById("lpThumbs");
-    PASAL.forEach(function(p,i){var b=document.createElement("button");b.className="th";b.dataset.lp=i;b.setAttribute("aria-label","Buka Usulan Pasal "+(i+1)+": "+p.t);
+    PASAL.forEach(function(p,i){var b=document.createElement("button");b.className="th";b.dataset.lp=i;b.setAttribute("aria-label","Buka Usulan Pasal "+LPN[i]+": "+p.t);
       var lines="";p.ay.forEach(function(a,k){var g=LP_HL[i].indexOf(k)>=0?" class='g'":"";var n=typeof a==="string"?(a.length>150?2:1):3;for(var j=0;j<n;j++)lines+="<i"+g+" style='width:"+(j===n-1?55+((k*17+i*11)%35):100)+"%'></i>"});
-      b.innerHTML="<span class='tg'>Usulan</span><span class='pn'>Pasal "+(i+1)+"</span><span class='tt'>"+p.s+"</span><span class='ln'>"+lines+"</span><span class='op'><i></i>BUKA</span>";
+      b.innerHTML="<span class='tg'>Usulan</span><span class='pn'>Pasal "+LPN[i]+"</span><span class='tt'>"+p.s+"</span><span class='ln'>"+lines+"</span><span class='op'><i></i>BUKA</span>";
       b.addEventListener("click",function(){openLp(i,LP_HL[i],b)});w.appendChild(b)})})();
-  PASAL.forEach(function(p,i){var b=document.createElement("button");b.setAttribute("role","tab");b.innerHTML="<i>"+(i+1)+"</i><span><small>Usulan Pasal "+(i+1)+"</small><span class='lg'>"+p.tb+"</span><em>"+p.s+"</em></span>";b.addEventListener("click",function(){renderLp(i,[])});lpTabs.appendChild(b)});
+  PASAL.forEach(function(p,i){var b=document.createElement("button");b.setAttribute("role","tab");b.innerHTML="<i>"+LPN[i]+"</i><span><small>Usulan Pasal "+LPN[i]+"</small><span class='lg'>"+p.tb+"</span><em>"+p.s+"</em></span>";b.addEventListener("click",function(){renderLp(i,[])});lpTabs.appendChild(b)});
   function renderLp(i,hl){lpSel=i;var p=PASAL[i];
     lpTabs.querySelectorAll("button").forEach(function(b,k){b.setAttribute("aria-selected",k===i?"true":"false")});
-    var h="<div class='lp-k'>Usulan Pasal "+(i+1)+"</div><h2 class='lp-h'>"+p.t+"</h2><div class='lp-ans'><b>Menjawab</b><span>"+p.ans+"</span></div><ol class='lp-ol'>";
+    var h="<div class='lp-k'>Usulan Pasal "+LPN[i]+"</div><h2 class='lp-h'>"+p.t+"</h2><div class='lp-ans'><b>Menjawab</b><span>"+p.ans+"</span></div><ol class='lp-ol'>";
     p.ay.forEach(function(a,k){var tx=typeof a==="string"?a:a[0];
       h+="<li style='--i:"+k+"'"+(hl.indexOf(k)>=0?" class='hl'":"")+"><span class='n'>("+(k+1)+")</span><div><span class='tx'>"+tx+"</span>";
       if(typeof a!=="string")h+="<ol>"+a[1].map(function(x,j){return "<li><b>"+abc(j)+"</b><span><span class='tx'>"+x+"</span></span></li>"}).join("")+"</ol>";
@@ -1273,7 +1274,7 @@ body.lp-on{overflow:hidden}
       if(first)setTimeout(function(){var r=first.getBoundingClientRect(),br=lpBody.getBoundingClientRect();if(r.bottom>br.bottom||r.top<br.top)lpBody.scrollTo({top:first.offsetTop-24,behavior:reduce?"auto":"smooth"})},350)})})}
   function openLp(i,hl,from){lpBack=from||document.activeElement;renderLp(i,hl||[]);lp.hidden=false;document.body.classList.add("lp-on");hideTip();setTimeout(function(){lp.querySelector(".lp-x").focus()},30)}
   function closeLp(){if(lp.hidden)return;lp.hidden=true;document.body.classList.remove("lp-on");if(lpBack&&lpBack.focus)lpBack.focus()}
-  function lpText(i){var p=PASAL[i],s="Usulan Pasal "+(i+1)+"\n("+p.t+")\n";p.ay.forEach(function(a,k){if(typeof a==="string")s+="("+(k+1)+") "+a+"\n";else{s+="("+(k+1)+") "+a[0]+"\n";a[1].forEach(function(x,j){s+="    "+abc(j)+" "+x+"\n"})}});return s.trim()}
+  function lpText(i){var p=PASAL[i],s="Usulan Pasal "+LPN[i]+"\n("+p.t+")\n";p.ay.forEach(function(a,k){if(typeof a==="string")s+="("+(k+1)+") "+a+"\n";else{s+="("+(k+1)+") "+a[0]+"\n";a[1].forEach(function(x,j){s+="    "+abc(j)+" "+x+"\n"})}});return s.trim()}
   lpCopy.addEventListener("click",function(){var s=lpText(lpSel);function ok(){lpCopy.textContent="Tersalin ✓";lpCopy.classList.add("ok");setTimeout(function(){lpCopy.textContent="Salin pasal";lpCopy.classList.remove("ok")},1800)}
     function fb(){var ta=document.createElement("textarea");ta.value=s;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(ta)}
     if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(s).then(ok,fb);else fb()});
