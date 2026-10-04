@@ -741,7 +741,7 @@ body.lp-on{overflow:hidden}
           <button class="tile" data-go="1"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="ring1" cx="60" cy="60" r="52"/></svg><div class="tn"><b data-count="9">0</b><span>perkara kepailitan sedang ditangani</span></div></button>
           <button class="tile wide" data-go="1"><div class="tn"><b><span data-count="21">0</span><small>tahap SOP</small></b><span>sembilan perkara kini berada antara tahap 11 dan tahap 20 SOP Kepailitan</span></div><div class="mini" id="miniBars"></div></button>
           <button class="tile" data-go="3"><div class="dots9" id="dots9"></div><div class="tn"><b><span data-count="6">0</span><small>SOP</small></b><span>satu SOP Kepailitan dan lima SOP mikro menurut SK Kepala BHP Medan</span></div></button>
-          <button class="tile" data-go="2"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg gold" id="ring2" cx="60" cy="60" r="52"/></svg><div class="tn"><b><span data-count="109">0</span></b><span>permohonan pailit dan PKPU di PN Niaga Medan, 2025 sampai 2 Oktober 2026</span></div></button>
+          <button class="tile" data-go="2"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg gold" id="ring2" cx="60" cy="60" r="52"/></svg><div class="tn"><b><span data-count="16">0</span></b><span>putusan pailit di PN Niaga Medan, 2025 sampai 2 Oktober 2026; BHP ditunjuk 1 kali</span></div></button>
         </div>
         <div class="race card-dark"><div class="race-h"><span>Posisi perkara pada tahap SOP Kepailitan</span><span class="unit">21 tahap</span></div><div id="race"></div></div>
         <div class="ticker" id="ticker"><span class="tk-k">Perkara</span><span class="tk-t" id="tkT"></span></div>
@@ -769,9 +769,9 @@ body.lp-on{overflow:hidden}
   <section class="scene" data-scene="2">
     <div class="eyebrow">Penunjukan Kurator · PN Niaga Medan 2025 dan 2026</div>
     <h1>Penunjukan kurator di <mark>Pengadilan Niaga Medan.</mark></h1>
-    <p class="lead">Seluruh perkara pailit dan PKPU di Pengadilan Niaga Medan 2025 dan 2026 (sampai 2 Oktober 2026). Sumber: SIPP PN Medan.</p>
+    <p class="lead">Putusan pailit di Pengadilan Niaga Medan 2025 dan 2026 (sampai 2 Oktober 2026), termasuk PKPU yang berakhir pailit. Dihitung per putusan pailit. Sumber: Buku Register Kepailitan BHP Medan dan SIPP PN Medan, diolah.</p>
     <div class="grid g2">
-      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan teregister</div><h2 class="h2">2025 dibanding 2026</h2>
+      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Putusan pailit dan kurator yang ditunjuk</div><h2 class="h2">2025 dibanding 2026</h2>
         <svg class="chart" id="cCmp" viewBox="0 0 800 360" role="img" aria-label="Perbandingan 2025 dan 2026"></svg>
         <div class="legend"><span><i style="background:var(--cream-2)"></i>2025</span><span><i style="background:var(--maroon)"></i>2026 sampai 2 Oktober</span></div></div>
       <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan yang meminta BHP dalam petitum</div><h2 class="h2">11 permohonan meminta BHP</h2>
@@ -782,7 +782,7 @@ body.lp-on{overflow:hidden}
       <div class="chips"><button class="chip" data-tab="v" aria-pressed="true">Putusan pailit dan kurator</button><button class="chip" data-tab="r" aria-pressed="false">11 permohonan meminta BHP</button><span style="flex:1"></span><input type="search" id="q" placeholder="Cari debitor, pemohon, atau kurator" aria-label="Cari" class="chip" style="min-width:260px;font-weight:600"></div>
       <div class="scroll"><table id="tbl" class="dt"></table></div>
     </div>
-    <div class="take"><span class="k">Intinya</span>Dari 109 permohonan pailit dan PKPU di Pengadilan Niaga Medan sepanjang 2025 sampai 2 Oktober 2026, 11 meminta BHP sebagai kurator dalam petitum, dan BHP Medan ditunjuk pada satu perkara.</div>
+    <div class="take"><span class="k">Intinya</span>Dari 16 putusan pailit di Pengadilan Niaga Medan sepanjang 2025 sampai 2 Oktober 2026, BHP Medan ditunjuk satu kali (1 dari 9 pada 2025, 0 dari 7 pada 2026), padahal 11 permohonan meminta BHP dalam petitum.</div>
   </section>
 
   <!-- 4 SOP -->
@@ -965,7 +965,7 @@ body.lp-on{overflow:hidden}
     ["5/Pdt.Sus-Pailit/2026","Taufik Ritonga dan 8 pemohon lain","PT Sinar Bandar Indotama","Ditolak","28 Agustus 2026"],
     ["4/Pdt.Sus-Pailit/2026","PT Waskita Karya (Persero) Tbk","PT Makmur Permata Putra","Masih diperiksa","Meminta kurator dari BHP Medan; masih dalam persidangan"]
   ];
-  var cmpData=[["Permohonan pailit teregister",14,6],["Permohonan PKPU teregister",51,38],["Permohonan yang meminta BHP dalam petitum",7,4]];
+  var cmpData=[["Putusan pailit",9,7],["Kurator perseorangan ditunjuk",7,7],["Petitum meminta BHP",7,4],["BHP Medan ditunjuk",1,0]];
   function drawCmp(){var svg=document.getElementById("cCmp");svg.innerHTML="";var narrow=svg.parentElement.clientWidth<620,W=narrow?440:800,L=narrow?10:330,T=10,rowH=narrow?74:54,max=52,R=70,sx=(W-L-R)/max;
     cmpData.forEach(function(d,i){var y=T+i*rowH;var g=el("g",{},svg);
       if(narrow){txt(g,{x:L,y:y+14,"font-size":13,"font-weight":700,fill:C.ink},d[0]);y+=20}else txt(g,{x:L-12,y:y+rowH/2+2,"text-anchor":"end","font-size":14,"font-weight":600,fill:C.ink},d[0]);
