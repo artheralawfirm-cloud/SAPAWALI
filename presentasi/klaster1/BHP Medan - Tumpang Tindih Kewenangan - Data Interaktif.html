@@ -741,7 +741,7 @@ body.lp-on{overflow:hidden}
           <button class="tile" data-go="1"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="ring1" cx="60" cy="60" r="52"/></svg><div class="tn"><b data-count="9">0</b><span>perkara kepailitan sedang ditangani</span></div></button>
           <button class="tile wide" data-go="1"><div class="tn"><b><span data-count="21">0</span><small>tahap SOP</small></b><span>sembilan perkara kini berada antara tahap 11 dan tahap 20 SOP Kepailitan</span></div><div class="mini" id="miniBars"></div></button>
           <button class="tile" data-go="3"><div class="dots9" id="dots9"></div><div class="tn"><b><span data-count="6">0</span><small>SOP</small></b><span>satu SOP Kepailitan dan lima SOP mikro menurut SK Kepala BHP Medan</span></div></button>
-          <button class="tile" data-go="2"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg gold" id="ring2" cx="60" cy="60" r="52"/></svg><div class="tn"><b><span data-count="1">0</span><small>dari 16</small></b><span>putusan pailit 2025 dan 2026 menunjuk BHP</span></div></button>
+          <button class="tile" data-go="2"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg gold" id="ring2" cx="60" cy="60" r="52"/></svg><div class="tn"><b><span data-count="109">0</span></b><span>permohonan pailit dan PKPU di PN Niaga Medan, 2025 sampai 2 Oktober 2026</span></div></button>
         </div>
         <div class="race card-dark"><div class="race-h"><span>Posisi perkara pada tahap SOP Kepailitan</span><span class="unit">21 tahap</span></div><div id="race"></div></div>
         <div class="ticker" id="ticker"><span class="tk-k">Perkara</span><span class="tk-t" id="tkT"></span></div>
@@ -771,18 +771,18 @@ body.lp-on{overflow:hidden}
     <h1>Penunjukan kurator di <mark>Pengadilan Niaga Medan.</mark></h1>
     <p class="lead">Seluruh perkara pailit dan PKPU di Pengadilan Niaga Medan 2025 dan 2026 (sampai 2 Oktober 2026). Sumber: SIPP PN Medan.</p>
     <div class="grid g2">
-      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan dan putusan</div><h2 class="h2">2025 dibanding 2026</h2>
+      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan teregister</div><h2 class="h2">2025 dibanding 2026</h2>
         <svg class="chart" id="cCmp" viewBox="0 0 800 360" role="img" aria-label="Perbandingan 2025 dan 2026"></svg>
-        <div class="legend"><span><i style="background:var(--cream-2)"></i>2025</span><span><i style="background:var(--maroon)"></i>2026 sampai 2 Oktober</span></div><p class="hint">Perkara 41/Pdt.Sus-PKPU/2025 yang diputus pailit pada 5 Maret 2026 dihitung pada kolom 2026.</p></div>
-      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan yang meminta BHP dalam petitum</div><h2 class="h2">11 permohonan, BHP ditunjuk pada 1</h2>
+        <div class="legend"><span><i style="background:var(--cream-2)"></i>2025</span><span><i style="background:var(--maroon)"></i>2026 sampai 2 Oktober</span></div></div>
+      <div class="card"><div class="eyebrow" style="margin-bottom:4px">Permohonan yang meminta BHP dalam petitum</div><h2 class="h2">11 permohonan meminta BHP</h2>
         <svg class="chart" id="cDonut" viewBox="0 0 320 260" role="img" aria-label="Hasil permohonan yang meminta BHP"></svg>
         <div class="legend" id="lgDonut"></div><p class="hint">Pilih bagian lingkaran untuk menyaring daftar di bawah.</p></div>
     </div>
     <div class="card" style="margin-top:18px">
-      <div class="chips"><button class="chip" data-tab="v" aria-pressed="true">16 putusan pailit</button><button class="chip" data-tab="r" aria-pressed="false">11 permohonan meminta BHP</button><span style="flex:1"></span><input type="search" id="q" placeholder="Cari debitor, pemohon, atau kurator" aria-label="Cari" class="chip" style="min-width:260px;font-weight:600"></div>
+      <div class="chips"><button class="chip" data-tab="v" aria-pressed="true">Putusan pailit dan kurator</button><button class="chip" data-tab="r" aria-pressed="false">11 permohonan meminta BHP</button><span style="flex:1"></span><input type="search" id="q" placeholder="Cari debitor, pemohon, atau kurator" aria-label="Cari" class="chip" style="min-width:260px;font-weight:600"></div>
       <div class="scroll"><table id="tbl" class="dt"></table></div>
     </div>
-    <div class="take"><span class="k">Intinya</span>BHP Medan hanya ditunjuk pada satu dari 16 putusan pailit di Pengadilan Niaga Medan sepanjang 2025 sampai 2 Oktober 2026.</div>
+    <div class="take"><span class="k">Intinya</span>Dari 109 permohonan pailit dan PKPU di Pengadilan Niaga Medan sepanjang 2025 sampai 2 Oktober 2026, 11 meminta BHP sebagai kurator dalam petitum, dan BHP Medan ditunjuk pada satu perkara.</div>
   </section>
 
   <!-- 4 SOP -->
@@ -965,7 +965,7 @@ body.lp-on{overflow:hidden}
     ["5/Pdt.Sus-Pailit/2026","Taufik Ritonga dan 8 pemohon lain","PT Sinar Bandar Indotama","Ditolak","28 Agustus 2026"],
     ["4/Pdt.Sus-Pailit/2026","PT Waskita Karya (Persero) Tbk","PT Makmur Permata Putra","Masih diperiksa","Meminta kurator dari BHP Medan; masih dalam persidangan"]
   ];
-  var cmpData=[["Permohonan pailit teregister",14,6],["Permohonan PKPU teregister",51,38],["Putusan pailit (termasuk PKPU berakhir pailit)",9,7],["Kurator perseorangan ditunjuk",7,7],["BHP Medan ditunjuk",1,0],["Permohonan yang meminta BHP dalam petitum",7,4]];
+  var cmpData=[["Permohonan pailit teregister",14,6],["Permohonan PKPU teregister",51,38],["Permohonan yang meminta BHP dalam petitum",7,4]];
   function drawCmp(){var svg=document.getElementById("cCmp");svg.innerHTML="";var narrow=svg.parentElement.clientWidth<620,W=narrow?440:800,L=narrow?10:330,T=10,rowH=narrow?74:54,max=52,R=70,sx=(W-L-R)/max;
     cmpData.forEach(function(d,i){var y=T+i*rowH;var g=el("g",{},svg);
       if(narrow){txt(g,{x:L,y:y+14,"font-size":13,"font-weight":700,fill:C.ink},d[0]);y+=20}else txt(g,{x:L-12,y:y+rowH/2+2,"text-anchor":"end","font-size":14,"font-weight":600,fill:C.ink},d[0]);
@@ -1330,7 +1330,7 @@ body.lp-on{overflow:hidden}
   })();
   function drawDash(){document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp);
     // cincin: terisi lalu satu titik cahaya mengorbit
-    setTimeout(function(){document.getElementById("ring1").style.strokeDashoffset=0;document.getElementById("ring2").style.strokeDashoffset=327*(1-1/16)},150);
+    setTimeout(function(){document.getElementById("ring1").style.strokeDashoffset=0;document.getElementById("ring2").style.strokeDashoffset=0},150);
     document.querySelectorAll('[data-scene="0"] .ring').forEach(function(r,k){if(r.querySelector(".orb"))return;var o=el("circle",{class:"orb"+(k?" g":""),cx:60,cy:60,r:52},r);o.style.animationDelay=(1.6+k*.4)+"s"});
     // batang mini: tumbuh lalu bernapas
     var mb=document.getElementById("miniBars"),per=LANES.map(function(L,li){return cases.filter(function(c){return c.l===li}).length}),mx=Math.max.apply(null,per);
