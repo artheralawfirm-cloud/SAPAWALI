@@ -619,6 +619,42 @@ body.lp-on{overflow:hidden}
   .lp-body{padding:18px 18px 8px}.lp-ol>li{grid-template-columns:34px minmax(0,1fr)}.lp-ol>li>.n{padding-left:4px}
   .lp-ft{padding:10px 12px;flex-wrap:wrap}.lp-ft .nb2{flex-basis:100%;order:-1}.lp-ft .copy{margin-right:auto}
 }
+
+/* ---------- layar 5 mengikuti narasi: dua kedudukan BHP, tugas bersama ---------- */
+.role .k{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;margin-bottom:6px}
+.role.bhp .k{color:var(--cream)}
+.role.priv .k{color:var(--gold-2)}
+.role .dh{margin-top:14px;padding-top:12px;font-size:13.5px;line-height:1.45}
+.role.bhp .dh{border-top:1px solid rgba(255,255,255,.22);color:var(--cream)}
+.role.priv .dh{border-top:1px solid var(--line);color:var(--muted)}
+.role .dh b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+.role.bhp .dh b{color:var(--gold)}
+.role.priv .dh b{color:var(--gold-2)}
+.role.priv h3{font-size:24px}
+.kv2{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.kv2 li{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:1px dashed var(--line);font-size:16px;font-weight:600}
+.kv2 li:last-child{border-bottom:0;padding-bottom:0}
+.kv2 li span{flex:none;max-width:48%;text-align:right;font-size:12.5px;font-weight:800;color:var(--maroon);background:var(--panel-2);border-radius:8px;padding:3px 8px}
+.role.mid .sep{display:grid;gap:8px}
+.role.mid .sep div{display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px}
+.role.mid .sep div::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--maroon);flex:none}
+.role.mid .mx{margin:4px 0 0;padding-top:12px;border-top:1px solid rgba(140,109,12,.35);font-size:14.5px;line-height:1.5;font-weight:600;text-align:left}
+.joint{margin-top:16px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:24px;align-items:stretch}
+.joint h2{font-size:24px;margin:0 0 8px;color:var(--maroon)}
+.joint p{margin:0;font-size:16.5px;line-height:1.55}
+.joint .js{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.joint .js div{flex:1;min-width:150px;padding:12px 14px;border-radius:16px;background:var(--panel-2)}
+.joint .js b{display:block;font-family:var(--fs);font-size:26px;color:var(--maroon);line-height:1.1}
+.joint .js small{font-size:13px;color:var(--muted);font-weight:600}
+.joint .jk{display:grid;gap:12px;align-content:center}
+.joint .jk>div{position:relative;padding:14px 16px 14px 58px;border-radius:16px;border:1px solid var(--gold);background:var(--cream);font-size:16px;line-height:1.5}
+.joint .jk>div>i{position:absolute;left:14px;top:14px;width:32px;height:32px;border-radius:10px;background:var(--maroon);color:var(--gold);font-style:normal;font-weight:800;display:grid;place-items:center}
+.joint .jk .r{display:block;margin-top:6px;font-size:14px;color:var(--gold-2);font-weight:700}
+.joint .jk .pz{margin:8px 0 0}
+.joint p.lbl{margin:0}
+.joint .lbl{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);font-weight:800}
+@media (max-width:1000px){.joint{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.kv2 li{flex-direction:column;gap:4px}.kv2 li span{max-width:none;text-align:left}.joint .jk>div{padding-left:52px}}
 </style>
 </head>
 <body>
@@ -717,14 +753,31 @@ body.lp-on{overflow:hidden}
   <!-- 5 PEMBAGIAN PERAN -->
   <section class="scene" data-scene="4">
     <div class="eyebrow">Pembagian Peran</div>
-    <h1>BHP dan kurator perseorangan: <mark>siapa mengerjakan apa.</mark></h1>
-    <p class="lead">Dalam perkara kepailitan, BHP bertugas sebagai kurator, sama seperti kurator perseorangan yang ditunjuk pengadilan. Tugas kurator ini dipisahkan dari tugas keperdataan BHP lainnya dalam hal dasar hukum, pelaksanaan, dan pertanggungjawaban, tetapi tetap dijalankan oleh lembaga yang sama.</p>
+    <h1>Satu lembaga, <mark>dua kedudukan.</mark></h1>
+    <p class="lead">Pemisahan perlu dilakukan karena peran BHP selaku kurator berbeda dengan tugas pokok dan fungsi BHP lainnya. Tugas kurator diatur dalam UU Kepailitan dan PKPU, sedangkan tugas dan fungsi BHP lainnya diatur dalam KUHPerdata.</p>
     <div class="roles">
-      <div class="role bhp"><h3>BHP</h3><div class="s">Kurator negara</div>
-        <ul><li>Berjalan sesuai SOP Kepailitan: putusan pengadilan › tim Kurator Keperdataan › pengurusan dan pemberesan di bawah Hakim Pengawas</li><li>Tim melapor per triwulan</li><li>Imbalan jasa disetor ke kas negara sebagai PNBP</li><li>Di luar kepailitan, BHP berkedudukan sebagai wali pengawas, pendamping pengawas, dan tugas lain menurut KUHPerdata, dengan dasar dan pertanggungjawaban yang terpisah</li></ul></div>
-      <div class="role mid"><div class="e">Sama</div><div>Sebagai kurator, ditunjuk pengadilan dan diawasi Hakim Pengawas</div><div>Dapat bekerja sama dalam satu perkara</div><div>PT Jasa Prima Mandiri: kurator BHP bekerja sama dengan kurator perseorangan; kerja sama berjalan baik dan pemberesan harta pailit tuntas</div></div>
-      <div class="role priv"><h3>Kurator perseorangan</h3><div class="s">Orang perseorangan yang ditunjuk pengadilan</div>
-        <ul><li>Perkara atas usulan pemohon</li><li>Dapat bekerja sama dengan kurator BHP dalam satu perkara</li><li>Kendala: belum ada aturan pembagian imbalan jasa dan tanggung jawab saat bekerja bersama BHP</li><li>Kendala komunikasi bila PKPU ditangani kurator perseorangan dan kepailitan oleh BHP; diusulkan BHP juga menjadi pengurus PKPU</li></ul></div>
+      <div class="role bhp"><div class="k">Kedudukan 1</div><h3>Kurator negara</h3><div class="s">BHP menurut UU Kepailitan dan PKPU</div>
+        <ul><li>Setelah ditunjuk pengadilan, Kepala BHP menugaskan tim Kurator Keperdataan</li><li>Tim mengurus harta pailit, menjualnya, lalu membagikan hasilnya kepada kreditor</li><li>Membuat laporan triwulan di bawah pengawasan Hakim Pengawas</li><li>Imbalan jasa disetor ke kas negara sebagai PNBP</li></ul>
+        <div class="dh"><b>Dasar hukum dan pengawasan</b>Pasal 1 angka 5, Pasal 15 ayat (2), Pasal 69 ayat (1), dan Pasal 70 ayat (1) UU Kepailitan. Dipertanggungjawabkan kepada Hakim Pengawas (Pasal 65 UU Kepailitan).</div></div>
+      <div class="role mid"><div class="e">Dipisah tegas</div>
+        <div class="sep"><div>Dasar hukum berbeda</div><div>Pengawas berbeda</div><div>Pertanggungjawaban terpisah</div></div>
+        <p class="mx">Bila dalam satu kepailitan ada tugas keperdataan, seperti debitor meninggal tanpa ahli waris atau kreditor yang tidak dapat ditemukan lagi, tugas itu dijalankan pejabat BHP sebagai pelaksana tugas keperdataan. Dengan begitu tidak ada kerancuan, misalnya mengenai siapa yang berhak atas sisa harta setelah utang dibayar.</p></div>
+      <div class="role priv"><div class="k">Kedudukan 2</div><h3>Pelaksana tugas keperdataan</h3><div class="s">BHP menurut KUHPerdata</div>
+        <ul class="kv2"><li>Wali pengawas dalam perwalian anak<span>Pasal 366 KUHPerdata</span></li><li>Pengampu pengawas dalam pengampuan<span>Pasal 449 KUHPerdata</span></li><li>Pengurus harta orang yang tidak hadir<span>Pasal 463 KUHPerdata</span></li><li>Pengurus harta peninggalan tak terurus<span>Pasal 1126 dan 1127 KUHPerdata</span></li><li>Penatausahaan uang pihak ketiga<span>Permenkumham Nomor 7 Tahun 2021</span></li></ul>
+        <div class="dh"><b>Pertanggungjawaban</b>Menurut KUHPerdata dan melalui pembinaan Kementerian, bersama pengadilan untuk perwalian, pengampuan, dan orang yang tidak hadir.</div></div>
+    </div>
+    <div class="card joint">
+      <div>
+        <div class="lbl">Saat bertugas bersama kurator perseorangan</div>
+        <h2>PT Jasa Prima Mandiri, 2015 s.d. 2019</h2>
+        <p>BHP Medan diangkat sebagai kurator dalam putusan pailit Nomor 1/Pdt.Sus-Pailit/2015/PN Niaga Mdn, lalu seorang kurator perseorangan diangkat sebagai kurator tambahan pada Mei 2015. Kerja sama berjalan baik.</p>
+        <div class="js"><div><b>Rp12,85 miliar</b><small>harta berhasil dibereskan</small></div><div><b>Sekitar 4 tahun</b><small>kepailitan berakhir Mei 2019</small></div></div>
+      </div>
+      <div class="jk">
+        <p class="lbl">Dua hal yang belum diatur</p>
+        <div><i>1</i>Cara membagi imbalan dan tanggung jawab antara BHP dan kurator perseorangan.<span class="r">Rekomendasi: aturan yang tegas mengenai pembagian imbalan jasa.</span><button class="pz" data-lp="0" data-hl="0,1"><i></i>Pasal 1 ayat (1) dan (2)</button></div>
+        <div><i>2</i>Kewajiban menyerahkan berkas dan data ketika perkara PKPU yang diurus kurator perseorangan berakhir pailit dan diteruskan kepada kurator lain.<span class="r">Rekomendasi: BHP juga ditunjuk sebagai pengurus PKPU.</span><button class="pz" data-lp="0" data-hl="2"><i></i>Pasal 1 ayat (3)</button></div>
+      </div>
     </div>
     <div class="wajib card">
       <h2>Perkara khusus yang semestinya ditangani BHP:</h2>
@@ -735,7 +788,7 @@ body.lp-on{overflow:hidden}
       <div class="ruu-grid">
         <div>
           <div class="eyebrow" style="margin-bottom:4px">Usulan dalam RUU</div>
-          <ol><li>Pengakuan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan.<button class="pz" data-lp="1" data-hl="0,1"><i></i>Pasal 2</button></li><li>Kriteria perkara khusus BHP, yang sekaligus menjadi larangan bagi kurator perseorangan.<button class="pz" data-lp="2" data-hl="0,1"><i></i>Pasal 3</button></li></ol>
+          <ol><li>Aturan tegas pembagian imbalan jasa antara BHP dan kurator perseorangan dalam tugas bersama, serta kewenangan BHP ditunjuk sebagai pengurus PKPU.<button class="pz" data-lp="0" data-hl="0,1,2"><i></i>Pasal 1</button></li><li>Pengakuan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan.<button class="pz" data-lp="1" data-hl="0,1"><i></i>Pasal 2</button></li><li>Kriteria perkara khusus BHP, yang sekaligus menjadi larangan bagi kurator perseorangan.<button class="pz" data-lp="2" data-hl="0,1"><i></i>Pasal 3</button></li><li>Pemisahan pertanggungjawaban BHP sebagai kurator dan sebagai pelaksana tugas keperdataan.<button class="pz" data-lp="1" data-hl="3"><i></i>Pasal 2 ayat (4)</button></li></ol>
           <div class="note"><b>Diatur di RUU Kepailitan dan PKPU</b>Kriteria dan tata cara penunjukan BHP pada perkara tertentu, kepailitan harta peninggalan tanpa ahli waris, dan kelanjutan perkara apabila debitor menghilang.<br><button class="pz" data-lp="2" data-hl="3"><i></i>Pasal 3 ayat (4)</button></div>
         </div>
         <div class="lp-pick">
@@ -1119,8 +1172,9 @@ body.lp-on{overflow:hidden}
 
   // ===== LAYAR 5: perkara wajib BHP =====
   var wajib=[
-    ["Debitor meninggal tanpa ahli waris, atau hartanya tidak terurus","BHP mengurus harta peninggalan yang tidak terurus menurut KUHPerdata.","Gwe Tjoen: debitor meninggal dunia dan ahli waris tidak diketahui; BHP tetap menjalankan pemberesan sampai tuntas."],
-    ["Debitor tidak diketahui keberadaannya","BHP mengurus harta orang yang tidak hadir menurut KUHPerdata.","Belum ada contoh di BHP Medan."],
+    ["Debitor meninggal tanpa ahli waris, atau hartanya tidak terurus","BHP wajib mengurus harta peninggalan tak terurus (Pasal 1126 dan 1127 KUHPerdata).","Gwe Tjoen: debitor meninggal dunia dan ahli waris tidak diketahui; BHP tetap menjalankan pemberesan sampai tuntas."],
+    ["Debitor tidak diketahui keberadaannya","BHP mengurus harta orang yang tidak hadir (Pasal 463 KUHPerdata).","Belum ada contoh di BHP Medan."],
+    ["Ahli waris masih di bawah umur atau dalam pengampuan","BHP menjadi wali pengawas (Pasal 366 KUHPerdata) dan pengampu pengawas (Pasal 449 KUHPerdata).","Belum ada contoh di BHP Medan."],
     ["Permohonan diajukan pekerja","Perkara pekerja membutuhkan pelaksana yang pasti agar hak pekerja tidak terhenti.","PT Rata Makmur: BHP menjadi pengurus PKPU lalu kurator atas permohonan eks pekerja; pembayaran kepada enam eks pekerja telah dilaksanakan."],
     ["Perkara dengan harta kecil","Perkara dengan harta kecil tetap ditelusuri dan dibereskan sampai tuntas; BHP tidak bergantung pada imbalan.","Suparjo Rustam dan PT Rimba Cipta Niaga: harta terbatas, tetap ditelusuri, diinventarisasi, dan disiapkan untuk lelang."],
     ["Perkara kehilangan kurator","Perkara tidak boleh terhenti bila kurator berhenti, diberhentikan, atau meninggal dunia.","Belum ada contoh di BHP Medan."]
@@ -1131,16 +1185,16 @@ body.lp-on{overflow:hidden}
 
   // ===== LAMPIRAN II: contoh rumusan pasal (Data Pendukung Klaster 1) =====
   var PASAL=[
-    {t:"Tugas Bersama dan Serah Terima",tb:"Tugas Bersama dan Serah Terima",s:"Tugas bersama",ans:"Kendala saat BHP bekerja bersama kurator perseorangan: pembagian imbalan jasa dan tanggung jawab, serta peralihan dari pengurus PKPU kepada kurator.",ay:[
+    {t:"Tugas Bersama dan Serah Terima",tb:"Tugas Bersama dan Serah Terima",s:"Tugas bersama",ans:"Usulan 1 dan kendala tugas bersama PT Jasa Prima Mandiri: pembagian imbalan jasa dan tanggung jawab antara BHP dan kurator perseorangan, serta penyerahan berkas ketika PKPU berakhir pailit.",ay:[
       "Dalam hal diangkat lebih dari satu Kurator atau Pengurus, Hakim Pengawas menetapkan pembagian tugas, tanggung jawab, dan imbalan jasa masing-masing paling lambat pada rapat Kreditor pertama.",
       "Bagian imbalan jasa Balai Harta Peninggalan merupakan penerimaan negara bukan pajak.",
       "Kurator atau Pengurus yang digantikan, termasuk Pengurus dalam hal penundaan kewajiban pembayaran utang berakhir dengan pernyataan pailit, wajib menyerahkan berkas, harta, dan laporan kepada Kurator paling lama 14 (empat belas) hari."]},
-    {t:"Kedudukan Balai Harta Peninggalan",tb:"Kedudukan BHP",s:"Kedudukan BHP",ans:"Usulan 1: pengakuan BHP sebagai kurator negara yang dapat menangani seluruh jenis perkara kepailitan.",ay:[
+    {t:"Kedudukan Balai Harta Peninggalan",tb:"Kedudukan BHP",s:"Kedudukan BHP",ans:"Usulan 2: pengakuan BHP sebagai kurator negara dan pengurus negara. Usulan 4: ayat (4) memisahkan pelaksana dan pertanggungjawaban tugas keperdataan dan tugas kurator.",ay:[
       "Balai Harta Peninggalan merupakan Kurator negara dan Pengurus negara yang dapat menangani seluruh jenis perkara kepailitan dan penundaan kewajiban pembayaran utang.",
       "Kewenangan Balai Harta Peninggalan sebagai Kurator dan Pengurus bersumber dari Undang-Undang ini dan tidak memerlukan izin atau pendaftaran.",
       "Tugas Kurator dan Pengurus pada Balai Harta Peninggalan dilaksanakan oleh pegawai aparatur sipil negara yang menduduki jabatan fungsional Kurator Keperdataan.",
       "Dalam hal Balai Harta Peninggalan menjalankan tugas keperdataan dan tugas Kurator dalam perkara yang sama, masing-masing tugas dilaksanakan oleh pejabat yang berbeda dan dipertanggungjawabkan secara terpisah."]},
-    {t:"Penugasan Balai Harta Peninggalan pada Perkara Tertentu",tb:"Penugasan BHP pada Perkara Tertentu",s:"Perkara tertentu",ans:"Usulan 2: kriteria perkara khusus BHP yang sekaligus menjadi larangan bagi kurator perseorangan. Ayat (4) menyerahkan kriteria rinci dan tata cara penunjukan kepada RUU Kepailitan dan PKPU.",ay:[
+    {t:"Penugasan Balai Harta Peninggalan pada Perkara Tertentu",tb:"Penugasan BHP pada Perkara Tertentu",s:"Perkara tertentu",ans:"Usulan 3: kriteria perkara khusus BHP yang sekaligus menjadi larangan bagi kurator perseorangan. Ayat (4) menyerahkan kriteria rinci dan tata cara penunjukan kepada RUU Kepailitan dan PKPU.",ay:[
       ["Pengadilan wajib mengangkat Balai Harta Peninggalan sebagai Kurator atau Pengurus dalam hal:",[
         "Debitor telah meninggal dunia dan tidak terdapat ahli waris atau harta peninggalannya tidak terurus;",
         "Debitor tidak diketahui tempat tinggal atau keberadaannya;",
@@ -1152,7 +1206,7 @@ body.lp-on{overflow:hidden}
       "Di luar perkara sebagaimana dimaksud pada ayat (1), Pengadilan mengangkat Kurator atau Pengurus berdasarkan usulan pemohon.",
       "Kriteria rinci dan tata cara penunjukan sebagaimana dimaksud pada ayat (1) diatur dalam Undang-Undang mengenai kepailitan dan penundaan kewajiban pembayaran utang."]}
   ];
-  var LP_HL=[[],[0],[0,1]];
+  var LP_HL=[[0,1,2],[0,3],[0,1]];
   var lp=document.getElementById("lp"),lpBody=document.getElementById("lpBody"),lpTabs=document.getElementById("lpTabs"),lpCopy=document.getElementById("lpCopy"),lpSel=0,lpBack=null;
   document.getElementById("lpLogo").src=LOGO;
   function abc(i){return String.fromCharCode(97+i)+"."}

@@ -11,6 +11,11 @@ dengan tambahan pada layar **5 Pembagian Peran**, kartu **Usulan dalam RUU**:
   Contoh Rumusan Pasal RUU tentang Profesi Kurator, 3 Oktober 2026), dengan tab Pasal 1 sampai 3, kotak "Menjawab",
   tombol **Salin pasal**, panah kiri kanan, Esc untuk menutup, dan geser di HP.
 
+Layar **5 Pembagian Peran** juga disesuaikan dengan *BHP Medan, Klaster 1, Narasi*: dua kedudukan BHP
+(kurator negara dan pelaksana tugas keperdataan) dengan dasar hukum dan pengawasannya, kartu tugas bersama
+PT Jasa Prima Mandiri beserta dua hal yang belum diatur, enam perkara khusus BHP, dan empat usulan dalam RUU
+sesuai bagian Saran.
+
 ## Cara memasang ke situs
 
 Unggah `index.html` dari folder ini ke root repo `Slide-bhp-medan` (timpa yang lama), commit ke branch utama.
