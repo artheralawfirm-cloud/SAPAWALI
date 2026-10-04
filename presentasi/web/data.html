@@ -690,24 +690,27 @@ body.lp-on{overflow:hidden}
 @media (max-width:560px){.wajib .six{grid-template-columns:1fr}.kv2 li{grid-template-columns:1fr}.wajib .t3 td:first-child{width:auto}.wajib .t3 th,.wajib .t3 td{padding:9px 12px}
   .ruu ol.sr2>li{grid-template-columns:28px minmax(0,1fr)}.ruu ol.sr2 .pzs{grid-column:2;flex-direction:row;flex-wrap:wrap;align-items:flex-start}}
 
-/* alur perkara (Sankey bergerak) */
-.snk{border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);padding:16px 20px 12px;animation:up .8s cubic-bezier(.2,.8,.2,1) .3s both}
-.snk-h{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:6px}
-.snk-k{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:800}
-.snk-t{display:block;font-size:clamp(18px,1.8vw,24px);color:#fff;margin-top:4px;font-weight:800;letter-spacing:-.01em}
-.seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.1)}
-.seg button{border:0;background:transparent;color:#D6DEF5;font-weight:800;font-size:13.5px;padding:7px 14px;border-radius:999px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--gold);color:var(--maroon-2)}
-#sankey{width:100%;height:auto;display:block;overflow:visible}
-#sankey .lk{fill:none;stroke-linecap:butt;transition:stroke-opacity .25s}
-#sankey .lk.dim{stroke-opacity:.08!important}
-#sankey .nd{transition:opacity .25s}
-#sankey text{font-family:var(--f);fill:#fff}
-#sankey .nv{font-weight:800}
-#sankey .nl{fill:#D6DEF5}
-#sankey .pt{pointer-events:none}
-.snk-n{font-size:12px;color:#A9B8E0;margin-top:4px}
-@media (max-width:700px){.snk{padding:14px}.snk-t{font-size:17px}}
+/* tab pembuka: gerak hidup */
+.ring .orb{fill:none;stroke:#fff;stroke-width:12;stroke-linecap:round;stroke-dasharray:0.1 326.6;filter:drop-shadow(0 0 6px #fff);opacity:0;transform-origin:60px 60px;animation:orbit 3.6s linear infinite,orbIn .6s ease forwards}
+.ring .orb.g{stroke:#FFE9A8;filter:drop-shadow(0 0 6px #F5C23D)}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes orbIn{to{opacity:.95}}
+.mini.live i{animation:breathe 2.8s ease-in-out infinite;animation-delay:calc(var(--k)*.35s);transform-origin:bottom}
+@keyframes breathe{0%,100%{transform:scaleY(1);filter:brightness(1)}50%{transform:scaleY(1.07);filter:brightness(1.25)}}
+.dots9.live i.on{animation:wave 2.6s ease-in-out infinite;animation-delay:calc(var(--k)*.12s)}
+@keyframes wave{0%,70%,100%{transform:scale(1.1);box-shadow:0 0 0 0 rgba(245,194,61,0)}35%{transform:scale(1.32);box-shadow:0 0 14px 3px rgba(245,194,61,.65)}}
+.race .r{padding:4px 8px;margin:2px -8px;border-radius:12px;cursor:pointer;transition:background .35s,transform .35s}
+.race .r .nm,.race .r .v{transition:color .35s}
+.race .r.hot{background:rgba(245,194,61,.13);transform:translateX(6px)}
+.race .r.hot .nm{color:var(--gold);font-weight:800}
+.race .r.hot .v{color:var(--gold)}
+.race .r.hot .fi{box-shadow:0 0 26px rgba(245,194,61,.85)}
+.race .r .fi{overflow:visible}
+.race .r .fi::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.55) 45%,transparent 60%);background-size:220% 100%;animation:sheen 3.2s ease-in-out infinite;mix-blend-mode:overlay}
+@keyframes sheen{0%{background-position:160% 0}60%,100%{background-position:-60% 0}}
+.race .r.hot .fi::after{animation:headPulse 1.1s ease-in-out infinite}
+@keyframes headPulse{50%{box-shadow:0 0 0 6px rgba(245,194,61,.35),0 0 22px 8px rgba(245,194,61,.8)}}
+@media (prefers-reduced-motion:reduce){.ring .orb,.mini.live i,.dots9.live i.on,.race .r .fi::before{animation:none}}
 </style>
 </head>
 <body>
@@ -740,7 +743,6 @@ body.lp-on{overflow:hidden}
           <button class="tile" data-go="3"><div class="dots9" id="dots9"></div><div class="tn"><b><span data-count="6">0</span><small>SOP</small></b><span>satu SOP Kepailitan dan lima SOP mikro menurut SK Kepala BHP Medan</span></div></button>
           <button class="tile" data-go="2"><svg class="ring" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg gold" id="ring2" cx="60" cy="60" r="52"/></svg><div class="tn"><b><span data-count="1">0</span><small>dari 16</small></b><span>putusan pailit 2025 dan 2026 menunjuk BHP</span></div></button>
         </div>
-        <div class="snk card-dark"><div class="snk-h"><div><span class="snk-k">Alur perkara di Pengadilan Niaga Medan</span><b class="snk-t" id="snkT">109 permohonan, 16 putusan pailit, 1 menunjuk BHP</b></div><div class="seg" role="group" aria-label="Pilih tahun"><button data-y="all" aria-pressed="true">2025 dan 2026</button><button data-y="2025" aria-pressed="false">2025</button><button data-y="2026" aria-pressed="false">2026</button></div></div><svg id="sankey" viewBox="0 0 1000 330" role="img" aria-label="Alur permohonan pailit dan PKPU menuju putusan dan kurator yang ditunjuk"></svg><div class="snk-n">Sumber: Tabel I.4 dan I.5 Data Pendukung, SIPP PN Medan per 2 Oktober 2026. Perkara 41/Pdt.Sus-PKPU/2025 diputus pailit 5 Maret 2026 dan dihitung pada 2026.</div></div>
         <div class="race card-dark"><div class="race-h"><span>Posisi perkara pada tahap SOP Kepailitan</span><span class="unit">21 tahap</span></div><div id="race"></div></div>
         <div class="ticker" id="ticker"><span class="tk-k">Perkara</span><span class="tk-t" id="tkT"></span></div>
       </div>
@@ -1326,73 +1328,33 @@ body.lp-on{overflow:hidden}
       t.addEventListener("pointermove",function(e){var r=t.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;t.style.setProperty("--ry",((x-.5)*8).toFixed(2)+"deg");t.style.setProperty("--rx",((.5-y)*8).toFixed(2)+"deg");t.style.setProperty("--tx",(x*100)+"%");t.style.setProperty("--tyy",(y*100)+"%")});
       t.addEventListener("pointerleave",function(){t.style.setProperty("--rx","0deg");t.style.setProperty("--ry","0deg")})});
   })();
-  // ===== ALUR PERKARA: Sankey bergerak (Tabel I.4 dan I.5) =====
-  var SNK={
-    all:{l:[["Permohonan pailit",20],["Permohonan PKPU",89]],m:[["Putusan pailit",16],["Tidak berakhir pailit",93]],r:[["Kurator perseorangan",14],["BHP Medan",1],["Dalam kasasi",1]],
-         lm:[[0,0,9],[0,1,11],[1,0,7],[1,1,82]],mr:[[0,0,14],[0,1,1],[0,2,1]],t:"109 permohonan, 16 putusan pailit, 1 menunjuk BHP"},
-    "2025":{l:[["Permohonan pailit",14],["Permohonan PKPU",51]],m:[["Putusan pailit",9],["Tidak berakhir pailit",56]],r:[["Kurator perseorangan",7],["BHP Medan",1],["Dalam kasasi",1]],
-         lm:[[0,0,6],[0,1,8],[1,0,3],[1,1,48]],mr:[[0,0,7],[0,1,1],[0,2,1]],t:"65 permohonan, 9 putusan pailit, 1 menunjuk BHP"},
-    "2026":{l:[["Permohonan pailit",6],["Permohonan PKPU",38]],m:[["Putusan pailit",7],["Tidak berakhir pailit",37]],r:[["Kurator perseorangan",7],["BHP Medan",0],["Dalam kasasi",0]],
-         lm:[[0,0,3],[0,1,3],[1,0,4],[1,1,34]],mr:[[0,0,7]],t:"44 permohonan, 7 putusan pailit, BHP tidak ditunjuk"}
-  };
-  var snkY="all",snkRaf=null;
-  function drawSankey(anim){anim=anim!==false;
-    var svg=document.getElementById("sankey");if(!svg)return;svg.innerHTML="";cancelAnimationFrame(snkRaf);
-    var D=SNK[snkY];document.getElementById("snkT").textContent=D.t;
-    var narrow=svg.parentElement.clientWidth<700,W=narrow?560:1000,H=narrow?420:330,top=14,bot=H-14,NW=narrow?12:16,gap=narrow?22:18,X=narrow?[110,270,400]:[210,500,760],FS=narrow?[20,12.5]:[22,13.5];
-    svg.setAttribute("viewBox","0 0 "+W+" "+H);
-    var defs=el("defs",{},svg);
-    [["gA","#F5C23D","#8FB0FF"],["gB","#8FB0FF","#F5C23D"]].forEach(function(g){var lg=el("linearGradient",{id:g[0],x1:0,x2:1,y1:0,y2:0},defs);el("stop",{offset:"0%","stop-color":g[1]},lg);el("stop",{offset:"100%","stop-color":g[2]},lg)});
-    var glow=el("filter",{id:"glw",x:"-50%",y:"-50%",width:"200%",height:"200%"},defs);el("feGaussianBlur",{stdDeviation:2.2,result:"b"},glow);var mg=el("feMerge",{},glow);el("feMergeNode",{in:"b"},mg);el("feMergeNode",{in:"SourceGraphic"},mg);
-    var total=D.l.reduce(function(a,n){return a+n[1]},0);
-    function layout(col){var n=col.length,avail=bot-top-gap*(n-1),sc=avail/total,y=top;return col.map(function(nd){var h=Math.max(nd[1]?6:3,nd[1]*sc);var o={n:nd[0],v:nd[1],y:y,h:h,inO:0,outO:0};y+=h+gap;return o})}
-    var L=layout(D.l),M=layout(D.m),R=layout(D.r),sc=(bot-top-gap*(D.l.length-1))/total;
-    // pusatkan kolom kanan secara vertikal terhadap putusan
-    var rTot=R.reduce(function(a,n){return a+n.h},0)+gap*(R.length-1),rY=Math.max(top,M[0].y+M[0].h/2-rTot/2);R.forEach(function(n){n.y=rY;rY+=n.h+gap});
-    var links=[],lg2=el("g",{},svg),ng=el("g",{},svg),pg=el("g",{class:"pt"},svg);
-    function link(a,b,v,xa,xb,grad){var w=Math.max(2,v*sc);if(!v)return;var y0=a.y+a.outO+w/2,y1=b.y+b.inO+w/2;a.outO+=w;b.inO+=w;
-      var x0=xa+NW,x1=xb,cx=(x0+x1)/2,d="M"+x0+","+y0+" C"+cx+","+y0+" "+cx+","+y1+" "+x1+","+y1;
-      var p=el("path",{class:"lk",d:d,stroke:"url(#"+grad+")","stroke-width":w,"stroke-opacity":.42},lg2);
-      var len=p.getTotalLength();if(anim){p.style.strokeDasharray=len;p.style.strokeDashoffset=len;}p.style.transition="stroke-dashoffset 1.3s cubic-bezier(.2,.8,.2,1) "+(links.length*0.12)+"s, stroke-opacity .25s";
-      if(anim)requestAnimationFrame(function(){requestAnimationFrame(function(){p.style.strokeDashoffset=0})});
-      var o={p:p,len:len,v:v,w:w,a:a.n,b:b.n,x0:x0,from:a,to:b};links.push(o);
-      p.addEventListener("pointermove",function(e){showTip("<b>"+a.n+" › "+b.n+"</b><div>"+v+" perkara</div>",e.clientX,e.clientY);hl(o)});p.addEventListener("pointerleave",function(){hideTip();hl(null)});
-    }
-    D.lm.forEach(function(f){link(L[f[0]],M[f[1]],f[2],X[0],X[1],"gA")});
-    D.mr.forEach(function(f){link(M[f[0]],R[f[1]],f[2],X[1],X[2],"gB")});
-    function hl(o){links.forEach(function(k){k.p.classList.toggle("dim",!!o&&k!==o)})}
-    function place(col,minGap){var prev=-1e9;col.forEach(function(n){var c=n.y+n.h/2;n.ly=Math.max(c,prev+minGap);prev=n.ly});var over=prev+minGap*.6-bot;if(over>0)col.forEach(function(n){n.ly-=over})}
-    function node(n,x,side,colr){if(!n.h)return;var g=el("g",{class:"nd"},ng);
-      el("rect",{x:x,y:n.y,width:NW,height:n.h,rx:4,fill:colr,filter:"url(#glw)",opacity:n.v?1:.35},g);
-      var tx=side==="l"?x-12:x+NW+12,an=side==="l"?"end":"start",cy=n.y+n.h/2,ly=n.ly==null?cy:n.ly;
-      if(Math.abs(ly-cy)>2)el("path",{d:"M"+(x+NW+2)+","+cy+" C"+(x+NW+8)+","+cy+" "+(x+NW+4)+","+ly+" "+(tx-3)+","+ly,stroke:"rgba(255,255,255,.35)","stroke-width":1,fill:"none"},g);
-      var tv=txt(g,{x:tx,y:ly-2,"text-anchor":an,class:"nv","font-size":FS[0]},"0");txt(g,{x:tx,y:ly+FS[1]+3,"text-anchor":an,class:"nl","font-size":FS[1]},n.n);
-      if(anim)tween(1300,250,function(p){tv.textContent=fmt(n.v*p,0)});else tv.textContent=fmt(n.v,0);
-      g.addEventListener("pointermove",function(e){showTip("<b>"+n.n+"</b><div>"+n.v+" perkara</div>",e.clientX,e.clientY);links.forEach(function(k){k.p.classList.toggle("dim",k.from!==n&&k.to!==n)})});g.addEventListener("pointerleave",function(){hideTip();hl(null)});}
-    place(R,FS[0]+FS[1]+14);
-    L.forEach(function(n){node(n,X[0],"l","#F5C23D")});
-    M.forEach(function(n,i){node(n,X[1],i===0?"r":"r",i===0?"#FFFFFF":"#6F85C7")});
-    R.forEach(function(n,i){node(n,X[2],"r",i===1?"#F5C23D":i===2?"#A9B8E0":"#8FB0FF")});
-    // partikel mengalir sepanjang jalur, jumlah sebanding nilai
-    var parts=[];links.forEach(function(k){var n=Math.min(26,Math.max(2,Math.round(Math.sqrt(k.v)*2.6)));for(var i=0;i<n;i++){var c=el("circle",{r:k.to.n==="BHP Medan"?3.6:2.2,fill:k.to.n==="BHP Medan"?"#F5C23D":"#FFFFFF",opacity:0},pg);parts.push({c:c,k:k,t:Math.random(),sp:.0011+Math.random()*.0012,off:(Math.random()-.5)*Math.max(0,k.w-6)})}});
-    if(reduce)return;var started=performance.now();
-    (function tick(now){var age=now-started;parts.forEach(function(q){q.t+=q.sp;if(q.t>1)q.t-=1;var pt=q.k.p.getPointAtLength(q.t*q.k.len);q.c.setAttribute("cx",pt.x);q.c.setAttribute("cy",pt.y+q.off);q.c.setAttribute("opacity",age<1400?0:(Math.sin(q.t*Math.PI)*.9).toFixed(2))});snkRaf=requestAnimationFrame(tick)})(started);
-  }
-  document.querySelectorAll(".seg [data-y]").forEach(function(b){b.addEventListener("click",function(){snkY=b.dataset.y;document.querySelectorAll(".seg [data-y]").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});drawSankey()})});
   function drawDash(){document.querySelectorAll('[data-scene="0"] [data-count]').forEach(countUp);
+    // cincin: terisi lalu satu titik cahaya mengorbit
     setTimeout(function(){document.getElementById("ring1").style.strokeDashoffset=0;document.getElementById("ring2").style.strokeDashoffset=327*(1-1/16)},150);
+    document.querySelectorAll('[data-scene="0"] .ring').forEach(function(r,k){if(r.querySelector(".orb"))return;var o=el("circle",{class:"orb"+(k?" g":""),cx:60,cy:60,r:52},r);o.style.animationDelay=(1.6+k*.4)+"s"});
+    // batang mini: tumbuh lalu bernapas
     var mb=document.getElementById("miniBars"),per=LANES.map(function(L,li){return cases.filter(function(c){return c.l===li}).length}),mx=Math.max.apply(null,per);
-    mb.innerHTML=per.map(function(){return "<i></i>"}).join("");
+    mb.classList.remove("live");mb.innerHTML=per.map(function(v,k){return "<i style='--k:"+k+"' title='"+LANES[k].n+": "+v+" perkara'></i>"}).join("");
     setTimeout(function(){mb.querySelectorAll("i").forEach(function(i,k){i.style.height=Math.max(8,per[k]/mx*100)+"%";i.style.transitionDelay=(k*90)+"ms"})},120);
-    var d9=document.getElementById("dots9");d9.innerHTML=cases.map(function(){return "<i></i>"}).join("");
+    setTimeout(function(){mb.classList.add("live")},1500);
+    // titik: menyala satu per satu lalu bergelombang
+    var d9=document.getElementById("dots9");d9.classList.remove("live");d9.innerHTML=cases.map(function(c,k){return "<i style='--k:"+k+"'></i>"}).join("");
     cases.forEach(function(c,k){setTimeout(function(){d9.children[k].classList.add("on")},400+k*120)});
+    setTimeout(function(){d9.classList.add("live")},400+cases.length*120+300);
+    // perlombaan tahap SOP: tumbuh, angka tahap berjalan, baris disorot bergiliran
     var race=document.getElementById("race"),arr=cases.slice().sort(function(a,b){return b.s-a.s||new Date(a.d)-new Date(b.d)});
-    race.innerHTML=arr.map(function(c){return "<div class='r'><span class='nm'>"+c.n+"</span><span class='tr'><span class='fi'></span></span><span class='v'>"+c.st.replace("Tahap ","T.").replace(" dan ","/")+"</span></div>"}).join("");
-    setTimeout(function(){race.querySelectorAll(".r").forEach(function(r,k){var c=arr[k];r.querySelector(".fi").style.transitionDelay=(k*90)+"ms";r.querySelector(".fi").style.width=(c.s/21*100)+"%"})},200);
-    var facts=cases.map(function(c){return (c.full||c.n)+" · putusan "+tgl(c.d)+" · "+c.st+": "+c.tahap});
-    var t=document.getElementById("tkT");function tk(){t.style.animation="none";void t.offsetWidth;t.style.animation="";t.textContent=facts[tkI%facts.length];tkI++}tk();clearInterval(tkTimer);tkTimer=setInterval(tk,3200);drawSankey()}
+    race.innerHTML=arr.map(function(c,k){return "<div class='r' data-k='"+k+"' tabindex='0' role='button' aria-label='"+(c.full||c.n)+", "+c.st+"'><span class='nm'>"+c.n+"</span><span class='tr'><span class='fi'></span></span><span class='v'>T.0</span></div>"}).join("");
+    var rows=race.querySelectorAll(".r");
+    setTimeout(function(){rows.forEach(function(r,k){var c=arr[k],dl=k*90;r.querySelector(".fi").style.transitionDelay=dl+"ms";r.querySelector(".fi").style.width=(c.s/21*100)+"%";var v=r.querySelector(".v"),lab=c.st.replace("Tahap ","T.").replace(" dan ","/");tween(1400,dl,function(p){v.textContent=p<1?"T."+Math.max(1,Math.round(c.s*p)):lab})})},200);
+    rows.forEach(function(r,k){var c=arr[k];
+      r.addEventListener("pointermove",function(e){hot(k,true);showTip("<b>"+(c.full||c.n)+"</b><div>"+c.st+": "+c.tahap+"</div><div style='opacity:.8;margin-top:4px'>Klik untuk rincian perkara</div>",e.clientX,e.clientY)});
+      r.addEventListener("pointerleave",function(){hideTip();paused=false});
+      function open(){selected=c.id;go(1)}r.addEventListener("click",open);r.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}})});
+    var t=document.getElementById("tkT"),paused=false;
+    function hot(k,user){if(user)paused=true;tkI=k;rows.forEach(function(r,j){r.classList.toggle("hot",j===k)});var c=arr[k];t.style.animation="none";void t.offsetWidth;t.style.animation="";t.textContent=(c.full||c.n)+" · putusan "+tgl(c.d)+" · "+c.st+": "+c.tahap}
+    tkI=0;clearInterval(tkTimer);setTimeout(function(){hot(0)},1700);tkTimer=setInterval(function(){if(!paused)hot((tkI+1)%arr.length)},3200)}
   var drawers=[drawDash,function(){renderDetail();drawBoard()},function(){drawCmp();drawDonut(true);drawTable()},function(){drawSOP();drawSteps();requestAnimationFrame(sopArrowsAll)},drawWajib];
-  function go(n){closeLp();cancelAnimationFrame(snkRaf);cur=Math.max(0,Math.min(scenes.length-1,n));hideTip();clearInterval(sopTimer);clearInterval(tkTimer);
+  function go(n){closeLp();cur=Math.max(0,Math.min(scenes.length-1,n));hideTip();clearInterval(sopTimer);clearInterval(tkTimer);
     scenes.forEach(function(s,i){s.classList.toggle("on",i===cur)});tabs.forEach(function(b,i){b.setAttribute("aria-selected",i===cur?"true":"false");if(i===cur)b.scrollIntoView({block:"nearest",inline:"center"})});
     dots.querySelectorAll("i").forEach(function(d,i){d.classList.toggle("on",i===cur)});
     document.getElementById("prev").disabled=cur===0;document.getElementById("next").innerHTML=cur===scenes.length-1?"Kembali<span class='t'> ke awal</span>":"Berikutnya ›";
@@ -1404,7 +1366,7 @@ body.lp-on{overflow:hidden}
   document.getElementById("next").addEventListener("click",function(){go(cur===scenes.length-1?0:cur+1)});
   document.addEventListener("keydown",function(e){if(e.target.tagName==="INPUT"||!lp.hidden)return;if(e.key==="ArrowRight"||e.key==="PageDown")go(cur+1);if(e.key==="ArrowLeft"||e.key==="PageUp")go(cur-1)});
   var sx0=null;document.addEventListener("touchstart",function(e){sx0=e.touches[0].clientX},{passive:true});document.addEventListener("touchend",function(e){if(sx0==null)return;if(!lp.hidden){sx0=null;return}var dx=e.changedTouches[0].clientX-sx0;if(Math.abs(dx)>70&&!e.target.closest("svg,.tabs"))go(dx<0?cur+1:cur-1);sx0=null},{passive:true});
-  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(cur===0)drawSankey(false);if(cur===2){drawCmp();drawDonut(false)}if(cur===3)sopArrowsAll()},200)});
+  var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(cur===2){drawCmp();drawDonut(false)}if(cur===3)sopArrowsAll()},200)});
   var st=0;try{st=+(localStorage.getItem("bhp-data-scene3")||0)}catch(e){}
   if(location.hash==="#dashboard"){st=0;try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
   if(location.hash==="#perkara"){st=1;try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}

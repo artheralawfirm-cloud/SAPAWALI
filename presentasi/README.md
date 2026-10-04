@@ -70,8 +70,7 @@ disimpan apa adanya; slide dan data interaktif disesuaikan dengannya.
   tombol tautan ke data interaktif). Dari file asli hanya dua hal diubah agar sama dengan dokumen: rumusan pertanyaan 1
   ("kurator privat dari asosiasi") dan koma menggantung pada kalimat kendala menjadi titik.
 - `BHP Medan - Tumpang Tindih Kewenangan - Data Interaktif.html`: salinan dashboard yang tayang di
-  https://embamtaufik13-collab.github.io/Slide-bhp-medan/ (repo embamtaufik13-collab/slide-bhp-medan). Tab Pembuka memuat
-  grafik alur perkara bergerak dari Tabel I.4 dan I.5. Salinan yang sama ada di `web/data.html` (Vercel `/data`) bersama
+  https://embamtaufik13-collab.github.io/Slide-bhp-medan/ (repo embamtaufik13-collab/slide-bhp-medan). Salinan yang sama ada di `web/data.html` (Vercel `/data`) bersama
   `data-lengkap.html`, `fonts.css`, `logo.png`, dan PPTX yang diunduhnya.
 - `BHP Medan - Klaster Tumpang Tindih Kewenangan - Data Pendukung.docx`: Data Pendukung final (Lampiran I dan II), acuan angka.
 - `BHP Medan - Klaster 1 Tumpang Tindih Kewenangan - Narasi.docx`: naskah bicara pendamping (opsional), dibangun oleh
