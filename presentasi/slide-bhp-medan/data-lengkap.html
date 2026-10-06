@@ -187,7 +187,7 @@ main{padding-bottom:110px}
     </div>
     <div class="tiles">
       <div class="tile"><b data-count="9">0</b><span>perkara kepailitan sedang ditangani</span></div>
-      <div class="tile"><b><span data-count="1">0</span><small>penunjukan</small></b><span>baru tercatat dalam register sejak 2024 sampai 2 Oktober 2026</span></div>
+      <div class="tile"><b><span data-count="3">0</span><small>penunjukan</small></b><span>baru pada 2023 sampai 2025, sama dengan data bersama lima BHP</span></div>
       <div class="tile"><b><span data-count="3">0</span><small>perkara</small></b><span>dengan harta yang belum dinilai</span></div>
       <div class="tile"><b><span data-count="21">0</span><small>tahap</small></b><span>SOP Kepailitan yang dijalankan pada setiap perkara</span></div>
     </div>
@@ -207,7 +207,7 @@ main{padding-bottom:110px}
     <div class="ghost" aria-hidden="true"></div>
     <div class="face">
       <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="#F5C23D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4" fill="#F5C23D"/></svg></div>
-      <div><h3>Tabel lengkap perkara</h3><p>Nomor perkara, debitor, pemohon, jumlah tagihan, harta tercatat, dan kegiatan pokok per perkara menurut Lampiran I (Tabel I.1 dan I.3).</p></div>
+      <div><h3>Tabel lengkap perkara</h3><p>Nomor perkara, debitor, pemohon, jumlah tagihan, harta tercatat, dan kegiatan pokok per perkara menurut Lampiran I (Tabel I.1 dan I.4).</p></div>
       <button class="open" id="openBtn" aria-expanded="false" aria-controls="vaultBody"><span id="openL">Buka tabel lengkap</span> <span class="arr">⌄</span></button>
     </div>
     <div class="body" id="vaultBody">
@@ -296,7 +296,7 @@ document.addEventListener("mouseout",function(e){if(asked||!canHover||e.relatedT
 /* filter fase */
 var fSel=null,flow=document.getElementById("flow");
 function drawFlow(){flow.innerHTML="";FASE.forEach(function(f,i){var n=cases.filter(function(c){return faseOf(c.s)===i}).length,b=document.createElement("button");b.className="ph";b.setAttribute("aria-pressed",fSel===i?"true":"false");
-  b.innerHTML="<span class='k'>Fase "+(i+1)+" · tahap "+f.a+"–"+f.b+"</span><span class='t'>"+f.n+"</span><span class='c"+(n?"":" z")+"'>"+n+"</span>";
+  b.innerHTML="<span class='k'>Fase "+(i+1)+" · tahap "+f.a+" sampai "+f.b+"</span><span class='t'>"+f.n+"</span><span class='c"+(n?"":" z")+"'>"+n+"</span>";
   b.addEventListener("click",function(){fSel=fSel===i?null:i;drawFlow();drawCards()});flow.appendChild(b)})}
 
 /* kartu perkara: tanpa nominal */
